@@ -1,0 +1,111 @@
+//  讓左邊導航固定
+.main-header,
+.main-sidebar {
+   position: fixed;
+}
+
+.main-sidebar {
+   font-size: 18px;
+   font-weight: bolder;
+
+   .treeview-menu {
+      //  讓左邊導航的下拉選單固定打開
+      //  adminlte.js的lte.tree取消點擊事件
+      display: block;
+
+      a {
+         font-weight: normal;
+         font-size: 16px;
+      }
+   }
+}
+
+.skin-blue .main-header .navbar {
+   height: 50px;
+}
+
+.skin-blue .sidebar-menu {
+
+   //  左方導航子選單ul樣式
+   >li>.treeview-menu {
+      background: #222d32;
+   }
+
+   .treeview-menu>li {
+      transition: padding-left, .5s;
+
+      &.active,
+      &:hover {
+         background-color: #2f4f4f;
+      }
+
+      //  左方導航子選單項目li樣式
+      &.active>a,
+      &>a:hover {
+         color: #fff;
+      }
+   }
+
+   .treeview-menu li {
+      padding-left: 30px;
+   }
+
+   // 若有子項目則標題的遊標變成這樣
+   .treeview>a {
+      cursor: text;
+   }
+}
+
+// 上方導航
+.functoin-on-top {
+   position: fixed;
+   z-index: 2;
+   top: 0;
+   margin-top: 50px !important;
+   transition: left .4s;
+
+   &:not(.not-list) {
+      width: 100%;
+   }
+
+   .form-group {
+      margin-bottom: 0;
+   }
+
+   // 上方第二個nav
+   .box-header {
+      background-color: #222d32;
+   }
+}
+
+//  上方導航
+.hover-bg:hover {
+   color: white !important;
+   background-color: #3C8DBC !important;
+   cursor: default;
+}
+
+// 上方導航的儲存
+.submit-pos {
+   position: fixed;
+   right: 0px;
+   top: 51.45px;
+   z-index: 2;
+   margin: 10px
+}
+
+// firefox
+@-moz-document url-prefix() {
+   .functoin-on-top.not-list {
+      right: 0;
+      left: 230px;
+   }
+}
+
+// safari
+// html:lang(en)>body .classname {}
+
+// @media screen and (-webkit-min-device-pixel-ratio:0) {}
+
+// safari
+// @media all and (-webkit-min-device-pixel-ratio:0) {}

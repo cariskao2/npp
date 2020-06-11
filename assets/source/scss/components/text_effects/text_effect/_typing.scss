@@ -1,0 +1,36 @@
+// 打字動畫 by CSS Secrets,只有SCSS and no any snippets,用法只要套入<h1>並輸入內容即可。
+@mixin _typing($time: 8s, $steps: 10, $width: 10ch) {
+	@-webkit-keyframes typing {
+		from {
+			width: 0;
+		}
+	}
+
+	@keyframes typing {
+		from {
+			width: 0;
+		}
+	}
+
+	@-webkit-keyframes caret {
+		50% {
+			border-right-color: transparent;
+		}
+	}
+
+	@keyframes caret {
+		50% {
+			border-right-color: transparent;
+		}
+	}
+
+	h1 {
+		font: bold 200% Consolas, Monaco, monospace;
+		width: $width;
+		white-space: nowrap;
+		overflow: hidden;
+		border-right: 0.05em solid; //和caret相互交替
+		-webkit-animation: typing $time steps($steps), caret 1s steps(1) infinite;
+		animation: typing $time steps($steps), caret 1s steps(1) infinite;
+	}
+}

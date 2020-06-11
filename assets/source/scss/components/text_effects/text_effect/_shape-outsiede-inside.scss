@@ -1,0 +1,86 @@
+// 文繞圖,在container中include, no js snippet
+// html scss snippets 名稱「shapeOutsideInside」
+// index記得改對應的class name
+@mixin _shape-outsiede-inside(
+	$withbgImg: false,
+	$width: 500px,
+	$height: 650px,
+	$shapeWidth: 500px,
+	$shapeHeight: 650px,
+	$shapeMargin: 0,
+	$shape: circle,
+	$value: closest-side,
+	$float: left,
+	$clip: false,
+	$isOutside: true
+) {
+	.shape-outside-inside {
+		@content;
+		width: $width;
+		height: $height;
+		margin-left: auto;
+		margin-right: auto;
+
+		//若要以背景圖來做shape-out時,使用以下3行
+		@if $withbgImg !=false {
+			background-image: url('../img/ocean1.jpg');
+			background-size: $width $height;
+			background-repeat: no-repeat;
+		}
+
+		// 文繞圖形狀的範圍會以其自身元素.shape-XXX的範圍為最大範圍。
+		.shape-#{$shape} {
+			// background-color: #40a977;
+			// border-radius: 50%;
+			// 以上二行調試用
+			// 雖然結果有變圓形,但自身元素的模塊還是一樣為正方形,見自整示例圖2
+
+			//float爲使用shape-out的必要屬性
+			@if $float==left {
+				float: left;
+			} @else {
+				float: right;
+			}
+
+			width: $shapeWidth;
+			height: $shapeHeight;
+
+			// 有inset:凹形 circle:圓形 ellipse:楕圓形 polygon:多邊形,PS:$value的值到時要在include中用括號括起來
+			@if $shape==polygon {
+				@if $isOutside {
+					-webkit-shape-outside: polygon($value);
+					-moz-shape-outside: polygon($value);
+					shape-outside: polygon($value);
+				} @else {
+					-webkit-shape-inside: polygon($value);
+					-moz-shape-inside: polygon($value);
+					shape-inside: polygon($value);
+				}
+			} @else {
+				// circle語法介紹:
+				// circle(r at x y)=>r=半徑,x=X座標,y=Y座標,若寫shape-outside:circle(125px at 0 0) 表示會以自身元素.shape的寬和高中,用shape-outside產生出一個半徑為125px的圓,且圓心會在.shape左上角的位置,見圖1。
+				// shape-outside:circle(125px)則會在中心建立一個半徑爲125px的圓。
+				// shape-outside:circle(closest-side):最短半徑
+				// shape-outside:circle(farthest-side):最長半徑,只適用橢圓形
+				-webkit-shape-outside: circle($value);
+				-moz-shape-outside: circle($value);
+				shape-outside: circle($value);
+			}
+
+			// 若用<img>來做shape-out,有時圖片會影響到文字的顯示,可以將圖片多餘的部分剪掉,通常是shpae-out範圍外的部分。
+			@if $clip {
+				-webkit-clip-path: polygon($value);
+				-moz-clip-path: polygon($value);
+				clip-path: polygon($value);
+			}
+
+			// shape-margin是以shape-outside產生的圖形和其它文本間的margin,但要圖形小於自身元素一定程度才有效果,否則要用margin
+			// 多邊形不會顯示shape-margin的預覧高亮,但還是有效果的,見圖1
+			@if $shapeMargin !=0 {
+				-webkit-shape-margin: $shapeMargin;
+				-moz-shape-margin: $shapeMargin;
+				shape-margin: $shapeMargin;
+			}
+		}
+	}
+}

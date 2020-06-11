@@ -1,0 +1,24 @@
+// 梯形加上文字,在CSS Secrects ch13(PS:記得在html加上文字才會有效果)
+// no any snippets
+@mixin _trapezoidandText($padding: 10px 20px 7px, $color: white, $bg: #58a) {
+	.trapezoidandText {
+		position: relative;
+		display: inline-block;
+		padding: $padding;
+		color: $color;
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0; //延展成跟.tab同大小
+			z-index: -1;
+			background: $bg;
+			-webkit-transform: perspective(0.5em) rotateX(5deg);
+			-moz-transform: perspective(0.5em) rotateX(5deg);
+			transform: perspective(0.5em) rotateX(5deg);
+		}
+	}
+}

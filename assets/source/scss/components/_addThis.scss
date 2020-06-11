@@ -1,0 +1,32 @@
+//  社群分享
+.inner-share {
+   display: flex;
+   align-items: flex-end;
+   justify-content: space-between;
+
+   .share-buttons {
+      display: flex;
+
+      a {
+         margin-left: 5px;
+
+         img {
+            width: 42px;
+         }
+      }
+
+      .copy-hover {
+         margin-top: 0;
+         transition: margin-top .3s;
+
+         &:hover {
+            margin-top: -4px;
+         }
+      }
+   }
+
+   @include media-breakpoint-down(xs) {
+      flex-direction: column-reverse;
+      align-items: center;
+   }
+}

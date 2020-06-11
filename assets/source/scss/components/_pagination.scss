@@ -1,0 +1,156 @@
+$bg-color:#F5A623;
+$w:40px;
+$lh:40px;
+
+// 中間數字頁mixin
+@mixin num-page_style($w:$w, $r:30px) {
+   width: $w;
+   height: $w;
+   border-radius: $r;
+}
+
+// 前後各二大塊mixin
+@mixin notNum-page_style($w:130px, $lh:$lh, $r:30px) {
+   width: $w;
+   height: $lh;
+   border-radius: $r;
+}
+
+.pagination-f {
+
+   // next-page、prev-page、first-page、last-page
+   .notNum-common {
+      $w: 80px;
+      $lh: 25px;
+
+      @include notNum-page_style;
+
+      border: 1px solid black;
+      background-color: #fff;
+      font-size: 20px;
+      transition: width 1s, background-color .3s, font-size 3s;
+
+      // 這裏爲了要跟li同樣的width,line-height
+      a {
+         @include notNum-page_style();
+
+         @include media-breakpoint-down(lg) {
+            @include notNum-page_style($w, $lh);
+            font-size: 14px; // lg下字體縮小爲14px
+         }
+
+         @include media-breakpoint-down(md) {
+            width: 40px;
+         }
+      }
+
+      &:hover {
+         background-color: $bg-color;
+      }
+
+      @include media-breakpoint-down(lg) {
+         @include notNum-page_style($w, $lh); // lg下爲了要跟<a>一樣的樣式
+      }
+
+      @include media-breakpoint-down(md) {
+         width: 40px;
+      }
+
+      &.first-page,
+      &.prev-page {
+         @include media-breakpoint-down(sm) {
+            position: absolute;
+            top: -30px;
+            left: 140px;
+         }
+
+         @include media-breakpoint-down(xs) {
+            left: 25px;
+         }
+      }
+
+      &.prev-page {
+         @include media-breakpoint-down(sm) {
+            margin-left: 60px;
+         }
+      }
+
+      &.last-page,
+      &.next-page {
+         @include media-breakpoint-down(sm) {
+            position: absolute;
+            top: -30px;
+            right: 140px;
+         }
+
+         @include media-breakpoint-down(xs) {
+            right: 25px;
+         }
+      }
+
+      &.next-page {
+         @include media-breakpoint-down(sm) {
+            margin-right: 60px;
+         }
+      }
+   }
+
+   .pagination {
+      // ul裡的全部元素都水平置中
+      display: flex;
+      justify-content: center;
+
+      // 在pagination中的全部<a>預設樣式
+      a {
+         text-decoration: none;
+         color: black;
+         display: block;
+      }
+
+      // 在pagination中的全部<li>預設樣式
+      li {
+         margin: 0 5px;
+         text-align: center; // 讓文字水平置中
+         line-height: $lh;
+
+         @include media-breakpoint-down(lg) {
+            line-height: 25px;
+         }
+
+         // 當前頁樣式
+         &.active {
+            background-color: $bg-color;
+         }
+
+         &.num-page a {
+            @include num-page_style;
+
+            @include media-breakpoint-down(lg) {
+               width: 25px;
+               height: 25px;
+               line-height: 25px;
+            }
+         }
+
+         &.num-page {
+            margin: 0;
+
+            @include num-page_style;
+
+            @include media-breakpoint-down(lg) {
+               width: 25px;
+               height: 25px;
+               line-height: 25px;
+            }
+
+            &:hover {
+               background-color: $bg-color;
+            }
+         }
+      }
+
+      @include media-breakpoint-down(sm) {
+         position: relative;
+      }
+   }
+}

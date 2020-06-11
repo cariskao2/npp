@@ -1,0 +1,28 @@
+// 圓形文字 html用法<div class="circle-text">circular reasoning works because</div>
+// no html snippet
+// scss js snippet 名稱「svgcircletext」
+@mixin _circle-text($width: 200px, $height: 200px, $margin: 80px auto 0, $dur: 10s, $rotate: -2turn) {
+	.circle-text {
+		width: $width;
+		height: $height;
+		margin: $margin;
+
+		svg {
+			display: block;
+			overflow: visible;
+			transition: $dur linear transform;
+
+			&:hover {
+				transform: rotate($rotate); //逆時針方向轉兩圈
+			}
+		}
+
+		text {
+			fill: currentColor;
+		}
+
+		path {
+			fill: none;
+		}
+	}
+}

@@ -1,0 +1,47 @@
+.bill-issues-title {
+   text-align: center;
+   border-bottom: 1px solid black;
+   padding: 15px;
+   margin-bottom: 20px;
+}
+
+.issues-list-home {
+   // @for $i from 1 through 5 {
+   //    .r#{$i} {
+   //       @include rand_bg;
+   //    }
+   // }
+
+   a {
+      display: block;
+      height: 280px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      color: white;
+      text-decoration: none;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      .mask {
+         height: 280px;
+         background-color: rgba(0, 0, 0, 0.3);
+         transition: background-color 1s;
+      }
+
+      &:hover .mask {
+         // linear-gradient不支援過渡
+         opacity: .7;
+         background-color: rgba(0, 0, 0, 0);
+         background-image: linear-gradient(to top, black 5%, transparent);
+      }
+   }
+
+   h2 {
+      z-index: 5;
+      font-size: 50px;
+      position: absolute;
+      bottom: 30px;
+      left: 40px;
+      right: 15px;
+   }
+}

@@ -1,0 +1,48 @@
+// 現在正夯(PS:這裏運用了absolute的跟隨性,所以父元素<a>沒有使用relative,然後icon會依字數多寡自動往右偏移)
+// html scss snippet 名稱「icon-hot」
+@mixin _icon-hot() {
+	i.icon-hot {
+		position: absolute; //配合nav li的relative做定位
+		width: 28px;
+		height: 11px;
+		background-image: url('../img/hot.gif');
+		margin: -6px 0 0 2px;
+	}
+}
+
+// vip背景圖、圖標、推薦文字(PS:這裏運用了absolute的跟隨性,所以父元素.a-vip沒有使用relative)
+// html scss snippets 名稱vip
+@mixin _vip() {
+	$shadow: 0 1px 2px #c5c5c5;
+	$BgHeight: 70px;
+	$recomPadding: 5px;
+	$recom_BG_color: #f60;
+	$recomColor: #fff;
+	$recom_fontsize: 12px;
+
+	.a-vip {
+		//連結背景圖
+		display: block;
+		width: 300px;
+		height: 170px + $BgHeight;
+		box-shadow: $shadow;
+		background-color: #fff;
+	}
+
+	.vip-recom {
+		//推薦文字樣式
+		position: absolute;
+		padding: $recomPadding;
+		background-color: $recom_BG_color;
+		color: $recomColor;
+		font-size: $recom_fontsize;
+	}
+
+	.icon-vip {
+		//vip的icon樣式
+		@include _imgVisible-textHide-4SEO();
+		position: absolute;
+		margin-left: 300px - 36px; //vipbg width - VIP.gif
+		margin-top: -170px - 4px; //vipbg height - box-shadow 上下border 寬度
+	}
+}

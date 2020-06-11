@@ -1,0 +1,23 @@
+// 背景透明但文字不透明,用法：在<div>的class中include。記得輸入文字
+// 可在同class中include『HVcenter_use_boxpack』或『HVcenter_use_flex』來使文字置中。
+// no any snippets
+@mixin _imgOpacity_afterText() {
+	width: 80px;
+	height: 80px;
+	z-index: 0;
+	position: relative;
+	display: block;
+
+	&:after {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: -1;
+		background-image: url('../img/1.png');
+		width: 100%;
+		content: '';
+		opacity: 0.5;
+	}
+}

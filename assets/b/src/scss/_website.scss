@@ -1,0 +1,19 @@
+// 排序
+#sortlist {
+   list-style: none;
+   margin-top: 30px;
+   padding: 0 30px;
+}
+
+.ui-state-default {
+   background-color: #3c8dbc;
+   color: white;
+   font-weight: bolder;
+   font-size: 18px;
+   padding: 10px 20px;
+}
+
+.ui-state-default:hover {
+   cursor: move;
+   opacity: .7;
+}

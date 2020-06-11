@@ -1,0 +1,135 @@
+// carousel
+.carousel {
+	margin-left: -15px;
+	margin-right: -15px;
+
+	.carousel-indicators {
+		justify-content: flex-end; //指示符位置
+
+		@include media-breakpoint-down(sm) {
+			display: none;
+		}
+	}
+
+	.carousel-control-prev,
+	.carousel-control-next {
+		&:hover {
+			background-color: rgba($color: gray, $alpha: 0.5);
+		}
+	}
+
+	// Make the image fully responsive
+	.carousel-inner {
+		img {
+			width: 100%;
+			height: 100%;
+		}
+
+		.carousel-caption {
+			left: 0;
+			right: 0;
+			bottom: 0;
+			color: white;
+			background-color: rgba($color: #000, $alpha: 0.5);
+			padding: 5px 50px;
+			margin-bottom: -20px;
+			text-align: left;
+
+			h3 {
+				font-weight: 600;
+
+				@include media-breakpoint-down(sm) {
+					font-size: 18px;
+				}
+			}
+
+			p {
+				@include media-breakpoint-down(sm) {
+					display: none;
+				}
+			}
+
+			@include media-breakpoint-down(sm) {
+				margin-bottom: -10px;
+				text-align: center;
+			}
+		}
+	}
+}
+
+// 新聞訊息的區塊 - 自訂gutters
+$custom-gutter-width: 50px; // 將欄距改成 20px
+
+.custom-gutters {
+	&.container {
+		padding-left: $custom-gutter-width / 2;
+		padding-right: $custom-gutter-width / 2;
+	}
+
+	.row {
+		margin-left: -($custom-gutter-width / 2);
+		margin-right: -($custom-gutter-width / 2);
+	}
+
+	.col-md-4 {
+		padding-left: $custom-gutter-width / 2;
+		padding-right: $custom-gutter-width / 2;
+	}
+}
+
+.home-title_style {
+	text-align: center;
+	margin-top: 30px;
+	margin-bottom: 0;
+	padding: 15px;
+	font-weight: bolder;
+	font-size: 30px;
+
+	@include media-breakpoint-down(md) {
+		margin-top: 10px;
+	}
+
+	@include media-breakpoint-down(sm) {
+		margin-top: -10px;
+	}
+}
+
+a.newsBlock_style {
+	text-decoration: none;
+
+	.card-body {
+		color: black;
+		transition: background-color .5s;
+
+		.data-start_fontsize {
+			font-size: 15px;
+			font-weight: bold;
+			color: gray;
+		}
+	}
+
+	&:hover .card-body {
+		background-color: #FFBD00;
+	}
+}
+
+.more {
+	text-align: center;
+
+	a {
+		text-decoration: none;
+		display: block;
+		margin: auto;
+		width: 120px;
+		line-height: 40px;
+		background-color: #FFBD00;
+		color: black;
+		border-radius: 30px;
+		transition: background-color .5s, color .5s;
+
+		&:hover {
+			background-color: black;
+			color: #FFBD00;
+		}
+	}
+}

@@ -1,0 +1,11 @@
+// by 卡斯伯
+@each $name, $value in $btn-config {
+	$class: map-get($value, class);
+	$color: map-get($value, color);
+	$bg: map-get($value, bg);
+	$border-color: map-get($value, border-color);
+
+	.btn-casper-#{$class} {
+		@include button-variant($color, $bg, $border-color);
+	}
+}

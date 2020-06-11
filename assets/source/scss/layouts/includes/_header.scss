@@ -1,0 +1,107 @@
+$nav-link-color: black; // 導航項目文字顏色
+$nav-link-color-hover: #ffc107;
+
+.body-css {
+	@include media-breakpoint-up(lg) {
+		padding-top: 93px;
+	}
+
+	@include media-breakpoint-up(xl) {
+		padding-top: 105px;
+	}
+}
+
+.fixed-top.fixed-top_mobile {
+	position: static;
+
+	@include media-breakpoint-up(lg) {
+		position: fixed;
+	}
+}
+
+.logo {
+	img {
+		width: 180px;
+
+		@include media-breakpoint-up(md) {
+			width: 250px;
+		}
+
+		@include media-breakpoint-up(xl) {
+			width: 300px;
+		}
+	}
+}
+
+.nav-icons {
+	width: 85px;
+
+	a,
+	img {
+		width: 30px;
+		height: 30px;
+	}
+
+	a {
+		padding: 0 2.5px;
+	}
+
+	@include media-breakpoint-down(sm) {
+		top: 21px !important;
+		width: 60px;
+
+		a,
+		img {
+			width: 20px;
+			height: 20px;
+		}
+	}
+
+	@include media-breakpoint-down(md) {
+		position: absolute;
+		right: 85px;
+		top: 30px;
+	}
+
+	@include media-breakpoint-up(lg) {
+		width: 75px;
+		margin-top: -50px;
+		margin-left: -92px;
+
+		a,
+		img {
+			width: 25px;
+			height: 25px;
+		}
+	}
+}
+
+.navbar {
+	box-shadow: 0px 2px 5px #888888;
+
+	@include media-breakpoint-up(lg) {
+		padding-left: 130px;
+		padding-right: 130px;
+	}
+
+	@include media-breakpoint-up(xl) {
+		padding-left: 210px;
+		padding-right: 210px;
+	}
+
+	.navbar-collapse.collapse {
+		@include media-breakpoint-up(lg) {
+			margin-bottom: -40px;
+		}
+	}
+
+	.navbar-nav a.nav-link {
+		&:hover {
+			color: $nav-link-color-hover;
+		}
+
+		color: $nav-link-color;
+		font-size: 18px;
+		font-weight: bolder;
+	}
+}

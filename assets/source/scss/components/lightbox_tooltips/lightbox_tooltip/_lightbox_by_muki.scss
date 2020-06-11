@@ -1,0 +1,107 @@
+// lightbox,單一圖片的光箱效果,若要做成圖片廊,請參考已儲存的插件
+// html scss js snippets 名稱「lightboxmuki」
+@mixin _lightbox_by_muki(
+	$width: 350px,
+	$lightbox_bg: #555,
+	$padding: 1em,
+	$lightbox_img_width: 100px,
+	$lightbox_img_border: 3px solid #999,
+	$lightboxClose_widthheight: 50px,
+	$lightboxClose_bg: #139dd7,
+	$cross_height: 30px
+) {
+	/**
+   Responsive CSS3 lightbox without Javascript
+   Autohr: Muki Wu
+   Article: http://muki.tw/tech/responsive-css3-lightbox-without-javascript/
+    **/
+	.lightbox {
+		width: $width;
+		margin: 0 auto;
+		background: $lightbox_bg;
+		padding: $padding;
+		text-align: center;
+
+		img {
+			width: $lightbox_img_width;
+			border: $lightbox_img_border;
+			@include border-radius(5px);
+		}
+	}
+
+	// 彈出層的樣式及位置
+	.lightbox-target {
+		position: fixed;
+		top: -100%;
+		width: 100%;
+		background: rgba(0, 0, 0, 0.7);
+		opacity: 0; // 預設透明度爲0,觸發:target後,利用動畫效果調整透明度
+		overflow: hidden;
+		@include transition(opacity 0.5s ease-in-out);
+
+		img {
+			//彈出圖片的樣式及位置
+			margin: auto;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+
+			// 預設寬高爲0,觸發:target後,利用動畫效果展開寬與高
+			max-height: 0%;
+			max-width: 0%;
+			border: 3px solid #fff;
+			@include box-shadow(0 0 8px rgba(0, 0, 0, 0.3));
+			@include transition(opacity 0.5s ease-in-out);
+		}
+
+		// 當點擊該元素使之變爲目標時,就觸發下列CSS樣式,也就是將彈出層顯示
+		&:target {
+			opacity: 1;
+			top: 0;
+			bottom: 0;
+
+			img {
+				max-height: 100%;
+				max-width: 100%;
+			}
+		}
+	}
+
+	// 關閉鈕的位置及樣式,好像只能設<a href="#">,設其它元素沒有作用
+	// 當滑鼠點擊「X」按鈕時,因爲target被轉移了,lightbox-target不再是處於target狀態,所以:target效果消失
+	.lightbox-close {
+		display: block;
+		width: $lightboxClose_widthheight;
+		height: $lightboxClose_widthheight;
+		background: $lightboxClose_bg;
+		position: absolute;
+		top: 5%;
+		right: 5%;
+		cursor: pointer;
+		@include transition(0.5s ease-in-out);
+
+		// 利用僞元素作出「\」和「/」的線條,合併就變成「X」囉
+		&:before,
+		&:after {
+			content: ' ';
+			display: block;
+			height: $cross_height;
+			width: 1px;
+			background: #fff;
+			position: absolute;
+			left: 26px;
+			top: 10px;
+			@include transform(rotate(45deg));
+		}
+
+		&:after {
+			@include transform(rotate(-45deg));
+		}
+
+		&:hover {
+			background-color: darken($lightboxClose_bg, 10%);
+		}
+	}
+}

@@ -1,0 +1,34 @@
+#ui-datepicker-div {
+   width: 200px;
+
+   .ui-datepicker-next,
+   .ui-datepicker-prev {
+      top: 0;
+   }
+
+   .ui-datepicker-title {
+      font-size: 16px;
+   }
+
+   .ui-datepicker-calendar {
+      thead {
+         font-size: 14px;
+      }
+
+      tbody {
+         .ui-state-default {
+            text-align: center;
+            font-size: 14px;
+            padding: 0px;
+         }
+      }
+   }
+
+   .ui-datepicker-buttonpane {
+      button {
+         padding: 2px;
+         font-size: 14px;
+         font-weight: bold;
+      }
+   }
+}

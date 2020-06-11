@@ -1,0 +1,20 @@
+// eye白眼效果 no any snippets
+@mixin _eye($width: 30px, $height: 30px, $padding: 3px, $border: 3px solid, $bgColor: black) {
+	div.eye {
+		width: $width;
+		height: $height;
+		padding: $padding;
+		border: $border;
+		border-radius: 50%;
+	}
+
+	div.eye:hover {
+		background-color: $bgColor;
+		background-clip: content-box;
+	}
+
+	// border-box 背景被裁剪到边框盒。
+	// padding-box 背景被裁剪到内边距框。
+	// content-box 背景被裁剪到内容框。
+	// 规定背景的绘制区域,若設爲content-box要顯示的區域不會包含border & padding的範圍
+}

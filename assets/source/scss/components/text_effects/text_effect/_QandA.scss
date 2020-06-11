@@ -1,0 +1,61 @@
+// Q & A by 男丁格爾(無響應式)
+// html scss js snippets 名稱「qa」
+@mixin _QandA(
+	$qaContent_width: 550px,
+	$h5_height: 26px,
+	$h5_color: black,
+	$h5_bg: #e3e3e3,
+	$title_color: #1186ec,
+	$answer_color: #666
+) {
+	// 滑出式問與答(Q&A)清單 by 男丁格爾
+	#qaContent {
+		width: $qaContent_width;
+		padding: 20px;
+
+		ul,
+		li {
+			margin: 0;
+			padding: 0;
+			list-style: none;
+		}
+
+		h5 {
+			width: $qaContent_width - 50px;
+			line-height: $h5_height;
+			padding-left: 10px;
+			color: $h5_color;
+			background-color: $h5_bg;
+			@include border-radius(5px);
+		}
+
+		ul.accordionPart {
+			width: $qaContent_width - 50px;
+
+			li {
+				border-bottom: solid 1px #e3e3e3;
+				padding-bottom: 12px;
+				margin-top: 12px;
+				margin-left: 20px;
+
+				.qa_title {
+					padding-left: 28px;
+					color: $title_color;
+					cursor: pointer;
+
+					&:before {
+						content: 'Q:';
+						margin-left: -22px;
+						margin-right: 4px;
+					}
+				}
+
+				.qa_content {
+					margin: 6px 0 0;
+					padding-left: 28px;
+					color: $answer_color;
+				}
+			}
+		}
+	}
+}

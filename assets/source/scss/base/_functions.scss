@@ -1,0 +1,21 @@
+// example
+// @function double($n) {
+// 	@return $n * 2;
+// }
+
+//text-transform:字母大小寫,capital:每個單字以大寫開頭
+@function _capsLock($keyName) {
+	@if not map-has-key($capsLockMaps, $keyName) {
+		@error "警告!在〖$capsLockMaps〗maps中不存在『#{$keyName}』這個key值!!";
+	}
+
+	@return map-get($capsLockMaps, $keyName);
+}
+
+@function _btnColors($keyName) {
+	@if not map-has-key($btnBgColorMaps, $keyName) {
+		@error "警告!在〖$capsLockMaps〗maps中不存在『#{$keyName}』這個key值!!";
+	}
+
+	@return map-get($btnBgColorMaps, $keyName);
+}

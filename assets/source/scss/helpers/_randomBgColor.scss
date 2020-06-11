@@ -1,0 +1,4 @@
+//隨機背景色 no any snippets
+@mixin rand_bg() {
+	background: rgba(random(255), random(255), random(255), 0.7);
+}

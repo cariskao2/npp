@@ -1,0 +1,62 @@
+// CSS3 tooltip by Muki,JQuery UI有input:hover的tooltip
+// only html scss snippet 名稱「tooltipmuki」
+// no any js code
+@mixin _tooltip_Muki($color: red, $text_color: #fff, $text_bgColor: #d9444a, $triangle_color: #d9444a, $bdr_radius: 0) {
+	/**
+   Responsive CSS3 lightbox without Javascript
+   Autohr: Muki Wu
+   Article: http://blog.mukispace.com/pure-css-tooltip-data-tag/
+    **/
+	span.tooltip_Muki {
+		@content;
+		position: relative;
+		display: inline-block;
+		color: $color;
+
+		&:hover {
+			cursor: default;
+
+			&:before,
+			&:after {
+				opacity: 1;
+			}
+		}
+
+		&:before {
+			@include border-radius($bdr_radius);
+			content: attr(data-tooltip-muki);
+			color: $text_color;
+			background: $text_bgColor;
+			position: absolute;
+			left: -10px;
+			bottom: 100%;
+			margin-left: 14px;
+			margin-bottom: 10px;
+			padding: 0.8em 1em;
+			white-space: pre; // 文字內容不會斷行
+			-moz-pointer-events: none;
+			-webkit-pointer-events: none;
+			pointer-events: none;
+			// 鼠標滑過這層時不會被擋到,會穿透這個div直接接觸到下一層元素
+			// 這行是要防止滑鼠還未移到定點時,tooltip就先顯示出來
+		}
+
+		&:after {
+			content: '';
+			position: absolute;
+			left: 55%;
+			bottom: 68%;
+			width: 0;
+			height: 0;
+			border-width: 8px;
+			border-style: solid;
+			border-color: $triangle_color transparent transparent transparent;
+		}
+
+		&:before,
+		&:after {
+			opacity: 0;
+			@include transition(opacity 0.3s ease-out);
+		}
+	}
+}

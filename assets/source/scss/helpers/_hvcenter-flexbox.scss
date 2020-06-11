@@ -1,0 +1,20 @@
+// !! 超推薦 !! 文字會上下堆疊置中,圖片會左右並排置中
+// 在<main>中的全部元素都會垂直置中(含圖片) by CSS3 Secrets
+// html scss snippets 名稱「hvcenter-flexbox」,自帶RWD效果
+@mixin hvcenter-flexbox($minH: 50vh, $padding: 1em 2em, $mainBG: #655, $mainColor: white) {
+	.hvcenter-flexbox {
+		@content;
+		display: flex;
+		min-height: $minH; //距離上方的高度
+		margin: 0;
+		background-color: red;
+
+		main {
+			padding: $padding;
+			margin: auto; //使用flex的margin:auto會使元素同時水平跟垂直置中
+			background: $mainBG;
+			color: $mainColor;
+			text-align: center;
+		}
+	}
+}

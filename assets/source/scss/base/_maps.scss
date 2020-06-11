@@ -1,0 +1,38 @@
+//text-transform:字母大小寫,capital:每個單字以大寫開頭
+$capsLockMaps: (
+	'upper': uppercase,
+	'lower': lowercase,
+	'capital': capitalize
+);
+
+$btnBgColorMaps: (
+	'primary': blue,
+	'danger': red,
+	'second': green
+);
+
+// by 卡斯伯
+$gray-light: #777;
+$brand-primary: #009aff;
+$brand-accent: #d84315;
+
+$btn-config: (
+	default: (
+		class: 'default',
+		color: $gray-light,
+		bg: #fff,
+		border-color: #ccc
+	),
+	primary: (
+		class: 'primary',
+		color: #fff,
+		bg: $brand-primary,
+		border-color: $brand-primary
+	),
+	accent: (
+		class: 'accent',
+		color: #fff,
+		bg: $brand-accent,
+		border-color: $brand-accent
+	)
+);

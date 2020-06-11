@@ -1,0 +1,36 @@
+// 文字框效果
+// no js snippet
+// html scss snippet名稱「svg-text-effect-round」
+@mixin _text-effect-round(
+	$color: white,
+	$shadow_color: black,
+	$stroke: black,
+	$stroke_width: 6,
+	$x1: 1px,
+	$y1: 1px,
+	$x2: -1px,
+	$y2: -1px,
+	$x3: 1px,
+	$y3: -1px,
+	$x4: -1px,
+	$y4: 1px,
+	$margin: 0
+) {
+	h1.text-effect-round {
+		margin: $margin;
+		color: $color;
+		-webkit-text-shadow: $x1 $y1 $shadow_color, $x2 $y2 $shadow_color, $x3 $y3 $shadow_color, $x4 $y4 $shadow_color;
+		-moz-text-shadow: $x1 $y1 $shadow_color, $x2 $y2 $shadow_color, $x3 $y3 $shadow_color, $x4 $y4 $shadow_color;
+		text-shadow: $x1 $y1 $shadow_color, $x2 $y2 $shadow_color, $x3 $y3 $shadow_color, $x4 $y4 $shadow_color;
+
+		text {
+			fill: currentColor;
+		}
+
+		use {
+			stroke: $stroke;
+			stroke-width: $stroke_width;
+			stroke-linejoin: round;
+		}
+	}
+}

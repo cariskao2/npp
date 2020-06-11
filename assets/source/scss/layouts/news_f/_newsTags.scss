@@ -1,0 +1,40 @@
+.newsTags-title {
+   text-align: center;
+   margin-top: 60px;
+   margin-bottom: 30px;
+
+   span {
+      color: white;
+      padding: 15px 20px;
+      background-color: #4A4A4A;
+      font-size: 30px;
+      font-weight: bolder;
+      border-radius: 30px;
+   }
+}
+
+a.tags-block {
+   display: block;
+   border-bottom: 1px solid gray;
+   text-decoration: none;
+   padding: 20px 0;
+
+   h5 {
+      color: black;
+      transition: color .3s;
+   }
+
+   span {
+      color: #4A4A4A;
+      font-size: 14px;
+      font-weight: bold;
+   }
+
+   .content {
+      color: #9B9B9B;
+   }
+
+   &:hover h5 {
+      color: #FFBD00;
+   }
+}

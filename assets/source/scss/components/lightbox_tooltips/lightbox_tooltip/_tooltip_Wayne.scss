@@ -1,0 +1,19 @@
+// JS tooltip by Wayne,JQuery UI有input:hover的tooltip
+// only html js snippets 名稱「tooltipwayne」
+@mixin _tooltip_Wayne($common_color: #03f, $box_color: #333, $box_bg: #fff, $boder: 1px solid #66ccff) {
+	.tooltip-wayne {
+		color: $common_color;
+		cursor: help;
+	}
+
+	.tooltip-box {
+		display: block;
+		color: $box_color;
+		background: $box_bg;
+		border: $boder;
+		padding: 10px;
+		font-size: 16px;
+		overflow: auto;
+		@include border-radius(5px);
+	}
+}

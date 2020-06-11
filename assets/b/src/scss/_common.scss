@@ -1,0 +1,148 @@
+// loading
+#loader {
+   position: absolute;
+   width: 100%;
+   height: 100vh;
+   background-color: rgba($color: #000000, $alpha: .5);
+   z-index: 5;
+
+   .loader {
+      position: absolute;
+      top: 40%;
+      right: 40%;
+      border: 16px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 16px solid #3498db;
+      width: 120px;
+      height: 120px;
+      -webkit-animation: spin 1s linear infinite;
+      //  Safari
+      animation: spin 1s linear infinite;
+   }
+}
+
+// Safari
+@-webkit-keyframes spin {
+   0% {
+      -webkit-transform: rotate(0deg);
+   }
+
+   100% {
+      -webkit-transform: rotate(360deg);
+   }
+}
+
+@keyframes spin {
+   0% {
+      transform: rotate(0deg);
+   }
+
+   100% {
+      transform: rotate(360deg);
+   }
+}
+
+// 建立日期&時間
+.form-control[readonly] {
+   background-color: #fff;
+}
+
+.box {
+   margin-bottom: 0;
+}
+
+.no-data {
+   text-align: center;
+   color: red;
+   font-size: 30px;
+   font-weight: bolder
+}
+
+// 顯示狀態的插件
+#radioBtn,
+#radioBtn a {
+   z-index: 0;
+}
+
+#radioBtn .notActive {
+   color: #3276b1;
+   background-color: #fff;
+}
+
+// 各input之間上下間隙
+.box-body>div {
+   margin-bottom: 15px;
+}
+
+// 彈出訊息
+.success-width {
+   width: 150px;
+}
+
+.error-width {
+   width: 250px;
+}
+
+// 彈出訊息位置
+.alert-absoulte {
+   text-align: center;
+   position: absolute;
+   margin: auto;
+   left: 230px;
+   right: 0;
+   top: 50px;
+   z-index: 3;
+}
+
+// 輪播跟標籤列表的table置中
+.title-center {
+   text-align: center;
+
+   th {
+      text-align: center;
+      font-weight: bolder;
+      border-bottom: 3px solid #d2d6de;
+   }
+}
+
+// 空div高度
+.div-h {
+   height: 104px;
+}
+
+// 後台其它設定中的樣式
+.bg-color {
+   border: 1px solid #D2D6DE;
+   padding: 20px 10px 10px 10px;
+   overflow: hidden;
+
+   >p {
+      font-weight: bold;
+      font-size: 20px;
+      color: #3C8DBC;
+      background-color: white;
+      position: absolute;
+      top: -16px;
+   }
+}
+
+.contact div input {
+   margin-bottom: 15px;
+}
+
+.form-group {
+   label.must:before {
+      content: '*';
+      color: red;
+   }
+
+   .cur {
+      cursor: pointer;
+   }
+}
+
+@media screen and (max-width: 768px) {
+   .alert-absoulte {
+      left: 0;
+   }
+}

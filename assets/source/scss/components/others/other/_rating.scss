@@ -1,0 +1,33 @@
+// 使用者評分星號
+// html scss snippets名稱「rating」
+@mixin rating() {
+	.rating {
+		font-size: 0;
+		display: table;
+
+		> label {
+			color: #ddd;
+			float: right;
+
+			&:before {
+				padding: 5px;
+				font-size: 24px;
+				line-height: 1em;
+				display: inline-block;
+				content: '★';
+			}
+		}
+	}
+
+	.rating > input:checked ~ label,
+	.rating:not(:checked) > label:hover,
+	.rating:not(:checked) > label:hover ~ label {
+		color: #ffd700;
+	}
+
+	.rating > input:checked ~ label:hover,
+	.rating > label:hover ~ input:checked ~ label,
+	.rating > input:checked ~ label:hover ~ label {
+		opacity: 0.5;
+	}
+}

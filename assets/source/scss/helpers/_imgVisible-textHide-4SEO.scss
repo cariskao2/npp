@@ -1,0 +1,17 @@
+// 圖片取代文字:做logo或link時,要用text-indent做出既有圖片美觀又達到文字SEO的效果。
+// $display是當_vip()有include這個mixin時,會自動設為true,否則會用預設值false
+// no any snippets
+@mixin _imgVisible-textHide-4SEO($display: false) {
+	background-image: url('../img/vip/VIP.gif');
+	width: 36px;
+	height: 36px;
+	white-space: if($display, inherit, nowrap);
+	@include _iconHot_SEO_common($display);
+}
+
+// no any snippets
+@mixin _iconHot_SEO_common($display) {
+	display: if($display, inline, block);
+	text-indent: 100%;
+	overflow: hidden;
+}

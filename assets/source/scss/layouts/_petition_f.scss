@@ -1,0 +1,140 @@
+// 驗證error樣式
+.form-group.has-error {
+   color: red;
+
+   input {
+      border: 1px solid red;
+      color: red;
+   }
+}
+
+// 附件樣式
+.ajax-file-upload-container {
+   .ajax-file-upload-statusbar {
+      display: flex;
+      justify-content: space-around;
+      border-radius: 0;
+      border: none;
+      border-top: 1px solid black;
+      margin: auto;
+      width: 900px !important;
+
+      @include media-breakpoint-down(md) {
+         flex-direction: column;
+         width: 300px !important;
+      }
+
+      &:first-child {
+         border-top: none;
+      }
+
+      .ajax-file-upload-progress {
+         height: 24px;
+
+         .ajax-file-upload-bar {
+            background-color: gray;
+         }
+      }
+
+      .ajax-file-upload-filename {
+         width: 500px;
+
+         @include media-breakpoint-down(md) {
+            width: 100%;
+         }
+      }
+
+      .ajax-file-upload-red {
+         width: 56px;
+         text-align: center;
+
+         @include media-breakpoint-down(md) {
+            width: 100px;
+         }
+      }
+   }
+}
+
+// 上傳檔案按鈕
+#fileuploader {
+   &:after {
+      content: "相關附件";
+   }
+
+   .ajax-file-upload {
+      color: black;
+      background: #ffc107;
+      box-shadow: 0px 0 0 #ffc107;
+      font-size: 26px;
+      text-align: center;
+      width: 150px;
+      height: 50px;
+      padding-top: 15px;
+
+      &:hover {
+         background: darken(#ffc107, 10%);
+      }
+   }
+}
+
+// form其它樣式
+.form-title {
+   font-size: 30px;
+   margin-top: 30px;
+   margin-bottom: 15px;
+
+   .must {
+      color: red;
+      font-size: 10px;
+      margin-left: 5px;
+   }
+}
+
+.petition-f {
+   font-size: 20px;
+
+   .row>div {
+      margin-bottom: 60px;
+   }
+
+   .form-group {
+      label.must:before {
+         content: '*';
+         color: red;
+      }
+   }
+
+   .form-control {
+      font-size: 20px;
+   }
+
+   .custom-control {
+      line-height: 24px;
+   }
+
+   $fileBG:#343A40;
+
+   .file {
+      position: relative;
+      display: inline-block;
+      background: $fileBG;
+      border: 1px solid darken($fileBG, 10%);
+      border-radius: 10px;
+      padding: 4px 12px;
+      overflow: hidden;
+      color: white;
+      text-decoration: none;
+      text-indent: 0;
+      line-height: 20px;
+      padding: 20px; //要跟input的padding一樣
+   }
+
+   .file input {
+      position: absolute;
+      font-size: 100px;
+      right: 0;
+      top: 0;
+      opacity: 0;
+      padding: 20px;
+   }
+}

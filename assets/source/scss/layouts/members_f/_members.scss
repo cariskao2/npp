@@ -1,0 +1,51 @@
+// 屆期列表
+.pretty-select {
+   background-image: url('../../../assets/f_imgs/members/angle-down.png');
+   background-repeat: no-repeat;
+   background-position: 95% center;
+   background-size: 30px;
+
+   padding-left: 20px;
+   margin: 30px auto;
+   border-radius: 50px;
+   height: 54px;
+   font-size: 20px;
+   cursor: pointer;
+   appearance: none;
+   -moz-appearance: none;
+   -webkit-appearance: none;
+}
+
+// members-info
+a.members-card {
+   text-decoration: none;
+   display: block;
+
+   .overflow-h {
+      overflow: hidden;
+   }
+
+   img {
+      width: 100%;
+      transition: transform 1.5s; //這行位置放別的地方會導致hover out 沒效果
+      transform: scale(1);
+   }
+
+   h3 {
+      text-align: center;
+      color: black;
+      font-size: 22px;
+      margin-top: 10px;
+   }
+
+   &:hover img {
+      transform: scale(1.2);
+   }
+}
+
+// 顯示日期
+#year-show {
+   text-align: center;
+   font-size: 22px;
+   font-weight: bold;
+}

@@ -1,0 +1,30 @@
+//line_triple 三條槓
+@mixin _line-triple(
+	$width: 30px,
+	$mid_bgcolor: black,
+	$mid_height: 10px,
+	$mid_padding: 5px 0,
+	$top_bottom_height: 10px solid
+) {
+	.line-triple {
+		width: $width;
+		-moz-box-sizing: content-box;
+		-webkit-box-sizing: content-box;
+		box-sizing: content-box;
+
+		// 實現中間的圖形
+		background-color: $mid_bgcolor;
+		height: $mid_height; // 中間圖形的高
+		padding: $mid_padding; //三條線之間的空白間隙
+		-moz-background-clip: content-box;
+		-webkit-background-clip: content-box;
+		background-clip: content-box;
+		// border-box 背景被裁剪到边框盒。
+		// padding-box 背景被裁剪到内边距框。
+		// content-box 背景被裁剪到内容框。
+		// 规定背景的绘制区域,若設爲content-box要顯示的區域不會包含border & padding的範圍
+
+		border-top: $top_bottom_height; // 實現上方的圖形
+		border-bottom: $top_bottom_height; // 實現下方的圖形
+	}
+}

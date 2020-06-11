@@ -1,0 +1,16 @@
+//連結樣式, no any snippets
+@mixin _link() {
+	&:link,
+	&:visited {
+		@content;
+	}
+}
+
+//被點擊後的連結樣式 no any snippets
+@mixin link_hover() {
+	&:hover,
+	&:focus,
+	&:active {
+		@content;
+	}
+}

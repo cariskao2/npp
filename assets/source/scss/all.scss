@@ -1,0 +1,12 @@
+// 漸層=>background-image:(linear-gradient(to bottom right, color1, color2));
+// 補全前綴=>transform():[scale()、skew()、rotate()]。border-radius()、box-shadow()、transition()、filter()。
+// filter為『濾鏡』,語法filter(可帶多個參數,中間用〔空格〕隔開),詳情參考書籤〖CSS3 Filter的十種特效〗。
+// darken(color,%)、lighten(color,%)、adjust-hue()、adjust-color()。
+// percentage($num / $number); //算出百分比。
+
+@import 'bootstrap';
+@import 'base/maps', 'base/functions';
+@import 'helpers';
+@import 'components';
+// @import 'loops/loops';
+@import 'layouts/layout';

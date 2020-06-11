@@ -1,0 +1,34 @@
+// drop-shadow改變png圖標的顏色,只能用在有去背的真png圖檔
+// no js snippet
+// html scss snippet 名稱「png-colorchange」
+@mixin _png-colorchange($width: 20px) {
+	.png-colorchange {
+		display: inline-block;
+		//設定父元素大小,即可視的範圍
+		width: $width;
+		height: $width;
+		overflow: hidden;
+		//未hover時,drop-shadow還未產生投影,只顯示原始的icon
+		//當被hover時將超出的本尊隱藏,但因可視區域外無投影,所以會連drop-shadow的部分一起隱藏,所以要加上一個透明的border-right使可視區域變大即可。
+		-moz-box-sizing: content-box;
+		-webkit-box-sizing: content-box;
+		box-sizing: content-box;
+
+		.icon-bgImg {
+			background: url('../img/nav-icon.png') no-repeat center;
+		}
+
+		&:hover > .png-colorchange {
+			position: relative;
+			left: -$width;
+			border-right: $width solid transparent;
+			-webkit-filter: drop-shadow($width 0 blue);
+			filter: drop-shadow($width 0 blue);
+			// filter: drop-shadow(x偏移,y偏移,模糊大小,色值),在距離本尊x與y的位置產生一個顏色爲color的drop-shadow投影
+			// 通常x或y會是一個本尊的大小,這裡是在hover時產生投影
+			// 然後透過relative/left將本尊與投影一起往左拉一個本尊大小(因這裡投影是產生在右邊),使投影可以進入父元素的可視範圍才能正常顯示
+			// 此時本尊在父元素左方已超過可視區範圍會被overflow:hidden
+			// 因爲當本尊被hidden時投影也會被hidden,所以要在投影的部分加上透明的border-right:(一個本尊大小),使可視區域變大
+		}
+	}
+}

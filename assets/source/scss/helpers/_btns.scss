@@ -1,0 +1,110 @@
+// only scss snippet 名稱btnSCSS
+// 在<button>、<input type="button">或是任何class下中@include
+@mixin _btn($textColor: #333, $bgColor: #e6e6e6, $radius_boolean: true, $width: 90px, $height: 25px) {
+	width: $width;
+	height: $height;
+	color: $textColor;
+	background-color: $bgColor;
+	-webkit-border-radius: if($radius_boolean, 5px, 0);
+	-moz-border-radius: if($radius_boolean, 5px, 0);
+	border-radius: if($radius_boolean, 5px, 0);
+	border: 1px solid darken($bgColor, 5%);
+	border-color: lighten($bgColor, 2%) darken($bgColor, 5%) darken($bgColor, 5%) lighten($bgColor, 2%);
+
+	&:hover,
+	&:focus,
+	&:active {
+		background-color: darken($bgColor, 5%);
+		color: $textColor;
+	}
+}
+
+// 跟btn-each搭配
+@mixin btn-color($bgColor: #e6e6e6, $textColor: #333) {
+	color: $textColor;
+	background-color: $bgColor;
+	border: 1px solid darken($bgColor, 5%);
+
+	&:hover {
+		background-color: darken($bgColor, 5%);
+		color: $textColor;
+	}
+}
+
+// only scss snippet 名稱「btn-each」
+@mixin btn-each() {
+	$btnColorClass: (primary #0078e7 #fff) (blue #00a3cf #fff) (orange #f47837 #fff) !default;
+
+	@each $colorClass in $btnColorClass {
+		$class: nth($colorClass, 1); // 抓$btnColorClass中每個()內的的第1個值: primary blue orange
+		$bgColor: nth($colorClass, 2); // 抓$btnColorClass中每個()內的的第2個值: #0078E7 #00A3CF #F47837
+		$textColor: nth($colorClass, 3); // 抓$btnColorClass中每個()內的的第3個值: #fff #fff #fff
+
+		.btn-#{$class} {
+			@include btn-color($bgColor, $textColor);
+		}
+	}
+}
+
+// by 卡斯伯
+@mixin button-variant($color, $background, $border) {
+	color: $color;
+	background-color: $background;
+	transition: background-color 0.15s;
+	border-color: $border;
+
+	&:hover,
+	&:focus,
+	&.focus,
+	&:active,
+	&.active,
+	.open > &.dropdown-toggle {
+		color: $color;
+		background-color: darken($background, 6%);
+		border-color: darken($border, 8%);
+	}
+	&:active,
+	&.active,
+	.open > &.dropdown-toggle {
+		background-image: none;
+	}
+	&.disabled,
+	&[disabled],
+	fieldset[disabled] & {
+		&,
+		&:hover,
+		&:focus,
+		&.focus,
+		&:active,
+		&.active {
+			background-color: $background;
+			border-color: $border;
+		}
+	}
+
+	.badge {
+		color: $background;
+		background-color: $color;
+	}
+}
+
+// 基本 btn 結構 by 卡斯伯
+// .btn-casper {
+// 	// 結構
+// 	display: inline-block;
+// 	padding: 6px 12px;
+// 	margin-bottom: 0;
+// 	font-size: 14px;
+// 	text-align: center;
+// 	vertical-align: middle;
+// 	cursor: pointer;
+// 	user-select: none;
+// 	background-image: none;
+// 	border: 1px solid transparent;
+// 	border-radius: 4px;
+// 	&:hover,
+// 	&:focus {
+// 		color: #333;
+// 		background-color: #e6e6e6;
+// 	}
+// }

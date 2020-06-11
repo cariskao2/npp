@@ -1,0 +1,90 @@
+.container-footer_style {
+	margin-top: 70px;
+	background-color: #f7f7f7;
+	box-shadow: 0px -2px 5px #888888;
+
+	address {
+		font-size: 20px;
+
+		a {
+			color: black;
+		}
+	}
+}
+
+.hvcenter-flexbox {
+	display: flex;
+	min-height: 0; //距離上方的高度
+	margin: 0;
+	// align-items: center;
+	// justify-content: center;
+
+	main {
+		padding: 0;
+		margin: auto 0 auto auto; //使用flex的margin:auto會使元素同時水平跟垂直置中
+		text-align: left;
+
+		@include media-breakpoint-down(md) {
+			margin: auto;
+		}
+
+		&.iframe {
+			margin: 56px auto auto 0;
+
+			@include media-breakpoint-down(lg) {
+				margin: 50px auto auto 0;
+			}
+
+			@include media-breakpoint-down(md) {
+				margin: auto;
+			}
+		}
+	}
+}
+
+@media (max-width: 392px) {
+	.hvcenter-flexbox main.iframe {
+		margin: auto -10px auto;
+	}
+}
+
+.f-footer_under {
+	background-color: black;
+	color: white;
+	padding: 15px 50px;
+	text-align: center;
+}
+
+.f-footer_bg {
+	position: relative;
+	width: 350px;
+
+	.linear-gd {
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: linear-gradient(#444444, transparent);
+	}
+
+	iframe {
+		top: 0;
+		left: 0;
+	}
+
+	.child {
+		position: absolute;
+	}
+
+	.child-bg {
+		top: 0;
+		left: 0;
+		margin: 7px;
+	}
+
+	.child-title {
+		top: 3px;
+		left: 65px;
+		color: white;
+	}
+}

@@ -1,0 +1,51 @@
+// 用 CSS3 做表單 - 自訂單選框樣式,only HTML的snippet名稱inputsinglechoice
+@mixin _abgne_input_singleChoice() {
+	$notClickBG: white;
+	$notClickColor: #000;
+	$padding: 10px;
+	$onClickBG: rgb(102, 96, 96);
+	$onClickColor: #fff;
+
+	.abgne_input_singleChoice input[type='radio'] {
+		display: none;
+
+		& + label {
+			display: inline-block;
+			background-color: $notClickBG;
+			color: $notClickColor;
+			cursor: pointer;
+			padding: $padding;
+		}
+
+		&:checked + label {
+			background-color: $onClickBG;
+			color: $onClickColor;
+		}
+	}
+}
+
+// 用 CSS3 做表單 - 自訂多選框樣式 only HTML的snippet名稱inputmultichoice
+@mixin _abgne_input_multiChoice() {
+	$notClickBG: white;
+	$notClickColor: #000;
+	$padding: 10px;
+	$onClickBG: rgb(102, 96, 96);
+	$onClickColor: white;
+
+	.abgne_input_multiChoice input[type='checkbox'] {
+		display: none;
+
+		& + label {
+			display: inline-block;
+			background-color: $notClickBG;
+			color: $notClickColor;
+			cursor: pointer;
+			padding: $padding;
+		}
+
+		&:checked + label {
+			background-color: $onClickBG;
+			color: $onClickColor;
+		}
+	}
+}

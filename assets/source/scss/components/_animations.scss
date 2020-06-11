@@ -1,0 +1,97 @@
+// loading-animation 網頁未加載完成前的loading動畫,增加UX
+// 無任何snippets
+@mixin loading-animation($bg:#655, $color:white, $fontSize:normal, $width:4em) {
+
+    // 一行一行來測試效果,並把播放次數的infinite註解掉,就能看出端倪
+    @-webkit-keyframes spin {
+        to {
+            transform: rotate(1turn);
+        }
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(1turn);
+        }
+    }
+
+    @-webkit-keyframes radius {
+        50% {
+            border-radius: 50%;
+        }
+    }
+
+    @keyframes radius {
+        50% {
+            border-radius: 50%;
+        }
+    }
+
+    @-webkit-keyframes color {
+        33% {
+            color: orange;
+        }
+
+        66% {
+            color: deeppink
+        }
+    }
+
+    @keyframes color {
+        33% {
+            color: orange;
+        }
+
+        66% {
+            color: deeppink
+        }
+    }
+
+    @-webkit-keyframes width {
+        50% {
+            border-width: .3em;
+        }
+    }
+
+    @keyframes width {
+        50% {
+            border-width: .3em;
+        }
+    }
+
+    #loading-animation {
+        // 使用flex時,margin:auto會把水平與垂直都置中
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: flex;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        min-height: 100vh;
+        text-align: center;
+        background: $bg;
+        color: $color;
+        font-size: $fontSize;
+
+        .loading {
+            background: red; // debug用
+            margin: auto; // 使用flex時,margin:auto會把水平與垂直都置中
+
+            &:before {
+                content: '';
+                display: block; // loading字樣才能顯示在下方
+                width: $width;
+                height: $width;
+                margin-bottom: 1em; // 拉開動畫與下方文字的距離,原因把取消掉背景色的註解就會知道
+                border: 1.5em solid;
+                color: yellowgreen;
+                animation: 1s spin, .7s radius, 1.1s color, 1.3s width;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+                // background: blue;// debug用
+            }
+        }
+    }
+}

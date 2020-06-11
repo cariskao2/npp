@@ -1,0 +1,84 @@
+.member-inner-block {
+   font-size: 20px;
+   margin-top: 20px;
+
+   pre.experience {
+      //  斷行+去空白,若加上<div>會有空白
+      word-wrap: break-word; //文字自動換行，長英文字不切斷
+      white-space: pre-line; //將多個空白轉換成一個空白
+      line-height: 30px;
+      font-size: 20px;
+   }
+
+   .list {
+      border: 1px solid black;
+      text-align: justify;
+      text-align-last: justify;
+      padding: 5px 10px;
+   }
+
+   .content {
+      padding-top: 7px;
+      display: inline-block; // 讓a.content可以斷行+不會像block width會到底
+      width: auto;
+   }
+
+   .member-link,
+   .member-link * {
+      height: 30px;
+   }
+
+   .member-link {
+      a {
+         margin: 0 5px 0 5px;
+         line-height: 40px;
+      }
+   }
+}
+
+.members-bar {
+   font-size: 30px;
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+
+.members-issues {
+   $bg-color: #F5A623;
+
+   ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-left: 0;
+
+      li,
+      a {
+         display: inline-block; // 自適應條件
+         min-width: 130px; // 自適應條件(或是 auto)
+         padding-left: 10px;
+         padding-right: 10px;
+         border-radius: 30px;
+         font-size: 20px;
+         line-height: 40px;
+      }
+
+      li {
+         border: 1px solid black;
+         background-color: #fff;
+         text-align: center;
+         margin: 10px;
+         transition: background-color .5s;
+
+         &:hover {
+            background-color: $bg-color;
+         }
+      }
+
+      a {
+         display: block;
+         text-decoration: none;
+         color: black;
+      }
+   }
+}

@@ -1,0 +1,10 @@
+/application/logs
+
+/assets/bower_components
+/assets/node_modules
+/assets/uploads
+/assets/public
+/assets/plugins/ckeditor4/thumbs
+/assets/plugins/ckeditor4/uploads
+/assets/b/build
+/assets/b/prepros-6.config

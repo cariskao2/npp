@@ -1,0 +1,38 @@
+// input提示窗 no js snippet
+// html scss snippets 名稱「bubblecallout」
+@mixin bubble-callout($padding: 0.6em 0.8em, $margin: 0.3em 0 0 -0.2em, $bg: #ffeedd, $origin: 1.4em -0.4em) {
+	.bubble {
+		input {
+			// 當input不爲focus狀態且鼠標也不在.callout上面時,將.callout縮回去
+			&:not(:focus) + .callout:not(:hover) {
+				// 縮回去的動畫
+				-webkit-transform: scale(0);
+				-moz-transform: scale(0);
+				transform: scale(0);
+				-webkit-transition: 0.25s transform;
+				-moz-transition: 0.25s transform;
+				transition: 0.25s transform;
+			}
+		}
+
+		.callout {
+			position: absolute;
+			max-width: 14em;
+			padding: $padding;
+			border-radius: 0.3em;
+			margin: $margin;
+			background: $bg;
+			border: 1px solid rgba(0, 0, 0, 0.3);
+			-webkit-box-shadow: 0.05em 0.2em 0.6em rgba(0, 0, 0, 0.2);
+			box-shadow: 0.05em 0.2em 0.6em rgba(0, 0, 0, 0.2);
+			// 用自訂的計時函式做彈出的動畫,說明看CSS Secrets p.303
+			-webkit-transition: 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.5) transform;
+			-moz-transition: 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.5) transform;
+			transition: 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.5) transform;
+			// 彈出的起始跟結束位置
+			-webkit-transform-origin: $origin;
+			-moz-transform-origin: $origin;
+			transform-origin: $origin;
+		}
+	}
+}

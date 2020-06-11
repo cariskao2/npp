@@ -1,0 +1,118 @@
+.breadcrumb-bg {
+	background-color: #ffc107;
+}
+
+// firefox(無法做@mixin)
+@-moz-document url-prefix() {
+	.breadcrumb-bg {
+		margin-top: -6px;
+		height: 60px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+}
+
+// safari(無法做@mixin)
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	.breadcrumb-bg {
+		margin-top: -6px;
+		height: 60px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+}
+
+.breadcrumb {
+	background-color: transparent;
+	border-radius: 0;
+	padding-left: 0;
+
+	li:not(:last-child) a {
+		color: black;
+	}
+
+	@include media-breakpoint-down(sm) {
+		margin-bottom: 0;
+	}
+}
+
+.searchList-f_form {
+	padding-top: 15px;
+	padding-bottom: 15px;
+
+	.btn-clear-searchdate {
+		padding: 0;
+		border: none;
+		background-color: transparent;
+		position: absolute;
+		right: 10px;
+
+		@include media-breakpoint-down(xs) {
+			top: 7.5px;
+		}
+	}
+
+	.form-group-custom {
+		position: relative;
+		margin-top: 15px;
+		margin-bottom: 15px;
+		margin-right: 10px;
+
+		input {
+			border-radius: 0;
+			background-color: #fff;
+
+			@include media-breakpoint-up(lg) {
+				width: 256px; // 要指定width,否則每個瀏覽器預設不同
+			}
+
+			@include media-breakpoint-down(md) {
+				flex: 1;
+			}
+		}
+
+		// ios下input的placeholder不垂直居中顯示的問題
+		input::-webkit-input-placeholder {
+			line-height: normal;
+			// padding-top: 2px; // 微調
+		}
+
+		@include media-breakpoint-up(lg) {
+			width: 256px;
+		}
+
+		@include media-breakpoint-down(md) {
+			flex: 1;
+			margin: 10px;
+		}
+	}
+
+	.form-group-custom_submit {
+		// margin: 10px 15px;
+
+		.btn-default {
+			background-color: #E67E23;
+			color: white;
+			border-radius: 0;
+
+			@include media-breakpoint-down(md) {
+				flex: 1;
+				width: 100%; //在xs的時候吃不到flex,所以加上這行代替flex:1
+			}
+		}
+
+		@include media-breakpoint-down(md) {
+			flex: 1;
+			margin: 10px;
+		}
+	}
+
+	@include media-breakpoint-down(sm) {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	@include media-breakpoint-up(lg) {
+		justify-content: flex-end;
+	}
+}

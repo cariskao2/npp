@@ -1,0 +1,70 @@
+// 圓點背景圖 直接在div套用此類名即可(可參考CSS SECRETS的P.54)
+// 無任何snippets
+@mixin _polka($width:300px, $height:300px, $size:30px, $dot:30%, $bg:#655, $color:tan) {
+    .polka {
+        // @content;
+        width: $width;
+        height: $height;
+        background: $bg;
+        background-image: -webkit-radial-gradient($color $dot, transparent 0), -webkit-radial-gradient($color $dot, transparent 0);
+        background-image: -moz-radial-gradient($color $dot, transparent 0), -moz-radial-gradient($color $dot, transparent 0);
+        background-image: radial-gradient($color $dot, transparent 0), radial-gradient($color $dot, transparent 0);
+        background-size: $size $size;
+        background-position: 0 0, $size / 2 $size / 2;
+    }
+}
+
+// 棋盤背景圖(可參考CSS SECRETS的P.55) 另外可參考CSS SECRETS中P.59的svg做法
+// 無任何snippets
+@mixin _checkerboard($width:300px, $height:300px, $size:15px, $bg:#58a, $accent: rgba(0, 0, 0, .25)) {
+    .checkerboard {
+        @content;
+        width: $width;
+        height: $height;
+        background: $bg;
+        background-image: -webkit-linear-gradient(45deg, $accent 25%, transparent 0, transparent 75%, $accent 0), linear-gradient(45deg, $accent 25%, transparent 0, transparent 75%, $accent 0);
+        background-image: -moz-linear-gradient(45deg, $accent 25%, transparent 0, transparent 75%, $accent 0), linear-gradient(45deg, $accent 25%, transparent 0, transparent 75%, $accent 0);
+        background-image: linear-gradient(45deg, $accent 25%, transparent 0, transparent 75%, $accent 0), linear-gradient(45deg, $accent 25%, transparent 0, transparent 75%, $accent 0);
+        background-position: 0 0, $size $size;
+        background-size: 2 * $size 2 * $size;
+    }
+}
+
+// 剪角四邊形
+// 無任何snippets
+@mixin beveled-corners($width:200px, $padding:15px, $color:white, $bg:#58a, $t1:5px, $tr:$t1, $br:$t1, $b1:$tr) {
+    .beveled-corners {
+        margin: auto;
+        max-width: $width;
+        padding: $padding;
+        text-align: center;
+        color: $color;
+        background: $bg; //若瀏覽器不支援的備用方案
+        background: -webkit-linear-gradient(135deg, transparent $t1, $bg 0) top left, -webkit-linear-gradient(225deg, transparent $tr, $bg 0) top right, -webkit-linear-gradient(-45deg, transparent $br, $bg 0) bottom right, -webkit-linear-gradient(45deg, transparent $b1, $bg 0) bottom left;
+        background: -moz-linear-gradient(135deg, transparent $t1, $bg 0) top left, -moz-linear-gradient(225deg, transparent $tr, $bg 0) top right, -moz-linear-gradient(-45deg, transparent $br, $bg 0) bottom right, -moz-linear-gradient(45deg, transparent $b1, $bg 0) bottom left;
+        background: linear-gradient(135deg, transparent $t1, $bg 0) top left, linear-gradient(225deg, transparent $tr, $bg 0) top right, linear-gradient(-45deg, transparent $br, $bg 0) bottom right, linear-gradient(45deg, transparent $b1, $bg 0) bottom left;
+        background-size: 50% 50%;
+        background-repeat: no-repeat;
+    }
+}
+
+// 折角效果 CSS3 Secrets p.158
+// 無任何snippets
+@mixin folded-corner($width:220px, $bg:#58a, $color:white, $corner:1.4em, $padding:2em) {
+    .angle-corner {
+        width: $width;
+        background: $bg; //瀏覽器不支援時的備用方案
+        background:
+            -moz-linear-gradient(to left bottom, transparent 50%, rgba(0, 0, 0, .4) 0) 100% 0 no-repeat,
+            -moz-linear-gradient(-135deg, transparent $corner, $bg 0);
+        background:
+            -webkit-linear-gradient(to left bottom, transparent 50%, rgba(0, 0, 0, .4) 0) 100% 0 no-repeat,
+            -webkit-linear-gradient(-135deg, transparent $corner, $bg 0);
+        background:
+            linear-gradient(to left bottom, transparent 50%, rgba(0, 0, 0, .4) 0) 100% 0 no-repeat, //三角形
+            linear-gradient(-135deg, transparent $corner, $bg 0); //剪角背景
+        background-size: 2em 2em, auto;
+        padding: $padding;
+        color: $color;
+    }
+}

@@ -1,0 +1,56 @@
+// 環形進度條 by oxxo ,html scss js snippets 名稱「svgloding」
+@mixin _svg-loading($dur:.25s) {
+    circle.svg-loading {
+        -webkit-transition: stroke-dasharray $dur;
+        -moz-transition: stroke-dasharray $dur;
+        transition: stroke-dasharray $dur;
+    }
+}
+
+// svg pie by CSS Secrects
+// 使用方式:在div加上.pie-csssecrets使用靜態pie。再加上一個.animated再把$animate設爲true即可使用動態pie
+// html scss js的snippets名稱：svgpiecsssecrets
+@mixin _svg-pie-csssecrets($animate:false, $width:100px, $bg:yellowgreen, $stroke:#655, $dasharray:50) {
+    .pie-csssecrets {
+        width: $width;
+        height: $width;
+        display: inline-block;
+        margin: 10px;
+        transform: rotate(-90deg);
+    }
+
+    svg {
+        background: $bg;
+        border-radius: 50%;
+    }
+
+    circle {
+        fill: $bg;
+        stroke: $stroke;
+        stroke-width: 32; //加大.pie-csssecrets的width值不會影響
+    }
+
+    @if $animate {
+        @-webkit-keyframes grow {
+            to {
+                stroke-dasharray: $dasharray 100
+            }
+        }
+
+        @-moz-keyframes grow {
+            to {
+                stroke-dasharray: $dasharray 100
+            }
+        }
+
+        @keyframes grow {
+            to {
+                stroke-dasharray: $dasharray 100
+            }
+        }
+
+        .pie-csssecrets.animated circle {
+            animation: grow 2s forwards linear;
+        }
+    }
+}

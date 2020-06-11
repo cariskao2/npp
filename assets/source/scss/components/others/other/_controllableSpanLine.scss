@@ -1,0 +1,16 @@
+// 高度可控的分隔線 html語法:註冊<span class="controllable"></span>退出登入
+// no any snippets
+@mixin _controllableSpanLine() {
+	span.controllable {
+		padding-top: 13px; // 分隔線的高度要多高
+		padding-bottom: 3px; // 分隔線的高度要多低
+
+		padding-left: 12px; //left + right的總和=分隔線與「退出登入」的距離
+		padding-right: 0;
+
+		margin-left: 12px; // 分隔線與「註冊」的距離
+		border-left: 2px solid;
+		font-size: 0;
+		// background-color: red;//分隔線與「退出登入」之間距離的背景色
+	}
+}

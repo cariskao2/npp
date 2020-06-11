@@ -1,0 +1,16 @@
+// clearfix,在父層加入
+@mixin clear-fix {
+	&:before,
+	&:after {
+		content: '';
+		display: table;
+		font: 0/0 a;
+	}
+
+	&:after {
+		clear: both;
+		overflow: hidden;
+	}
+
+	*zoom: 1;
+}

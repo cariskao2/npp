@@ -1,0 +1,14 @@
+// 文字光暈效果 html用法<a href="#" class="text-halo-effect">Glow</a>
+// no any snippets
+@mixin _text-halo-effect($color: red) {
+	a.text-halo-effect {
+		color: red;
+		text-decoration: none;
+		font: bold 500%/1 Rockwell;
+		transition: 1s;
+
+		&:hover {
+			text-shadow: 0 0 0.1em, 0 0 0.3em;
+		}
+	}
+}
