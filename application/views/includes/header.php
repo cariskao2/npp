@@ -171,9 +171,9 @@
 							<i class="fa fa-briefcase"></i> <span>重點法案</span>
 						</a>
 						<ul class="treeview-menu">
-							<li><a href="#">法案狀態管理</a></li>
-							<li><a href="#">法案類別管理</a></li>
-							<li><a href="#">法案草案管理</a></li>
+							<li><a href="<?php echo base_url('bills/billStatusList/'); ?>">法案狀態管理</a></li>
+							<li><a href="<?php echo base_url('bills/billCategoryList/'); ?>">法案類別管理</a></li>
+							<li><a href="<?php echo base_url('bills/billCaseList/'); ?>">法案草案管理</a></li>
 							<li><a href="<?php echo base_url('issues/issuesClassList/'); ?>">議題類別管理</a></li>
 							<li><a href="<?php echo base_url('issues/issuesAllList/'); ?>">議題列表管理</a></li>
 						</ul>
