@@ -404,7 +404,7 @@ class Issues extends BaseController
 
             $result = $this->issues_model->issuesClassEditSend($userInfo, $id);
 
-            if ($result > 0) {
+            if ($result) {
                 // CodeIgniter支援「快閃資料」(Flashdata), 其為一session資料, 並只對下一次的Server請求有效, 之後就自動清除。
                 $array = array(
                     'success' => '更新成功!',

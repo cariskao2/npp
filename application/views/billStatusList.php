@@ -51,9 +51,9 @@ if (!empty($getBillStatusList)) {
 									</td>
 									<td class=" text-center">
 										<a class="btn btn-sm btn-info"
-											href="<?php echo base_url() . 'bills/statusEdit/' . $id; ?>" title="編輯"><i
+											href="<?php echo base_url() . 'bills/billStatusEdit/' . $id; ?>" title="編輯"><i
 												class="fa fa-pencil"></i></a>
-										<a class="btn btn-sm btn-danger deleteBillStatusList" data-id="<?php echo $id; ?>"
+										<a class="btn btn-sm btn-danger deleteBills" data-id="<?php echo $id; ?>"
 											title="刪除"><i class="fa fa-trash fa-lg"></i></a>
 									</td>
 								</tr>
