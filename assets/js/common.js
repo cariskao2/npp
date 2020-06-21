@@ -408,6 +408,7 @@ jQuery(document).ready(function () {
 
 	jQuery(document).on('click', '.deleteBills', function () {
 		var id = $(this).data('id'),
+			_type = $(this).data('typeid'),
 			hitURL = baseURL + 'bills/deleteBills',
 			currentRow = $(this),
 			l = $('.table tbody tr').length,
@@ -431,6 +432,7 @@ jQuery(document).ready(function () {
 					url: hitURL,
 					data: {
 						id: id,
+						type: _type
 					},
 				})
 				.done(function (data) {

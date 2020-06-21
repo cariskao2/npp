@@ -38,7 +38,43 @@ class Bills_model extends CI_Model
         // $this->db->join('issues_class as ic', 'ic.ic_id = ia.ic_id', 'inner');
 
         if (!empty($searchText)) {
-            $likeCriteria = "(ia.title LIKE '%" . $searchText . "%')";
+            $likeCriteria = "(bs.name LIKE '%" . $searchText . "%')";
+            $this->db->where($likeCriteria);
+        }
+
+        $this->db->limit($page, $segment);
+
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
+    // 法案類別列表
+    public function getBillCategoryListCount($searchText = '')
+    {
+        $this->db->select();
+        $this->db->from('bill_category as bc');
+        // $this->db->join('issues_class as ic', 'ic.ic_id = ia.ic_id', 'inner');
+
+        if (!empty($searchText)) {
+            $likeCriteria = "(bc.title LIKE '%" . $searchText . "%')";
+            $this->db->where($likeCriteria);
+        }
+
+        $query = $this->db->get();
+
+        return $query->num_rows();
+    }
+
+    public function getBillCategoryList($searchText = '', $page = 0, $segment = 0)
+    {
+        $this->db->select();
+        $this->db->from('bill_category as bc');
+        // $this->db->join('issues_class as ic', 'ic.ic_id = ia.ic_id', 'inner');
+
+        if (!empty($searchText)) {
+            $likeCriteria = "(bc.title LIKE '%" . $searchText . "%')";
             $this->db->where($likeCriteria);
         }
 
@@ -100,12 +136,37 @@ class Bills_model extends CI_Model
     .##.....##.########..########.
      */
 
+    // 法案狀態新增
     public function billStatusAddSend($userInfo)
     {
         $this->db->trans_start();
         $this->db->insert('bill_status', $userInfo);
 
         $insert_id = $this->db->insert_id();
+
+        $this->db->trans_complete();
+
+        return $insert_id;
+    }
+
+    // 法案類別新增
+    public function billCategoryAddSend($userInfo)
+    {
+        $this->db->trans_start();
+        $this->db->insert('bill_category', $userInfo);
+
+        $insert_id = $this->db->insert_id();
+
+        // 在MySQL中不能這樣寫,不能select自己又update自己
+        // $sql = "UPDATE `bill_category` SET `sort` = (SELECT MAX(sort) FROM `bill_category`)+1 WHERE `gory_id` = $insert_id";
+
+        // 所以需要更改成以下
+        // $sql = "UPDATE `bill_category`, (SELECT MAX(sort)+1 as maxid FROM `bill_category`) as a SET `sort`=a.maxid WHERE `gory_id` = $insert_id";
+
+        // 或是
+        $sql = "UPDATE `bill_category` SET `sort` = (SELECT a.maxid FROM (SELECT MAX(sort)+1 as maxid FROM `bill_category`) as a) WHERE `gory_id` = $insert_id";
+
+        $query = $this->db->query($sql);
 
         $this->db->trans_complete();
 
@@ -122,13 +183,13 @@ class Bills_model extends CI_Model
     ########  ######## ######## ########    ##    ########
      */
 
-    public function deleteBills($id, $str)
+    public function deleteBills($id, $type)
     {
-        if ($str == 'bill-status') {
+        if ($type == 'bill-status') {
             $this->db->where('status_id', $id);
             $this->db->delete('bill_status');
         }
-        if ($str == 'bill-') {
+        if ($type == 'bill-') {
             $this->db->where('ia_id', $id);
             $this->db->delete('issues_all');
 
@@ -147,6 +208,41 @@ class Bills_model extends CI_Model
     ..######..##.....##.########..######..##....##
      */
 
+    // 法案類別標題
+    public function billCategoryNameCheck($title, $id)
+    {
+        $this->db->trans_start();
+        $this->db->select();
+        $this->db->from('bill_category as bc');
+        $this->db->where('bc.title', $title);
+
+        if ($id != '') {
+            $this->db->where('category_id !=', $id);
+        }
+
+        $query = $this->db->get();
+
+        $this->db->trans_complete();
+
+        return $query->num_rows();
+    }
+
+    // 法案類別圖片名稱
+    public function billCategoryImgCheck($img)
+    {
+        $this->db->trans_start();
+        $this->db->select('img');
+        $this->db->from('bill_category');
+        $this->db->where('img', $img);
+
+        $query = $this->db->get();
+
+        $this->db->trans_complete();
+
+        return $query->num_rows();
+    }
+
+    // 法案狀態名稱
     public function billStatusNameCheck($name, $id)
     {
         $this->db->trans_start();

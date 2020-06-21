@@ -111,7 +111,15 @@ class Members_model extends CI_Model
 
         $insert_id = $this->db->insert_id();
 
-        $sql   = "UPDATE `members` SET `sort` = (SELECT MAX(sort) FROM `members`)+1 WHERE `memid` = $insert_id";
+        // 在MySQL中不能這樣寫,不能select自己又update自己
+        // $sql = "UPDATE `members` SET `sort` = (SELECT MAX(sort) FROM `members`)+1 WHERE `memid` = $insert_id";
+
+        // 所以需要更改成以下
+        // $sql = "UPDATE `members`, (SELECT MAX(sort)+1 as maxid FROM `members`) as a SET `sort`=a.maxid WHERE `memid` = $insert_id";
+
+        // 或是
+        $sql = "UPDATE `members` SET `sort` = (SELECT a.maxid FROM (SELECT MAX(sort)+1 as maxid FROM `members`) as a) WHERE `memid` = $insert_id";
+
         $query = $this->db->query($sql);
 
         $this->db->trans_complete();
@@ -151,7 +159,15 @@ class Members_model extends CI_Model
 
         $insert_id = $this->db->insert_id();
 
-        $sql   = "UPDATE `years` SET `sort` = (SELECT MAX(sort) FROM `years`)+1 WHERE `yid` = $insert_id";
+        // 在MySQL中不能這樣寫,不能select自己又update自己
+        // $sql = "UPDATE `years` SET `sort` = (SELECT MAX(sort) FROM `years`)+1 WHERE `yid` = $insert_id";
+
+        // 所以需要更改成以下
+        // $sql = "UPDATE `years`, (SELECT MAX(sort)+1 as maxid FROM `years`) as a SET `sort`=a.maxid WHERE `yid` = $insert_id";
+
+        // 或是
+        $sql = "UPDATE `years` SET `sort` = (SELECT a.maxid FROM (SELECT MAX(sort)+1 as maxid FROM `years`) as a) WHERE `yid` = $insert_id";
+
         $query = $this->db->query($sql);
 
         $this->db->trans_complete();

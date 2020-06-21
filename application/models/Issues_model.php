@@ -208,7 +208,15 @@ class Issues_model extends CI_Model
 
         $insert_id = $this->db->insert_id();
 
-        $sql   = "UPDATE `issues_class` SET `sort` = (SELECT MAX(sort) FROM `issues_class`)+1 WHERE `ic_id` = $insert_id";
+        // 在MySQL中不能這樣寫,不能select自己又update自己
+        // $sql = "UPDATE `issues_class` SET `sort` = (SELECT MAX(sort) FROM `issues_class`)+1 WHERE `ic_id` = $insert_id";
+
+        // 所以需要更改成以下
+        // $sql = "UPDATE `issues_class`, (SELECT MAX(sort)+1 as maxid FROM `issues_class`) as a SET `sort`=a.maxid WHERE `ic_id` = $insert_id";
+
+        // 或是
+        $sql = "UPDATE `issues_class` SET `sort` = (SELECT a.maxid FROM (SELECT MAX(sort)+1 as maxid FROM `issues_class`) as a) WHERE `ic_id` = $insert_id";
+
         $query = $this->db->query($sql);
 
         $this->db->trans_complete();

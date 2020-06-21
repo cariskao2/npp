@@ -9,7 +9,7 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
-										<a class="btn btn-primary" href="<?php echo base_url('bills/billStatusAdd'); ?>"><i
+										<a class="btn btn-primary" href="<?php echo base_url('bills/billCategoryAdd'); ?>"><i
 												class="fa fa-plus"></i> 新增</a>
 									</div>
 								</div>
@@ -32,11 +32,11 @@
 									<th style="width:100px" class="text-center">可執行動作</th>
 								</tr>
 								<?php
-if (!empty($getBillStatusList)) {
-    foreach ($getBillStatusList as $item) {
-        $id   = $item->status_id;
-        $show = $item->shows;
-        $name = $item->name;
+if (!empty($getBillCategoryList)) {
+    foreach ($getBillCategoryList as $item) {
+        $id   = $item->gory_id;
+        $show = $item->showsup;
+        $name = $item->title;
         ?>
 								<tr class="tr-css">
 									<td><?php echo $name; ?></td>
@@ -51,10 +51,10 @@ if (!empty($getBillStatusList)) {
 									</td>
 									<td class=" text-center">
 										<a class="btn btn-sm btn-info"
-											href="<?php echo base_url() . 'bills/billStatusEdit/' . $id; ?>" title="編輯"><i
+											href="<?php echo base_url() . 'bills/billCategoryEdit/' . $id; ?>" title="編輯"><i
 												class="fa fa-pencil"></i></a>
-										<a class="btn btn-sm btn-danger deleteBills" data-id="<?php echo $id; ?>" data-deltype="bill-status"
-											title="刪除"><i class="fa fa-trash fa-lg"></i></a>
+										<a class="btn btn-sm btn-danger deleteBills" data-id="<?php echo $id; ?>"
+											data-deltype="bill-category" title="刪除"><i class="fa fa-trash fa-lg"></i></a>
 									</td>
 								</tr>
 								<?php

@@ -24,17 +24,15 @@
 				<!-- left column -->
 				<div class="col-md-12">
 					<!-- general form elements -->
-
 					<div class="box box-primary" style="border:none;">
 						<!-- form start -->
-						<!--  enctype="multipart/form-data"記得加 -->
-						<form role="form" action="<?php echo base_url('issues/issuesAllAddSend/'); ?>" method="post" id=""
+						<form role="form" action="<?php echo base_url() ?>bills/billCategoryAddSend" method="post" id=""
 							role="form" enctype="multipart/form-data">
 							<div class="box-body">
-								<div class="row">
+							<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<label for="file" class="must">新增圖片(支援格式：jpg png gif)</label>
+											<label for="file" class="must">新增圖片(支援格式：jpg png，且圖片尺寸爲1024x420)</label>
 											<input type="file" name="file" id="file" />
 											<?php echo form_error('file'); ?>
 										</div>
@@ -44,30 +42,14 @@
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="title" class="must">標題</label>
-											<input type="text" class="form-control" id="title" name="title" value="">
+											<input type="text" class="form-control must" id="title" name="title" value=""
+												placeholder="">
 											<?php echo form_error('title'); ?>
 										</div>
 									</div>
-									<div class="col-md-4">
-										<div class="form-group">
-											<label for="ic" class="must">類別</label>
-											<select name="ic" id="ic" class="form-control mb-3"
-												style="padding-top:0;padding-bottom:0">
-												<option value="0">請選擇類別</option>
-												<?php
-if (!empty($getIssuesClassList)) {
-    foreach ($getIssuesClassList as $item) {
-        ?>
-												<option value="<?php echo $item->ic_id; ?>"><?php echo $item->name; ?></option>
-												<?php
-}
-}
-?>
-											</select>
-											<?php echo form_error('ic'); ?>
-										</div>
-									</div>
-									<div class="col-md-2">
+								</div>
+								<div class="row">
+									<div class="col-md-6">
 										<div class="form-group">
 											<label for="">顯示狀態</label>
 											<div class="input-group">
@@ -82,40 +64,35 @@ if (!empty($getIssuesClassList)) {
 										</div>
 									</div>
 								</div>
-								<div class="row">
-									<div class="col-md-12">
-										<div class="form-group">
-											<label for="introduction">簡介</label>
-											<input type="text" class="form-control" id="introduction" name="introduction" value="">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-12">
-										<label for="editor1">內文</label>
-										<textarea name="editor1" id="editor1"></textarea>
-										<script>
-											CKEDITOR.replace("editor1", {
-												filebrowserBrowseUrl: "<?php echo base_url('assets/plugins/ckeditor4/filemanager/dialog.php?type=2&editor=ckeditor&fldr='); ?>",
-												filebrowserUploadUrl: "<?php echo base_url('assets/plugins/ckeditor4/filemanager/dialog.php?type=2&editor=ckeditor&fldr='); ?>",
-												filebrowserImageBrowseUrl: "<?php echo base_url('assets/plugins/ckeditor4/filemanager/dialog.php?type=1&editor=ckeditor&fldr='); ?>",
-												// width: 1000,
-												height: 800,
-												// language: '',
-												toolbarCanCollapse: true, // ui可縮起來
-											});
-										</script>
-									</div>
-								</div>
-							</div><!-- /.box-body -->
-					</div>
+							</div>
+					</div><!-- /.box-body -->
 					<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 					</form>
 				</div>
-				<!-- <div class="col-md-12"> -->
 			</div>
+			<!-- <div class="col-md-12"> -->
 
-			<script>
+			<script language='javascript' type='text/javascript'>
+				$(function () {
+					setTimeout(function () {
+						$("#alert-success").hide();
+					}, 3000);
+				})
+
+				// 顯示狀態
+				$('#radioBtn a').on('click', function () {
+					var sel = $(this).data('title');
+					var tog = $(this).data('toggle');
+					// console.log('sel', sel);
+					// console.log('tog', tog);
+					$('#' + tog).prop('value', sel); //將該被點擊的data-title值寫入到id="happy"的value中。
+
+					// 當點擊爲Y,就把不爲Y的元素移除active並加上notActive
+					$('a[data-toggle="' + tog + '"]').not('[data-title="' + sel + '"]').removeClass('active').addClass(
+						'notActive');
+					// 當點擊爲Y,就把爲Y的元素移除notActive並加上active
+					$('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive').addClass('active');
+				})
 			</script>
 			<?php
 $this->load->helper('form');
@@ -126,13 +103,12 @@ if ($check) {
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
 			</div>
-			<?php
-unset($_SESSION['check']);
-}
-?>
+			<?php }?>
+
 			<style>
 			</style>
 			<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
 		</div>
-	</section>
+</div>
+</section>
 </div>

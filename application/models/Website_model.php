@@ -153,7 +153,15 @@ class Website_model extends CI_Model
 
         $insert_id = $this->db->insert_id();
 
-        $sql   = "UPDATE `carousel` SET `sort` = (SELECT MAX(sort) FROM `carousel`)+1 WHERE `id` = $insert_id";
+        // 在MySQL中不能這樣寫,不能select自己又update自己
+        // $sql = "UPDATE `carousel` SET `sort` = (SELECT MAX(sort) FROM `carousel`)+1 WHERE `id` = $insert_id";
+
+        // 所以需要更改成以下
+        // $sql = "UPDATE `carousel`, (SELECT MAX(sort)+1 as maxid FROM `carousel`) as a SET `sort`=a.maxid WHERE `id` = $insert_id";
+
+        // 或是
+        $sql = "UPDATE `carousel` SET `sort` = (SELECT a.maxid FROM (SELECT MAX(sort)+1 as maxid FROM `carousel`) as a) WHERE `id` = $insert_id";
+
         $query = $this->db->query($sql);
 
         $this->db->trans_complete();
