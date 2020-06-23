@@ -408,7 +408,8 @@ jQuery(document).ready(function () {
 
 	jQuery(document).on('click', '.deleteBills', function () {
 		var id = $(this).data('id'),
-			_type = $(this).data('typeid'),
+			_type = $(this).data('deltype'),
+			_img = $(this).data('img'),
 			hitURL = baseURL + 'bills/deleteBills',
 			currentRow = $(this),
 			l = $('.table tbody tr').length,
@@ -422,7 +423,21 @@ jQuery(document).ready(function () {
 			reDirect = link;
 		}
 
-		var confirmation = confirm('確認刪除此法案狀態列表 ?')
+		var _type_str = '';
+		switch (_type) {
+			case 'bill-status':
+				_type_str = '確認刪除此法案狀態列表?';
+				break;
+
+			case 'bill-category':
+				_type_str = '確認刪除此法案類別列表?';
+				break;
+
+			default:
+				break;
+		}
+
+		var confirmation = confirm(_type_str);
 
 		if (confirmation) {
 			jQuery
@@ -432,7 +447,8 @@ jQuery(document).ready(function () {
 					url: hitURL,
 					data: {
 						id: id,
-						type: _type
+						type: _type,
+						img: _img,
 					},
 				})
 				.done(function (data) {

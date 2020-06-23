@@ -37,6 +37,7 @@ if (!empty($getBillCategoryList)) {
         $id   = $item->gory_id;
         $show = $item->showsup;
         $name = $item->title;
+        $img  = $item->img;
         ?>
 								<tr class="tr-css">
 									<td><?php echo $name; ?></td>
@@ -54,7 +55,8 @@ if (!empty($getBillCategoryList)) {
 											href="<?php echo base_url() . 'bills/billCategoryEdit/' . $id; ?>" title="編輯"><i
 												class="fa fa-pencil"></i></a>
 										<a class="btn btn-sm btn-danger deleteBills" data-id="<?php echo $id; ?>"
-											data-deltype="bill-category" title="刪除"><i class="fa fa-trash fa-lg"></i></a>
+											data-deltype="bill-category" data-img="<?php echo $img; ?>" title="刪除"><i
+												class="fa fa-trash fa-lg"></i></a>
 									</td>
 								</tr>
 								<?php

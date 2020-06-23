@@ -70,7 +70,7 @@ class Bills extends BaseController
 
         $count = $this->bills_model->getBillCategoryListCount($searchText);
 
-        $returns = $this->paginationCompress('bills/billStatusList/', $count, 10, 3);
+        $returns = $this->paginationCompress('bills/billCategoryList/', $count, 10, 3);
 
         $data['getBillCategoryList'] = $this->bills_model->getBillCategoryList($searchText, $returns["page"], $returns["segment"]);
 
@@ -262,6 +262,92 @@ class Bills extends BaseController
         }
     }
 
+    // 法案類別管理編輯
+    public function billCategoryEdit($id)
+    {
+        $editProtectChcek = $this->bills_model->editProtectCheck($id, 'bill-category');
+
+        if ($editProtectChcek == 0) {
+            redirect('bills/billCategoryList/');
+        }
+
+        $this->global['navTitle']  = '重點法案 - 法案類別管理 - 編輯';
+        $this->global['navActive'] = base_url('bills/billCategoryList/');
+
+        $data = array(
+            'getBillCategoryInfo' => $this->bills_model->getBillCategoryInfo($id),
+        );
+
+        $this->loadViews("billCategoryEdit", $this->global, $data, null);
+    }
+
+    public function billCategoryEditSend($id)
+    {
+        $this->form_validation->set_rules('file', '圖片', 'callback_billCategoryImgCheck[' . $id . ']');
+        $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
+        $this->form_validation->set_rules('title', '名稱', 'trim|required|max_length[128]|callback_billCategoryNameCheck[' . $id . ']');
+        $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('check', '驗證失敗');
+            $this->billCategoryEdit($id);
+        } else {
+            $title           = $this->security->xss_clean($this->input->post('title'));
+            $showStatusCheck = $this->input->post('happy');
+            $oldImg          = $this->security->xss_clean($this->input->post('img_name'));
+
+            // File upload configuration
+            // $uploadPath = dirname(dirname(__DIR__)) . '/assets/uploads/bill_category/';
+            $uploadPath              = 'assets/uploads/bill_category/';
+            $config['upload_path']   = $uploadPath;
+            $config['allowed_types'] = 'jpg|jpeg|png';
+            // $config['allowed_types'] = 'jpg|jpeg|png|gif|svg';
+            // $config['max_size'] = 1024;
+
+            // Load and initialize upload library
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+
+            // Upload file to server
+            if ($this->upload->do_upload('file')) {
+                $fileData   = $this->upload->data();
+                $uploadData = $fileData['file_name'];
+            } else {
+                // upload debug ,loads the view display.php with error
+                $error = array('error' => $this->upload->display_errors());
+                $this->load->view('upload_debug_form', $error);
+            }
+
+            $userInfo = array(
+                'gory_id' => $id,
+                'title'   => $title,
+            );
+
+            if ($showStatusCheck != null || $showStatusCheck != '' || !empty($showStatusCheck)) {
+                $showStatus          = $showStatusCheck == 'Y' ? 1 : 0;
+                $userInfo['showsup'] = $showStatus;
+            }
+
+            // 當新圖片成功上傳時就刪除舊的圖片
+            if (!empty($uploadData)) {
+                unlink(dirname(dirname(__DIR__)) . '/assets/uploads/bill_category/' . $oldImg);
+
+                $userInfo['img'] = $uploadData;
+            }
+
+            $result = $this->bills_model->billCategoryEditSend($userInfo, $id);
+
+            if ($result) {
+                $this->session->set_flashdata('success', '新增成功!');
+            } else {
+                $this->session->set_flashdata('error', '新增失敗!');
+            }
+
+            $myRedirect = $this->session->userdata('myRedirect');
+            redirect($myRedirect);
+        }
+    }
+
 /*
 .########..########.##.......########.########.########
 .##.....##.##.......##.......##..........##....##......
@@ -274,8 +360,14 @@ class Bills extends BaseController
 
     public function deleteBills()
     {
-        $id     = $this->security->xss_clean($this->input->post('id'));
-        $type   = $this->security->xss_clean($this->input->post('type'));
+        $id   = $this->security->xss_clean($this->input->post('id'));
+        $type = $this->security->xss_clean($this->input->post('type'));
+        $img  = $this->security->xss_clean($this->input->post('img'));
+
+        if ($img != '' || $img != null) {
+            unlink(dirname(dirname(__DIR__)) . '/assets/uploads/bill_category/' . $img);
+        }
+
         $result = $this->bills_model->deleteBills($id, $type);
 
         if ($result > 0) {
@@ -370,7 +462,7 @@ class Bills extends BaseController
         $nameRepeat = $this->bills_model->billCategoryNameCheck($title, $id);
 
         if ($nameRepeat > 0) {
-            $this->form_validation->set_message('billCategoryNameCheck', '已有同名的議題列表名稱：「' . $str . '」!');
+            $this->form_validation->set_message('billCategoryNameCheck', '已有同名的類別列表名稱：「' . $str . '」!');
             $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
             return false;
         } else {

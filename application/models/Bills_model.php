@@ -116,6 +116,26 @@ class Bills_model extends CI_Model
         return true;
     }
 
+    // 法案類別
+    public function getBillCategoryInfo($id)
+    {
+        $this->db->select();
+        $this->db->from('bill_category');
+        $this->db->where('gory_id', $id);
+
+        $query = $this->db->get();
+
+        return $query->row();
+    }
+
+    public function billCategoryEditSend($userInfo, $id)
+    {
+        $this->db->where('gory_id', $id);
+        $this->db->update('bill_category', $userInfo);
+
+        return true;
+    }
+
     /*
     ..######...#######..########..########
     .##....##.##.....##.##.....##....##...
@@ -189,9 +209,9 @@ class Bills_model extends CI_Model
             $this->db->where('status_id', $id);
             $this->db->delete('bill_status');
         }
-        if ($type == 'bill-') {
-            $this->db->where('ia_id', $id);
-            $this->db->delete('issues_all');
+        if ($type == 'bill-category') {
+            $this->db->where('gory_id', $id);
+            $this->db->delete('bill_category');
 
         }
 
@@ -208,16 +228,35 @@ class Bills_model extends CI_Model
     ..######..##.....##.########..######..##....##
      */
 
-    // 法案類別標題
-    public function billCategoryNameCheck($title, $id)
+    // 法案狀態名稱
+    public function billStatusNameCheck($name, $id)
+    {
+        $this->db->trans_start();
+        $this->db->select();
+        $this->db->from('bill_status as bs');
+        $this->db->where('bs.name', $name);
+
+        if ($id != '') {
+            $this->db->where('status_id !=', $id);
+        }
+
+        $query = $this->db->get();
+
+        $this->db->trans_complete();
+
+        return $query->num_rows();
+    }
+
+    // 法案類別名稱
+    public function billCategoryNameCheck($name, $id)
     {
         $this->db->trans_start();
         $this->db->select();
         $this->db->from('bill_category as bc');
-        $this->db->where('bc.title', $title);
+        $this->db->where('bc.title', $name);
 
         if ($id != '') {
-            $this->db->where('category_id !=', $id);
+            $this->db->where('gory_id !=', $id);
         }
 
         $query = $this->db->get();
@@ -234,25 +273,6 @@ class Bills_model extends CI_Model
         $this->db->select('img');
         $this->db->from('bill_category');
         $this->db->where('img', $img);
-
-        $query = $this->db->get();
-
-        $this->db->trans_complete();
-
-        return $query->num_rows();
-    }
-
-    // 法案狀態名稱
-    public function billStatusNameCheck($name, $id)
-    {
-        $this->db->trans_start();
-        $this->db->select();
-        $this->db->from('bill_status as bs');
-        $this->db->where('bs.name', $name);
-
-        if ($id != '') {
-            $this->db->where('status_id !=', $id);
-        }
 
         $query = $this->db->get();
 
