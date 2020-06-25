@@ -469,4 +469,39 @@ class Bills extends BaseController
             return true;
         }
     }
+
+    /*
+    ..######...#######..########..########
+    .##....##.##.....##.##.....##....##...
+    .##.......##.....##.##.....##....##...
+    ..######..##.....##.########.....##...
+    .......##.##.....##.##...##......##...
+    .##....##.##.....##.##....##.....##...
+    ..######...#######..##.....##....##...
+     */
+
+    public function billCategorySort()
+    {
+
+        $this->global['navTitle']  = '重點法案 - 法案類別管理 - 排序';
+        $this->global['navActive'] = base_url('bills/billCategoryList/');
+
+        $data['billCategoryListing'] = $this->bills_model->billCategorySortList();
+
+        $this->loadViews("billCategorySort", $this->global, $data, null);
+    }
+
+    public function billCategorySortSend()
+    {
+        $sort   = $this->security->xss_clean($this->input->post('newSort'));
+        $result = $this->bills_model->billCategorySort($sort);
+
+        if ($result > 0) {
+            $this->session->set_flashdata('success', '排序已更新!');
+        } else {
+            $this->session->set_flashdata('error', '排序更新失敗!');
+        }
+        // 這裏要用排序插件的$.ajax({success})來做路徑導引導才能成功
+    }
+
 }

@@ -146,6 +146,31 @@ class Bills_model extends CI_Model
     ..######...#######..##.....##....##...
      */
 
+    //  獲得法案類別排序列表
+    public function billCategorySortList()
+    {
+        $this->db->select();
+        $this->db->from('bill_category as bc');
+        $this->db->order_by('bc.sort', 'ASC');
+
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
+    // 法案類別排序存入
+    public function billCategorySort($sort)
+    {
+        foreach ($sort as $k => $v) {
+            $k++;
+            $sql   = "UPDATE `bill_category` SET `sort` = $k WHERE `gory_id` = $v";
+            $query = $this->db->query($sql);
+        }
+
+        return true;
+    }
+
     /*
     ....###....########..########.
     ...##.##...##.....##.##.....##

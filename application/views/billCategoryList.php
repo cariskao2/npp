@@ -11,6 +11,7 @@
 									<div class="form-group">
 										<a class="btn btn-primary" href="<?php echo base_url('bills/billCategoryAdd'); ?>"><i
 												class="fa fa-plus"></i> 新增</a>
+												<a class="btn btn-success" href="<?php echo base_url('bills/billCategorySort'); ?>"><i class="fa fa-sort" aria-hidden="true"></i> 排序</a>
 									</div>
 								</div>
 							</div>
