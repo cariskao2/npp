@@ -17,7 +17,9 @@ $myRedirect = $this->session->userdata('myRedirect');
 ?>
 <script src="<?php echo base_url('assets/plugins/selectizejs/dist/js/standalone/selectize.js'); ?>"></script>
 <script src="<?php echo base_url('assets/plugins/selectizejs/js/index.js'); ?>"></script>
-<div id="loader"><div class="loader"></div></div>
+<div id="loader">
+	<div class="loader"></div>
+</div>
 <div class="content-wrapper">
 	<section>
 		<div class="functoin-on-top">
@@ -67,8 +69,9 @@ $myRedirect = $this->session->userdata('myRedirect');
 														<div class="form-group">
 															<img style="width:100px"
 																src="<?php echo base_url('assets/uploads/members_upload/' . $img); ?>">
-																<!-- 沒加form-control上下會不平均 -->
-															<input style="border:none"  type="file" name="file" class="form-control" />支援格式：jpg png gif
+															<!-- 沒加form-control上下會不平均 -->
+															<input style="border:none" type="file" name="file"
+																class="form-control" />支援格式：jpg png gif
 															<?php echo form_error('file'); ?>
 															<input type="hidden" name="img_name" value="<?php echo $img; ?>">
 														</div>
@@ -360,12 +363,13 @@ if (!empty($getContactList)) {
 									</table>
 								</div>
 							</div>
-					</div>
+							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
+						</form>
+					</div><!-- /.box-body -->
 				</div>
-			</div><!-- /.box-body -->
+			</div>
 		</div>
-		<input type="submit" class="btn btn-success submit-pos" value="儲存" />
-		</form>
+
 		<!-- 聯絡方式模板 -->
 		<template class="temp">
 			<tr class="contact-item">
@@ -398,93 +402,90 @@ if (!empty($getContactList)) {
 				</td>
 			</tr>
 		</template>
-</div>
-<!-- <div class="col-md-12"> -->
-</div>
-<script language='javascript' type='text/javascript'>
-	jQuery(document).ready(function () {
-		// textarea自動依照內容增加高度
-		function autogrow(textarea) {
-			var adjustedHeight = textarea.clientHeight;
 
-			adjustedHeight = Math.max(textarea.scrollHeight, adjustedHeight);
-			if (adjustedHeight > textarea.clientHeight) {
-				textarea.style.height = adjustedHeight + 'px';
-			}
-		}
+		<script language='javascript' type='text/javascript'>
+			jQuery(document).ready(function () {
+				// textarea自動依照內容增加高度
+				function autogrow(textarea) {
+					var adjustedHeight = textarea.clientHeight;
 
-		$('#select-issues').selectize({
-			maxItems: null,
-			plugins: ['remove_button'],
-			sortField: { //排序
-				field: 'id', // text:依據文本排序，id：依據value排序
-				direction: 'asc' // 升序降序
-			}
-		});
+					adjustedHeight = Math.max(textarea.scrollHeight, adjustedHeight);
+					if (adjustedHeight > textarea.clientHeight) {
+						textarea.style.height = adjustedHeight + 'px';
+					}
+				}
 
-		$('#select-years').selectize({
-			maxItems: null,
-			plugins: ['remove_button'],
-			sortField: { //排序
-				field: 'id', // text:依據文本排序，id：依據value排序
-				direction: 'asc' // 升序降序
-			}
-		});
+				$('#select-issues').selectize({
+					maxItems: null,
+					plugins: ['remove_button'],
+					sortField: { //排序
+						field: 'id', // text:依據文本排序，id：依據value排序
+						direction: 'asc' // 升序降序
+					}
+				});
 
-		var $selectYears = $('#select-years')[0].selectize;
-		var yearArray = <?php echo json_encode($getYearsID); ?>;
-		$selectYears.setValue(yearArray, true);
+				$('#select-years').selectize({
+					maxItems: null,
+					plugins: ['remove_button'],
+					sortField: { //排序
+						field: 'id', // text:依據文本排序，id：依據value排序
+						direction: 'asc' // 升序降序
+					}
+				});
 
-		var $selectIssues = $('#select-issues')[0].selectize;
-		var issuesArray = <?php echo json_encode($getIssuesClassID); ?>;
-		$selectIssues.setValue(issuesArray, true);
+				var $selectYears = $('#select-years')[0].selectize;
+				var yearArray = <?php echo json_encode($getYearsID); ?>;
+				$selectYears.setValue(yearArray, true);
 
-		// console.log($('link:last-of-type').attr('href'));
-		// console.log($('link:last-child').attr('href'));
-		// console.log($('link:last').attr('href'));
-		// console.log($('link').last().attr('href'));
-	});
-</script>
-<?php
+				var $selectIssues = $('#select-issues')[0].selectize;
+				var issuesArray = <?php echo json_encode($getIssuesClassID); ?>;
+				$selectIssues.setValue(issuesArray, true);
+
+				// console.log($('link:last-of-type').attr('href'));
+				// console.log($('link:last-child').attr('href'));
+				// console.log($('link:last').attr('href'));
+				// console.log($('link').last().attr('href'));
+			});
+		</script>
+		<?php
 $this->load->helper('form');
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>
-<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
-	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-	<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
-</div>
-<?php
+		<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
+		</div>
+		<?php
 unset($_SESSION['check']);
 }
 ?>
-<?php
+		<?php
 $success = $this->session->flashdata('success');
 if ($success) {
     ?>
-<div id="alert-success" class="alert-absoulte success-width alert alert-success alert-dismissable">
-	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-	<?php echo $success; ?>
-</div>
-<?php
+		<div id="alert-success" class="alert-absoulte success-width alert alert-success alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			<?php echo $success; ?>
+		</div>
+		<?php
 unset($_SESSION['success']);
 }
 ?>
-<?php
+		<?php
 $error = $this->session->flashdata('error');
 if ($error) {
     ?>
-<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
-	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-	<?php echo $error; ?>
-</div>
-<?php
+		<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			<?php echo $error; ?>
+		</div>
+		<?php
 unset($_SESSION['error']);
 }
 ?>
-<style>
-</style>
-<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
-</div>
-</section>
+		<style>
+		</style>
+		<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
+	</section>
 </div>

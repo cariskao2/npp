@@ -14,6 +14,42 @@ class Bills_model extends CI_Model
     ######## ####  ######     ##
      */
 
+    // 法案草案列表
+    public function getBillCaseListCount($searchText = '')
+    {
+        $this->db->select();
+        $this->db->from('bill_case as bc');
+        $this->db->join('bill_status as bs', 'bs.status_id = bc.status_id', 'inner');
+
+        if (!empty($searchText)) {
+            $likeCriteria = "(bc.titlename LIKE '%" . $searchText . "%')";
+            $this->db->where($likeCriteria);
+        }
+
+        $query = $this->db->get();
+
+        return $query->num_rows();
+    }
+
+    public function getBillCaseList($searchText = '', $page = 0, $segment = 0)
+    {
+        $this->db->select();
+        $this->db->from('bill_case as bc');
+        $this->db->join('bill_status as bs', 'bs.status_id = bc.status_id', 'inner');
+
+        if (!empty($searchText)) {
+            $likeCriteria = "(bc.titlename LIKE '%" . $searchText . "%')";
+            $this->db->where($likeCriteria);
+        }
+
+        $this->db->limit($page, $segment);
+
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
     // 法案狀態列表
     public function getBillStatusListCount($searchText = '')
     {
@@ -181,6 +217,70 @@ class Bills_model extends CI_Model
     .##.....##.########..########.
      */
 
+    // 其它bills相依新增 - billCase_Years_b
+    public function billCase_Years_b($Info)
+    {
+        $this->db->trans_start();
+        $this->db->insert_batch('billcase_years_b', $Info);
+        $this->db->trans_complete();
+
+        // return $insert_id;
+        return true;
+    }
+
+    //  法案草案新增 - insert
+    public function billCaseAdd($info)
+    {
+        $this->db->trans_start();
+        $this->db->insert('bill_case', $info);
+
+        $insert_id = $this->db->insert_id();
+
+        $this->db->trans_complete();
+
+        return $insert_id;
+    }
+
+    //  法案草案新增 - selectizejs
+    public function getYearsList()
+    {
+        $this->db->select();
+        $this->db->from('years as y');
+        $this->db->where('showup', 1);
+        // $this->db->order_by('sort', 'ASC');
+
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
+    //  法案草案新增 - 類別下拉選單
+    public function getBillCategory()
+    {
+        $this->db->select();
+        $this->db->from('bill_category as bc');
+        $this->db->where('showsup', 1);
+
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
+    //  法案草案新增 - 狀態下拉選單
+    public function getBillStatus()
+    {
+        $this->db->select();
+        $this->db->from('bill_status as bs');
+        $this->db->where('shows', 1);
+
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
     // 法案狀態新增
     public function billStatusAddSend($userInfo)
     {
@@ -252,6 +352,25 @@ class Bills_model extends CI_Model
     .##....##.##.....##.##.......##....##.##...##.
     ..######..##.....##.########..######..##....##
      */
+
+    //  法案草案名稱
+    public function billCaseTitleNameCheck($name, $id)
+    {
+        $this->db->trans_start();
+        $this->db->select();
+        $this->db->from('bill_case as bc');
+        $this->db->where('bc.titlename', $name);
+
+        if ($id != '') {
+            $this->db->where('case_id !=', $id);
+        }
+
+        $query = $this->db->get();
+
+        $this->db->trans_complete();
+
+        return $query->num_rows();
+    }
 
     // 法案狀態名稱
     public function billStatusNameCheck($name, $id)

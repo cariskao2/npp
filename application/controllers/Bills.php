@@ -33,6 +33,30 @@ class Bills extends BaseController
     ######## ####  ######     ##
      */
 
+    // 法案草案列表
+    public function billCaseList()
+    {
+        $this->session->unset_userdata('myRedirect');
+
+        $this->global['navTitle']  = '重點法案 - 法案草案管理 - 列表';
+        $this->global['navActive'] = base_url('bills/billCaseList/');
+
+        $searchText         = $this->security->xss_clean($this->input->post('searchText'));
+        $data['searchText'] = $searchText;
+
+        $count = $this->bills_model->getBillCaseListCount($searchText);
+
+        $returns = $this->paginationCompress('bills/billCaseList/', $count, 10, 3);
+
+        $data['getBillCaseList'] = $this->bills_model->getBillCaseList($searchText, $returns["page"], $returns["segment"]);
+
+        // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
+        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
+        $this->session->set_userdata('myRedirect', $myRedirect);
+
+        $this->loadViews('billCaseList', $this->global, $data, null);
+    }
+
     // 法案狀態列表
     public function billStatusList()
     {
@@ -90,6 +114,87 @@ class Bills extends BaseController
 .##.....##.##.....##.##.....##
 .##.....##.########..########.
  */
+
+    // 法案草案新增
+    public function billCaseAdd()
+    {
+        $this->global['navTitle']  = '重點法案 - 法案草案管理 - 新增';
+        $this->global['navActive'] = base_url('bills/billCaseList/');
+
+        $data = array(
+            'getYearsList'    => $this->bills_model->getYearsList(),
+            'getBillCategory' => $this->bills_model->getBillCategory(),
+            'getBillStatus'   => $this->bills_model->getBillStatus(),
+        );
+
+        $this->global['navTitle']  = '本黨立委 - 立委管理 - 新增';
+        $this->global['navActive'] = base_url('members/membersList/');
+
+        $this->loadViews("billCaseAdd", $this->global, $data, null);
+    }
+
+    public function billCaseAddSend()
+    {
+        $this->form_validation->set_rules('years', '屆期', 'callback_billCaseYearCheck');
+        $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
+        $this->form_validation->set_rules('titlename', '標題', 'trim|required|callback_billCaseTitleNameCheck');
+        $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
+        $this->form_validation->set_rules('introduction', '簡介', 'trim|required');
+        $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('check', '驗證失敗');
+            $this->billCaseAdd();
+        } else {
+            $category = $this->security->xss_clean($this->input->post('category'));
+            $years    = $this->security->xss_clean($this->input->post('years'));
+            $title    = $this->security->xss_clean($this->input->post('titlename'));
+            $intro    = $this->security->xss_clean($this->input->post('introduction'));
+            $status   = $this->security->xss_clean($this->input->post('status'));
+            $link     = $this->security->xss_clean($this->input->post('link'));
+            $editor   = $this->input->post('editor1');
+
+            // Insert files data into the database
+            $billCaseInfo = array(
+                'gory_id'      => $category,
+                'titlename'    => $title,
+                'introduction' => $intro,
+                'status_id'    => $status,
+                'link'         => $link,
+                'editor'       => $editor,
+            );
+
+            $insert_caseid = $this->bills_model->billCaseAdd($billCaseInfo);
+
+            // 當回傳成功insert的id且有選擇標籤時,就將此標籤的資料insert到DB
+            if ($insert_caseid > 0) {
+                if (!empty($years)) {
+                    $bills_years_info = array();
+                    $one_array        = array();
+
+                    foreach ($years as $k => $v) {
+                        $one_array['case_id'] = $insert_caseid;
+                        $one_array['yid']     = $v;
+
+                        $bills_years_info[] = $one_array;
+                    }
+
+                    $this->bills_model->billCase_Years_b($bills_years_info);
+                }
+
+                $array = array(
+                    'success' => '新增成功!',
+                );
+
+                $this->session->set_flashdata($array);
+
+                redirect('bills/billCaseList/');
+
+            } else {
+                $this->session->set_flashdata('error', '新增失敗!');
+            }
+        }
+    }
 
     //  法案狀態新增
     public function billStatusAdd()
@@ -386,6 +491,36 @@ class Bills extends BaseController
     .##....##.##.....##.##.......##....##.##...##.
     ..######..##.....##.########..######..##....##
      */
+
+    public function billCaseYearCheck($str, $id = '')
+    {
+        $years = $this->security->xss_clean($this->input->post('years'));
+
+        $r = !empty($years) ? true : false;
+
+        if (!$r) {
+            $this->form_validation->set_message('billCaseYearCheck', '屆期 欄位不可空白');
+            $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
+
+            return $r;
+        }
+
+        return $r;
+    }
+
+    public function billCaseTitleNameCheck($str, $id = '')
+    {
+        $name       = $this->security->xss_clean($this->input->post('titlename'));
+        $nameRepeat = $this->bills_model->billCaseTitleNameCheck($name, $id);
+
+        if ($nameRepeat > 0) {
+            $this->form_validation->set_message('billCaseTitleNameCheck', '已有同名的法案草案名稱：「' . $str . '」!');
+            $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     public function billStatusNameCheck($str, $id = '')
     {

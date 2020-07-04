@@ -1,6 +1,8 @@
 <script src="<?php echo base_url('assets/plugins/selectizejs/dist/js/standalone/selectize.js'); ?>"></script>
 <script src="<?php echo base_url('assets/plugins/selectizejs/js/index.js'); ?>"></script>
-<div id="loader"><div class="loader"></div></div>
+<div id="loader">
+	<div class="loader"></div>
+</div>
 <div class="content-wrapper">
 	<section>
 		<div class="functoin-on-top">
@@ -50,7 +52,8 @@
 													<td>
 														<div class="form-group">
 															<!-- 沒加form-control上下會不平均 -->
-															<input style="border:none"  type="file" name="file" class="form-control" />支援格式：jpg png gif
+															<input style="border:none" type="file" name="file"
+																class="form-control" />支援格式：jpg png gif
 															<?php echo form_error('file'); ?>
 														</div>
 													</td>
@@ -182,116 +185,118 @@ if (!empty($getIssuesClassList)) {
 										</table>
 									</div>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<table class="table table-bordered" id="contact-table">
-										<thead>
-											<tr>
-												<th colspan="3" scope="col">聯絡方式</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<!-- <th>才會自帶粗體 -->
-												<th class="text-center" style="width:170px;" scope="row">項目<input type="button"
-														class="btn btn-sm btn-info btnAdd" style="margin-left:10px" value="新增" />
-												</th>
-												<th class="text-center" colspan="2" scope="row">內容</th>
-											</tr>
-											<tr class="contact-item">
-												<th scope="row">
-													<div class="form-group">
-														<select style="padding:0 0 0 10px" class="form-control" name="contactList[]">
-															<?php
+								<div class="row">
+									<div class="col-md-12">
+										<table class="table table-bordered" id="contact-table">
+											<thead>
+												<tr>
+													<th colspan="3" scope="col">聯絡方式</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<!-- <th>才會自帶粗體 -->
+													<th class="text-center" style="width:170px;" scope="row">項目<input type="button"
+															class="btn btn-sm btn-info btnAdd" style="margin-left:10px" value="新增" />
+													</th>
+													<th class="text-center" colspan="2" scope="row">內容</th>
+												</tr>
+												<tr class="contact-item">
+													<th scope="row">
+														<div class="form-group">
+															<select style="padding:0 0 0 10px" class="form-control"
+																name="contactList[]">
+																<?php
 if (!empty($getContactList)) {
     foreach ($getContactList as $items) {
         ?>
-															<option value="<?php echo $items->con_id; ?>"
-																<?php if ($items->con_id == 1) {echo 'selected';}?>>
-																<?php echo $items->contact; ?>
-															</option>
-															<?php
+																<option value="<?php echo $items->con_id; ?>"
+																	<?php if ($items->con_id == 1) {echo 'selected';}?>>
+																	<?php echo $items->contact; ?>
+																</option>
+																<?php
 }
 }
 ?>
-														</select>
-													</div>
-												</th>
-												<td>
-													<div class="form-group">
-														<input type="text" class="form-control" name="contact[]" value="">
-													</div>
-												</td>
-												<td style="width:50px">
-													<div class="form-group">
-														<input type="button" class="btn btn-danger btnRemove" value="移除" />
-													</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
+															</select>
+														</div>
+													</th>
+													<td>
+														<div class="form-group">
+															<input type="text" class="form-control" name="contact[]" value="">
+														</div>
+													</td>
+													<td style="width:50px">
+														<div class="form-group">
+															<input type="button" class="btn btn-danger btnRemove" value="移除" />
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
 								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12">
-									<table class="table table-bordered">
-										<thead>
-											<tr>
-												<th colspan="2" scope="col">社群連結</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<th scope="row">
-													Facebook
-												</th>
-												<td>
-													<div class="form-group">
-														<input type="text" class="form-control" id="fb" name="fb" value="">
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">
-													Instagram
-												</th>
-												<td>
-													<div class="form-group">
-														<input type="text" class="form-control" id="ig" name="ig" value="">
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">
-													Line
-												</th>
-												<td>
-													<div class="form-group">
-														<input type="text" class="form-control" id="line" name="line" value="">
-													</div>
-												</td>
-											</tr>
-											<tr>
-												<th scope="row">
-													Youtube
-												</th>
-												<td>
-													<div class="form-group">
-														<input type="text" class="form-control" id="yt" name="yt" value="">
-													</div>
-												</td>
-											</tr>
-										</tbody>
-									</table>
+								<div class="row">
+									<div class="col-md-12">
+										<table class="table table-bordered">
+											<thead>
+												<tr>
+													<th colspan="2" scope="col">社群連結</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th scope="row">
+														Facebook
+													</th>
+													<td>
+														<div class="form-group">
+															<input type="text" class="form-control" id="fb" name="fb" value="">
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">
+														Instagram
+													</th>
+													<td>
+														<div class="form-group">
+															<input type="text" class="form-control" id="ig" name="ig" value="">
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">
+														Line
+													</th>
+													<td>
+														<div class="form-group">
+															<input type="text" class="form-control" id="line" name="line" value="">
+														</div>
+													</td>
+												</tr>
+												<tr>
+													<th scope="row">
+														Youtube
+													</th>
+													<td>
+														<div class="form-group">
+															<input type="text" class="form-control" id="yt" name="yt" value="">
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
 								</div>
-							</div>
+							</div><!-- /.box-body -->
+							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
+						</form>
 					</div>
 				</div>
-			</div><!-- /.box-body -->
+			</div><!-- col-md-12 -->
 		</div>
-		<input type="submit" class="btn btn-success submit-pos" value="儲存" />
-		</form>
+
 		<!-- 聯絡方式模板 -->
 		<template class="temp">
 			<tr class="contact-item">
@@ -324,71 +329,67 @@ if (!empty($getContactList)) {
 				</td>
 			</tr>
 		</template>
-</div>
-<!-- <div class="col-md-12"> -->
-</div>
 
-<script language='javascript' type='text/javascript'>
-	// textarea自動依照內容增加高度
-	function autogrow(textarea) {
-		var adjustedHeight = textarea.clientHeight;
+		<script language='javascript' type='text/javascript'>
+			// textarea自動依照內容增加高度
+			function autogrow(textarea) {
+				var adjustedHeight = textarea.clientHeight;
 
-		adjustedHeight = Math.max(textarea.scrollHeight, adjustedHeight);
-		if (adjustedHeight > textarea.clientHeight) {
-			textarea.style.height = adjustedHeight + 'px';
-		}
-	}
+				adjustedHeight = Math.max(textarea.scrollHeight, adjustedHeight);
+				if (adjustedHeight > textarea.clientHeight) {
+					textarea.style.height = adjustedHeight + 'px';
+				}
+			}
 
-	$('#select-issues').selectize({
-		maxItems: null,
-		plugins: ['remove_button'],
-		sortField: { //排序
-			field: 'id', // text:依據文本排序，id：依據value排序
-			direction: 'asc' // 升序降序
-		}
-	});
+			$('#select-issues').selectize({
+				maxItems: null,
+				plugins: ['remove_button'],
+				sortField: { //排序
+					field: 'id', // text:依據文本排序，id：依據value排序
+					direction: 'asc' // 升序降序
+				}
+			});
 
-	$('#select-years').selectize({
-		maxItems: null,
-		plugins: ['remove_button'],
-		sortField: { //排序
-			field: 'id', // text:依據文本排序，id：依據value排序
-			direction: 'asc' // 升序降序
-		}
-	});
-	// console.log($('link:last-of-type').attr('href'));
-	// console.log($('link:last-child').attr('href'));
-	// console.log($('link:last').attr('href'));
-	// console.log($('link').last().attr('href'));
-</script>
-<?php
+			$('#select-years').selectize({
+				maxItems: null,
+				plugins: ['remove_button'],
+				sortField: { //排序
+					field: 'id', // text:依據文本排序，id：依據value排序
+					direction: 'asc' // 升序降序
+				}
+			});
+			// console.log($('link:last-of-type').attr('href'));
+			// console.log($('link:last-child').attr('href'));
+			// console.log($('link:last').attr('href'));
+			// console.log($('link').last().attr('href'));
+		</script>
+		<?php
 $this->load->helper('form');
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>
-<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
-	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-	<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
-</div>
-<?php
+		<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
+		</div>
+		<?php
 unset($_SESSION['check']);
 }
 ?>
-<?php
+		<?php
 $error = $this->session->flashdata('error');
 if ($error) {
     ?>
-<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
-	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-	<?php echo $error; ?>
-</div>
-<?php
+		<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			<?php echo $error; ?>
+		</div>
+		<?php
 unset($_SESSION['error']);
 }
 ?>
-<style>
-</style>
-<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
-</div>
-</section>
+		<style>
+		</style>
+		<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
+	</section>
 </div>
