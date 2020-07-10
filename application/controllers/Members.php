@@ -606,7 +606,7 @@ class Members extends BaseController
 ..............######..##.....##.########..######..##....##
  */
 
-    public function yearSelect_check($str, $id = '')
+    public function yearSelect_check($str)
     {
         $years = $this->security->xss_clean($this->input->post('years'));
 

@@ -51,14 +51,14 @@
 								</tr>
 								<?php
 if (!empty($getBillCaseList)) {
-    $float_id = 1;
     foreach ($getBillCaseList as $items) {
         $id     = $items->case_id;
+        $f_id   = $items->float_id;
         $n      = $items->titlename;
         $status = $items->name;
         ?>
 								<tr class="tr-css">
-									<td><?php echo $float_id++; ?></td>
+									<td><?php echo $f_id; ?></td>
 									<td><?php echo $n; ?></td>
 									<td><?php echo $status; ?></td>
 									<td class=" text-center" style="width:30%">
@@ -101,7 +101,7 @@ if (!empty($getBillCaseList)) {
 <script>
 	// 分頁
 	jQuery(document).ready(function () {
-		pagination('issues/issuesClassList/');
+		pagination('bills/billCaseList/');
 	});
 </script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/common.js" charset="utf-8"></script>

@@ -14,6 +14,50 @@ class Bills_model extends CI_Model
     ######## ####  ######     ##
      */
 
+    // 先將float_id欄位全部設爲0
+    public function resetFloatId()
+    {
+        $info = array(
+            'float_id' => 0,
+        );
+
+        $this->db->where('float_id >', 0);
+        $this->db->update('bill_case', $info);
+    }
+
+    // 獲取全部bill_case的id,無論有無搜尋
+    public function getId($searchText)
+    {
+        $this->db->select();
+        $this->db->from('bill_case as bc');
+
+        if (!empty($searchText)) {
+            $likeCriteria = "(bc.titlename LIKE '%" . $searchText . "%')";
+            $this->db->where($likeCriteria);
+        }
+
+        // 這裡ASC才可在updateFloatId時,使用$k來順序更新
+        $this->db->order_by('bc.case_id', 'ASC');
+
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
+    // 使用case_id爲條件並藉由$k來順序更新
+    public function updateFloatId($getId)
+    {
+        foreach ($getId as $k => $v) {
+            $info = array(
+                'float_id' => $k + 1,
+            );
+
+            $this->db->where('case_id', $v);
+            $this->db->update('bill_case', $info);
+        }
+    }
+
     // 法案草案列表
     public function getBillCaseListCount($searchText = '')
     {
@@ -42,6 +86,7 @@ class Bills_model extends CI_Model
             $this->db->where($likeCriteria);
         }
 
+        $this->db->order_by('bc.case_id', 'DESC');
         $this->db->limit($page, $segment);
 
         $query  = $this->db->get();
@@ -131,6 +176,55 @@ class Bills_model extends CI_Model
     .##.......##.....##..##.....##...
     .########.########..####....##...
      */
+
+    //  法案草案 - bill_case - update
+    public function billCaseUpdate($who, $id, $info = '')
+    {
+        $this->db->where('case_id', $id);
+
+        if ($who == 'edit') {
+            $this->db->update('bill_case', $info);
+        } else {
+            // $this->db->delete('bill_case');
+        }
+
+        $this->db->where('case_id', $id);
+        $this->db->delete('billcase_years_b');
+
+        return true;
+    }
+
+    //  法案草案 - billcase_year_b - get
+    public function getYearsChoice($id)
+    {
+        $this->db->select();
+        $this->db->from('billcase_years_b as bcyb');
+        $this->db->join('years as y', 'bcyb.yid = y.yid', 'inner');
+        $this->db->join('bill_case as bc', 'bcyb.case_id = bc.case_id', 'inner');
+        $this->db->where('bc.case_id', $id);
+
+        $query = $this->db->get();
+
+        $arr = []; //stdClass最佳解決方案
+
+        foreach ($query->result() as $row) {
+            array_push($arr, $row->yid);
+        }
+
+        return $arr;
+    }
+
+    //  法案草案 - bill_case - get
+    public function getBillCaseInfo($id)
+    {
+        $this->db->select();
+        $this->db->from('bill_case');
+        $this->db->where('case_id', $id);
+
+        $query = $this->db->get();
+
+        return $query->row();
+    }
 
     // 法案狀態
     public function getBillStatusInfo($id)
