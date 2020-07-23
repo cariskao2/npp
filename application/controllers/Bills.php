@@ -36,7 +36,7 @@ class Bills extends BaseController
     // 法案草案列表
     public function billCaseList()
     {
-        $this->session->unset_userdata('myRedirect');
+        $this->output->set_header("Cache-Control: private");
 
         $this->global['navTitle']  = '重點法案 - 法案草案管理 - 列表';
         $this->global['navActive'] = base_url('bills/billCaseList/');
@@ -61,17 +61,13 @@ class Bills extends BaseController
 
         $data['getBillCaseList'] = $this->bills_model->getBillCaseList($searchText, $returns["page"], $returns["segment"]);
 
-        // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
-        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
-        $this->session->set_userdata('myRedirect', $myRedirect);
-
         $this->loadViews('billCaseList', $this->global, $data, null);
     }
 
     // 法案狀態列表
     public function billStatusList()
     {
-        $this->session->unset_userdata('myRedirect');
+        $this->output->set_header("Cache-Control: private");
 
         $this->global['navTitle']  = '重點法案 - 法案狀態管理 - 列表';
         $this->global['navActive'] = base_url('bills/billStatusList/');
@@ -85,17 +81,14 @@ class Bills extends BaseController
 
         $data['getBillStatusList'] = $this->bills_model->getBillStatusList($searchText, $returns["page"], $returns["segment"]);
 
-        // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
-        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
-        $this->session->set_userdata('myRedirect', $myRedirect);
-
         $this->loadViews('billStatusList', $this->global, $data, null);
     }
 
     // 法案類別列表
     public function billCategoryList()
     {
-        $this->session->unset_userdata('myRedirect');
+        // 使用chache使之在任何情況都可返回前一頁,包含搜尋以及編輯,詳細說明請參考書籤
+        $this->output->set_header("Cache-Control: private");
 
         $this->global['navTitle']  = '重點法案 - 法案類別管理 - 列表';
         $this->global['navActive'] = base_url('bills/billCategoryList/');
@@ -108,10 +101,6 @@ class Bills extends BaseController
         $returns = $this->paginationCompress('bills/billCategoryList/', $count, 10, 3);
 
         $data['getBillCategoryList'] = $this->bills_model->getBillCategoryList($searchText, $returns["page"], $returns["segment"]);
-
-        // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
-        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
-        $this->session->set_userdata('myRedirect', $myRedirect);
 
         $this->loadViews('billCategoryList', $this->global, $data, null);
     }

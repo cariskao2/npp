@@ -39,7 +39,7 @@ class Members extends BaseController
         // 參考 segment_helper.php
         // echo '<script>alert("' . uri_segment() . '")</script>';
 
-        $this->session->unset_userdata('myRedirect');
+        $this->output->set_header("Cache-Control: private");
 
         $this->global['navTitle']  = '本黨立委 - 立委管理 - 列表';
         $this->global['navActive'] = base_url('members/membersList/');
@@ -55,16 +55,13 @@ class Members extends BaseController
 
         $data['listItems'] = $this->members_model->listing(false, $searchText, $returns['page'], $returns['segment']);
 
-        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
-        $this->session->set_userdata('myRedirect', $myRedirect);
-
         $this->loadViews('membersList', $this->global, $data, null);
     }
 
     //  屆期
     public function yearLists()
     {
-        $this->session->unset_userdata('myRedirect');
+        $this->output->set_header("Cache-Control: private");
 
         $this->global['navTitle']  = '本黨立委 - 屆期管理 - 列表';
         $this->global['navActive'] = base_url('members/yearLists/');
@@ -78,9 +75,6 @@ class Members extends BaseController
 
         $data['yearLists'] = $this->members_model->yearsListing(false, $searchText, $returns["page"], $returns["segment"]);
         // $this->global['pageTitle'] = '標籤管理';
-
-        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
-        $this->session->set_userdata('myRedirect', $myRedirect);
 
         $this->loadViews("yearLists", $this->global, $data, null);
     }

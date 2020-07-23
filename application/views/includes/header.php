@@ -152,7 +152,7 @@
 						</a>
 					</li> -->
 					<li class="treeview">
-						<a href="#">
+						<a href="#" style="padding-top:17px;">
 							<i class="fa fa-globe"></i> <span>新聞訊息</span>
 							<!-- <span class="pull-right-container">
 								<i class="fa fa-angle-right pull-right"></i>
@@ -201,6 +201,30 @@
 					<?php
 if ($role == ROLE_ADMIN) {
     ?>
+					<li class="treeview">
+						<a href="<?php echo base_url(); ?>userListing/" style="cursor:pointer">
+							<i class="fa fa-user-plus"></i>
+							<span>人員管理</span>
+						</a>
+					</li>
+					<li class="treeview">
+						<a href="<?php echo base_url(); ?>userListing/" style="cursor:pointer">
+							<i class="fa fa-user-plus"></i>
+							<span>人員管理</span>
+						</a>
+					</li>
+					<li class="treeview">
+						<a href="<?php echo base_url(); ?>userListing/" style="cursor:pointer">
+							<i class="fa fa-user-plus"></i>
+							<span>人員管理</span>
+						</a>
+					</li>
+					<li class="treeview">
+						<a href="<?php echo base_url(); ?>userListing/" style="cursor:pointer">
+							<i class="fa fa-user-plus"></i>
+							<span>人員管理</span>
+						</a>
+					</li>
 					<li class="treeview">
 						<a href="<?php echo base_url(); ?>userListing/" style="cursor:pointer">
 							<i class="fa fa-user-plus"></i>

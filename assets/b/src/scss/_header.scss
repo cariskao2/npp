@@ -1,12 +1,12 @@
 //  讓左邊導航固定
-.main-header,
-.main-sidebar {
+.main-header a {
    position: fixed;
 }
 
 .main-sidebar {
    font-size: 18px;
    font-weight: bolder;
+   overflow: scroll;
 
    .treeview-menu {
       //  讓左邊導航的下拉選單固定打開
