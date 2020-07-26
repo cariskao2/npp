@@ -5,8 +5,6 @@ $sort   = $getYearInfo->sort;
 $title  = $getYearInfo->title;
 $dStart = $getYearInfo->date_start;
 $dEnd   = $getYearInfo->date_end;
-
-$myRedirect = $this->session->userdata('myRedirect');
 ?>
 <div class="content-wrapper">
 	<section>

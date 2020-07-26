@@ -257,4 +257,17 @@ class Website_model extends CI_Model
 
         return $query->num_rows();
     }
+
+    public function carouselCountsCheck()
+    {
+        $this->db->trans_start();
+        $this->db->select();
+        $this->db->from('carousel');
+
+        $query = $this->db->get();
+
+        $this->db->trans_complete();
+
+        return $query->num_rows();
+    }
 }

@@ -58,7 +58,7 @@ class Issues extends BaseController
     // 議題類別
     public function issuesClassList()
     {
-        $this->output->set_header("Cache-Control: private");
+        // $this->output->set_header("Cache-Control: private");
 
         $this->global['navTitle']  = '重點法案 - 議題類別管理 - 列表';
         $this->global['navActive'] = base_url('issues/issuesClassList/');
@@ -645,9 +645,13 @@ class Issues extends BaseController
 
         if ($result > 0) {
             $this->session->set_flashdata('success', '排序已更新!');
+            $this->session->set_userdata('issues-class-sort', true);
+            // $this->session->set_flashdata('issues-class-sort', 'true');
+            //這裡不能使用快閃資料(Flashdata),一次性的session
         } else {
             $this->session->set_flashdata('error', '排序更新失敗!');
         }
+
         // 這裏要用排序插件的$.ajax({success})來做路徑導引導才能成功
     }
 }

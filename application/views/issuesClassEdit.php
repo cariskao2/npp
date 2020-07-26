@@ -4,8 +4,6 @@ $show = $getIssuesClassInfo->showup;
 $sort = $getIssuesClassInfo->sort;
 $name = $getIssuesClassInfo->name;
 $img  = $getIssuesClassInfo->img;
-
-$myRedirect = $this->session->userdata('myRedirect');
 ?>
 <div class="content-wrapper">
 	<section>

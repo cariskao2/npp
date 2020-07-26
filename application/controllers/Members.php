@@ -61,7 +61,7 @@ class Members extends BaseController
     //  屆期
     public function yearLists()
     {
-        $this->output->set_header("Cache-Control: private");
+        // $this->output->set_header("Cache-Control: private");
 
         $this->global['navTitle']  = '本黨立委 - 屆期管理 - 列表';
         $this->global['navActive'] = base_url('members/yearLists/');
@@ -545,9 +545,7 @@ class Members extends BaseController
                 $this->session->set_flashdata('error', '更新失敗!');
             }
 
-            $myRedirect = $this->session->userdata('myRedirect');
-            redirect($myRedirect);
-            // redirect('members/yearLists/');
+            redirect('members/yearLists/');
         }
     }
 

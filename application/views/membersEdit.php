@@ -12,8 +12,6 @@ $fb         = $getMemberInfo->fb;
 $ig         = $getMemberInfo->ig;
 $line       = $getMemberInfo->line;
 $yt         = $getMemberInfo->yt;
-
-$myRedirect = $this->session->userdata('myRedirect');
 ?>
 <script src="<?php echo base_url('assets/plugins/selectizejs/dist/js/standalone/selectize.js'); ?>"></script>
 <script src="<?php echo base_url('assets/plugins/selectizejs/js/index.js'); ?>"></script>

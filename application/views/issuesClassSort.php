@@ -9,7 +9,10 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
-										<a class="btn btn-warning" onclick="history.back()" href="#">返回</a>
+										<!-- <a class="btn btn-warning" href="<?php echo base_url('issues/issuesClassList/'); ?>">返回</a> -->
+										<!-- <a class="btn btn-warning" href="#" onclick="window.location.reload()">返回</a> -->
+										<!-- <a class="btn btn-warning" href="javascript:" onclick="self.location=document.referrer;">返回上一页并刷新</a> -->
+										<a class="btn btn-warning" href="javascript:history.go(-1);">返回</a>
 									</div>
 								</div>
 							</div>

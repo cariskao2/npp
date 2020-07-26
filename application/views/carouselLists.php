@@ -11,6 +11,7 @@
 									<div class="form-group">
 										<a class="btn btn-primary" href="<?php echo base_url('website/carouselAdds'); ?>"><i class="fa fa-plus"></i> 新增</a>
 										<a class="btn btn-success" href="<?php echo base_url('website/carouselSorts'); ?>"><i class="fa fa-sort" aria-hidden="true"></i> 排序</a>
+										<span style="color:white">(最多只能建立8筆資料)</span>
 									</div>
 								</div>
 								<!-- <div class="col-xs-6">
@@ -79,9 +80,9 @@ if (!empty($getCarouselList)) {
 								<?php }?>
 							</table>
 						</div><!-- /.box-body -->
-						<div class="box-footer clearfix">
+						<!-- <div class="box-footer clearfix">
 							<?php echo $this->pagination->create_links(); ?>
-						</div>
+						</div> -->
 					</div><!-- /.box -->
 				</div>
 			</div>
@@ -92,9 +93,9 @@ if (!empty($getCarouselList)) {
 </style>
 <script>
 	// 分頁
-	jQuery(document).ready(function() {
-		pagination('website/carouselLists/');
-	});
+	// jQuery(document).ready(function() {
+	// 	pagination('website/carouselLists/');
+	// });
 </script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/common.js" charset="utf-8"></script>
 <?php
@@ -105,6 +106,15 @@ if ($error) {
 	<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">
 		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 		<?php echo $this->session->flashdata('error'); ?>
+	</div>
+<?php }?>
+<?php
+$carouselCheck = $this->session->flashdata('carouselCheck');
+if ($carouselCheck) {
+    ?>
+	<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable" style="width:300px">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+		<?php echo $this->session->flashdata('carouselCheck'); ?>
 	</div>
 <?php }?>
 <?php

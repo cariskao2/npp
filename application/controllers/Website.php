@@ -43,7 +43,7 @@ class Website extends BaseController
     {
         // 參考 segment_helper.php
         // echo '<script>alert("' . uri_segment() . '")</script>';
-        $this->output->set_header("Cache-Control: private");
+        // $this->output->set_header("Cache-Control: private");
 
         $this->global['navTitle']  = '網站管理 - 輪播管理 - 列表';
         $this->global['navActive'] = base_url('website/carouselLists/');
@@ -244,11 +244,7 @@ class Website extends BaseController
                 $this->session->set_flashdata('error', '儲存失敗!');
             }
 
-            // echo "<script>window.location.reload(false)</script>";
-            echo "<script>window.history.go(-2)</script>";
-            echo "<script>window.history.go(0)</script>";
-            // echo "<script>window.location.replace(window.location.href)</script>";
-            // $this->carouselEdit($id);
+            redirect('website/carouselLists/');
         }
     }
 
@@ -265,6 +261,14 @@ class Website extends BaseController
     // 輪播
     public function carouselAdds()
     {
+        $nums = $this->website_model->carouselCountsCheck();
+
+        if ($nums == 8) {
+            $this->session->set_flashdata('carouselCheck', '最多只能建立8筆資料!');
+
+            redirect('website/carouselLists/');
+        }
+
         $this->global['navTitle']  = '網站管理 - 輪播管理 - 新增';
         $this->global['navActive'] = base_url('website/carouselLists/');
 
