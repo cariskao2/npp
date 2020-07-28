@@ -55,6 +55,8 @@ class Members extends BaseController
 
         $data['listItems'] = $this->members_model->listing(false, $searchText, $returns['page'], $returns['segment']);
 
+        // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
+
         $this->loadViews('membersList', $this->global, $data, null);
     }
 
@@ -62,6 +64,8 @@ class Members extends BaseController
     public function yearLists()
     {
         // $this->output->set_header("Cache-Control: private");
+
+        $this->session->unset_userdata('myRedirect');
 
         $this->global['navTitle']  = '本黨立委 - 屆期管理 - 列表';
         $this->global['navActive'] = base_url('members/yearLists/');
@@ -75,6 +79,10 @@ class Members extends BaseController
 
         $data['yearLists'] = $this->members_model->yearsListing(false, $searchText, $returns["page"], $returns["segment"]);
         // $this->global['pageTitle'] = '標籤管理';
+
+        // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
+        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
+        $this->session->set_userdata('myRedirect', $myRedirect);
 
         $this->loadViews("yearLists", $this->global, $data, null);
     }
@@ -545,7 +553,9 @@ class Members extends BaseController
                 $this->session->set_flashdata('error', '更新失敗!');
             }
 
-            redirect('members/yearLists/');
+            $myRedirect = $this->session->userdata('myRedirect');
+            redirect($myRedirect);
+            // redirect('members/yearLists/');
         }
     }
 

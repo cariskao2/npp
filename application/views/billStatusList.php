@@ -89,6 +89,7 @@ if (!empty($getBillStatusList)) {
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/common.js" charset="utf-8"></script>
 <?php
 $this->load->helper('form');
+
 $success = $this->session->flashdata('success');
 if ($success) {
     ?>
@@ -99,4 +100,10 @@ if ($success) {
 <?php
 unset($_SESSION['success']);
 }
+
+// $isStatusUpdate = $this->session->userdata('bill-status-update');
+// if ($isStatusUpdate) {
+//      echo '<script>window.location.reload();</script>';
+//     unset($_SESSION['bill-status-update']);
+// }
 ?>

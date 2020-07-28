@@ -159,6 +159,7 @@ class Bills_model extends CI_Model
             $this->db->where($likeCriteria);
         }
 
+        $this->db->order_by('bc.sort', 'ASC');
         $this->db->limit($page, $segment);
 
         $query  = $this->db->get();

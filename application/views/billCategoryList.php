@@ -92,6 +92,21 @@ if (!empty($getBillCategoryList)) {
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/common.js" charset="utf-8"></script>
 <?php
 $this->load->helper('form');
+
+// 返回上一頁並刷新
+$isCategorySort   = $this->session->userdata('bill-category-sort');
+$isCategoryUpdate = $this->session->userdata('bill-category-update');
+
+if ($isCategorySort) {
+    echo '<script>window.location.reload();</script>';
+    unset($_SESSION['bill-category-sort']);
+}
+
+if ($isCategoryUpdate) {
+    echo '<script>window.location.reload();</script>';
+    unset($_SESSION['bill-category-update']);
+}
+
 $success = $this->session->flashdata('success');
 if ($success) {
     ?>

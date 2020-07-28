@@ -45,6 +45,8 @@ class Website extends BaseController
         // echo '<script>alert("' . uri_segment() . '")</script>';
         // $this->output->set_header("Cache-Control: private");
 
+        $this->session->unset_userdata('myRedirect');
+
         $this->global['navTitle']  = '網站管理 - 輪播管理 - 列表';
         $this->global['navActive'] = base_url('website/carouselLists/');
 
@@ -55,6 +57,10 @@ class Website extends BaseController
         $returns = $this->paginationCompress("website/carouselList/", $count, 10, 3);
 
         $data['getCarouselList'] = $this->website_model->carouselListing(false, $searchText, $returns["page"], $returns["segment"]);
+
+        // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
+        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
+        $this->session->set_userdata('myRedirect', $myRedirect);
 
         $this->loadViews("carouselLists", $this->global, $data, null);
     }
@@ -244,7 +250,9 @@ class Website extends BaseController
                 $this->session->set_flashdata('error', '儲存失敗!');
             }
 
-            redirect('website/carouselLists/');
+            $myRedirect = $this->session->userdata('myRedirect');
+            redirect($myRedirect);
+            // redirect('website/carouselLists/');
         }
     }
 

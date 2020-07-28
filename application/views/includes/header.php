@@ -124,12 +124,12 @@
 
 								</li>
 								<!-- Menu Footer-->
-								<li class="user-footer">
+								<li class="user-footer" style="height:50px">
 									<div class="pull-left">
 										<a href="<?php echo base_url(); ?>profile" class="btn btn-warning btn-flat"><i
 												class="fa fa-user-circle"></i> 個人檔案</a>
 									</div>
-									<div class="pull-right">
+									<div style="margin-left:190px">
 										<a href="<?php echo base_url(); ?>logout" class="btn btn-default btn-flat"><i
 												class="fa fa-sign-out"></i> 登出</a>
 									</div>

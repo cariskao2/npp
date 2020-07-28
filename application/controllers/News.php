@@ -82,8 +82,13 @@ class News extends BaseController
     // 標籤
     public function tagLists()
     {
-        $this->output->set_header("Cache-Control: private");
-        $this->global['navTitle'] = '新聞訊息 - 標籤列表';
+        // $this->output->set_header("Cache-Control: private");
+
+        $this->session->unset_userdata('myRedirect');
+
+        // $this->global['pageTitle'] = '標籤管理';
+        $this->global['navActive'] = base_url('news/tagLists/');
+        $this->global['navTitle']  = '新聞訊息 - 標籤列表';
 
         $searchText         = $this->security->xss_clean($this->input->post('searchText'));
         $data['searchText'] = $searchText;
@@ -93,8 +98,10 @@ class News extends BaseController
         $returns = $this->paginationCompress("news/tagLists/", $count, 10, 3);
 
         $data['newsTags'] = $this->news_model->tagsListing($searchText, $returns["page"], $returns["segment"]);
-        // $this->global['pageTitle'] = '標籤管理';
-        $this->global['navActive'] = base_url('news/tagLists/');
+
+        // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
+        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
+        $this->session->set_userdata('myRedirect', $myRedirect);
 
         $this->loadViews("tagLists", $this->global, $data, null);
     }

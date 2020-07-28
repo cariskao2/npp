@@ -8,7 +8,9 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
-										<a class="btn btn-warning" onclick="history.back()" href="#">返回</a>
+										<a class="btn btn-warning"
+											href="<?php echo base_url($this->session->userdata('myRedirect')); ?>">返回</a>
+										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 									</div>
 								</div>
 							</div>
@@ -32,7 +34,7 @@
 									<div class="col-md-12">
 										<div class="form-group">
 											<label for="img" class="must">新增圖片(支援格式：jpg png gif)</label>
-											<input type="file" name="file"/>
+											<input type="file" name="file" />
 											<?php echo form_error('file'); ?>
 										</div>
 									</div>

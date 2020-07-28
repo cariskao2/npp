@@ -9,6 +9,7 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
+										<!-- <a class="btn btn-warning" href="javascript:history.go(-1);">返回</a> -->
 										<a class="btn btn-warning" onclick="history.back()" href="#">返回</a>
 									</div>
 								</div>

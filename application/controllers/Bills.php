@@ -67,7 +67,10 @@ class Bills extends BaseController
     // 法案狀態列表
     public function billStatusList()
     {
-        $this->output->set_header("Cache-Control: private");
+        // 會紀錄session導致返回時讀不到session,而且因爲紀錄了之前的狀態,所以影響了views的刷新
+        // $this->output->set_header("Cache-Control: private");
+
+        $this->session->unset_userdata('myRedirect');
 
         $this->global['navTitle']  = '重點法案 - 法案狀態管理 - 列表';
         $this->global['navActive'] = base_url('bills/billStatusList/');
@@ -81,6 +84,10 @@ class Bills extends BaseController
 
         $data['getBillStatusList'] = $this->bills_model->getBillStatusList($searchText, $returns["page"], $returns["segment"]);
 
+        // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
+        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
+        $this->session->set_userdata('myRedirect', $myRedirect);
+
         $this->loadViews('billStatusList', $this->global, $data, null);
     }
 
@@ -88,7 +95,9 @@ class Bills extends BaseController
     public function billCategoryList()
     {
         // 使用chache使之在任何情況都可返回前一頁,包含搜尋以及編輯,詳細說明請參考書籤
-        $this->output->set_header("Cache-Control: private");
+        // $this->output->set_header("Cache-Control: private");
+
+        $this->session->unset_userdata('myRedirect');
 
         $this->global['navTitle']  = '重點法案 - 法案類別管理 - 列表';
         $this->global['navActive'] = base_url('bills/billCategoryList/');
@@ -101,6 +110,10 @@ class Bills extends BaseController
         $returns = $this->paginationCompress('bills/billCategoryList/', $count, 10, 3);
 
         $data['getBillCategoryList'] = $this->bills_model->getBillCategoryList($searchText, $returns["page"], $returns["segment"]);
+
+        // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
+        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
+        $this->session->set_userdata('myRedirect', $myRedirect);
 
         $this->loadViews('billCategoryList', $this->global, $data, null);
     }
@@ -435,11 +448,13 @@ class Bills extends BaseController
             $result = $this->bills_model->billStatusEditSend($userInfo, $id);
 
             if ($result) {
-                $this->session->set_flashdata('success', '新增成功!');
+                $this->session->set_flashdata('success', '更新成功!');
+                // $this->session->set_userdata('bill-status-update', true);
             } else {
-                $this->session->set_flashdata('error', '新增失敗!');
+                $this->session->set_flashdata('error', '更新失敗!');
             }
 
+            // echo '<script>history.go(-2);</script>';
             $myRedirect = $this->session->userdata('myRedirect');
             redirect($myRedirect);
         }
@@ -521,11 +536,13 @@ class Bills extends BaseController
             $result = $this->bills_model->billCategoryEditSend($userInfo, $id);
 
             if ($result) {
-                $this->session->set_flashdata('success', '新增成功!');
+                $this->session->set_flashdata('success', '更新成功!');
+                // $this->session->set_userdata('bill-category-update', true);
             } else {
-                $this->session->set_flashdata('error', '新增失敗!');
+                $this->session->set_flashdata('error', '更新失敗!');
             }
 
+            // echo '<script>history.go(-2);</script>';
             $myRedirect = $this->session->userdata('myRedirect');
             redirect($myRedirect);
         }
@@ -711,6 +728,9 @@ class Bills extends BaseController
 
         if ($result > 0) {
             $this->session->set_flashdata('success', '排序已更新!');
+            $this->session->set_userdata('bill-category-sort', true);
+            // $this->session->set_flashdata('bill-category-sort', 'true');
+            //這裡不能使用快閃資料(Flashdata),一次性的session
         } else {
             $this->session->set_flashdata('error', '排序更新失敗!');
         }

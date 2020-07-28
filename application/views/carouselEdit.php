@@ -5,8 +5,6 @@ $img          = $getCarouselInfo->img;
 $title        = $getCarouselInfo->title;
 $introduction = $getCarouselInfo->introduction;
 $link         = $getCarouselInfo->link;
-
-$myRedirect = $this->session->userdata('myRedirect');
 ?>
 <div class="content-wrapper">
 	<section>
@@ -18,7 +16,9 @@ $myRedirect = $this->session->userdata('myRedirect');
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
-										<a class="btn btn-warning" onclick="history.back()" href="#">返回</a>
+										<a class="btn btn-warning"
+											href="<?php echo base_url($this->session->userdata('myRedirect')); ?>">返回</a>
+										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 									</div>
 								</div>
 							</div>
