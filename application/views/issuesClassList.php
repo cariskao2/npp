@@ -112,12 +112,12 @@ if (!empty($issuesClassList)) {
 <?php
 $this->load->helper('form');
 
-// 返回上一頁並刷新
-$isIssues = $this->session->userdata('issues-class-sort');
-if ($isIssues) {
-    echo '<script>window.location.reload();</script>';
-    unset($_SESSION['issues-class-sort']);
-}
+// 返回這一頁並刷新
+// $isIssues = $this->session->userdata('issues-class-sort');
+// if ($isIssues) {
+//     echo '<script>window.location.reload();</script>';
+//     unset($_SESSION['issues-class-sort']);
+// }
 
 $success = $this->session->flashdata('success');
 if ($success) {

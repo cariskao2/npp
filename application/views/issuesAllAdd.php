@@ -1,3 +1,6 @@
+<?php
+$issuesAddBack = $this->session->userdata('issues-add-back');
+?>
 <div class="content-wrapper">
 	<section>
 		<div class="functoin-on-top">
@@ -8,7 +11,9 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
-										<a class="btn btn-warning" onclick="history.back()" href="#">返回</a>
+										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
+										<!-- <a class="btn btn-warning" href="javascript:history.go(-2);">返回</a> -->
+										<a class="btn btn-warning" href="javascript:history.go(<?php echo $issuesAddBack * -1; ?>);">返回</a>
 									</div>
 								</div>
 							</div>
@@ -115,9 +120,14 @@ if (!empty($getIssuesClassList)) {
 			</div>
 
 			<script>
+				$.cookie('issues-add-refresh', 'ok', {
+					path: '/'
+				});
+				// console.log('issues-refresh-add', $.cookie('issues-add-refresh'));
 			</script>
 			<?php
 $this->load->helper('form');
+
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>

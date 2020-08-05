@@ -36,12 +36,17 @@ class Issues extends BaseController
     // 議題列表
     public function issuesAllList()
     {
+        $this->session->unset_userdata('issues-add-back');
+        $this->session->unset_userdata('issues-edit-back');
+        $this->session->unset_userdata('issues-edit-check');
+
         $this->output->set_header("Cache-Control: private");
 
         $this->global['navTitle']  = '重點法案 - 議題列表管理 - 列表';
         $this->global['navActive'] = base_url('issues/issuesAllList/');
 
-        $searchText         = $this->security->xss_clean($this->input->post('searchText'));
+        $searchText = $this->security->xss_clean($this->input->post('searchText'));
+
         $data['searchText'] = $searchText;
 
         $count = $this->issues_model->issuesAllListingCount($searchText);
@@ -49,8 +54,6 @@ class Issues extends BaseController
         $returns = $this->paginationCompress('issues/issuesAllList/', $count, 10, 3);
 
         $data['issuesAllList'] = $this->issues_model->issuesAllListing($searchText, $returns["page"], $returns["segment"]);
-
-        // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
 
         $this->loadViews('issuesAllList', $this->global, $data, null);
     }
@@ -95,6 +98,12 @@ class Issues extends BaseController
 //  議題列表
     public function issuesAllAdd()
     {
+        $issuesAddBack = $this->session->userdata('issues-add-back');
+
+        if ($issuesAddBack == null) {
+            $this->session->set_userdata('issues-add-back', 1);
+        }
+
         $this->global['navTitle']  = '重點法案 - 議題列表管理 - 新增';
         $this->global['navActive'] = base_url('issues/issuesAllList/');
 
@@ -115,7 +124,11 @@ class Issues extends BaseController
         $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
 
         if ($this->form_validation->run() == false) {
+            $issuesAddBack = $this->session->userdata('issues-add-back');
+
+            $this->session->set_userdata('issues-add-back', $issuesAddBack + 1);
             $this->session->set_flashdata('check', '驗證失敗');
+
             $this->issuesAllAdd();
         } else {
             $title           = $this->security->xss_clean($this->input->post('title'));
@@ -251,6 +264,16 @@ class Issues extends BaseController
             redirect('issues/issuesAllList/');
         }
 
+        if (!isset($_SESSION['issues-edit-check'])) {
+            $_SESSION['issues-edit-check'] = 0;
+        }
+
+        $issuesEditBack = $this->session->userdata('issues-edit-back');
+
+        if ($issuesEditBack == null) {
+            $this->session->set_userdata('issues-edit-back', 1);
+        }
+
         $this->global['navTitle']  = '重點法案 - 議題類別管理 - 編輯';
         $this->global['navActive'] = base_url('issues/issuesAllList/');
 
@@ -272,7 +295,18 @@ class Issues extends BaseController
         $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
 
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('check', '驗證失敗');
+            // 若爲手動刷新就不增加增加issues-edit-back的次數(避免重複送出)
+            // 說明：若點擊後驗證失敗到這裡時,一開始爲0=0,然後$_SESSION['issues-edit-check']+=1之後會導引到issuesAllEdit,此時$_POST['issues-edit-check']的值=$_SESSION['issues-edit-check']。
+            // 但是如果是使用者手動刷新,則不會導引到issuesAllEdit,所以只有$_SESSION['issues-edit-check']+1,$_POST['issues-edit-check']值不變。
+            if ($_SESSION['issues-edit-check'] == $_POST['issues-edit-check']) {
+                $_SESSION['issues-edit-check'] += 1;
+
+                $issuesEditBack = $this->session->userdata('issues-edit-back');
+                $this->session->set_userdata('issues-edit-back', $issuesEditBack + 1);
+                $this->session->set_flashdata('check', '驗證失敗');
+            }
+
+            // 不可放入上方if中,會導致驗證失敗時,要引導回頁面時,會找不到頁面
             $this->issuesAllEdit($id);
         } else {
             $title           = $this->security->xss_clean($this->input->post('title'));
@@ -298,9 +332,9 @@ class Issues extends BaseController
                 $fileData   = $this->upload->data();
                 $uploadData = $fileData['file_name'];
             } else {
-                // upload debug ,loads the view display.php with error
-                $error = array('error' => $this->upload->display_errors());
-                $this->load->view('upload_debug_form', $error);
+                // upload debug ,loads the view display.php with error(edit的部分需要debug再開啓,否則沒選擇會導引到除錯頁面)
+                // $error = array('error' => $this->upload->display_errors());
+                // $this->load->view('upload_debug_form', $error);
             }
 
             $userInfo = array(
@@ -325,13 +359,16 @@ class Issues extends BaseController
             $result = $this->issues_model->issuesAllEditSend($userInfo, $id);
 
             if ($result > 0) {
+                // $this->session->set_userdata('success', '新增成功!');
                 $this->session->set_flashdata('success', '新增成功!');
             } else {
                 $this->session->set_flashdata('error', '新增失敗!');
             }
 
-            $myRedirect = $this->session->userdata('myRedirect');
-            redirect($myRedirect);
+            $issuesEditBack = $this->session->userdata('issues-edit-back');
+            $issuesEditBack = $issuesEditBack * -1 - 1;
+
+            echo "<script>history.go($issuesEditBack);</script>";
         }
     }
 
@@ -636,7 +673,6 @@ class Issues extends BaseController
      */
     public function issuesClassSort()
     {
-
         $this->global['navTitle']  = '重點法案 - 議題類別管理 - 排序';
         $this->global['navActive'] = base_url('issues/issuesClassList/');
 
@@ -652,7 +688,7 @@ class Issues extends BaseController
 
         if ($result > 0) {
             $this->session->set_flashdata('success', '排序已更新!');
-            $this->session->set_userdata('issues-class-sort', true);
+            // $this->session->set_userdata('issues-class-sort', true);
             // $this->session->set_flashdata('issues-class-sort', 'true');
             //這裡不能使用快閃資料(Flashdata),一次性的session
         } else {

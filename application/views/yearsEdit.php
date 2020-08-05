@@ -104,12 +104,6 @@ $notActive = $show == 0 ? 'active' : 'notActive';
 			<!-- <div class="col-md-12"> -->
 
 			<script language='javascript' type='text/javascript'>
-				$(function () {
-					setTimeout(function () {
-						$("#alert-success").hide();
-					}, 3000);
-				})
-
 				// 顯示狀態
 				$('#radioBtn a').on('click', function () {
 					var sel = $(this).data('title');

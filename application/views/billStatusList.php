@@ -100,10 +100,4 @@ if ($success) {
 <?php
 unset($_SESSION['success']);
 }
-
-// $isStatusUpdate = $this->session->userdata('bill-status-update');
-// if ($isStatusUpdate) {
-//      echo '<script>window.location.reload();</script>';
-//     unset($_SESSION['bill-status-update']);
-// }
 ?>

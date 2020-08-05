@@ -6,6 +6,8 @@ $title  = $getIssuesAllInfo->title;
 $intro  = $getIssuesAllInfo->introduction;
 $editor = $getIssuesAllInfo->editor;
 $img    = $getIssuesAllInfo->img;
+
+$issuesEditBack = $this->session->userdata('issues-edit-back');
 ?>
 <div class="content-wrapper">
 	<section>
@@ -17,7 +19,8 @@ $img    = $getIssuesAllInfo->img;
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
-										<a class="btn btn-warning" onclick="history.back()" href="#">返回</a>
+										<a class="btn btn-warning" href="javascript:history.go(<?php echo $issuesEditBack * -1; ?>);">返回</a>
+										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 									</div>
 								</div>
 							</div>
@@ -56,6 +59,7 @@ $img    = $getIssuesAllInfo->img;
 											<input style="border:none" class="form-control" id="img" type="file" name="file" size="20" />
 											<?php echo form_error('file'); ?>
 											<input type="hidden" name="img_name" value="<?php echo $img; ?>">
+											<input type="hidden" name="issues-edit-check" value="<?php echo $_SESSION['issues-edit-check']; ?>">
 										</div>
 									</div>
 								</div>
@@ -139,9 +143,13 @@ $notActive = $show == 0 ? 'active' : 'notActive';
 			</div>
 
 			<script>
+				$.cookie('issues-edit-refresh', 'ok', {
+					path: '/'
+				});
+				// console.log('issues-refresh-edit', $.cookie('issues-edit-refresh'));
 			</script>
 			<?php
-$this->load->helper('form');
+// $this->load->helper('form');
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>
@@ -150,7 +158,6 @@ if ($check) {
 				<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
 			</div>
 			<?php
-unset($_SESSION['check']);
 }
 ?>
 			<style>

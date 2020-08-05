@@ -1,3 +1,6 @@
+<div id="loader">
+	<div class="loader"></div>
+</div>
 <div class="content-wrapper">
 	<!-- <section class="content"> -->
 	<section>
@@ -74,8 +77,8 @@ if (!empty($issuesAllList)) {
 										<a class="btn btn-sm btn-info"
 											href="<?php echo base_url() . 'issues/issuesAllEdit/' . $id; ?>" title="編輯"><i
 												class="fa fa-pencil"></i></a>
-										<a class="btn btn-sm btn-danger deleteIssuesAll" data-img=<?php echo $img; ?> data-id="<?php echo $id; ?>"
-											title="刪除"><i class="fa fa-trash fa-lg"></i></a>
+										<a class="btn btn-sm btn-danger deleteIssuesAll" data-img=<?php echo $img; ?>
+											data-id="<?php echo $id; ?>" title="刪除"><i class="fa fa-trash fa-lg"></i></a>
 									</td>
 								</tr>
 								<?php
@@ -106,14 +109,34 @@ if (!empty($issuesAllList)) {
 	}
 </style>
 <script>
-	// 分頁
-	jQuery(document).ready(function () {
+	// console.log('issues-refresh-add-1', $.cookie('issues-add-refresh'));
+	// console.log('issues-refresh-edit-1', $.cookie('issues-edit-refresh'));
+
+	if ($.cookie('issues-add-refresh') == 'ok' || $.cookie('issues-edit-refresh') == 'ok') {
+		$.removeCookie('issues-add-refresh', {
+			path: '/'
+		});
+
+		$.removeCookie('issues-edit-refresh', {
+			path: '/'
+		});
+
+		window.location.reload();
+
+		// console.log('issues-refresh-add-2', $.cookie('issues-add-refresh'));
+		// console.log('issues-refresh-edit-2', $.cookie('issues-edit-refresh'));
+	} else{
+		$('#loader').hide(0);// 在下方的頁數切換時不會產生動畫,只有進入新增或是編輯才會產生動畫
+	}
+
+	$(function () {
+		// 分頁
 		pagination('issues/issuesAllList/');
 	});
 </script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/common.js" charset="utf-8"></script>
 <?php
-$this->load->helper('form');
+// $this->load->helper('form');
 $success = $this->session->flashdata('success');
 if ($success) {
     ?>
@@ -122,6 +145,5 @@ if ($success) {
 	<?php echo $success; ?>
 </div>
 <?php
-unset($_SESSION['success']);
 }
 ?>

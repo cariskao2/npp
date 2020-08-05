@@ -55,6 +55,7 @@
 	</style>
 	<script src="<?php echo base_url(); ?>assets/bower_components/jquery/dist/jquery.js"></script>
 	<script src="<?php echo base_url(); ?>assets/bower_components/jquery-ui/jquery-ui.min.js"></script>
+	<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/plugins/ckeditor4/ckeditor/ckeditor.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/jquery.validate.js" type="text/javascript"></script>
 	<script src="<?php echo base_url(); ?>assets/js/validation.js" type="text/javascript"></script>
