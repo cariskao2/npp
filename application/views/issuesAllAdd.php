@@ -1,5 +1,5 @@
 <?php
-$issuesAddBack = $this->session->userdata('issues-add-back');
+$issuesAddBackPages = $this->session->userdata('issues-add-back-pages');
 ?>
 <div class="content-wrapper">
 	<section>
@@ -13,7 +13,7 @@ $issuesAddBack = $this->session->userdata('issues-add-back');
 									<div class="form-group">
 										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 										<!-- <a class="btn btn-warning" href="javascript:history.go(-2);">返回</a> -->
-										<a class="btn btn-warning" href="javascript:history.go(<?php echo $issuesAddBack * -1; ?>);">返回</a>
+										<a class="btn btn-warning" href="javascript:history.go(<?php echo $issuesAddBackPages * -1; ?>);">返回</a>
 									</div>
 								</div>
 							</div>
@@ -113,6 +113,7 @@ if (!empty($getIssuesClassList)) {
 								</div>
 							</div><!-- /.box-body -->
 					</div>
+					<input type="hidden" name="is-issues-add" value="<?php echo $_SESSION['is-issues-add']; ?>">
 					<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 					</form>
 				</div>

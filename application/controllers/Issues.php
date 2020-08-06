@@ -36,9 +36,10 @@ class Issues extends BaseController
     // 議題列表
     public function issuesAllList()
     {
-        $this->session->unset_userdata('issues-add-back');
-        $this->session->unset_userdata('issues-edit-back');
-        $this->session->unset_userdata('issues-edit-check');
+        $this->session->unset_userdata('issues-add-back-pages');
+        $this->session->unset_userdata('issues-edit-back-pages');
+        $this->session->unset_userdata('is-issues-edit');
+        $this->session->unset_userdata('is-issues-add');
 
         $this->output->set_header("Cache-Control: private");
 
@@ -98,10 +99,15 @@ class Issues extends BaseController
 //  議題列表
     public function issuesAllAdd()
     {
-        $issuesAddBack = $this->session->userdata('issues-add-back');
+        // 避免重複送出
+        if (!isset($_SESSION['is-issues-add'])) {
+            $_SESSION['is-issues-add'] = 0;
+        }
 
-        if ($issuesAddBack == null) {
-            $this->session->set_userdata('issues-add-back', 1);
+        $issuesAddBackPages = $this->session->userdata('issues-add-back-pages');
+
+        if ($issuesAddBackPages == null) {
+            $this->session->set_userdata('issues-add-back-pages', 1);
         }
 
         $this->global['navTitle']  = '重點法案 - 議題列表管理 - 新增';
@@ -124,10 +130,13 @@ class Issues extends BaseController
         $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
 
         if ($this->form_validation->run() == false) {
-            $issuesAddBack = $this->session->userdata('issues-add-back');
+            if ($_SESSION['is-issues-add'] == $_POST['is-issues-add']) {
+                $_SESSION['is-issues-add'] += 1;
 
-            $this->session->set_userdata('issues-add-back', $issuesAddBack + 1);
-            $this->session->set_flashdata('check', '驗證失敗');
+                $issuesAddBackPages = $this->session->userdata('issues-add-back-pages');
+                $this->session->set_userdata('issues-add-back-pages', $issuesAddBackPages + 1);
+                $this->session->set_flashdata('check', '驗證失敗');
+            }
 
             $this->issuesAllAdd();
         } else {
@@ -264,14 +273,15 @@ class Issues extends BaseController
             redirect('issues/issuesAllList/');
         }
 
-        if (!isset($_SESSION['issues-edit-check'])) {
-            $_SESSION['issues-edit-check'] = 0;
+        // 避免重複送出
+        if (!isset($_SESSION['is-issues-edit'])) {
+            $_SESSION['is-issues-edit'] = 0;
         }
 
-        $issuesEditBack = $this->session->userdata('issues-edit-back');
+        $issuesEditBackPages = $this->session->userdata('issues-edit-back-pages');
 
-        if ($issuesEditBack == null) {
-            $this->session->set_userdata('issues-edit-back', 1);
+        if ($issuesEditBackPages == null) {
+            $this->session->set_userdata('issues-edit-back-pages', 1);
         }
 
         $this->global['navTitle']  = '重點法案 - 議題類別管理 - 編輯';
@@ -295,14 +305,14 @@ class Issues extends BaseController
         $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
 
         if ($this->form_validation->run() == false) {
-            // 若爲手動刷新就不增加增加issues-edit-back的次數(避免重複送出)
-            // 說明：若點擊後驗證失敗到這裡時,一開始爲0=0,然後$_SESSION['issues-edit-check']+=1之後會導引到issuesAllEdit,此時$_POST['issues-edit-check']的值=$_SESSION['issues-edit-check']。
-            // 但是如果是使用者手動刷新,則不會導引到issuesAllEdit,所以只有$_SESSION['issues-edit-check']+1,$_POST['issues-edit-check']值不變。
-            if ($_SESSION['issues-edit-check'] == $_POST['issues-edit-check']) {
-                $_SESSION['issues-edit-check'] += 1;
+            // 若爲手動刷新就不增加增加issues-edit-back-pages的次數(避免重複送出)
+            // 說明：若點擊後驗證失敗到這裡時,一開始爲0=0,然後$_SESSION['is-issues-edit']+=1之後會導引到issuesAllEdit,此時$_POST['is-issues-edit']的值=$_SESSION['is-issues-edit']。
+            // 但是如果是使用者手動刷新,則不會導引到issuesAllEdit,所以只有$_SESSION['is-issues-edit']+1,$_POST['is-issues-edit']值不變。
+            if ($_SESSION['is-issues-edit'] == $_POST['is-issues-edit']) {
+                $_SESSION['is-issues-edit'] += 1;
 
-                $issuesEditBack = $this->session->userdata('issues-edit-back');
-                $this->session->set_userdata('issues-edit-back', $issuesEditBack + 1);
+                $issuesEditBackPages = $this->session->userdata('issues-edit-back-pages');
+                $this->session->set_userdata('issues-edit-back-pages', $issuesEditBackPages + 1);
                 $this->session->set_flashdata('check', '驗證失敗');
             }
 
@@ -365,10 +375,10 @@ class Issues extends BaseController
                 $this->session->set_flashdata('error', '新增失敗!');
             }
 
-            $issuesEditBack = $this->session->userdata('issues-edit-back');
-            $issuesEditBack = $issuesEditBack * -1 - 1;
+            $issuesEditBackPages = $this->session->userdata('issues-edit-back-pages');
+            $issuesEditBackPages = $issuesEditBackPages * -1 - 1;
 
-            echo "<script>history.go($issuesEditBack);</script>";
+            echo "<script>history.go($issuesEditBackPages);</script>";
         }
     }
 

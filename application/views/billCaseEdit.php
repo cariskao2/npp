@@ -7,7 +7,8 @@ $intro     = $getBillCaseInfo->introduction;
 $e         = $getBillCaseInfo->editor;
 $link      = $getBillCaseInfo->link;
 
-$myRedirect = $this->session->userdata('myRedirect');
+// $myRedirect = $this->session->userdata('myRedirect');
+$billEditBackPages = $this->session->userdata('bill-edit-back-pages');
 ?>
 <script src="<?php echo base_url('assets/plugins/selectizejs/dist/js/standalone/selectize.js'); ?>"></script>
 <script src="<?php echo base_url('assets/plugins/selectizejs/js/index.js'); ?>"></script>
@@ -24,7 +25,8 @@ $myRedirect = $this->session->userdata('myRedirect');
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
-										<a class="btn btn-warning" onclick="history.back()" href="#">返回</a>
+										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
+										<a class="btn btn-warning" href="javascript:history.go(<?php echo $billEditBackPages * -1; ?>);">返回</a>
 									</div>
 								</div>
 							</div>
@@ -60,7 +62,7 @@ $myRedirect = $this->session->userdata('myRedirect');
 														<span class="must">*</span>類別
 													</th>
 													<td>
-														<select class="form-control" id="" name="category" placeholder="請選擇類別">
+														<select style="padding-top:0;padding-bottom:0" class="form-control" id="" name="category" placeholder="請選擇類別">
 															<?php
 if (!empty($getBillCategory)) {
     foreach ($getBillCategory as $items) {
@@ -131,7 +133,7 @@ if (!empty($getYearsList)) {
 														狀態
 													</th>
 													<td>
-														<select class="form-control" id="" name="status" placeholder="請選擇狀態">
+														<select style="padding-top:0;padding-bottom:0" class="form-control" id="" name="status" placeholder="請選擇狀態">
 															<?php
 if (!empty($getBillStatus)) {
     foreach ($getBillStatus as $items) {
@@ -183,6 +185,7 @@ if (!empty($getBillStatus)) {
 									</div>
 								</div>
 							</div><!-- /.box-body -->
+							<input type="hidden" name="is-bill-edit" value="<?php echo $_SESSION['is-bill-edit']; ?>">
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div>
@@ -191,6 +194,10 @@ if (!empty($getBillStatus)) {
 		</div>
 
 		<script language='javascript' type='text/javascript'>
+			$.cookie('bill-edit-refresh', 'ok', {
+				path: '/'
+			});
+
 			$('#select-years').selectize({
 				maxItems: null,
 				plugins: ['remove_button'],

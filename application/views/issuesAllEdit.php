@@ -7,7 +7,7 @@ $intro  = $getIssuesAllInfo->introduction;
 $editor = $getIssuesAllInfo->editor;
 $img    = $getIssuesAllInfo->img;
 
-$issuesEditBack = $this->session->userdata('issues-edit-back');
+$issuesEditBackPages = $this->session->userdata('issues-edit-back-pages');
 ?>
 <div class="content-wrapper">
 	<section>
@@ -19,7 +19,7 @@ $issuesEditBack = $this->session->userdata('issues-edit-back');
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
-										<a class="btn btn-warning" href="javascript:history.go(<?php echo $issuesEditBack * -1; ?>);">返回</a>
+										<a class="btn btn-warning" href="javascript:history.go(<?php echo $issuesEditBackPages * -1; ?>);">返回</a>
 										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 									</div>
 								</div>
@@ -59,7 +59,7 @@ $issuesEditBack = $this->session->userdata('issues-edit-back');
 											<input style="border:none" class="form-control" id="img" type="file" name="file" size="20" />
 											<?php echo form_error('file'); ?>
 											<input type="hidden" name="img_name" value="<?php echo $img; ?>">
-											<input type="hidden" name="issues-edit-check" value="<?php echo $_SESSION['issues-edit-check']; ?>">
+											<input type="hidden" name="is-issues-edit" value="<?php echo $_SESSION['is-issues-edit']; ?>">
 										</div>
 									</div>
 								</div>

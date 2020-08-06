@@ -1,3 +1,6 @@
+<div id="loader">
+	<div class="loader"></div>
+</div>
 <div class="content-wrapper">
 	<!-- <section class="content"> -->
 	<section>
@@ -44,7 +47,7 @@
 						<div class="box-body table-responsive no-padding">
 							<table class="table table-hover title-center">
 								<tr class="title-center">
-									<th>No</th>
+									<th style="width:60px">No</th>
 									<th>標題</th>
 									<th>狀態</th>
 									<th class="text-center">可執行動作</th>
@@ -99,6 +102,21 @@ if (!empty($getBillCaseList)) {
 	}
 </style>
 <script>
+	if ($.cookie('bill-add-refresh') == 'ok' || $.cookie('bill-edit-refresh') == 'ok') {
+		$.removeCookie('bill-add-refresh', {
+			path: '/'
+		});
+
+		$.removeCookie('bill-edit-refresh', {
+			path: '/'
+		});
+
+		window.location.reload();
+
+	} else{
+		$('#loader').hide(0);// 在下方的頁數切換時不會產生動畫,只有進入新增或是編輯才會產生動畫
+	}
+
 	// 分頁
 	jQuery(document).ready(function () {
 		pagination('bills/billCaseList/');

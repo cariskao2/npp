@@ -36,6 +36,11 @@ class Bills extends BaseController
     // 法案草案列表
     public function billCaseList()
     {
+        $this->session->unset_userdata('bill-edit-back-pages');
+        $this->session->unset_userdata('bill-add-back-pages');
+        $this->session->unset_userdata('is-bill-add');
+        $this->session->unset_userdata('is-bill-edit');
+
         $this->output->set_header("Cache-Control: private");
 
         $this->global['navTitle']  = '重點法案 - 法案草案管理 - 列表';
@@ -131,6 +136,16 @@ class Bills extends BaseController
     // 法案草案新增
     public function billCaseAdd()
     {
+        if (!isset($_SESSION['is-bill-add'])) {
+            $_SESSION['is-bill-add'] = 0;
+        }
+
+        $billAddBackPages = $this->session->userdata('bill-add-back-pages');
+
+        if ($billAddBackPages == null) {
+            $this->session->set_userdata('bill-add-back-pages', 1);
+        }
+
         $this->global['navTitle']  = '重點法案 - 法案草案管理 - 新增';
         $this->global['navActive'] = base_url('bills/billCaseList/');
 
@@ -153,7 +168,14 @@ class Bills extends BaseController
         $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
 
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('check', '驗證失敗');
+            if ($_SESSION['is-bill-add'] == $_POST['is-bill-add']) {
+                $_SESSION['is-bill-add'] += 1;
+
+                $billAddBackPages = $this->session->userdata('bill-add-back-pages');
+                $this->session->set_userdata('bill-add-back-pages', $billAddBackPages + 1);
+                $this->session->set_flashdata('check', '驗證失敗');
+            }
+
             $this->billCaseAdd();
         } else {
             $category = $this->security->xss_clean($this->input->post('category'));
@@ -324,6 +346,22 @@ class Bills extends BaseController
     // 法案草案編輯
     public function billCaseEdit($id)
     {
+        $editProtectChcek = $this->bills_model->editProtectCheck($id, 'bill-case');
+
+        if ($editProtectChcek == 0) {
+            redirect('bills/billCaseList/');
+        }
+
+        if (!isset($_SESSION['is-bill-edit'])) {
+            $_SESSION['is-bill-edit'] = 0;
+        }
+
+        $billEditBackPages = $this->session->userdata('bill-edit-back-pages');
+
+        if ($billEditBackPages == null) {
+            $this->session->set_userdata('bill-edit-back-pages', 1);
+        }
+
         $this->global['navTitle']  = '重點法案 - 法案草案管理 - 編輯';
         $this->global['navActive'] = base_url('bills/billCaseList/');
 
@@ -348,7 +386,14 @@ class Bills extends BaseController
         $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
 
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('check', '驗證失敗');
+            if ($_SESSION['is-bill-edit'] == $_POST['is-bill-edit']) {
+                $_SESSION['is-bill-edit'] += 1;
+
+                $billEditBackPages = $this->session->userdata('bill-edit-back-pages');
+                $this->session->set_userdata('bill-edit-back-pages', $billEditBackPages + 1);
+                $this->session->set_flashdata('check', '驗證失敗');
+            }
+
             $this->billCaseEdit($id);
         } else {
             $category = $this->security->xss_clean($this->input->post('category'));
@@ -393,9 +438,14 @@ class Bills extends BaseController
 
                 $this->session->set_flashdata($array);
 
+                $billEditBackPages = $this->session->userdata('bill-edit-back-pages');
+                $billEditBackPages = $billEditBackPages * -1 - 1;
+
+                echo "<script>history.go($billEditBackPages);</script>";
+
                 // redirect('bills/billCaseList/');
-                $myRedirect = $this->session->userdata('myRedirect');
-                redirect($myRedirect);
+                // $myRedirect = $this->session->userdata('myRedirect');
+                // redirect($myRedirect);
 
             } else {
                 $this->session->set_flashdata('error', '更新失敗!');
