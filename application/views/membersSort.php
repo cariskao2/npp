@@ -1,3 +1,6 @@
+<?php
+$myRedirect = $this->session->userdata('myRedirect');
+?>
 <div class="content-wrapper">
 	<!-- <section class="content"> -->
 	<section>
@@ -9,7 +12,8 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
-										<a class="btn btn-warning" onclick="history.back()" href="#">返回</a>
+										<a class="btn btn-warning" href="<?php echo base_url($myRedirect); ?>">返回</a>
+										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 									</div>
 								</div>
 							</div>
@@ -77,7 +81,7 @@ if (!empty($getMembersList)) {
 								success: function (data) {
 									// console.log('ok');
 									// 這裏在controller用$this->xx()會吃不到成功訊息。
-									window.location.href = baseURL + 'members/membersList/';
+									window.location.href = baseURL + 'members/memberssort';
 								},
 								error: function (jqXHR) {
 									console.log('發生錯誤: ', jqXHR.status);

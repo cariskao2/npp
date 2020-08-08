@@ -1,3 +1,6 @@
+<?php
+$newsAddBackPages = $this->session->userdata('news-add-back-pages');
+?>
 <link rel="stylesheet" href="<?php echo base_url('assets/plugins/clockpicker/css/bootstrap-clockpicker.css'); ?>">
 <script src="<?php echo base_url('assets/plugins/clockpicker/js/bootstrap-clockpicker.js'); ?>"></script>
 <script src="<?php echo base_url('assets/plugins/selectizejs/dist/js/standalone/selectize.js'); ?>"></script>
@@ -12,7 +15,9 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
-										<a class="btn btn-warning" onclick="history.back()" href="#">返回</a>
+										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
+										<a class="btn btn-warning"
+											href="javascript:history.go(<?php echo $newsAddBackPages * -1; ?>);">返回</a>
 									</div>
 								</div>
 							</div>
@@ -138,6 +143,7 @@ if (!empty($getTagsList)) {
 								</div>
 							</div><!-- /.box-body -->
 					</div>
+					<input type="hidden" name="is-news-add" value="<?php echo $_SESSION['is-news-add']; ?>">
 					<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 					</form>
 				</div>
@@ -145,6 +151,10 @@ if (!empty($getTagsList)) {
 			</div>
 
 			<script language='javascript' type='text/javascript'>
+				$.cookie('news-add-refresh', 'ok', {
+					path: '/'
+				});
+
 				$('#time_start').clockpicker();
 
 				// 標籤

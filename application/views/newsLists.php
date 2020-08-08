@@ -1,3 +1,6 @@
+<div id="loader">
+	<div class="loader"></div>
+</div>
 <div class="content-wrapper">
 	<!-- <section class="content"> -->
 	<section>
@@ -115,6 +118,21 @@ if (!empty($listItems)) {
 </div>
 <script type="text/javascript" src="<?php echo base_url('assets/js/common.js'); ?>" charset="utf-8"></script>
 <script type="text/javascript">
+	if ($.cookie('news-add-refresh') == 'ok' || $.cookie('news-edit-refresh') == 'ok') {
+		$.removeCookie('news-add-refresh', {
+			path: '/'
+		});
+
+		$.removeCookie('news-edit-refresh', {
+			path: '/'
+		});
+
+		window.location.reload();
+
+	} else{
+		$('#loader').hide(0);// 在下方的頁數切換時不會產生動畫,只有進入新增或是編輯才會產生動畫
+	}
+
 	jQuery(document).ready(function () {
 		jQuery('ul.pagination li a').click(function (e) {
 			// 當點擊下方頁面時,就獲取以下資料並跳轉

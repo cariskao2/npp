@@ -8,6 +8,7 @@ $date_start = $userInfo->date_start;
 $time_start = $userInfo->time_start;
 $editor     = $userInfo->editor;
 
+$newsEditBackPages = $this->session->userdata('news-edit-back-pages');
 ?>
 <link rel="stylesheet" href="<?php echo base_url('assets/plugins/clockpicker/css/bootstrap-clockpicker.css'); ?>">
 <script src="<?php echo base_url('assets/plugins/clockpicker/js/bootstrap-clockpicker.min.js'); ?>"></script>
@@ -26,7 +27,9 @@ $editor     = $userInfo->editor;
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
-										<a class="btn btn-warning" onclick="history.back()" href="#">返回</a>
+										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
+										<a class="btn btn-warning" href="javascript:history.go(<?php echo $newsEditBackPages * -1; ?>);">返回</a>
+
 									</div>
 								</div>
 							</div>
@@ -169,6 +172,7 @@ $notActive = $userInfo->showup == 0 ? 'active' : 'notActive';
 									</div>
 								</div>
 							</div><!-- /.box-body -->
+							<input type="hidden" name="is-news-edit" value="<?php echo $_SESSION['is-news-edit']; ?>">
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 					</div>
 					</form>
@@ -178,6 +182,10 @@ $notActive = $userInfo->showup == 0 ? 'active' : 'notActive';
 			<!-- <div class="col-md-12"> -->
 
 			<script language='javascript' type='text/javascript'>
+				$.cookie('news-edit-refresh', 'ok', {
+					path: '/'
+				});
+
 				$('#time_start').clockpicker();
 
 				// 標籤

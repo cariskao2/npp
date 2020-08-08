@@ -45,6 +45,11 @@ class News extends BaseController
             redirect('news/lists/1');
         }
 
+        $this->session->unset_userdata('news-add-back-pages');
+        $this->session->unset_userdata('is-news-add');
+        $this->session->unset_userdata('news-edit-back-pages');
+        $this->session->unset_userdata('is-news-edit');
+
         $this->output->set_header("Cache-Control: private");
 
         switch ($type_id) {
@@ -124,6 +129,16 @@ class News extends BaseController
             redirect('news/lists/1');
         }
 
+        if (!isset($_SESSION['is-news-edit'])) {
+            $_SESSION['is-news-edit'] = 0;
+        }
+
+        $newsEditBackPages = $this->session->userdata('news-edit-back-pages');
+
+        if ($newsEditBackPages == null) {
+            $this->session->set_userdata('news-edit-back-pages', 1);
+        }
+
         // $data['roles'] = $this->news_model->getUserRoles();
         $data = array(
             'userInfo'      => $this->news_model->getPressReleaseInfo($pr_id),
@@ -175,7 +190,14 @@ class News extends BaseController
         $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
 
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('check', '驗證失敗');
+            if ($_SESSION['is-news-edit'] == $_POST['is-news-edit']) {
+                $_SESSION['is-news-edit'] += 1;
+
+                $newsEditBackPages = $this->session->userdata('news-edit-back-pages');
+                $this->session->set_userdata('news-edit-back-pages', $newsEditBackPages + 1);
+                $this->session->set_flashdata('check', '驗證失敗');
+            }
+
             $this->newsEdit($pr_id);
         } else {
             $m_title         = $this->security->xss_clean($this->input->post('m_title'));
@@ -274,8 +296,13 @@ class News extends BaseController
                 $this->session->set_flashdata('error', '儲存失敗!');
             }
 
-            $myRedirect = $this->session->userdata('myRedirect');
-            redirect($myRedirect);
+            $newsEditBackPages = $this->session->userdata('news-edit-back-pages');
+            $newsEditBackPages = $newsEditBackPages * -1 - 1;
+
+            echo "<script>history.go($newsEditBackPages);</script>";
+
+            // $myRedirect = $this->session->userdata('myRedirect');
+            // redirect($myRedirect);
             // $this->newsEdit($pr_id);
         }
     }
@@ -366,6 +393,16 @@ class News extends BaseController
             redirect('news/lists/1');
         }
 
+        if (!isset($_SESSION['is-news-add'])) {
+            $_SESSION['is-news-add'] = 0;
+        }
+
+        $newsAddBackPages = $this->session->userdata('news-add-back-pages');
+
+        if ($newsAddBackPages == null) {
+            $this->session->set_userdata('news-add-back-pages', 1);
+        }
+
         $this->global['navActive'] = base_url('news/lists/' . $type_id . '/');
 
         $data = array(
@@ -398,7 +435,14 @@ class News extends BaseController
         $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
 
         if ($this->form_validation->run() == false) {
-            $this->session->set_flashdata('check', '驗證失敗');
+            if ($_SESSION['is-news-add'] == $_POST['is-news-add']) {
+                $_SESSION['is-news-add'] += 1;
+
+                $newsAddBackPages = $this->session->userdata('news-add-back-pages');
+                $this->session->set_userdata('news-add-back-pages', $newsAddBackPages + 1);
+                $this->session->set_flashdata('check', '驗證失敗');
+            }
+
             $this->adds($type_id);
         } else {
             $m_title         = $this->security->xss_clean($this->input->post('m_title'));
