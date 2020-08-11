@@ -4,7 +4,7 @@
 <div class="content-wrapper">
 	<!-- <section class="content"> -->
 	<section>
-		<div class="functoin-on-top not-list">
+		<div class="function-on-top not-list">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -35,39 +35,46 @@
 								</div>
 							</div>
 						</div><!-- /.box-header -->
+						<table class="table table-hover title-center">
+							<tr>
+								<!-- <td style="width:10%">大圖</td> -->
+								<!-- <td style="width:20%">大標 & 次標</td> -->
+								<td style="width:60%">標題</td>
+								<td style="width:20%">建立時間</td>
+								<!-- <td style="width:30%">內文</td> -->
+								<!-- <td style="width:10%">標籤</td> -->
+								<td style="width:10%">狀態</td>
+								<td style="width:10%">可執行動作</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
-		<div style="border-top:none">
+		<div class="div-list-h"></div>
+		<div class="list-scroll">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;">
 						<div class="box-body table-responsive no-padding">
 							<table class="table table-hover title-center">
-								<tr class="title-center">
-									<th style="width:50px">大圖</th>
-									<th>大標 & 次標</th>
-									<th style=" width:120px">建立日期時間</th>
-									<th>內文</th>
-									<th style="width:150px">標籤</th>
-									<th style="width:50px">狀態</th>
-									<th style="width:100px">可執行動作</th>
-								</tr>
 								<?php
 if (!empty($listItems)) {
     foreach ($listItems as $record) {
         ?>
 								<tr>
-									<td><img style="width:50px;height:50px;"
+									<!-- <td style="width:10%"><img style="width:50px;height:50px;"
 											src="<?php echo base_url('assets/uploads/news_upload/' . $record->pr_type_id . '/' . $record->img); ?>">
+									</td> -->
+									<!-- <td style="width:20%">
+										<?php echo '<b>' . $record->main_title . '</b>' . '<br>' . $record->sub_title; ?></td> -->
+									<td style="width:60%">
+										<?php echo '<b>' . $record->main_title . '</b>'; ?></td>
+									<td style="width:20%"><?php echo $record->date_start . '&emsp;' . $record->time_start ?>
 									</td>
-									<td><?php echo '<b>' . $record->main_title . '</b>' . '<br>' . $record->sub_title; ?></td>
-									<td><?php echo $record->date_start . '<br>' . $record->time_start ?></td>
-									<td style="text-align:left">
-										<?php echo mb_strimwidth(strip_tags($record->editor), 0, 100, '...') ?></td>
-									<td>
+									<!-- <td style="width:30%">
+										<?php echo mb_strimwidth(strip_tags($record->editor), 0, 100, '...') ?></td> -->
+									<!-- <td style="width:10%">
 										<?php if (!empty($getTagsChoice)): ?>
 										<?php foreach ($getTagsChoice as $choice): ?>
 										<?php if ($record->pr_id == $choice->pr_id): ?>
@@ -75,8 +82,8 @@ if (!empty($listItems)) {
 										<?php endif;?>
 										<?php endforeach;?>
 										<?php endif;?>
-									</td>
-									<td>
+									</td> -->
+									<td style="width:10%">
 										<?php if ($record->showup == 1) {?>
 										<img style="background-color:green"
 											src="<?php echo base_url('assets/images/show.png'); ?>" alt="">
@@ -85,7 +92,7 @@ if (!empty($listItems)) {
 											alt="">
 										<?php }?>
 									</td>
-									<td>
+									<td style="width:10%">
 										<a class="btn btn-sm btn-info"
 											href="<?php echo base_url('news/newsEdit/' . $record->pr_id); ?>" title="編輯"><i
 												class="fa fa-pencil"></i></a>
@@ -116,6 +123,8 @@ if (!empty($listItems)) {
 		</div>
 	</section>
 </div>
+<style>
+</style>
 <script type="text/javascript" src="<?php echo base_url('assets/js/common.js'); ?>" charset="utf-8"></script>
 <script type="text/javascript">
 	if ($.cookie('news-add-refresh') == 'ok' || $.cookie('news-edit-refresh') == 'ok') {
@@ -128,9 +137,8 @@ if (!empty($listItems)) {
 		});
 
 		window.location.reload();
-
-	} else{
-		$('#loader').hide(0);// 在下方的頁數切換時不會產生動畫,只有進入新增或是編輯才會產生動畫
+	} else {
+		$('#loader').hide(0); // 在下方的頁數切換時不會產生動畫,只有進入新增或是編輯才會產生動畫
 	}
 
 	jQuery(document).ready(function () {

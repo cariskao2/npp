@@ -4,7 +4,7 @@
 <div class="content-wrapper">
 	<!-- <section class="content"> -->
 	<section>
-		<div class="functoin-on-top not-list">
+		<div class="function-on-top not-list">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -35,23 +35,25 @@
 								</div>
 							</div>
 						</div><!-- /.box-header -->
+						<table class="table table-hover title-center">
+							<tr class="title-center">
+								<td style="width:17%">No</td>
+								<td style="width:49%">標題</td>
+								<td style="width:17%">狀態</td>
+								<td style="width:17%">可執行動作</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
+		<div class="div-list-h"></div>
 		<div style="border-top:none">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;">
 						<div class="box-body table-responsive no-padding">
 							<table class="table table-hover title-center">
-								<tr class="title-center">
-									<th style="width:60px">No</th>
-									<th>標題</th>
-									<th>狀態</th>
-									<th class="text-center">可執行動作</th>
-								</tr>
 								<?php
 if (!empty($getBillCaseList)) {
     foreach ($getBillCaseList as $items) {
@@ -61,10 +63,10 @@ if (!empty($getBillCaseList)) {
         $status = $items->name;
         ?>
 								<tr class="tr-css">
-									<td><?php echo $f_id; ?></td>
-									<td><?php echo $n; ?></td>
-									<td><?php echo $status; ?></td>
-									<td class=" text-center" style="width:30%">
+									<td style="width:17%"><?php echo $f_id; ?></td>
+									<td style="width:49%"><?php echo $n; ?></td>
+									<td style="width:17%"><?php echo $status; ?></td>
+									<td style="width:17%">
 										<a class="btn btn-sm btn-info"
 											href="<?php echo base_url() . 'bills/billCaseEdit/' . $id; ?>" title="編輯"><i
 												class="fa fa-pencil"></i></a>
@@ -113,8 +115,8 @@ if (!empty($getBillCaseList)) {
 
 		window.location.reload();
 
-	} else{
-		$('#loader').hide(0);// 在下方的頁數切換時不會產生動畫,只有進入新增或是編輯才會產生動畫
+	} else {
+		$('#loader').hide(0); // 在下方的頁數切換時不會產生動畫,只有進入新增或是編輯才會產生動畫
 	}
 
 	// 分頁

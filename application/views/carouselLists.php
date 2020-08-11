@@ -1,7 +1,7 @@
 <div class="content-wrapper">
 	<!-- <section class="content"> -->
 	<section>
-		<div class="functoin-on-top not-list" style="width:100%">
+		<div class="function-on-top not-list" style="width:100%">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -9,8 +9,10 @@
 							<div class="row">
 								<div class="col-xs-6">
 									<div class="form-group">
-										<a class="btn btn-primary" href="<?php echo base_url('website/carouselAdds'); ?>"><i class="fa fa-plus"></i> 新增</a>
-										<a class="btn btn-success" href="<?php echo base_url('website/carouselSorts'); ?>"><i class="fa fa-sort" aria-hidden="true"></i> 排序</a>
+										<a class="btn btn-primary" href="<?php echo base_url('website/carouselAdds'); ?>"><i
+												class="fa fa-plus"></i> 新增</a>
+										<a class="btn btn-success" href="<?php echo base_url('website/carouselSorts'); ?>"><i
+												class="fa fa-sort" aria-hidden="true"></i> 排序</a>
 										<span style="color:white">(最多只能建立8筆資料)</span>
 									</div>
 								</div>
@@ -51,24 +53,31 @@
 if (!empty($getCarouselList)) {
     foreach ($getCarouselList as $record) {
         ?>
-										<tr>
-											<td><img style="width:200px;height:50px;" src="<?php echo base_url('assets/uploads/carousel_upload/' . $record->img); ?>"></td>
-											<td><?php echo $record->title; ?></td>
-											<td><?php echo mb_strimwidth(strip_tags($record->introduction), 0, 100, '...') ?></td>
-											<td><?php echo $record->link; ?></td>
-											<td>
-												<?php if ($record->showup == 1) {?>
-													<img style="background-color:green" src="<?php echo base_url('assets/images/show.png'); ?>" alt="">
-												<?php } else {?>
-													<img style="background-color:red" src="<?php echo base_url('assets/images/hide.png'); ?>" alt="">
-												<?php }?>
-											</td>
-											<td class=" text-center">
-												<a class="btn btn-sm btn-info" href="<?php echo base_url('website/carouselEdit/' . $record->id); ?>" title="編輯"><i class="fa fa-pencil"></i></a>
-												<a class="btn btn-sm btn-danger deleteCarousel" data-carouselid="<?php echo $record->id; ?>" data-img="<?php echo $record->img; ?>" title="刪除"><i class="fa fa-trash fa-lg"></i></a>
-											</td>
-										</tr>
-									<?php
+								<tr>
+									<td><img style="width:200px;height:50px;"
+											src="<?php echo base_url('assets/uploads/carousel_upload/' . $record->img); ?>"></td>
+									<td><?php echo $record->title; ?></td>
+									<td><?php echo mb_strimwidth(strip_tags($record->introduction), 0, 100, '...') ?></td>
+									<td><?php echo $record->link; ?></td>
+									<td>
+										<?php if ($record->showup == 1) {?>
+										<img style="background-color:green"
+											src="<?php echo base_url('assets/images/show.png'); ?>" alt="">
+										<?php } else {?>
+										<img style="background-color:red" src="<?php echo base_url('assets/images/hide.png'); ?>"
+											alt="">
+										<?php }?>
+									</td>
+									<td class=" text-center">
+										<a class="btn btn-sm btn-info"
+											href="<?php echo base_url('website/carouselEdit/' . $record->id); ?>" title="編輯"><i
+												class="fa fa-pencil"></i></a>
+										<a class="btn btn-sm btn-danger deleteCarousel"
+											data-carouselid="<?php echo $record->id; ?>" data-img="<?php echo $record->img; ?>"
+											title="刪除"><i class="fa fa-trash fa-lg"></i></a>
+									</td>
+								</tr>
+								<?php
 }
 } else {
     ?>
@@ -103,19 +112,19 @@ $this->load->helper('form');
 $error = $this->session->flashdata('error');
 if ($error) {
     ?>
-	<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">
-		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-		<?php echo $this->session->flashdata('error'); ?>
-	</div>
+<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	<?php echo $this->session->flashdata('error'); ?>
+</div>
 <?php }?>
 <?php
 $carouselCheck = $this->session->flashdata('carouselCheck');
 if ($carouselCheck) {
     ?>
-	<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable" style="width:300px">
-		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-		<?php echo $this->session->flashdata('carouselCheck'); ?>
-	</div>
+<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable" style="width:300px">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	<?php echo $this->session->flashdata('carouselCheck'); ?>
+</div>
 <?php }?>
 <?php
 $success = $this->session->flashdata('success');

@@ -10,7 +10,7 @@ $myRedirect = $this->session->userdata('myRedirect');
 
 <div class="content-wrapper">
 	<section>
-		<div class="functoin-on-top">
+		<div class="function-on-top">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">

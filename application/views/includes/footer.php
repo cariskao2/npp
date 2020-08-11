@@ -1,11 +1,10 @@
-<footer class="main-footer text-center">
+<footer class="main-footer text-center navbar-fixed-bottom" style="padding:2px;background-color:#222d32;color:white">
 	數位玩家資訊科技有限公司 高雄市楠梓區高雄大學路700號 07-5911329 服務時間：週一至週五 9：00 - 18：00 聯絡信箱：service@geekers.tw
 </footer>
 <script src="<?php echo base_url(); ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/dist/js/adminlte.js" type="text/javascript"></script>
 <!-- <script src="<?php echo base_url(); ?>assets/dist/js/pages/dashboard.js" type="text/javascript"></script> -->
 <script src="<?php echo base_url(); ?>assets/b/build/js/all.js" type="text/javascript"></script>
-
 <script type="text/javascript">
 	// 上方導航標題置中
 	var $titleTop = $('.nav.navbar-nav li.title-on-top');
@@ -55,10 +54,10 @@
 		$('.sidebar-toggle').click(function () {
 			if (_brower) {
 				if (!_isPhone) {
-					$('.functoin-on-top').css('left', '50px');
+					$('.function-on-top').css('left', '50px');
 					_isPhone = true;
 				} else {
-					$('.functoin-on-top').css('left', '230px');
+					$('.function-on-top').css('left', '230px');
 					_isPhone = false;
 				}
 			}

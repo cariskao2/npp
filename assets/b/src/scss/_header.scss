@@ -1,12 +1,14 @@
-//  讓左邊導航固定
-.main-header a {
-   position: fixed;
+// 左方導航單獨出現滾動條
+.main-sidebar-scroll {
+   height: 100%;
+   overflow: scroll;
 }
 
-.main-sidebar {
+aside.main-sidebar {
+   height: 100%;
    font-size: 18px;
    font-weight: bolder;
-   overflow: scroll;
+   position: fixed; //左方導航fixed
 
    .treeview-menu {
       //  讓左邊導航的下拉選單固定打開
@@ -56,8 +58,15 @@
    }
 }
 
-// 上方導航
-.functoin-on-top {
+// 最上方藍色大標bar
+.header-fixex-top {
+   position: fixed;
+   top: 0;
+   width: 100%;
+}
+
+// 上方新增以及搜尋欄
+.function-on-top {
    position: fixed;
    z-index: 2;
    top: 0;
@@ -96,7 +105,7 @@
 
 // firefox
 @-moz-document url-prefix() {
-   .functoin-on-top.not-list {
+   .function-on-top.not-list {
       right: 0;
       left: 230px;
    }

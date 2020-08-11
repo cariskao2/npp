@@ -4,7 +4,7 @@
 <div class="content-wrapper">
 	<!-- <section class="content"> -->
 	<section>
-		<div class="functoin-on-top not-list">
+		<div class="function-on-top not-list">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -35,23 +35,25 @@
 								</div>
 							</div>
 						</div><!-- /.box-header -->
+						<table class="table table-hover title-center">
+							<tr class="title-center">
+								<td style="width:49%">議題列表名稱</td>
+								<td style="width:17%">類別</td>
+								<td style="width:17%">狀態</td>
+								<td style="width:17%" class="text-center">可執行動作</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
-		<div style="border-top:none">
+		<div class="div-list-h"></div>
+		<div style="border-top:none;">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;">
 						<div class="box-body table-responsive no-padding">
 							<table class="table table-hover title-center">
-								<tr class="title-center">
-									<th>議題列表名稱</th>
-									<th>類別</th>
-									<th style="width:50px">狀態</th>
-									<th style="width:100px" class="text-center">可執行動作</th>
-								</tr>
 								<?php
 if (!empty($issuesAllList)) {
     foreach ($issuesAllList as $item) {
@@ -62,9 +64,9 @@ if (!empty($issuesAllList)) {
         $img   = $item->img;
         ?>
 								<tr class="tr-css">
-									<td><?php echo $title; ?></td>
-									<td><?php echo $name; ?></td>
-									<td>
+									<td style="width:49%"><?php echo $title; ?></td>
+									<td style="width:17%"><?php echo $name; ?></td>
+									<td style="width:17%">
 										<?php if ($show == 1) {?>
 										<img style="background-color:green" src="<?php echo base_url(); ?>assets/images/show.png"
 											alt="">
@@ -73,7 +75,7 @@ if (!empty($issuesAllList)) {
 											alt="">
 										<?php }?>
 									</td>
-									<td class=" text-center">
+									<td style="width:17%" class=" text-center">
 										<a class="btn btn-sm btn-info"
 											href="<?php echo base_url() . 'issues/issuesAllEdit/' . $id; ?>" title="編輯"><i
 												class="fa fa-pencil"></i></a>
@@ -125,8 +127,8 @@ if (!empty($issuesAllList)) {
 
 		// console.log('issues-refresh-add-2', $.cookie('issues-add-refresh'));
 		// console.log('issues-refresh-edit-2', $.cookie('issues-edit-refresh'));
-	} else{
-		$('#loader').hide(0);// 在下方的頁數切換時不會產生動畫,只有進入新增或是編輯才會產生動畫
+	} else {
+		$('#loader').hide(0); // 在下方的頁數切換時不會產生動畫,只有進入新增或是編輯才會產生動畫
 	}
 
 	$(function () {

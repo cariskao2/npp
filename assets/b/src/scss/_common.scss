@@ -1,3 +1,18 @@
+// 讓footer上方的白邊消失,或是說被這個高度壓下來
+.content-wrapper {
+   height: 100vh !important;
+}
+
+// 列表部分單獨出現滾動條
+.list-scroll {
+   height: 75vh;
+   position: fixed;
+   right: 0;
+   left: 230px;
+   overflow-x: hidden;
+   overflow-y: scroll;
+}
+
 // loading
 #loader {
    position: absolute;
@@ -108,6 +123,10 @@
 // 空div高度
 .div-h {
    height: 104px;
+}
+
+.div-list-h {
+   height: 150px;
 }
 
 // 後台其它設定中的樣式

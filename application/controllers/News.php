@@ -52,6 +52,8 @@ class News extends BaseController
 
         $this->output->set_header("Cache-Control: private");
 
+        $this->global['navActive'] = base_url('news/lists/' . $type_id . '/');
+
         switch ($type_id) {
             case '1':
                 $this->global['navTitle'] = '新聞訊息 - 法案及議事說明 - 列表';
@@ -63,8 +65,6 @@ class News extends BaseController
                 $this->global['navTitle'] = '新聞訊息 - 行動紀實 - 列表';
                 break;
         }
-
-        $this->session->unset_userdata('myRedirect');
 
         $search             = $this->input->get('search');
         $searchText         = $this->security->xss_clean($this->input->post('searchText'));
@@ -80,7 +80,6 @@ class News extends BaseController
         $data['getTagsChoice'] = $this->news_model->getTagsChoice();
         $data['type_id']       = $type_id; //用來帶入newsLists_f中searchText的form action 跟 add
 
-        $this->global['navActive'] = base_url('news/lists/' . $type_id . '/');
         $this->loadViews("newsLists", $this->global, $data, null);
     }
 

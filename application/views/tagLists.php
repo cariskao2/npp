@@ -1,7 +1,7 @@
 <div class="content-wrapper">
 	<!-- <section class="content"> -->
 	<section>
-		<div class="functoin-on-top not-list" style="width:100%">
+		<div class="function-on-top not-list" style="right:0;left:230px">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -30,29 +30,31 @@
 								</div> -->
 							</div>
 						</div><!-- /.box-header -->
+						<table class="table table-hover title-center">
+							<tr>
+								<td style="width:60%">標籤名稱</td>
+								<td style="width:20%">狀態</td>
+								<td style="width:20%" class="text-center">可執行動作</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
+		<div class="div-list-h"></div>
 		<div style="border-top:none">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;">
 						<div class="box-body table-responsive no-padding">
 							<table class="table table-hover title-center">
-								<tr>
-									<th>標籤名稱</th>
-									<th>狀態</th>
-									<th class="text-center">可執行動作</th>
-								</tr>
 								<?php
 if (!empty($newsTags)) {
     foreach ($newsTags as $record) {
         ?>
 								<tr>
-									<td><?php echo $record->name; ?></td>
-									<td>
+									<td style="width:60%"><?php echo $record->name; ?></td>
+									<td style="width:20%">
 										<?php if ($record->showup == 1) {?>
 										<img style="background-color:green" src="<?php echo base_url(); ?>assets/images/show.png"
 											alt="">
@@ -61,7 +63,7 @@ if (!empty($newsTags)) {
 											alt="">
 										<?php }?>
 									</td>
-									<td class=" text-center" style="width:30%">
+									<td style="width:20%" class="text-center">
 										<a class="btn btn-sm btn-info"
 											href="<?php echo base_url() . 'news/tagsEdit/' . $record->tags_id; ?>" title="編輯"><i
 												class="fa fa-pencil"></i></a>
