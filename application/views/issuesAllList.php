@@ -40,7 +40,7 @@
 								<td style="width:49%">議題列表名稱</td>
 								<td style="width:17%">類別</td>
 								<td style="width:17%">狀態</td>
-								<td style="width:17%" class="text-center">可執行動作</td>
+								<td style="width:17%" class="text-center">功能</td>
 							</tr>
 						</table>
 					</div>

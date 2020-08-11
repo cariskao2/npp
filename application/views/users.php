@@ -30,36 +30,38 @@
 								</div>
 							</div>
 						</div><!-- /.box-header -->
+						<table class="table table-hover title-center">
+							<tr>
+								<td style="width:30%">人員名稱</td>
+								<td style="width:30%">Email</td>
+								<td style="width:10%">手機</td>
+								<td style="width:10%">層級</td>
+								<td style="width:10%">建立日期</td>
+								<td style="width:10%" class="text-center">功能</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
+		<div class="div-list-h"></div>
 		<div style="border-top:none">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;">
 						<div class="box-body table-responsive no-padding">
-							<table class="table table-hover">
-								<tr>
-									<th>人員名稱</th>
-									<th>Email</th>
-									<th>手機</th>
-									<th>層級</th>
-									<th>建立日期</th>
-									<th class="text-center">可執行動作</th>
-								</tr>
+							<table class="table table-hover title-center">
 								<?php
 if (!empty($userRecords)) {
     foreach ($userRecords as $record) {
         ?>
 								<tr>
-									<td><?php echo $record->name ?></td>
-									<td><?php echo $record->email ?></td>
-									<td><?php echo $record->mobile ?></td>
-									<td><?php echo $record->role ?></td>
-									<td><?php echo date("Y-d-m", strtotime($record->createdDtm)) ?></td>
-									<td class="text-center">
+									<td style="width:30%"><?php echo $record->name ?></td>
+									<td style="width:30%"><?php echo $record->email ?></td>
+									<td style="width:10%"><?php echo $record->mobile ?></td>
+									<td style="width:10%"><?php echo $record->role ?></td>
+									<td style="width:10%"><?php echo date("Y-d-m", strtotime($record->createdDtm)) ?></td>
+									<td style="width:10%" class="text-center">
 										<!-- <a class="btn btn-sm btn-primary" href="<?=base_url() . 'login-history/' . $record->userId;?>" title="歷史記錄"><i class="fa fa-history"></i></a> | -->
 										<a class="btn btn-sm btn-info"
 											href="<?php echo base_url() . 'editOld/' . $record->userId; ?>" title="編輯"><i

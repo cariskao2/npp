@@ -1,3 +1,12 @@
+// 右上角個人檔案的style
+@media (min-width: 0px) {
+   .skin-blue .main-header .navbar .dropdown-menu li a.btn-warning {
+      color: #fff;
+      background-color: #f39c12;
+      border-color: #e08e0b;
+   }
+}
+
 // 讓footer上方的白邊消失,或是說被這個高度壓下來
 .content-wrapper {
    height: 100vh !important;
@@ -11,6 +20,10 @@
    left: 230px;
    overflow-x: hidden;
    overflow-y: scroll;
+
+   @media screen and (max-width: 768px) {
+      left: 0;
+   }
 }
 
 // loading

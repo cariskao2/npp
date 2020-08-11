@@ -38,29 +38,31 @@
 								</div>
 							</div>
 						</div><!-- /.box-header -->
+						<table class="table table-hover title-center">
+							<tr class="title-center">
+								<td style="width:60%">姓名</td>
+								<td style="width:20%">狀態</td>
+								<td style="width:20%">功能</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
+		<div class="div-list-h"></div>
 		<div style="border-top:none">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;">
 						<div class="box-body table-responsive no-padding">
 							<table class="table table-hover title-center">
-								<tr class="title-center">
-									<th>姓名</th>
-									<th style="width:50px">狀態</th>
-									<th style="width:100px">可執行動作</th>
-								</tr>
 								<?php
 if (!empty($listItems)) {
     foreach ($listItems as $items) {
         ?>
 								<tr>
-									<td><?php echo $items->name; ?></td>
-									<td>
+									<td style="width:60%"><?php echo $items->name; ?></td>
+									<td style="width:20%">
 										<?php if ($items->showup == 1) {?>
 										<img style="background-color:green"
 											src="<?php echo base_url('assets/images/show.png'); ?>" alt="">
@@ -69,11 +71,11 @@ if (!empty($listItems)) {
 											alt="">
 										<?php }?>
 									</td>
-									<td>
+									<td style="width:20%">
 										<a class="btn btn-sm btn-info"
 											href="<?php echo base_url('members/membersEdit/' . $items->memid); ?>" title="編輯"><i
 												class="fa fa-pencil"></i></a>
-<a class="btn btn-sm btn-danger deleteMembers" data-id="<?php echo $items->memid; ?>"
+										<a class="btn btn-sm btn-danger deleteMembers" data-id="<?php echo $items->memid; ?>"
 											data-img="<?php echo $items->img; ?>" title="移除"><i class="fa fa-trash"></i></a>
 									</td>
 								</tr>
@@ -112,8 +114,8 @@ if (!empty($listItems)) {
 
 		window.location.reload();
 
-	} else{
-		$('#loader').hide(0);// 在下方的頁數切換時不會產生動畫,只有進入新增或是編輯才會產生動畫
+	} else {
+		$('#loader').hide(0); // 在下方的頁數切換時不會產生動畫,只有進入新增或是編輯才會產生動畫
 	}
 
 	jQuery(document).ready(function () {

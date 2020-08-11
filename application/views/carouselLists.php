@@ -1,7 +1,7 @@
 <div class="content-wrapper">
 	<!-- <section class="content"> -->
 	<section>
-		<div class="function-on-top not-list" style="width:100%">
+		<div class="function-on-top not-list">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -16,7 +16,8 @@
 										<span style="color:white">(最多只能建立8筆資料)</span>
 									</div>
 								</div>
-								<!-- <div class="col-xs-6">
+								<!-- 註解掉版型會跑掉,讓這個結構隱藏起來就好 -->
+								<div class="col-xs-6" style="visibility: hidden;">
 									<div class="box-tools">
 										<form action="<?php echo base_url('website/carouselLists'); ?>" method="POST" id="searchList">
 											<div class="input-group">
@@ -27,39 +28,37 @@
 											</div>
 										</form>
 									</div>
-								</div> -->
+								</div>
 							</div>
 						</div><!-- /.box-header -->
+						<table class="table table-hover title-center">
+							<tr class="title-center">
+								<th style="width:20%;border-bottom:none">圖片</th>
+								<th style="width:50%;border-bottom:none">標題</th>
+								<th style="width:10%;border-bottom:none">狀態</th>
+								<th style="width:20%;border-bottom:none" class="text-center">功能</th>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
+		<div class="div-list-h"></div>
 		<div style="border-top:none">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;">
 						<div class="box-body table-responsive no-padding">
 							<table class="table table-hover title-center">
-								<tr class="title-center">
-									<th>圖片</th>
-									<th style="width:250px;">標題</th>
-									<th>簡介</th>
-									<th>連結</th>
-									<th style="width:50px">狀態</th>
-									<th style="width:100px" class="text-center">可執行動作</th>
-								</tr>
 								<?php
 if (!empty($getCarouselList)) {
     foreach ($getCarouselList as $record) {
         ?>
 								<tr>
-									<td><img style="width:200px;height:50px;"
+									<td style="width:20%"><img style="width:150px"
 											src="<?php echo base_url('assets/uploads/carousel_upload/' . $record->img); ?>"></td>
-									<td><?php echo $record->title; ?></td>
-									<td><?php echo mb_strimwidth(strip_tags($record->introduction), 0, 100, '...') ?></td>
-									<td><?php echo $record->link; ?></td>
-									<td>
+									<td style="width:50%"><?php echo $record->title; ?></td>
+									<td style="width:10%">
 										<?php if ($record->showup == 1) {?>
 										<img style="background-color:green"
 											src="<?php echo base_url('assets/images/show.png'); ?>" alt="">
@@ -68,7 +67,7 @@ if (!empty($getCarouselList)) {
 											alt="">
 										<?php }?>
 									</td>
-									<td class=" text-center">
+									<td style="width:20%" class=" text-center">
 										<a class="btn btn-sm btn-info"
 											href="<?php echo base_url('website/carouselEdit/' . $record->id); ?>" title="編輯"><i
 												class="fa fa-pencil"></i></a>

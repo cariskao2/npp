@@ -40,7 +40,7 @@
 								<td style="width:17%">No</td>
 								<td style="width:49%">標題</td>
 								<td style="width:17%">狀態</td>
-								<td style="width:17%">可執行動作</td>
+								<td style="width:17%">功能</td>
 							</tr>
 						</table>
 					</div>

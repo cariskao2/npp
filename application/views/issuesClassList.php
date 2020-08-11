@@ -1,7 +1,7 @@
 <div class="content-wrapper">
 	<!-- <section class="content"> -->
 	<section>
-		<div class="function-on-top not-list" style="width:100%">
+		<div class="function-on-top not-list">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -15,9 +15,11 @@
 												class="fa fa-sort" aria-hidden="true"></i> 排序</a>
 									</div>
 								</div>
-								<!-- <div class="col-xs-6">
+								<!-- 註解掉版型會跑掉,讓這個結構隱藏起來就好 -->
+								<div class="col-xs-6" style="visibility: hidden;">
 									<div class="box-tools">
-										<form action="<?php echo base_url('issues/issuesClassList'); ?>" method="POST" id="searchList">
+										<form action="<?php echo base_url('issues/issuesClassList'); ?>" method="POST"
+											id="searchList">
 											<div class="input-group">
 												<input type="text" name="searchText" value="<?php echo $searchText; ?>"
 													class="form-control input-sm pull-right" style="width: 250px;height:30px"
@@ -29,25 +31,27 @@
 											</div>
 										</form>
 									</div>
-								</div> -->
+								</div>
 							</div>
 						</div><!-- /.box-header -->
+						<table class="table table-hover title-center">
+							<tr class="title-center">
+								<td style="width:60%">議題類別名稱</td>
+								<td style="width:20%">狀態</td>
+								<td style="width:20%" class="text-center">功能</td>
+							</tr>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
+		<div class="div-list-h"></div>
 		<div style="border-top:none">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;">
 						<div class="box-body table-responsive no-padding">
 							<table class="table table-hover title-center">
-								<tr class="title-center">
-									<th>議題類別名稱</th>
-									<th>狀態</th>
-									<th class="text-center">可執行動作</th>
-								</tr>
 								<?php
 if (!empty($issuesClassList)) {
     foreach ($issuesClassList as $items) {
@@ -57,8 +61,8 @@ if (!empty($issuesClassList)) {
         $img  = $items->img;
         ?>
 								<tr class="tr-css">
-									<td><?php echo $n; ?></td>
-									<td>
+									<td style="width:60%"><?php echo $n; ?></td>
+									<td style="width:20%">
 										<?php if ($show == 1) {?>
 										<img style="background-color:green" src="<?php echo base_url(); ?>assets/images/show.png"
 											alt="">
@@ -67,7 +71,7 @@ if (!empty($issuesClassList)) {
 											alt="">
 										<?php }?>
 									</td>
-									<td class=" text-center" style="width:30%">
+									<td class=" text-center" style="width:20%">
 										<a class="btn btn-sm btn-info"
 											href="<?php echo base_url() . 'issues/issuesClassEdit/' . $id; ?>" title="編輯"><i
 												class="fa fa-pencil"></i></a>

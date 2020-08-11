@@ -1,7 +1,7 @@
 <div class="content-wrapper">
 	<!-- <section class="content"> -->
 	<section>
-		<div class="function-on-top not-list" style="right:0;left:230px">
+		<div class="function-on-top not-list">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -13,7 +13,8 @@
 												class="fa fa-plus"></i> 新增</a>
 									</div>
 								</div>
-								<!-- <div class="col-xs-6">
+								<!-- 註解掉版型會跑掉,讓這個結構隱藏起來就好 -->
+								<div class="col-xs-6" style="visibility: hidden;">
 									<div class="box-tools">
 										<form action="<?php echo base_url('news/tagLists'); ?>" method="POST" id="searchList">
 											<div class="input-group">
@@ -27,14 +28,14 @@
 											</div>
 										</form>
 									</div>
-								</div> -->
+								</div>
 							</div>
 						</div><!-- /.box-header -->
 						<table class="table table-hover title-center">
 							<tr>
 								<td style="width:60%">標籤名稱</td>
 								<td style="width:20%">狀態</td>
-								<td style="width:20%" class="text-center">可執行動作</td>
+								<td style="width:20%" class="text-center">功能</td>
 							</tr>
 						</table>
 					</div>

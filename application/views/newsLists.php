@@ -44,7 +44,7 @@
 								<!-- <td style="width:30%">內文</td> -->
 								<!-- <td style="width:10%">標籤</td> -->
 								<td style="width:10%">狀態</td>
-								<td style="width:10%">可執行動作</td>
+								<td style="width:10%">功能</td>
 							</tr>
 						</table>
 					</div>
