@@ -1,3 +1,14 @@
+// 列表頁有搜尋欄時的手機樣式
+@media (max-width: 767px) {
+   .pull-right.nav-list {
+      width: 100% !important;
+   }
+
+   .box-tools {
+      margin-top: 5px;
+   }
+}
+
 // 右上角個人檔案的style
 @media (min-width: 0px) {
    .skin-blue .main-header .navbar .dropdown-menu li a.btn-warning {
@@ -7,7 +18,7 @@
    }
 }
 
-// 讓footer上方的白邊消失,或是說被這個高度壓下來
+// 讓後臺footer上方的白邊消失,或是說被這個高度壓下來
 .content-wrapper {
    height: 100vh !important;
 }
@@ -133,13 +144,37 @@
    }
 }
 
-// 空div高度
+// 新增&編輯的空div高度
 .div-h {
    height: 104px;
 }
 
+@media (max-width: 767px) {
+   .div-h {
+      height: 154px;
+   }
+}
+
+// 列表頁但不含搜尋欄的空div高度
 .div-list-h {
+   height: 149px;
+}
+
+@media (max-width: 767px) {
+   .div-list-h {
+      height: 200px;
+   }
+}
+
+// 列表頁並包含搜尋欄的空div高度
+.div-list-h-search {
    height: 150px;
+}
+
+@media (max-width: 767px) {
+   .div-list-h-search {
+      height: 234px;
+   }
 }
 
 // 後台其它設定中的樣式

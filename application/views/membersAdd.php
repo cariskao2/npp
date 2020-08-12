@@ -197,7 +197,7 @@ if (!empty($getIssuesClassList)) {
 													<th colspan="3" scope="col">聯絡方式</th>
 												</tr>
 											</thead>
-											<tbody>
+											<tbody class="not-tbody">
 												<tr>
 													<!-- <th>才會自帶粗體 -->
 													<th class="text-center" style="width:170px;" scope="row">項目<input type="button"
@@ -398,6 +398,9 @@ unset($_SESSION['error']);
 }
 ?>
 		<style>
+		.table.table-bordered tbody:not(.not-tbody) th{
+			width:10%;
+		}
 		</style>
 		<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
 	</section>

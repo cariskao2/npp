@@ -2,9 +2,9 @@
 	<!-- <section class="content"> -->
 	<section>
 		<div class="function-on-top not-list">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border-top:none;border-radius:0">
+			<div class="row" style="height:100px">
+				<div class="col-xs-12" style="height:100px">
+					<div class="box" style="border:none;border-radius:0">
 						<div class="box-header">
 							<div class="row">
 								<div class="col-xs-6">
@@ -34,7 +34,7 @@
 								</div>
 							</div>
 						</div><!-- /.box-header -->
-						<table class="table table-hover title-center">
+						<table class="table table-hover title-center" style="margin-bottom:0;border-bottom:3px solid gray">
 							<tr class="title-center">
 								<td style="width:60%">議題類別名稱</td>
 								<td style="width:20%">狀態</td>
@@ -45,8 +45,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="div-list-h"></div>
-		<div style="border-top:none">
+		<div class="div-list-h-search"></div>
+		<div class="list-scroll">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;">
@@ -115,14 +115,6 @@ if (!empty($issuesClassList)) {
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/common.js" charset="utf-8"></script>
 <?php
 $this->load->helper('form');
-
-// 返回這一頁並刷新
-// $isIssues = $this->session->userdata('issues-class-sort');
-// if ($isIssues) {
-//     echo '<script>window.location.reload();</script>';
-//     unset($_SESSION['issues-class-sort']);
-// }
-
 $success = $this->session->flashdata('success');
 if ($success) {
     ?>

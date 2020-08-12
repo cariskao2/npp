@@ -164,7 +164,7 @@ class BaseController extends CI_Controller
 
         $this->pagination->initialize($config);
         $page    = $config['per_page'];
-        $segment = !$config['use_page_numbers'] ? $this->uri->segment($segment) : ($this->uri->segment($segment) != null ? ($this->uri->segment($segment) - 1) * 10 : 0);
+        $segment = !$config['use_page_numbers'] ? $this->uri->segment($segment) : ($this->uri->segment($segment) != null ? ($this->uri->segment($segment) - 1) * $page : 0);
         // http://n.sfs.tw/content/index/10846
 
         return array(

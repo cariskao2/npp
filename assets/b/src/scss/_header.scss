@@ -87,6 +87,12 @@ aside.main-sidebar {
    }
 }
 
+@media (max-width: 767px) {
+   .function-on-top {
+      margin-top: 100px !important;
+   }
+}
+
 //  上方導航
 .hover-bg:hover {
    color: white !important;
@@ -103,11 +109,23 @@ aside.main-sidebar {
    margin: 10px
 }
 
+@media (max-width: 767px) {
+   .submit-pos {
+      top: 101.45px;
+   }
+}
+
 // firefox
 @-moz-document url-prefix() {
    .function-on-top.not-list {
       right: 0;
       left: 230px;
+   }
+
+   @media (max-width: 767px) {
+      .function-on-top.not-list {
+         left: 0;
+      }
    }
 }
 

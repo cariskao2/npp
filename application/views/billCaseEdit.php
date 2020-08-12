@@ -237,6 +237,9 @@ unset($_SESSION['error']);
 }
 ?>
 		<style>
+		.table.table-bordered tbody th{
+			width:10%;
+		}
 		</style>
 		<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
 	</section>

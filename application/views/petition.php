@@ -4,11 +4,32 @@ $editor = $getPetition->editor;
 
 <div class="content-wrapper">
 	<!-- Content Header (Page header) -->
-	<section class="content-header">
+	<!-- <section class="content-header"> -->
+	<section>
 		<h1>網站管理 - 其它設定</h1>
 	</section>
-
-	<section class="content">
+	<div class="function-on-top">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box" style="border-top:none;border-radius:0">
+					<div class="box-header">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="form-group">
+									<a class="btn btn-warning" style="visibility:hidden"
+										href="<?php echo base_url($this->session->userdata('myRedirect')); ?>">返回</a>
+									<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
+								</div>
+							</div>
+						</div>
+					</div><!-- /.box-header -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="div-setup-h"></div>
+	<!-- 後臺灰色底色 -->
+	<section class="content" style="background:#ECF0F5">
 		<div class="row">
 			<!-- left column -->
 			<div class="col-md-12">
@@ -42,11 +63,8 @@ $editor = $getPetition->editor;
 								</div>
 							</div>
 						</div><!-- /.box-body -->
-
-						<div class="box-footer seat" style="text-align:center">
-							<input type="submit" class="btn btn-primary" value="儲存" />
-							<input type="reset" class="btn btn-default" value="重置" />
-						</div>
+						<input type="submit" class="btn btn-success submit-pos" value="儲存" />
+						<!-- <input type="submit" class="btn btn-primary" value="儲存" /> -->
 					</form>
 				</div>
 			</div>
@@ -83,11 +101,15 @@ if ($success) {
 unset($_SESSION['success']);
 }
 ?>
-
 			<style>
-				.seat input {
-					width: 100px;
-					margin: 0 40px;
+				.div-setup-h {
+					height: 34px;
+				}
+
+				@media (max-width: 767px) {
+					.div-setup-h {
+						height: 84px;
+					}
 				}
 
 				.box-body .row>div {

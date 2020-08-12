@@ -2,9 +2,9 @@
 	<!-- <section class="content"> -->
 	<section>
 		<div class="function-on-top not-list">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border-top:none;border-radius:0">
+			<div class="row" style="height:100px">
+				<div class="col-xs-12" style="height:100px">
+					<div class="box" style="border:none;border-radius:0">
 						<div class="box-header">
 							<div class="row">
 								<div class="col-xs-6">
@@ -33,7 +33,7 @@
 								</div>
 							</div>
 						</div><!-- /.box-header -->
-						<table class="table table-hover title-center">
+						<table class="table table-hover title-center" style="margin-bottom:0;border-bottom:3px solid gray">
 							<tr class="title-center">
 								<td style="width:50%">屆期名稱</td>
 								<td style="width:30%">屆期起訖</td>
@@ -46,7 +46,7 @@
 			</div>
 		</div>
 		<div class="div-list-h"></div>
-		<div style="border-top:none">
+		<div class="list-scroll">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;">

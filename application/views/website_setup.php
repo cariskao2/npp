@@ -12,7 +12,7 @@ $servicetime = $getSetupInfo->servicetime;
 	<section class="content-header">
 		<h1>網站管理 - 其它設定</h1>
 	</section>
-
+	<div class="div-setup-h"></div>
 	<section class="content">
 		<div class="row">
 			<!-- left column -->
@@ -67,7 +67,7 @@ $servicetime = $getSetupInfo->servicetime;
 
 						<div class="box-footer seat" style="text-align:center">
 							<input type="submit" class="btn btn-primary" value="儲存" />
-							<input type="reset" class="btn btn-default" value="重置" />
+							<!-- <input type="reset" class="btn btn-default" value="重置" /> -->
 						</div>
 					</form>
 				</div>
@@ -107,6 +107,12 @@ unset($_SESSION['success']);
 ?>
 
 			<style>
+				@media (max-width: 767px) {
+					.div-setup-h {
+						height: 50px;
+					}
+				}
+
 				.seat input {
 					width: 100px;
 					margin: 0 40px;

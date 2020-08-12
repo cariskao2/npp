@@ -5,25 +5,25 @@
 	<!-- <section class="content"> -->
 	<section>
 		<div class="function-on-top not-list">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border-top:none;border-radius:0">
+			<div class="row" style="height:100px">
+				<div class="col-xs-12" style="height:100px">
+					<div class="box" style="border:none;border-radius:0">
 						<div class="box-header">
 							<div class="row">
-								<div class="col-xs-6">
+								<div class="col-xs-12 col-sm-5">
 									<div class="form-group">
 										<a class="btn btn-primary" href="<?php echo base_url('news/adds/' . $type_id); ?>"><i
 												class="fa fa-plus"></i> 新增</a>
 									</div>
 								</div>
-								<div class="col-xs-6">
-									<div class="box-tools">
+								<div class="col-xs-12 col-sm-7">
+									<div class="box-tools list-input-mr">
 										<form action="<?php echo base_url('news/lists/' . $type_id); ?>" method="POST"
 											id="searchList">
 											<!-- input-group讓裏面的元素融合(合併)在一起 -->
 											<div class="input-group">
 												<input type="text" name="searchText" value="<?php echo $searchText; ?>"
-													class="form-control input-sm pull-right" style="width: 250px;height:30px"
+													class="form-control input-sm pull-right nav-list" style="width: 250px;height:30px"
 													placeholder="可搜尋大標、次標" />
 												<div class="input-group-btn">
 													<button class="btn btn-sm btn-default searchList"><i
@@ -35,7 +35,7 @@
 								</div>
 							</div>
 						</div><!-- /.box-header -->
-						<table class="table table-hover title-center">
+						<table class="table table-hover title-center" style="margin-bottom:0;border-bottom:3px solid gray">
 							<tr>
 								<!-- <td style="width:10%">大圖</td> -->
 								<!-- <td style="width:20%">大標 & 次標</td> -->
@@ -51,11 +51,11 @@
 				</div>
 			</div>
 		</div>
-		<div class="div-list-h"></div>
+		<div class="div-list-h-search"></div>
 		<div class="list-scroll">
 			<div class="row">
 				<div class="col-xs-12">
-					<div class="box" style="border-top:none;">
+					<div class="box" style="border:none">
 						<div class="box-body table-responsive no-padding">
 							<table class="table table-hover title-center">
 								<?php

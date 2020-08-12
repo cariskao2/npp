@@ -31,7 +31,7 @@
 								</div>
 							</div>
 						</div><!-- /.box-header -->
-						<table class="table table-hover title-center">
+						<table class="table table-hover title-center" style="margin-bottom:0;border-bottom:3px solid gray">
 							<tr>
 								<td style="width:60%">標籤名稱</td>
 								<td style="width:20%">狀態</td>
@@ -43,7 +43,7 @@
 			</div>
 		</div>
 		<div class="div-list-h"></div>
-		<div style="border-top:none">
+		<div class="list-scroll">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;">
