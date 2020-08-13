@@ -102,7 +102,7 @@ if ($check) {
     ?>
 			<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<?php echo $check ?>
+				<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
 			</div>
 			<?php }?>
 

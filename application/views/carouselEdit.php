@@ -121,7 +121,7 @@ if ($check) {
     ?>
 				<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
 					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-					<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
+					<?php echo $check; ?>
 				</div>
 				<?php
 unset($_SESSION['check']);
@@ -140,6 +140,9 @@ unset($_SESSION['success']);
 }
 ?>
 				<style>
+				.error-width {
+					width: 150px;
+				}
 				</style>
 				<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
 			</div>

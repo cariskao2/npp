@@ -115,6 +115,10 @@ if ($check) {
 			<?php }?>
 
 			<style>
+				.error-width {
+					width: 150px;
+				}
+
 				.color-center {
 					display: flex;
 					align-items: center;

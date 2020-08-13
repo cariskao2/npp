@@ -14,7 +14,7 @@ $img   = $getBillCategoryInfo->img;
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
-									<a class="btn btn-warning"
+										<a class="btn btn-warning"
 											href="<?php echo base_url($this->session->userdata('myRedirect')); ?>">返回</a>
 										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 									</div>
@@ -49,7 +49,7 @@ $img   = $getBillCategoryInfo->img;
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<label for="file" class="must">更換圖片(不換則不用選擇,支援格式：jpg png,且圖片尺寸爲1024x420)</label>
+											<label for="file" class="">更換圖片(不換則不用選擇,支援格式：jpg png,且圖片尺寸爲1024x420)</label>
 											<input type="file" name="file" id="file" />
 											<?php echo form_error('file'); ?>
 											<input type="hidden" name="img_name" value="<?php echo $img; ?>">
@@ -122,11 +122,14 @@ if ($check) {
     ?>
 		<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-			<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
+			<?php echo $check; ?>
 		</div>
 		<?php }?>
 
 		<style>
+			.error-width {
+				width: 150px;
+			}
 		</style>
 		<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
 </div>
