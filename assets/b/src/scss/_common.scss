@@ -18,23 +18,25 @@
    }
 }
 
-// 讓後臺footer上方的白邊消失,或是說被這個高度壓下來
-.content-wrapper {
-   height: 100vh !important;
+.skin-blue .wrapper {
+   background-color: transparent; //取消列表最底部的顏色使之滾動條顏色能夠清楚些
+
+   .content-wrapper {
+      height: 100vh !important; // 讓footer上方的白邊消失,或是說被這個高度壓下來
+
+      &.is-list {
+         background-color: #fff; //列表最後一筆資料距離底部的空白處底色
+      }
+   }
 }
 
-// 列表部分單獨出現滾動條
+// 列表部分overflow樣式
 .list-scroll {
-   height: 75vh;
-   position: fixed;
-   right: 0;
-   left: 230px;
    overflow-x: hidden;
    overflow-y: scroll;
-
-   @media screen and (max-width: 768px) {
-      left: 0;
-   }
+   // background-color: #fff;
+   height: 100% !important; // 沒用important高度會不夠
+   margin-bottom: 58px;
 }
 
 // loading

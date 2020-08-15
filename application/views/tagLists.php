@@ -2,9 +2,9 @@
 	<!-- <section class="content"> -->
 	<section>
 		<div class="function-on-top not-list">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border-top:none;border-radius:0">
+			<div class="row" style="height:100px">
+				<div class="col-xs-12" style="height:100px">
+					<div class="box" style="border:none;border-radius:0">
 						<div class="box-header">
 							<div class="row">
 								<div class="col-xs-6">
@@ -47,7 +47,7 @@
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;">
-						<div class="box-body table-responsive no-padding">
+						<div class="box-body table-responsive no-padding" style="margin:0">
 							<table class="table table-hover title-center">
 								<?php
 if (!empty($newsTags)) {
@@ -86,9 +86,11 @@ if (!empty($newsTags)) {
 							</table>
 
 						</div><!-- /.box-body -->
-						<div class="box-footer clearfix">
+						<?php if ($this->pagination->create_links()): ?>
+						<div class="pagination-fixed" id="pagination-fixed">
 							<?php echo $this->pagination->create_links(); ?>
 						</div>
+						<?php endif;?>
 					</div><!-- /.box -->
 				</div>
 			</div>

@@ -16,7 +16,7 @@
 									</div>
 								</div>
 								<!-- 註解掉版型會跑掉,讓這個結構隱藏起來就好 -->
-								<div class="col-xs-6" style="visibility: hidden;">
+								<div class="col-xs-6 form-none" style="visibility: hidden;">
 									<div class="box-tools">
 										<form action="<?php echo base_url('members/yearLists'); ?>" method="POST" id="searchList">
 											<div class="input-group">
@@ -35,10 +35,10 @@
 						</div><!-- /.box-header -->
 						<table class="table table-hover title-center" style="margin-bottom:0;border-bottom:3px solid gray">
 							<tr class="title-center">
-								<td style="width:50%">屆期名稱</td>
+								<td style="width:40%">屆期名稱</td>
 								<td style="width:30%">屆期起訖</td>
-								<td style="width:10%">狀態</td>
-								<td style="width:10%" class="text-center">功能</td>
+								<td style="width:15%">狀態</td>
+								<td style="width:15%" class="text-center">功能</td>
 							</tr>
 						</table>
 					</div>
@@ -62,11 +62,11 @@ if (!empty($yearLists)) {
         $date_end   = $items->date_end;
         ?>
 								<tr class="tr-css">
-									<td style="width:50%"><?php echo $title; ?></td>
+									<td style="width:40%"><?php echo $title; ?></td>
 									<td style="width:30%">
 										<?php echo $date_start; ?> ~ <?php echo $date_end; ?>
 									</td>
-									<td style="width:10%">
+									<td style="width:15%">
 										<?php if ($show == 1) {?>
 										<img style="background-color:green" src="<?php echo base_url(); ?>assets/images/show.png"
 											alt="">
@@ -75,7 +75,7 @@ if (!empty($yearLists)) {
 											alt="">
 										<?php }?>
 									</td>
-									<td class=" text-center" style="width:10%">
+									<td class=" text-center" style="width:15%">
 										<a class="btn btn-sm btn-info"
 											href="<?php echo base_url() . 'members/yearsEdit/' . $yid; ?>" title="編輯"><i
 												class="fa fa-pencil"></i></a>

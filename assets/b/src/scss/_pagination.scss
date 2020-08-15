@@ -1,0 +1,26 @@
+.pagination-fixed {
+   height: 34px;
+   width: 100%;
+   background-color: #fff;
+   position: fixed;
+   border-top: 2px solid gray;
+
+   nav {
+      height: 34px;
+   }
+
+   .pagination {
+      margin: 0;
+
+      >li:first-child>a,
+      li:last-child>a {
+         border-radius: 0;
+      }
+   }
+}
+
+@media (min-width: 0px) {
+   .pagination-fixed {
+      bottom: 24px;
+   }
+}

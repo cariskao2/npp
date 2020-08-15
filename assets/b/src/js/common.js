@@ -79,3 +79,13 @@ $('#radioBtn a').on('click', function () {
    // 當點擊爲Y,就把爲Y的元素移除notActive並加上active
    $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive').addClass('active');
 })
+
+// 下方分頁的高度若產生變化(分頁條變成二行),就自動調整高度使之顯示完整
+var _paginationFixed = $('#pagination-fixed .pagination').height();
+console.log(_paginationFixed);
+if (_paginationFixed > 40) {
+   $('#pagination-fixed').height(68);
+   $('.list-scroll').css({
+      marginBottom: '92px',
+   });
+}

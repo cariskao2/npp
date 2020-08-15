@@ -64,8 +64,6 @@
 		var baseURL = "<?php echo base_url(); ?>";
 		var _find_ist = window.location.href;
 		var r1 = _find_ist.indexOf('ist'); //如果在列表頁面
-		// var r2 = _find_ist.indexOf('petition'); //或是陳情編輯頁面
-		// console.log(r1);
 
 		window.onload = function () {
 			if (r1 > -1) {

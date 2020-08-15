@@ -1,7 +1,7 @@
 <div id="loader">
 	<div class="loader"></div>
 </div>
-<div class="content-wrapper">
+<div class="content-wrapper is-list">
 	<!-- <section class="content"> -->
 	<section>
 		<div class="function-on-top not-list">
@@ -17,14 +17,14 @@
 									</div>
 								</div>
 								<div class="col-xs-12 col-sm-7">
-									<div class="box-tools list-input-mr">
+									<div class="box-tools">
 										<form action="<?php echo base_url('news/lists/' . $type_id); ?>" method="POST"
 											id="searchList">
 											<!-- input-group讓裏面的元素融合(合併)在一起 -->
 											<div class="input-group">
 												<input type="text" name="searchText" value="<?php echo $searchText; ?>"
-													class="form-control input-sm pull-right nav-list" style="width: 250px;height:30px"
-													placeholder="可搜尋大標、次標" />
+													class="form-control input-sm pull-right nav-list"
+													style="width: 250px;height:30px" placeholder="可搜尋大標、次標" />
 												<div class="input-group-btn">
 													<button class="btn btn-sm btn-default searchList"><i
 															class="fa fa-search"></i></button>
@@ -39,12 +39,12 @@
 							<tr>
 								<!-- <td style="width:10%">大圖</td> -->
 								<!-- <td style="width:20%">大標 & 次標</td> -->
-								<td style="width:60%">標題</td>
-								<td style="width:20%">建立時間</td>
+								<td style="width:40%">標題</td>
+								<td style="width:30%">建立時間</td>
 								<!-- <td style="width:30%">內文</td> -->
 								<!-- <td style="width:10%">標籤</td> -->
-								<td style="width:10%">狀態</td>
-								<td style="width:10%">功能</td>
+								<td style="width:15%">狀態</td>
+								<td style="width:15%">功能</td>
 							</tr>
 						</table>
 					</div>
@@ -55,8 +55,8 @@
 		<div class="list-scroll">
 			<div class="row">
 				<div class="col-xs-12">
-					<div class="box" style="border:none">
-						<div class="box-body table-responsive no-padding">
+					<div class="box" style="border-top:none;">
+						<div class="box-body table-responsive no-padding" style="margin:0">
 							<table class="table table-hover title-center">
 								<?php
 if (!empty($listItems)) {
@@ -68,9 +68,9 @@ if (!empty($listItems)) {
 									</td> -->
 									<!-- <td style="width:20%">
 										<?php echo '<b>' . $record->main_title . '</b>' . '<br>' . $record->sub_title; ?></td> -->
-									<td style="width:60%">
+									<td style="width:40%">
 										<?php echo '<b>' . $record->main_title . '</b>'; ?></td>
-									<td style="width:20%"><?php echo $record->date_start . '&emsp;' . $record->time_start ?>
+									<td style="width:30%"><?php echo $record->date_start . '&emsp;' . $record->time_start ?>
 									</td>
 									<!-- <td style="width:30%">
 										<?php echo mb_strimwidth(strip_tags($record->editor), 0, 100, '...') ?></td> -->
@@ -83,7 +83,7 @@ if (!empty($listItems)) {
 										<?php endforeach;?>
 										<?php endif;?>
 									</td> -->
-									<td style="width:10%">
+									<td style="width:15%">
 										<?php if ($record->showup == 1) {?>
 										<img style="background-color:green"
 											src="<?php echo base_url('assets/images/show.png'); ?>" alt="">
@@ -92,7 +92,7 @@ if (!empty($listItems)) {
 											alt="">
 										<?php }?>
 									</td>
-									<td style="width:10%">
+									<td style="width:15%">
 										<a class="btn btn-sm btn-info"
 											href="<?php echo base_url('news/newsEdit/' . $record->pr_id); ?>" title="編輯"><i
 												class="fa fa-pencil"></i></a>
@@ -114,9 +114,11 @@ if (!empty($listItems)) {
 							</table>
 
 						</div><!-- /.box-body -->
-						<div class="box-footer clearfix">
+						<?php if ($this->pagination->create_links()): ?>
+						<div class="pagination-fixed" id="pagination-fixed">
 							<?php echo $this->pagination->create_links(); ?>
 						</div>
+						<?php endif;?>
 					</div><!-- /.box -->
 				</div>
 			</div>

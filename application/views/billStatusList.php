@@ -2,9 +2,9 @@
 	<!-- <section class="content"> -->
 	<section>
 		<div class="function-on-top not-list">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border-top:none;border-radius:0">
+			<div class="row" style="height:100px">
+				<div class="col-xs-12" style="height:100px">
+					<div class="box" style="border:none;border-radius:0">
 						<div class="box-header">
 							<div class="row">
 								<div class="col-xs-6">
