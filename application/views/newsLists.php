@@ -1,12 +1,12 @@
 <div id="loader">
 	<div class="loader"></div>
 </div>
-<div class="content-wrapper is-list">
+<div class="content-wrapper list-bottom-bg">
 	<!-- <section class="content"> -->
 	<section>
-		<div class="function-on-top not-list">
-			<div class="row" style="height:100px">
-				<div class="col-xs-12" style="height:100px">
+		<div class="function-on-top list-input_pos">
+			<div class="row">
+				<div class="col-xs-12">
 					<div class="box" style="border:none;border-radius:0">
 						<div class="box-header">
 							<div class="row">
@@ -51,30 +51,30 @@
 				</div>
 			</div>
 		</div>
-		<div class="div-list-h-search"></div>
-		<div class="list-scroll">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border-top:none;">
-						<div class="box-body table-responsive no-padding" style="margin:0">
-							<table class="table table-hover title-center">
-								<?php
+		<!-- <div class="div-list-h-search"></div> -->
+		<!-- <div class="list-input-scroll"> -->
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box" style="border-top:none;">
+					<div class="box-body table-responsive no-padding list-scroll list-input-scroll">
+						<table class="table table-hover title-center">
+							<?php
 if (!empty($listItems)) {
     foreach ($listItems as $record) {
         ?>
-								<tr>
-									<!-- <td style="width:10%"><img style="width:50px;height:50px;"
+							<tr>
+								<!-- <td style="width:10%"><img style="width:50px;height:50px;"
 											src="<?php echo base_url('assets/uploads/news_upload/' . $record->pr_type_id . '/' . $record->img); ?>">
 									</td> -->
-									<!-- <td style="width:20%">
+								<!-- <td style="width:20%">
 										<?php echo '<b>' . $record->main_title . '</b>' . '<br>' . $record->sub_title; ?></td> -->
-									<td style="width:40%">
-										<?php echo '<b>' . $record->main_title . '</b>'; ?></td>
-									<td style="width:30%"><?php echo $record->date_start . '&emsp;' . $record->time_start ?>
-									</td>
-									<!-- <td style="width:30%">
+								<td style="width:40%">
+									<?php echo '<b>' . $record->main_title . '</b>'; ?></td>
+								<td style="width:30%"><?php echo $record->date_start . '&emsp;' . $record->time_start ?>
+								</td>
+								<!-- <td style="width:30%">
 										<?php echo mb_strimwidth(strip_tags($record->editor), 0, 100, '...') ?></td> -->
-									<!-- <td style="width:10%">
+								<!-- <td style="width:10%">
 										<?php if (!empty($getTagsChoice)): ?>
 										<?php foreach ($getTagsChoice as $choice): ?>
 										<?php if ($record->pr_id == $choice->pr_id): ?>
@@ -83,44 +83,42 @@ if (!empty($listItems)) {
 										<?php endforeach;?>
 										<?php endif;?>
 									</td> -->
-									<td style="width:15%">
-										<?php if ($record->showup == 1) {?>
-										<img style="background-color:green"
-											src="<?php echo base_url('assets/images/show.png'); ?>" alt="">
-										<?php } else {?>
-										<img style="background-color:red" src="<?php echo base_url('assets/images/hide.png'); ?>"
-											alt="">
-										<?php }?>
-									</td>
-									<td style="width:15%">
-										<a class="btn btn-sm btn-info"
-											href="<?php echo base_url('news/newsEdit/' . $record->pr_id); ?>" title="編輯"><i
-												class="fa fa-pencil"></i></a>
-										<a class="btn btn-sm btn-danger newsListDel" data-delid="<?php echo $record->pr_id; ?>"
-											data-typeid="<?php echo $record->pr_type_id; ?>" data-img="<?php echo $record->img; ?>"
-											title="移除"><i class="fa fa-trash"></i></a>
-									</td>
-								</tr>
-								<?php
+								<td style="width:15%">
+									<?php if ($record->showup == 1) {?>
+									<img style="background-color:green" src="<?php echo base_url('assets/images/show.png'); ?>"
+										alt="">
+									<?php } else {?>
+									<img style="background-color:red" src="<?php echo base_url('assets/images/hide.png'); ?>"
+										alt="">
+									<?php }?>
+								</td>
+								<td style="width:15%">
+									<a class="btn btn-sm btn-info"
+										href="<?php echo base_url('news/newsEdit/' . $record->pr_id); ?>" title="編輯"><i
+											class="fa fa-pencil"></i></a>
+									<a class="btn btn-sm btn-danger newsListDel" data-delid="<?php echo $record->pr_id; ?>"
+										data-typeid="<?php echo $record->pr_type_id; ?>" data-img="<?php echo $record->img; ?>"
+										title="移除"><i class="fa fa-trash"></i></a>
+								</td>
+							</tr>
+							<?php
 }
 } else {
     ?>
-								<tr>
-									<td colspan="3" class="no-data">
-										無相關資料!
-									</td>
-								</tr>
-								<?php }?>
-							</table>
-
-						</div><!-- /.box-body -->
-						<?php if ($this->pagination->create_links()): ?>
-						<div class="pagination-fixed" id="pagination-fixed">
-							<?php echo $this->pagination->create_links(); ?>
-						</div>
-						<?php endif;?>
-					</div><!-- /.box -->
-				</div>
+							<tr>
+								<td colspan="3" class="no-data">
+									無相關資料!
+								</td>
+							</tr>
+							<?php }?>
+						</table>
+					</div><!-- /.box-body -->
+					<?php if ($this->pagination->create_links()): ?>
+					<div class="pagination-fixed" id="pagination-fixed">
+						<?php echo $this->pagination->create_links(); ?>
+					</div>
+					<?php endif;?>
+				</div><!-- /.box -->
 			</div>
 		</div>
 	</section>

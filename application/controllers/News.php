@@ -73,7 +73,7 @@ class News extends BaseController
         $count = $this->news_model->listingCount($searchText, $type_id); //算出總筆數
         // echo ' count: ' . $count;
 
-        $returns = $this->paginationCompress("news/lists/" . $type_id . '/', $count, 10, 4); //記得加上「/」
+        $returns = $this->paginationCompress("news/lists/" . $type_id . '/', $count, 20, 4); //記得加上「/」
         // echo ' segment-News: ' . $returns['segment'];
 
         $data['listItems']     = $this->news_model->listing($searchText, $type_id, $returns["page"], $returns["segment"]);
@@ -99,7 +99,7 @@ class News extends BaseController
 
         $count = $this->news_model->tagsListingCount($searchText); //算出總筆數
 
-        $returns = $this->paginationCompress("news/tagLists/", $count, 10, 3);
+        $returns = $this->paginationCompress("news/tagLists/", $count, 20, 3);
 
         $data['newsTags'] = $this->news_model->tagsListing($searchText, $returns["page"], $returns["segment"]);
 

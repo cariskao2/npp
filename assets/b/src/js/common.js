@@ -9,17 +9,6 @@ $(function () {
       $("#alert-error").hide();
    }, 3000);
 
-   // 底部footer依照容量多寡會跑版的解決方案
-   var $h = $('.content-wrapper section').height();
-   // console.log('h', $h);
-   if ($h > 950) {
-      $h += 50;
-      // console.log('h2', $h);
-      $('.content-wrapper').css('height', $h);
-   } else {
-      $('.content-wrapper').css('height', '95vh');
-   }
-
    // 清除日期或時間
    $('.input-group .input-group-addon').click(function () {
       $(this).prev().val('');
@@ -50,7 +39,46 @@ $(function () {
    //    dateFormat: 'yy-mm-dd',
    //    showMonthAfterYear: true,
    // });
-})
+}) //$(function () {}
+
+window.onload = function () {
+   // 下方分頁的高度若產生變化(分頁條變成二行),就自動調整高度使之顯示完整
+   var _paginationFixed = $('#pagination-fixed .pagination').height();
+
+   if (_paginationFixed != undefined && _paginationFixed > 40) {
+      $('#pagination-fixed').height(68);
+      $('.list-input-scroll').css({
+         marginBottom: '92px',
+      });
+   }
+
+   //計算出列表頁右邊列表項目跟左邊導航的高度
+   var _pageH = $(window).height(); //頁面總高度
+   // var _pageH2 = $(document).height(); //頁面總高度
+   // var _funoH = $('.function-on-top.not-list').outerHeight(true); //上方黑色導航欄+列表標題欄高度+margin-top(也就是上方藍色導航欄高度)
+   var _mainHeaderH = $('.main-header.header-fixex-top').height(); //上方藍色導航欄高度
+   var _funH = $('.function-on-top .box').height(); //上方黑色導航欄+列表標題欄高度
+   var _footerH = $('.main-footer').outerHeight(true); //含margin、padding、border
+
+   var _paginationFixed = _paginationFixed != undefined ? _paginationFixed : 0; //這裡不行用let宣告
+   var _listScrollH = _pageH - _mainHeaderH - _funH - _paginationFixed - _footerH;
+   var _listScrollH = _funH > 110 ? _listScrollH : _listScrollH + 3; //這裡不行用let宣告
+
+   $('.list-scroll').height(_listScrollH); //自動依照頁面高度算出右邊列表項目含input的list-input-scroll高度
+
+   var _sidebarH = _pageH - _mainHeaderH;
+   $('section.sidebar').height(_sidebarH); //自動依照頁面高度算出左邊列表項目section.sidebar的高度
+
+   var _notListHcontentScroll = _pageH - _mainHeaderH - _funH - _footerH;
+   $('.not-list-H-content-scroll').height(_notListHcontentScroll); //自動依照頁面高度算出長內容的新增編輯頁面高度
+
+   console.log('_pageH', _pageH);
+   console.log('_funH', _funH);
+   console.log('_mainHeaderH', _mainHeaderH);
+   console.log('_footerH', _footerH);
+   console.log('_paginationFixed', _paginationFixed);
+   console.log('_listScrollH', _listScrollH);
+}
 
 // 各個Lists分頁
 function pagination(url) {
@@ -79,13 +107,3 @@ $('#radioBtn a').on('click', function () {
    // 當點擊爲Y,就把爲Y的元素移除notActive並加上active
    $('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive').addClass('active');
 })
-
-// 下方分頁的高度若產生變化(分頁條變成二行),就自動調整高度使之顯示完整
-var _paginationFixed = $('#pagination-fixed .pagination').height();
-console.log(_paginationFixed);
-if (_paginationFixed > 40) {
-   $('#pagination-fixed').height(68);
-   $('.list-scroll').css({
-      marginBottom: '92px',
-   });
-}

@@ -1,3 +1,8 @@
+body {
+   // 這樣才不會有雙重滾動條,就是滾動一次頁面到底部或頂時部,只出現一條滾動條,但再滾動一次就出現雙重滾動條
+   overflow-y: hidden;
+}
+
 // 列表頁有搜尋欄時的手機樣式
 @media (max-width: 767px) {
    .pull-right.nav-list {
@@ -24,19 +29,69 @@
    .content-wrapper {
       height: 100vh !important; // 讓footer上方的白邊消失,或是說被這個高度壓下來
 
-      &.is-list {
+      &.list-bottom-bg {
          background-color: #fff; //列表最後一筆資料距離底部的空白處底色
+      }
+
+      // 列表部分的共同樣式
+      .list-scroll {
+         overflow-x: hidden;
+         overflow-y: scroll;
+         box-shadow: 5px 0px 3px 3px gray;
+
+         table.table {
+            box-shadow: 5px 0px 3px 3px gray;
+         }
+      }
+
+      // 列表部分含input的overflow樣式
+      .list-input-scroll {
+         margin-top: 150px;
+      }
+
+      // 列表部不含input的overflow樣式
+      .list-noinput-scroll {
+         margin-top: 150px;
+      }
+
+      // 非列表部分而且爲長內容的overflow樣式
+      .not-list-H-content-scroll {
+         overflow: scroll;
+         margin-top: 104px;
+      }
+
+      // 非列表部分而且爲短內容的overflow樣式
+      .not-list-L-scroll {
+         margin-top: 104px;
+         border: none;
       }
    }
 }
 
-// 列表部分overflow樣式
-.list-scroll {
-   overflow-x: hidden;
-   overflow-y: scroll;
-   // background-color: #fff;
-   height: 100% !important; // 沒用important高度會不夠
-   margin-bottom: 58px;
+@media (max-width: 767px) {
+   .skin-blue .wrapper {
+      .content-wrapper {
+         .list-scroll {
+            overflow-x: scroll;
+         }
+
+         .list-input-scroll {
+            margin-top: 235px;
+         }
+
+         .list-noinput-scroll {
+            margin-top: 200px;
+         }
+
+         .not-list-H-content-scroll {
+            margin-top: 154px;
+         }
+
+         .not-list-L-scroll {
+            margin-top: 154px;
+         }
+      }
+   }
 }
 
 // loading
@@ -146,39 +201,6 @@
    }
 }
 
-// 新增&編輯的空div高度
-.div-h {
-   height: 104px;
-}
-
-@media (max-width: 767px) {
-   .div-h {
-      height: 154px;
-   }
-}
-
-// 列表頁但不含搜尋欄的空div高度
-.div-list-h {
-   height: 149px;
-}
-
-@media (max-width: 767px) {
-   .div-list-h {
-      height: 200px;
-   }
-}
-
-// 列表頁並包含搜尋欄的空div高度
-.div-list-h-search {
-   height: 150px;
-}
-
-@media (max-width: 767px) {
-   .div-list-h-search {
-      height: 234px;
-   }
-}
-
 // 後台其它設定中的樣式
 .bg-color {
    border: 1px solid #D2D6DE;
@@ -210,8 +232,10 @@
    }
 }
 
-@media screen and (max-width: 768px) {
+@media (max-width: 767px) {
    .alert-absoulte {
       left: 0;
+      top: 100px;
+      ;
    }
 }

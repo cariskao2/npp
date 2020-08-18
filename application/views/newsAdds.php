@@ -7,7 +7,7 @@ $newsAddBackPages = $this->session->userdata('news-add-back-pages');
 <script src="<?php echo base_url('assets/plugins/selectizejs/js/index.js'); ?>"></script>
 <div class="content-wrapper">
 	<section>
-		<div class="function-on-top">
+		<div class="function-on-top not-list">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -26,14 +26,12 @@ $newsAddBackPages = $this->session->userdata('news-add-back-pages');
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
-		<div style="border-top:none">
-			<div class="row">
-				<!-- left column -->
-				<div class="col-md-12">
-					<!-- general form elements -->
-
-					<div class="box box-primary" style="border:none;">
+		<div class="row">
+			<!-- left column -->
+			<div class="col-md-12">
+				<!-- general form elements -->
+				<div class="box box-primary" style="border:none;">
+					<div class="not-list-H-content-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
 						<form role="form" action="<?php echo base_url('news/addsSend/' . $type_id); ?>" method="post" id=""
@@ -142,52 +140,53 @@ if (!empty($getTagsList)) {
 									</div>
 								</div>
 							</div><!-- /.box-body -->
+							<input type="hidden" name="is-news-add" value="<?php echo $_SESSION['is-news-add']; ?>">
+							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
+						</form>
 					</div>
-					<input type="hidden" name="is-news-add" value="<?php echo $_SESSION['is-news-add']; ?>">
-					<input type="submit" class="btn btn-success submit-pos" value="儲存" />
-					</form>
+					<!-- .not-list-H-content-scroll -->
 				</div>
-				<!-- <div class="col-md-12"> -->
+				<!-- .box -->
 			</div>
+			<!-- <div class="col-md-12"> -->
+		</div>
+	</section>
+</div>
+<script language='javascript' type='text/javascript'>
+	$.cookie('news-add-refresh', 'ok', {
+		path: '/'
+	});
 
-			<script language='javascript' type='text/javascript'>
-				$.cookie('news-add-refresh', 'ok', {
-					path: '/'
-				});
+	$('#time_start').clockpicker();
 
-				$('#time_start').clockpicker();
+	// 標籤
+	$('#select-tools').selectize({
+		maxItems: 5,
+		plugins: ['remove_button'],
+		sortField: { //排序
+			field: 'id', // text:依據文本排序，id：依據value排序
+			direction: 'asc' // 升序降序
+		}
+	});
 
-				// 標籤
-				$('#select-tools').selectize({
-					maxItems: 5,
-					plugins: ['remove_button'],
-					sortField: { //排序
-						field: 'id', // text:依據文本排序，id：依據value排序
-						direction: 'asc' // 升序降序
-					}
-				});
-
-				// console.log($('link:last-of-type').attr('href'));
-				// console.log($('link:last-child').attr('href'));
-				// console.log($('link:last').attr('href'));
-				// console.log($('link').last().attr('href'));
-			</script>
-			<?php
+	// console.log($('link:last-of-type').attr('href'));
+	// console.log($('link:last-child').attr('href'));
+	// console.log($('link:last').attr('href'));
+	// console.log($('link').last().attr('href'));
+</script>
+<?php
 $this->load->helper('form');
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>
-			<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
-			</div>
-			<?php
+<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
+</div>
+<?php
 unset($_SESSION['check']);
 }
 ?>
-			<style>
-			</style>
-			<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
-		</div>
-	</section>
-</div>
+<style>
+</style>
+<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->

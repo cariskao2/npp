@@ -1,24 +1,31 @@
-// 左方導航單獨出現滾動條
-.main-sidebar-scroll {
-   height: 100%;
-   overflow: scroll;
-}
-
 aside.main-sidebar {
-   height: 100%;
    font-size: 18px;
    font-weight: bolder;
-   position: fixed; //左方導航fixed
+   padding-top: 0;
+   position: fixed;
+   top: 50px;
 
-   .treeview-menu {
-      //  讓左邊導航的下拉選單固定打開
-      //  adminlte.js的lte.tree取消點擊事件
-      display: block;
+   section.sidebar {
+      height: 902px;
+      overflow: scroll;
 
-      a {
-         font-weight: normal;
-         font-size: 16px;
+      .treeview-menu {
+         //  讓左邊導航的下拉選單固定打開
+         //  adminlte.js的lte.tree取消點擊事件
+         display: block;
+
+         a {
+            font-weight: normal;
+            font-size: 16px;
+         }
       }
+   }
+}
+
+@media (max-width: 767px) {
+   aside.main-sidebar {
+      top: 100px;
+
    }
 }
 
@@ -69,12 +76,23 @@ aside.main-sidebar {
 .function-on-top {
    position: fixed;
    z-index: 2;
-   top: 0;
-   margin-top: 50px !important;
    transition: left .4s;
 
-   &:not(.not-list) {
+   &.list-input_pos {
+      top: 50px;
+      height: 100px;
+   }
+
+   &.list-noinput_pos {
+      top: 50px;
+      height: 100px;
+   }
+
+   // 新增 & 編輯
+   &.not-list {
       width: 100%;
+      height: 54px;
+      top: 50px;
    }
 
    .form-group {
@@ -89,7 +107,18 @@ aside.main-sidebar {
 
 @media (max-width: 767px) {
    .function-on-top {
-      margin-top: 100px !important;
+      &.list-input_pos {
+         top: 100px;
+         height: 135px;
+      }
+
+      &.list-noinput_pos {
+         top: 100px;
+      }
+
+      &.not-list {
+         top: 100px;
+      }
    }
 }
 

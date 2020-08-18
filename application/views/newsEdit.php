@@ -19,7 +19,7 @@ $newsEditBackPages = $this->session->userdata('news-edit-back-pages');
 </div>
 <div class="content-wrapper">
 	<section>
-		<div class="function-on-top">
+		<div class="function-on-top not-list">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -28,7 +28,8 @@ $newsEditBackPages = $this->session->userdata('news-edit-back-pages');
 								<div class="col-xs-12">
 									<div class="form-group">
 										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
-										<a class="btn btn-warning" href="javascript:history.go(<?php echo $newsEditBackPages * -1; ?>);">返回</a>
+										<a class="btn btn-warning"
+											href="javascript:history.go(<?php echo $newsEditBackPages * -1; ?>);">返回</a>
 
 									</div>
 								</div>
@@ -38,13 +39,12 @@ $newsEditBackPages = $this->session->userdata('news-edit-back-pages');
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
-		<div style="border-top:none">
-			<div class="row">
-				<!-- left column -->
-				<div class="col-md-12">
-					<!-- general form elements -->
-					<div class="box box-primary" style="border:none;">
+		<div class="row">
+			<!-- left column -->
+			<div class="col-md-12">
+				<!-- general form elements -->
+				<div class="box box-primary" style="border:none;">
+					<div class="not-list-H-content-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
 						<form role="form" action="<?php echo base_url('news/editSend/' . $pr_id); ?>" method="post" id=""
@@ -174,53 +174,53 @@ $notActive = $userInfo->showup == 0 ? 'active' : 'notActive';
 							</div><!-- /.box-body -->
 							<input type="hidden" name="is-news-edit" value="<?php echo $_SESSION['is-news-edit']; ?>">
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
+						</form>
 					</div>
-					</form>
+					<!-- .not-list-H-content-scroll -->
 				</div>
 				<!-- box -->
 			</div>
-			<!-- <div class="col-md-12"> -->
+			<!-- .col-md-12 -->
+		</div>
+		<!-- row -->
+	</section>
+</div>
+<!-- content-wrapper -->
 
-			<script language='javascript' type='text/javascript'>
-				$.cookie('news-edit-refresh', 'ok', {
-					path: '/'
-				});
+<script language='javascript' type='text/javascript'>
+	$.cookie('news-edit-refresh', 'ok', {
+		path: '/'
+	});
 
-				$('#time_start').clockpicker();
+	$('#time_start').clockpicker();
 
-				// 標籤
-				$('#select-tools').selectize({
-					maxItems: 5,
-					plugins: ['remove_button'],
-					sortField: { //排序
-						field: 'id', // text:依據文本排序，id：依據value排序
-						direction: 'asc' // 升序降序
-					}
-				});
+	// 標籤
+	$('#select-tools').selectize({
+		maxItems: 5,
+		plugins: ['remove_button'],
+		sortField: { //排序
+			field: 'id', // text:依據文本排序，id：依據value排序
+			direction: 'asc' // 升序降序
+		}
+	});
 
-				var selectTools = $('#select-tools')[0].selectize;
-				var jsArray = <?php echo json_encode($getTagsID); ?>;
-				// console.log('jsArray', jsArray);
-				selectTools.setValue(jsArray, true);
-			</script>
-			<?php
+	var selectTools = $('#select-tools')[0].selectize;
+	var jsArray = <?php echo json_encode($getTagsID); ?>;
+	// console.log('jsArray', jsArray);
+	selectTools.setValue(jsArray, true);
+</script>
+<?php
 $this->load->helper('form');
 
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>
-			<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
-			</div>
-			<?php
+<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
+</div>
+<?php
 unset($_SESSION['check']);
 }
 ?>
-			<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
-		</div>
-		<!-- row -->
-		<!-- add-fixed-top-css -->
-	</section>
-</div>
-<!-- content-wrapper -->
+<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->

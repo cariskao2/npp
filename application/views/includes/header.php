@@ -62,15 +62,11 @@
 	<script src="<?php echo base_url(); ?>assets/js/additional-methods.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
 		var baseURL = "<?php echo base_url(); ?>";
-		var _find_ist = window.location.href;
-		var r1 = _find_ist.indexOf('ist'); //如果在列表頁面
 
-		window.onload = function () {
-			if (r1 > -1) {
-				// 這樣在列表頁才不會有雙重滾動條
-				document.body.style.overflow = "hidden";
-			}
-		}
+		// body樣式寫法
+		// window.onload = function () {
+		// 	document.body.style.overflow = "hidden";
+		// }
 	</script>
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -153,84 +149,114 @@
 		<!-- Left side column. contains the logo and sidebar -->
 		<aside class="main-sidebar">
 			<!-- sidebar: style can be found in sidebar.less -->
-			<div class="main-sidebar-scroll">
-				<section class="sidebar">
-					<!-- sidebar menu: : style can be found in sidebar.less -->
-					<ul class="sidebar-menu" data-widget="tree">
-						<!-- <li>
+			<section class="sidebar">
+				<!-- sidebar menu: : style can be found in sidebar.less -->
+				<ul class="sidebar-menu" data-widget="tree">
+					<li>
 						<a href="<?php echo base_url(); ?>dashboard">
 							<i class="fa fa-dashboard"></i> <span>控制面板</span></i>
 						</a>
-					</li> -->
-						<li class="treeview">
-							<a href="#" style="padding-top:17px;">
-								<i class="fa fa-globe"></i> <span>新聞訊息</span>
-								<!-- <span class="pull-right-container">
+					</li>
+					<li class="treeview">
+						<a href="#" style="padding-top:17px;">
+							<i class="fa fa-globe"></i> <span>新聞訊息</span>
+							<!-- <span class="pull-right-container">
 								<i class="fa fa-angle-right pull-right"></i>
 							</span> -->
-							</a>
-							<ul class="treeview-menu">
-								<!-- url尾端也要加上/,這樣在在項目列表的第一頁再點擊下方的page1,才不會error -->
-								<li><a href="<?php echo base_url(); ?>news/lists/1/">法案及議事說明</a></li>
-								<li><a href="<?php echo base_url(); ?>news/lists/2/">懶人包及議題追追追</a></li>
-								<li><a href="<?php echo base_url(); ?>news/lists/3/">行動紀實</a></li>
-								<li><a href="<?php echo base_url(); ?>news/tagLists/">標籤管理</a></li>
-							</ul>
-						</li>
-						<li class="treeview">
-							<a href="#">
-								<i class="fa fa-briefcase"></i> <span>重點法案</span>
-							</a>
-							<ul class="treeview-menu">
-								<li><a href="<?php echo base_url('bills/billStatusList/'); ?>">法案狀態管理</a></li>
-								<li><a href="<?php echo base_url('bills/billCategoryList/'); ?>">法案類別管理</a></li>
-								<li><a href="<?php echo base_url('bills/billCaseList/'); ?>">法案草案管理</a></li>
-								<li><a href="<?php echo base_url('issues/issuesClassList/'); ?>">議題類別管理</a></li>
-								<li><a href="<?php echo base_url('issues/issuesAllList/'); ?>">議題列表管理</a></li>
-							</ul>
-						</li>
-						<li class="treeview">
-							<a href="#">
-								<i class="fa fa-user"></i> <span>本黨立委</span>
-							</a>
-							<ul class="treeview-menu">
-								<li><a href="<?php echo base_url('members/membersList/'); ?>">立委管理</a></li>
-								<li><a href="<?php echo base_url('members/yearLists/'); ?>">屆期管理</a></li>
-							</ul>
-						</li>
-						<li class="treeview">
-							<a href="#">
-								<i class="fa fa-cog"></i> <span>網站管理</span>
-							</a>
-							<ul class="treeview-menu">
-								<li><a href="<?php echo base_url('website/carouselLists/'); ?>">輪播管理</a></li>
-								<li><a href="<?php echo base_url('website/petition'); ?>">陳情須知內容編輯</a></li>
-								<li><a href="<?php echo base_url('website/setup/' . true); ?>">其它設定</a></li>
-							</ul>
-						</li>
-						<?php
+						</a>
+						<ul class="treeview-menu">
+							<!-- url尾端也要加上/,這樣在在項目列表的第一頁再點擊下方的page1,才不會error -->
+							<li><a href="<?php echo base_url(); ?>news/lists/1/">法案及議事說明</a></li>
+							<li><a href="<?php echo base_url(); ?>news/lists/2/">懶人包及議題追追追</a></li>
+							<li><a href="<?php echo base_url(); ?>news/lists/3/">行動紀實</a></li>
+							<li><a href="<?php echo base_url(); ?>news/tagLists/">標籤管理</a></li>
+						</ul>
+					</li>
+					<li class="treeview">
+						<a href="#">
+							<i class="fa fa-briefcase"></i> <span>重點法案</span>
+						</a>
+						<ul class="treeview-menu">
+							<li><a href="<?php echo base_url('bills/billStatusList/'); ?>">法案狀態管理</a></li>
+							<li><a href="<?php echo base_url('bills/billCategoryList/'); ?>">法案類別管理</a></li>
+							<li><a href="<?php echo base_url('bills/billCaseList/'); ?>">法案草案管理</a></li>
+							<li><a href="<?php echo base_url('issues/issuesClassList/'); ?>">議題類別管理</a></li>
+							<li><a href="<?php echo base_url('issues/issuesAllList/'); ?>">議題列表管理</a></li>
+						</ul>
+					</li>
+					<li class="treeview">
+						<a href="#">
+							<i class="fa fa-user"></i> <span>本黨立委</span>
+						</a>
+						<ul class="treeview-menu">
+							<li><a href="<?php echo base_url('members/membersList/'); ?>">立委管理</a></li>
+							<li><a href="<?php echo base_url('members/yearLists/'); ?>">屆期管理</a></li>
+						</ul>
+					</li>
+					<li class="treeview">
+						<a href="#">
+							<i class="fa fa-cog"></i> <span>網站管理</span>
+						</a>
+						<ul class="treeview-menu">
+							<li><a href="<?php echo base_url('website/carouselLists/'); ?>">輪播管理</a></li>
+							<li><a href="<?php echo base_url('website/petition'); ?>">陳情須知內容編輯</a></li>
+							<li><a href="<?php echo base_url('website/setup/' . true); ?>">其它設定</a></li>
+						</ul>
+					</li>
+					<!--  -->
+					<li>
+						<a href="<?php echo base_url(); ?>dashboard">
+							<i class="fa fa-dashboard"></i> <span>控制面板</span></i>
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url(); ?>dashboard">
+							<i class="fa fa-dashboard"></i> <span>控制面板</span></i>
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url(); ?>dashboard">
+							<i class="fa fa-dashboard"></i> <span>控制面板</span></i>
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url(); ?>dashboard">
+							<i class="fa fa-dashboard"></i> <span>控制面板</span></i>
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url(); ?>dashboard">
+							<i class="fa fa-dashboard"></i> <span>控制面板</span></i>
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo base_url(); ?>dashboard">
+							<i class="fa fa-dashboard"></i> <span>控制面板</span></i>
+						</a>
+					</li>
+					<!--  -->
+					<?php
 if ($role == ROLE_ADMIN) {
     ?>
-						<li class="treeview">
-							<a href="<?php echo base_url(); ?>userListing/" style="cursor:pointer">
-								<i class="fa fa-user-plus"></i>
-								<span>人員管理</span>
-							</a>
-						</li>
+					<li class="treeview">
+						<a href="<?php echo base_url(); ?>userListing/" style="cursor:pointer">
+							<i class="fa fa-user-plus"></i>
+							<span>人員管理</span>
+						</a>
+					</li>
 
-						<?php }?>
-						<?php
+					<?php }?>
+					<?php
 if ($role == ROLE_MANAGER) {
     ?>
-						<li class="treeview">
-							<a href="<?php echo base_url(); ?>user/managerListing/" style="cursor:pointer">
-								<i class="fa fa-user-plus"></i>
-								<span>編輯人員管理</span>
-							</a>
-						</li>
-						<?php }?>
-					</ul>
-				</section>
-				<!-- /.sidebar -->
-			</div>
+					<li class="treeview">
+						<a href="<?php echo base_url(); ?>user/managerListing/" style="cursor:pointer">
+							<i class="fa fa-user-plus"></i>
+							<span>編輯人員管理</span>
+						</a>
+					</li>
+					<?php }?>
+				</ul>
+			</section>
+			<!-- /.sidebar -->
 		</aside>
