@@ -52,7 +52,7 @@ class Issues extends BaseController
 
         $count = $this->issues_model->issuesAllListingCount($searchText);
 
-        $returns = $this->paginationCompress('issues/issuesAllList/', $count, 10, 3);
+        $returns = $this->paginationCompress('issues/issuesAllList/', $count, 20, 3);
 
         $data['issuesAllList'] = $this->issues_model->issuesAllListing($searchText, $returns["page"], $returns["segment"]);
 
@@ -75,7 +75,7 @@ class Issues extends BaseController
 
         $count = $this->issues_model->issuesClassListingCount($searchText);
 
-        $returns = $this->paginationCompress('issues/issuesClassList/', $count, 10, 3);
+        $returns = $this->paginationCompress('issues/issuesClassList/', $count, 20, 3);
 
         $data['issuesClassList'] = $this->issues_model->issuesClassListing(false, $searchText, $returns["page"], $returns["segment"]);
 
@@ -165,8 +165,8 @@ class Issues extends BaseController
                 $uploadData = $fileData['file_name'];
             } else {
                 // upload debug ,loads the view display.php with error
-                $error = array('error' => $this->upload->display_errors());
-                $this->load->view('upload_debug_form', $error);
+                // $error = array('error' => $this->upload->display_errors());
+                // $this->load->view('upload_debug_form', $error);
             }
 
             $userInfo = array(
@@ -232,8 +232,8 @@ class Issues extends BaseController
                 $uploadData = $fileData['file_name'];
             } else {
                 // upload debug ,loads the view display.php with error
-                $error = array('error' => $this->upload->display_errors());
-                $this->load->view('upload_debug_form', $error);
+                // $error = array('error' => $this->upload->display_errors());
+                // $this->load->view('upload_debug_form', $error);
             }
 
             $userInfo = array(
@@ -431,8 +431,8 @@ class Issues extends BaseController
                 $uploadData = $fileData['file_name'];
             } else {
                 // upload debug ,loads the view display.php with error
-                $error = array('error' => $this->upload->display_errors());
-                $this->load->view('upload_debug_form', $error);
+                // $error = array('error' => $this->upload->display_errors());
+                // $this->load->view('upload_debug_form', $error);
             }
 
             $userInfo = array(

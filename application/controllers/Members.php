@@ -54,7 +54,7 @@ class Members extends BaseController
         $count = $this->members_model->listingCount($searchText);
         // echo ' count: ' . $count;
 
-        $returns = $this->paginationCompress('members/members/', $count, 10, 3); //記得加上「/」
+        $returns = $this->paginationCompress('members/members/', $count, 20, 3); //記得加上「/」
         // echo ' segment-News: ' . $returns['segment'];
 
         $data['listItems'] = $this->members_model->listing(false, $searchText, $returns['page'], $returns['segment']);
@@ -83,7 +83,7 @@ class Members extends BaseController
 
         $count = $this->members_model->yearsListingCount($searchText); //算出總筆數
 
-        $returns = $this->paginationCompress('members/yearLists/', $count, 10, 3);
+        $returns = $this->paginationCompress('members/yearLists/', $count, 20, 3);
 
         $data['yearLists'] = $this->members_model->yearsListing(false, $searchText, $returns["page"], $returns["segment"]);
         // $this->global['pageTitle'] = '標籤管理';
@@ -188,8 +188,8 @@ class Members extends BaseController
                 $uploadData = $fileData['file_name'];
             } else {
                 // upload debug ,loads the view display.php with error
-                $error = array('error' => $this->upload->display_errors());
-                $this->load->view('upload_debug_form', $error);
+                // $error = array('error' => $this->upload->display_errors());
+                // $this->load->view('upload_debug_form', $error);
             }
 
             // Insert files data into the database
@@ -437,8 +437,8 @@ class Members extends BaseController
                 $uploadData = $fileData['file_name'];
             } else {
                 // upload debug ,loads the view display.php with error
-                $error = array('error' => $this->upload->display_errors());
-                $this->load->view('upload_debug_form', $error);
+                // $error = array('error' => $this->upload->display_errors());
+                // $this->load->view('upload_debug_form', $error);
             }
 
             // Insert files data into the database

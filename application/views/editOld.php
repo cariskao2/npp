@@ -10,7 +10,7 @@ $myRedirect = $this->session->userdata('myRedirect');
 
 <div class="content-wrapper">
 	<section>
-		<div class="function-on-top">
+		<div class="function-on-top not-list">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -27,12 +27,11 @@ $myRedirect = $this->session->userdata('myRedirect');
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
 		<div class="row">
 			<!-- left column -->
 			<div class="col-md-8">
 				<!-- general form elements -->
-				<div class="box box-primary" style="border:none">
+				<div class="box box-primary not-list-L-scroll">
 					<!-- form start -->
 					<!-- #editUser對應下方同名js -->
 					<form role="form" action="<?php echo base_url() ?>editUser" method="post" id="editUser" role="form">

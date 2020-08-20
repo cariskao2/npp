@@ -1,9 +1,9 @@
-<div class="content-wrapper">
+<div class="content-wrapper list-bottom-bg">
 	<!-- <section class="content"> -->
 	<section>
-		<div class="function-on-top not-list">
-			<div class="row" style="height:100px">
-				<div class="col-xs-12" style="height:100px">
+		<div class="function-on-top list-noinput_pos">
+			<div class="row">
+				<div class="col-xs-12">
 					<div class="box" style="border:none;border-radius:0">
 						<div class="box-header">
 							<div class="row">
@@ -45,14 +45,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="div-list-h-search"></div>
-		<div class="list-scroll">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border-top:none;">
-						<div class="box-body table-responsive no-padding">
-							<table class="table table-hover title-center">
-								<?php
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box" style="border-top:none;">
+					<div class="box-body table-responsive no-padding list-scroll list-noinput-scroll">
+						<table class="table table-hover title-center">
+							<?php
 if (!empty($issuesClassList)) {
     foreach ($issuesClassList as $items) {
         $id   = $items->ic_id;
@@ -60,45 +58,46 @@ if (!empty($issuesClassList)) {
         $n    = $items->name;
         $img  = $items->img;
         ?>
-								<tr class="tr-css">
-									<td style="width:60%"><?php echo $n; ?></td>
-									<td style="width:20%">
-										<?php if ($show == 1) {?>
-										<img style="background-color:green" src="<?php echo base_url(); ?>assets/images/show.png"
-											alt="">
-										<?php } else {?>
-										<img style="background-color:red" src="<?php echo base_url(); ?>assets/images/hide.png"
-											alt="">
-										<?php }?>
-									</td>
-									<td class=" text-center" style="width:20%">
-										<a class="btn btn-sm btn-info"
-											href="<?php echo base_url() . 'issues/issuesClassEdit/' . $id; ?>" title="編輯"><i
-												class="fa fa-pencil"></i></a>
-										<a class="btn btn-sm btn-danger deleteIssuesClass" data-id="<?php echo $id; ?>" title="刪除"
-											data-img="<?php echo $img; ?>"><i class="fa fa-trash fa-lg"></i></a>
-									</td>
-								</tr>
-								<?php
+							<tr class="tr-css">
+								<td style="width:60%"><?php echo $n; ?></td>
+								<td style="width:20%">
+									<?php if ($show == 1) {?>
+									<img style="background-color:green" src="<?php echo base_url(); ?>assets/images/show.png"
+										alt="">
+									<?php } else {?>
+									<img style="background-color:red" src="<?php echo base_url(); ?>assets/images/hide.png"
+										alt="">
+									<?php }?>
+								</td>
+								<td class=" text-center" style="width:20%">
+									<a class="btn btn-sm btn-info"
+										href="<?php echo base_url() . 'issues/issuesClassEdit/' . $id; ?>" title="編輯"><i
+											class="fa fa-pencil"></i></a>
+									<a class="btn btn-sm btn-danger deleteIssuesClass" data-id="<?php echo $id; ?>" title="刪除"
+										data-img="<?php echo $img; ?>"><i class="fa fa-trash fa-lg"></i></a>
+								</td>
+							</tr>
+							<?php
 }
 } else {
     ?>
-								<tr>
-									<td colspan="4" class="no-data">
-										無相關資料!
-									</td>
-								</tr>
-								<?php }?>
-							</table>
-
-						</div><!-- /.box-body -->
-						<div class="box-footer clearfix">
-							<?php echo $this->pagination->create_links(); ?>
-						</div>
-					</div><!-- /.box -->
-				</div>
+							<tr>
+								<td colspan="4" class="no-data">
+									無相關資料!
+								</td>
+							</tr>
+							<?php }?>
+						</table>
+					</div><!-- /.box-body -->
+					<?php if ($this->pagination->create_links()): ?>
+					<div class="pagination-fixed" id="pagination-fixed">
+						<?php echo $this->pagination->create_links(); ?>
+					</div>
+					<?php endif;?>
+				</div><!-- /.box -->
 			</div>
 		</div>
+		<!-- row -->
 	</section>
 </div>
 <style>

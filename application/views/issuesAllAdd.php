@@ -3,7 +3,7 @@ $issuesAddBackPages = $this->session->userdata('issues-add-back-pages');
 ?>
 <div class="content-wrapper">
 	<section>
-		<div class="function-on-top">
+		<div class="function-on-top not-list">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -13,7 +13,8 @@ $issuesAddBackPages = $this->session->userdata('issues-add-back-pages');
 									<div class="form-group">
 										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 										<!-- <a class="btn btn-warning" href="javascript:history.go(-2);">返回</a> -->
-										<a class="btn btn-warning" href="javascript:history.go(<?php echo $issuesAddBackPages * -1; ?>);">返回</a>
+										<a class="btn btn-warning"
+											href="javascript:history.go(<?php echo $issuesAddBackPages * -1; ?>);">返回</a>
 									</div>
 								</div>
 							</div>
@@ -22,14 +23,12 @@ $issuesAddBackPages = $this->session->userdata('issues-add-back-pages');
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
-		<div style="border-top:none">
-			<div class="row">
-				<!-- left column -->
-				<div class="col-md-12">
-					<!-- general form elements -->
-
-					<div class="box box-primary" style="border:none;">
+		<div class="row">
+			<!-- left column -->
+			<div class="col-md-12">
+				<!-- general form elements -->
+				<div class="box box-primary" style="border:none;">
+					<div class="not-list-H-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
 						<form role="form" action="<?php echo base_url('issues/issuesAllAddSend/'); ?>" method="post" id=""
@@ -112,37 +111,38 @@ if (!empty($getIssuesClassList)) {
 									</div>
 								</div>
 							</div><!-- /.box-body -->
+							<input type="hidden" name="is-issues-add" value="<?php echo $_SESSION['is-issues-add']; ?>">
+							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
+						</form>
 					</div>
-					<input type="hidden" name="is-issues-add" value="<?php echo $_SESSION['is-issues-add']; ?>">
-					<input type="submit" class="btn btn-success submit-pos" value="儲存" />
-					</form>
+					<!-- not-list-H-scroll -->
 				</div>
-				<!-- <div class="col-md-12"> -->
+				<!-- box -->
 			</div>
-
-			<script>
-				$.cookie('issues-add-refresh', 'ok', {
-					path: '/'
-				});
-				// console.log('issues-refresh-add', $.cookie('issues-add-refresh'));
-			</script>
-			<?php
+		</div>
+		<!-- row -->
+	</section>
+</div>
+<script>
+	$.cookie('issues-add-refresh', 'ok', {
+		path: '/'
+	});
+	// console.log('issues-refresh-add', $.cookie('issues-add-refresh'));
+</script>
+<?php
 $this->load->helper('form');
 
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>
-			<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
-			</div>
-			<?php
+<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
+</div>
+<?php
 unset($_SESSION['check']);
 }
 ?>
-			<style>
-			</style>
-			<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
-		</div>
-	</section>
-</div>
+<style>
+</style>
+<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->

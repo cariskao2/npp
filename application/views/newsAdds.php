@@ -31,7 +31,7 @@ $newsAddBackPages = $this->session->userdata('news-add-back-pages');
 			<div class="col-md-12">
 				<!-- general form elements -->
 				<div class="box box-primary" style="border:none;">
-					<div class="not-list-H-content-scroll">
+					<div class="not-list-H-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
 						<form role="form" action="<?php echo base_url('news/addsSend/' . $type_id); ?>" method="post" id=""
@@ -144,7 +144,7 @@ if (!empty($getTagsList)) {
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div>
-					<!-- .not-list-H-content-scroll -->
+					<!-- .not-list-H-scroll -->
 				</div>
 				<!-- .box -->
 			</div>

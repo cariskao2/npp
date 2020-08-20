@@ -1,9 +1,9 @@
-<div class="content-wrapper">
+<div class="content-wrapper list-bottom-bg">
 	<!-- <section class="content"> -->
 	<section>
-		<div class="function-on-top not-list">
-			<div class="row" style="height:100px">
-				<div class="col-xs-12" style="height:100px">
+		<div class="function-on-top list-input_pos">
+			<div class="row">
+				<div class="col-xs-12">
 					<div class="box" style="border:none;border-radius:0">
 						<div class="box-header">
 							<div class="row">
@@ -19,8 +19,8 @@
 											id="searchList">
 											<div class="input-group">
 												<input type="text" name="searchText" value="<?php echo $searchText; ?>"
-													class="form-control input-sm pull-right nav-list" style="width: 250px;height:30px"
-													placeholder="可搜尋名稱、mail、手機" />
+													class="form-control input-sm pull-right nav-list"
+													style="width: 250px;height:30px" placeholder="可搜尋名稱、mail、手機" />
 												<div class="input-group-btn">
 													<button class="btn btn-sm btn-default searchList"><i
 															class="fa fa-search"></i></button>
@@ -45,48 +45,46 @@
 				</div>
 			</div>
 		</div>
-		<div class="div-list-h-search"></div>
-		<div class="list-scroll">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border-top:none;">
-						<div class="box-body table-responsive no-padding">
-							<table class="table table-hover title-center">
-								<?php
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box" style="border-top:none;">
+					<div class="box-body table-responsive no-padding list-scroll list-input-scroll">
+						<table class="table table-hover title-center">
+							<?php
 if (!empty($userRecords)) {
     foreach ($userRecords as $record) {
         ?>
-								<tr>
-									<td style="width:30%"><?php echo $record->name ?></td>
-									<td style="width:30%"><?php echo $record->email ?></td>
-									<td style="width:10%"><?php echo $record->mobile ?></td>
-									<td style="width:10%"><?php echo $record->role ?></td>
-									<td style="width:10%"><?php echo date("Y-d-m", strtotime($record->createdDtm)) ?></td>
-									<td style="width:10%" class="text-center">
-										<!-- <a class="btn btn-sm btn-primary" href="<?=base_url() . 'login-history/' . $record->userId;?>" title="歷史記錄"><i class="fa fa-history"></i></a> | -->
-										<a class="btn btn-sm btn-info"
-											href="<?php echo base_url() . 'user/managerOld/' . $record->userId; ?>" title="編輯"><i
-												class="fa fa-pencil"></i></a>
-										<a class="btn btn-sm btn-danger deleteManager" href="#"
-											data-delid="<?php echo $record->userId; ?>" title="移除"><i class="fa fa-trash"></i></a>
-									</td>
-								</tr>
-								<?php
+							<tr>
+								<td style="width:30%"><?php echo $record->name ?></td>
+								<td style="width:30%"><?php echo $record->email ?></td>
+								<td style="width:10%"><?php echo $record->mobile ?></td>
+								<td style="width:10%"><?php echo $record->role ?></td>
+								<td style="width:10%"><?php echo date("Y-d-m", strtotime($record->createdDtm)) ?></td>
+								<td style="width:10%" class="text-center">
+									<!-- <a class="btn btn-sm btn-primary" href="<?=base_url() . 'login-history/' . $record->userId;?>" title="歷史記錄"><i class="fa fa-history"></i></a> | -->
+									<a class="btn btn-sm btn-info"
+										href="<?php echo base_url() . 'user/managerOld/' . $record->userId; ?>" title="編輯"><i
+											class="fa fa-pencil"></i></a>
+									<a class="btn btn-sm btn-danger deleteManager" href="#"
+										data-delid="<?php echo $record->userId; ?>" title="移除"><i class="fa fa-trash"></i></a>
+								</td>
+							</tr>
+							<?php
 }
 } else {
     ?>
-								<div style="text-align:center;color:red;font-size:30px;font-weight:bolder">
-									無相關資料!
-								</div>
-								<?php }?>
-							</table>
-
-						</div><!-- /.box-body -->
-						<div class="box-footer clearfix">
-							<?php echo $this->pagination->create_links(); ?>
-						</div>
-					</div><!-- /.box -->
-				</div>
+							<div style="text-align:center;color:red;font-size:30px;font-weight:bolder">
+								無相關資料!
+							</div>
+							<?php }?>
+						</table>
+					</div><!-- /.box-body -->
+					<?php if ($this->pagination->create_links()): ?>
+					<div class="pagination-fixed" id="pagination-fixed">
+						<?php echo $this->pagination->create_links(); ?>
+					</div>
+					<?php endif;?>
+				</div><!-- /.box -->
 			</div>
 		</div>
 	</section>

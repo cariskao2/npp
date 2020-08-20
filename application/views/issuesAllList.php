@@ -1,12 +1,12 @@
 <div id="loader">
 	<div class="loader"></div>
 </div>
-<div class="content-wrapper">
+<div class="content-wrapper list-bottom-bg">
 	<!-- <section class="content"> -->
 	<section>
-		<div class="function-on-top not-list">
-			<div class="row" style="height:100px">
-				<div class="col-xs-12" style="height:100px">
+		<div class="function-on-top list-input_pos">
+			<div class="row">
+				<div class="col-xs-12">
 					<div class="box" style="border:none;border-radius:0">
 						<div class="box-header">
 							<div class="row">
@@ -23,8 +23,8 @@
 											<!-- input-group可讓icon跟input合併 -->
 											<div class="input-group">
 												<input type="text" name="searchText" value="<?php echo $searchText; ?>"
-													class="form-control input-sm pull-right nav-list" style="width: 250px;height:30px"
-													placeholder="可搜尋議題列表名稱" />
+													class="form-control input-sm pull-right nav-list"
+													style="width: 250px;height:30px" placeholder="可搜尋議題列表名稱" />
 												<div class="input-group-btn">
 													<button class="btn btn-sm btn-default searchList"><i
 															class="fa fa-search"></i></button>
@@ -47,14 +47,12 @@
 				</div>
 			</div>
 		</div>
-		<div class="div-list-h-search"></div>
-		<div class="list-scroll">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border-top:none;">
-						<div class="box-body table-responsive no-padding">
-							<table class="table table-hover title-center">
-								<?php
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box" style="border-top:none;">
+					<div class="box-body table-responsive no-padding list-scroll list-input-scroll">
+						<table class="table table-hover title-center">
+							<?php
 if (!empty($issuesAllList)) {
     foreach ($issuesAllList as $item) {
         $id    = $item->ia_id;
@@ -63,46 +61,48 @@ if (!empty($issuesAllList)) {
         $name  = $item->name;
         $img   = $item->img;
         ?>
-								<tr class="tr-css">
-									<td style="width:49%"><?php echo $title; ?></td>
-									<td style="width:17%"><?php echo $name; ?></td>
-									<td style="width:17%">
-										<?php if ($show == 1) {?>
-										<img style="background-color:green" src="<?php echo base_url(); ?>assets/images/show.png"
-											alt="">
-										<?php } else {?>
-										<img style="background-color:red" src="<?php echo base_url(); ?>assets/images/hide.png"
-											alt="">
-										<?php }?>
-									</td>
-									<td style="width:17%" class=" text-center">
-										<a class="btn btn-sm btn-info"
-											href="<?php echo base_url() . 'issues/issuesAllEdit/' . $id; ?>" title="編輯"><i
-												class="fa fa-pencil"></i></a>
-										<a class="btn btn-sm btn-danger deleteIssuesAll" data-img=<?php echo $img; ?>
-											data-id="<?php echo $id; ?>" title="刪除"><i class="fa fa-trash fa-lg"></i></a>
-									</td>
-								</tr>
-								<?php
+							<tr class="tr-css">
+								<td style="width:49%"><?php echo $title; ?></td>
+								<td style="width:17%"><?php echo $name; ?></td>
+								<td style="width:17%">
+									<?php if ($show == 1) {?>
+									<img style="background-color:green" src="<?php echo base_url(); ?>assets/images/show.png"
+										alt="">
+									<?php } else {?>
+									<img style="background-color:red" src="<?php echo base_url(); ?>assets/images/hide.png"
+										alt="">
+									<?php }?>
+								</td>
+								<td style="width:17%" class=" text-center">
+									<a class="btn btn-sm btn-info"
+										href="<?php echo base_url() . 'issues/issuesAllEdit/' . $id; ?>" title="編輯"><i
+											class="fa fa-pencil"></i></a>
+									<a class="btn btn-sm btn-danger deleteIssuesAll" data-img=<?php echo $img; ?>
+										data-id="<?php echo $id; ?>" title="刪除"><i class="fa fa-trash fa-lg"></i></a>
+								</td>
+							</tr>
+							<?php
 }
 } else {
     ?>
-								<tr>
-									<td colspan="4" class="no-data">
-										無相關資料!
-									</td>
-								</tr>
-								<?php }?>
-							</table>
+							<tr>
+								<td colspan="4" class="no-data">
+									無相關資料!
+								</td>
+							</tr>
+							<?php }?>
+						</table>
 
-						</div><!-- /.box-body -->
-						<div class="box-footer clearfix">
-							<?php echo $this->pagination->create_links(); ?>
-						</div>
-					</div><!-- /.box -->
-				</div>
+					</div><!-- /.box-body -->
+					<?php if ($this->pagination->create_links()): ?>
+					<div class="pagination-fixed" id="pagination-fixed">
+						<?php echo $this->pagination->create_links(); ?>
+					</div>
+					<?php endif;?>
+				</div><!-- /.box -->
 			</div>
 		</div>
+		<!-- row -->
 	</section>
 </div>
 <style>

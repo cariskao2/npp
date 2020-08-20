@@ -8,7 +8,7 @@ $link         = $getCarouselInfo->link;
 ?>
 <div class="content-wrapper">
 	<section>
-		<div class="function-on-top">
+		<div class="function-on-top not-list">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -27,14 +27,12 @@ $link         = $getCarouselInfo->link;
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
-		<div style="border-top:none">
-			<div class="row">
-				<!-- left column -->
-				<div class="col-md-12">
-					<!-- general form elements -->
-					<div class="box box-primary" style="border:none;">
-						<!-- form start -->
+		<div class="row">
+			<!-- left column -->
+			<div class="col-md-12">
+				<!-- general form elements -->
+				<div class="box box-primary" style="border:none;">
+					<div class="not-list-H-scroll">
 						<!--  enctype="multipart/form-data"記得加 -->
 						<form role="form" action="<?php echo base_url('website/carouselEditSend/' . $id); ?>" method="post"
 							id="" role="form" enctype="multipart/form-data">
@@ -42,10 +40,8 @@ $link         = $getCarouselInfo->link;
 								<div class="row">
 									<div class="col-md-6 col-xs-12">
 										<div class="form-group">
-											<div class="row">
-												<img class="col-md-12 col-xs-12"
-													src="<?php echo base_url('assets/uploads/carousel_upload/' . $img); ?>">
-											</div>
+											<img style="width:300px"
+												src="<?php echo base_url('assets/uploads/carousel_upload/' . $img); ?>">
 										</div>
 									</div>
 								</div>
@@ -53,7 +49,7 @@ $link         = $getCarouselInfo->link;
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="img">更換圖片(不換則不填 支援格式：jpg png gif)</label>
-											<input class="form-control" id="img" type="file" name="file" size="20" />
+											<input id="img" type="file" name="file" size="20" />
 											<?php echo form_error('file'); ?>
 										</div>
 									</div>
@@ -111,44 +107,43 @@ $notActive = $showup == 0 ? 'active' : 'notActive';
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div>
-					<!-- box -->
+					<!-- not-list-H-scroll -->
 				</div>
-				<!-- <div class="col-md-12"> -->
-				<?php
+				<!-- box -->
+			</div>
+		</div>
+		<!-- row -->
+	</section>
+</div>
+<!-- content-wrapper -->
+<?php
 $this->load->helper('form');
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>
-				<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-					<?php echo $check; ?>
-				</div>
-				<?php
+<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	<?php echo $check; ?>
+</div>
+<?php
 unset($_SESSION['check']);
 }
 ?>
-				<?php
+<?php
 $success = $this->session->flashdata('success');
 if ($success) {
     ?>
-				<div id="alert-success" class="alert-absoulte success-width alert alert-success alert-dismissable">
-					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-					<?php echo $success; ?>
-				</div>
-				<?php
+<div id="alert-success" class="alert-absoulte success-width alert alert-success alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	<?php echo $success; ?>
+</div>
+<?php
 unset($_SESSION['success']);
 }
 ?>
-				<style>
-				.error-width {
-					width: 150px;
-				}
-				</style>
-				<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
-			</div>
-			<!-- row -->
-		</div>
-		<!-- add-fixed-top-css -->
-	</section>
-</div>
-<!-- content-wrapper -->
+<style>
+	.error-width {
+		width: 150px;
+	}
+</style>
+<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->

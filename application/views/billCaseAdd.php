@@ -8,7 +8,7 @@ $billAddBackPages = $this->session->userdata('bill-add-back-pages');
 </div>
 <div class="content-wrapper">
 	<section>
-		<div class="function-on-top">
+		<div class="function-on-top not-list">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -27,14 +27,12 @@ $billAddBackPages = $this->session->userdata('bill-add-back-pages');
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
-		<div style="border-top:none">
-			<div class="row">
-				<!-- left column -->
-				<div class="col-md-12">
-					<!-- general form elements -->
-
-					<div class="box box-primary" style="border:none;">
+		<div class="row">
+			<!-- left column -->
+			<div class="col-md-12">
+				<!-- general form elements -->
+				<div class="box box-primary" style="border:none;">
+					<div class="not-list-H-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
 						<form role="form" action="<?php echo base_url('bills/billCaseAddSend'); ?>" method="post" id=""
@@ -54,7 +52,8 @@ $billAddBackPages = $this->session->userdata('bill-add-back-pages');
 														<span class="must">*</span>類別
 													</th>
 													<td>
-														<select style="padding-top:0;padding-bottom:0" class="form-control" id="" name="category" placeholder="請選擇類別">
+														<select style="padding-top:0;padding-bottom:0" class="form-control" id=""
+															name="category" placeholder="請選擇類別">
 															<?php
 if (!empty($getBillCategory)) {
     foreach ($getBillCategory as $items) {
@@ -124,7 +123,8 @@ if (!empty($getYearsList)) {
 														狀態
 													</th>
 													<td>
-														<select style="padding-top:0;padding-bottom:0" class="form-control" id="" name="status" placeholder="請選擇狀態">
+														<select style="padding-top:0;padding-bottom:0" class="form-control" id=""
+															name="status" placeholder="請選擇狀態">
 															<?php
 if (!empty($getBillStatus)) {
     foreach ($getBillStatus as $items) {
@@ -173,60 +173,63 @@ if (!empty($getBillStatus)) {
 											</tbody>
 										</table>
 									</div>
+									<!-- col-md-12 -->
 								</div>
 							</div><!-- /.box-body -->
 							<input type="hidden" name="is-bill-add" value="<?php echo $_SESSION['is-bill-add']; ?>">
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div>
+					<!-- not-list-H-scroll -->
 				</div>
+				<!-- box -->
 			</div>
 		</div>
+		<!-- row -->
+	</section>
+</div>
+<script language='javascript' type='text/javascript'>
+	$.cookie('bill-add-refresh', 'ok', {
+		path: '/'
+	});
 
-		<script language='javascript' type='text/javascript'>
-			$.cookie('bill-add-refresh', 'ok', {
-				path: '/'
-			});
-
-			$('#select-years').selectize({
-				maxItems: null,
-				plugins: ['remove_button'],
-				sortField: { //排序
-					field: 'id', // text:依據文本排序，id：依據value排序
-					direction: 'asc' // 升序降序
-				}
-			});
-		</script>
-		<?php
+	$('#select-years').selectize({
+		maxItems: null,
+		plugins: ['remove_button'],
+		sortField: { //排序
+			field: 'id', // text:依據文本排序，id：依據value排序
+			direction: 'asc' // 升序降序
+		}
+	});
+</script>
+<?php
 $this->load->helper('form');
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>
-		<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-			<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
-		</div>
-		<?php
+<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
+</div>
+<?php
 unset($_SESSION['check']);
 }
 ?>
-		<?php
+<?php
 $error = $this->session->flashdata('error');
 if ($error) {
     ?>
-		<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-			<?php echo $error; ?>
-		</div>
-		<?php
+<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	<?php echo $error; ?>
+</div>
+<?php
 unset($_SESSION['error']);
 }
 ?>
-		<style>
-		.table.table-bordered tbody th{
-			width:10%;
-		}
-		</style>
-		<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
-	</section>
-</div>
+<style>
+	.table.table-bordered tbody th {
+		width: 10%;
+	}
+</style>
+<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->

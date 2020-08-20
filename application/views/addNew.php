@@ -1,7 +1,6 @@
 <div class="content-wrapper">
-	<!-- Content Header (Page header) -->
 	<section>
-		<div class="function-on-top">
+	<div class="function-on-top not-list">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -18,12 +17,11 @@
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
 		<div class="row">
 			<!-- left column -->
 			<div class="col-md-8">
 				<!-- general form elements -->
-				<div class="box box-primary" style="border:none">
+				<div class="box box-primary not-list-L-scroll">
 					<!-- form start -->
 					<?php $this->load->helper("form");?>
 					<!-- helper form已設定 autoload -->

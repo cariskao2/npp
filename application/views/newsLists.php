@@ -51,8 +51,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- <div class="div-list-h-search"></div> -->
-		<!-- <div class="list-input-scroll"> -->
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="box" style="border-top:none;">
@@ -187,6 +185,5 @@ if ($success) {
 	<?php echo $success; ?>
 </div>
 <?php
-unset($_SESSION['success']);
 }
 ?>

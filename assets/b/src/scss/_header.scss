@@ -80,12 +80,12 @@ aside.main-sidebar {
 
    &.list-input_pos {
       top: 50px;
-      height: 100px;
+      height: 86px;
    }
 
    &.list-noinput_pos {
       top: 50px;
-      height: 100px;
+      height: 87px;
    }
 
    // 新增 & 編輯
@@ -103,13 +103,20 @@ aside.main-sidebar {
    .box-header {
       background-color: #222d32;
    }
+
+   table>tbody>tr>td {
+      padding: 3px;
+      font-size: 18px;
+      font-weight: bolder;
+      font-family: DFKai-sb;
+   }
 }
 
 @media (max-width: 767px) {
    .function-on-top {
       &.list-input_pos {
          top: 100px;
-         height: 135px;
+         height: 121px;
       }
 
       &.list-noinput_pos {
@@ -146,14 +153,22 @@ aside.main-sidebar {
 
 // firefox
 @-moz-document url-prefix() {
-   .function-on-top.not-list {
-      right: 0;
-      left: 230px;
+   .function-on-top {
+
+      &.list-input_pos,
+      &.list-noinput_pos {
+         right: 0;
+         left: 230px;
+      }
    }
 
    @media (max-width: 767px) {
-      .function-on-top.not-list {
-         left: 0;
+      .function-on-top {
+
+         &.list-input_pos,
+         &.list-noinput_pos {
+            left: 0;
+         }
       }
    }
 }

@@ -1,12 +1,12 @@
 <div id="loader">
 	<div class="loader"></div>
 </div>
-<div class="content-wrapper">
+<div class="content-wrapper list-bottom-bg">
 	<!-- <section class="content"> -->
 	<section>
-		<div class="function-on-top not-list">
-			<div class="row" style="height:100px">
-				<div class="col-xs-12" style="height:100px">
+		<div class="function-on-top list-input_pos">
+			<div class="row">
+				<div class="col-xs-12">
 					<div class="box" style="border:none;border-radius:0">
 						<div class="box-header">
 							<div class="row">
@@ -26,8 +26,8 @@
 											id="searchList">
 											<div class="input-group">
 												<input type="text" name="searchText" value="<?php echo $searchText; ?>"
-													class="form-control input-sm pull-right nav-list" style="width: 250px;height:30px"
-													placeholder="可搜尋姓名" />
+													class="form-control input-sm pull-right nav-list"
+													style="width: 250px;height:30px" placeholder="可搜尋姓名" />
 												<div class="input-group-btn">
 													<button class="btn btn-sm btn-default searchList"><i
 															class="fa fa-search"></i></button>
@@ -49,56 +49,55 @@
 				</div>
 			</div>
 		</div>
-		<div class="div-list-h-search"></div>
-		<div class="list-scroll">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border-top:none;">
-						<div class="box-body table-responsive no-padding">
-							<table class="table table-hover title-center">
-								<?php
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box" style="border-top:none;">
+					<div class="box-body table-responsive no-padding list-scroll list-input-scroll">
+						<table class="table table-hover title-center">
+							<?php
 if (!empty($listItems)) {
     foreach ($listItems as $items) {
         ?>
-								<tr>
-									<td style="width:60%"><?php echo $items->name; ?></td>
-									<td style="width:20%">
-										<?php if ($items->showup == 1) {?>
-										<img style="background-color:green"
-											src="<?php echo base_url('assets/images/show.png'); ?>" alt="">
-										<?php } else {?>
-										<img style="background-color:red" src="<?php echo base_url('assets/images/hide.png'); ?>"
-											alt="">
-										<?php }?>
-									</td>
-									<td style="width:20%">
-										<a class="btn btn-sm btn-info"
-											href="<?php echo base_url('members/membersEdit/' . $items->memid); ?>" title="編輯"><i
-												class="fa fa-pencil"></i></a>
-										<a class="btn btn-sm btn-danger deleteMembers" data-id="<?php echo $items->memid; ?>"
-											data-img="<?php echo $items->img; ?>" title="移除"><i class="fa fa-trash"></i></a>
-									</td>
-								</tr>
-								<?php
+							<tr>
+								<td style="width:60%"><?php echo $items->name; ?></td>
+								<td style="width:20%">
+									<?php if ($items->showup == 1) {?>
+									<img style="background-color:green" src="<?php echo base_url('assets/images/show.png'); ?>"
+										alt="">
+									<?php } else {?>
+									<img style="background-color:red" src="<?php echo base_url('assets/images/hide.png'); ?>"
+										alt="">
+									<?php }?>
+								</td>
+								<td style="width:20%">
+									<a class="btn btn-sm btn-info"
+										href="<?php echo base_url('members/membersEdit/' . $items->memid); ?>" title="編輯"><i
+											class="fa fa-pencil"></i></a>
+									<a class="btn btn-sm btn-danger deleteMembers" data-id="<?php echo $items->memid; ?>"
+										data-img="<?php echo $items->img; ?>" title="移除"><i class="fa fa-trash"></i></a>
+								</td>
+							</tr>
+							<?php
 }
 } else {
     ?>
-								<tr>
-									<td colspan="3" class="no-data">
-										無相關資料!
-									</td>
-								</tr>
-								<?php }?>
-							</table>
-
-						</div><!-- /.box-body -->
-						<div class="box-footer clearfix">
-							<?php echo $this->pagination->create_links(); ?>
-						</div>
-					</div><!-- /.box -->
-				</div>
+							<tr>
+								<td colspan="3" class="no-data">
+									無相關資料!
+								</td>
+							</tr>
+							<?php }?>
+						</table>
+					</div><!-- /.box-body -->
+					<?php if ($this->pagination->create_links()): ?>
+					<div class="pagination-fixed" id="pagination-fixed">
+						<?php echo $this->pagination->create_links(); ?>
+					</div>
+					<?php endif;?>
+				</div><!-- /.box -->
 			</div>
 		</div>
+		<!-- row -->
 	</section>
 </div>
 <script type="text/javascript" src="<?php echo base_url('assets/js/common.js'); ?>" charset="utf-8"></script>

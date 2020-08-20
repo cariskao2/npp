@@ -11,7 +11,7 @@ $issuesEditBackPages = $this->session->userdata('issues-edit-back-pages');
 ?>
 <div class="content-wrapper">
 	<section>
-		<div class="function-on-top">
+		<div class="function-on-top not-list">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -19,7 +19,8 @@ $issuesEditBackPages = $this->session->userdata('issues-edit-back-pages');
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
-										<a class="btn btn-warning" href="javascript:history.go(<?php echo $issuesEditBackPages * -1; ?>);">返回</a>
+										<a class="btn btn-warning"
+											href="javascript:history.go(<?php echo $issuesEditBackPages * -1; ?>);">返回</a>
 										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 									</div>
 								</div>
@@ -29,26 +30,22 @@ $issuesEditBackPages = $this->session->userdata('issues-edit-back-pages');
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
-		<div style="border-top:none">
-			<div class="row">
-				<!-- left column -->
-				<div class="col-md-12">
-					<!-- general form elements -->
-
-					<div class="box box-primary" style="border:none;">
+		<div class="row">
+			<!-- left column -->
+			<div class="col-md-12">
+				<!-- general form elements -->
+				<div class="box box-primary" style="border:none;">
+					<div class="not-list-H-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
-						<form role="form" action="<?php echo base_url('issues/issuesAllEditSend/' . $ia_id); ?>" method="post" id=""
-							role="form" enctype="multipart/form-data">
+						<form role="form" action="<?php echo base_url('issues/issuesAllEditSend/' . $ia_id); ?>" method="post"
+							id="" role="form" enctype="multipart/form-data">
 							<div class="box-body">
-							<div class="row">
+								<div class="row">
 									<div class="col-md-6 col-xs-12">
 										<div class="form-group">
-											<div class="row">
-												<img class="col-md-12 col-xs-12"
-													src="<?php echo base_url('assets/uploads/issuesAll_uplaod/' . $img); ?>">
-											</div>
+											<img style="width:300px"
+												src="<?php echo base_url('assets/uploads/issuesAll_uplaod/' . $img); ?>">
 										</div>
 									</div>
 								</div>
@@ -56,10 +53,12 @@ $issuesEditBackPages = $this->session->userdata('issues-edit-back-pages');
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="img">更換圖片(不換則不用選擇 支援格式：jpg png gif)</label>
-											<input style="border:none" class="form-control" id="img" type="file" name="file" size="20" />
+											<input style="border:none" class="form-control" id="img" type="file" name="file"
+												size="20" />
 											<?php echo form_error('file'); ?>
 											<input type="hidden" name="img_name" value="<?php echo $img; ?>">
-											<input type="hidden" name="is-issues-edit" value="<?php echo $_SESSION['is-issues-edit']; ?>">
+											<input type="hidden" name="is-issues-edit"
+												value="<?php echo $_SESSION['is-issues-edit']; ?>">
 										</div>
 									</div>
 								</div>
@@ -67,7 +66,8 @@ $issuesEditBackPages = $this->session->userdata('issues-edit-back-pages');
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="title" class="must">標題</label>
-											<input type="text" class="form-control" id="title" name="title" value="<?php echo $title; ?>">
+											<input type="text" class="form-control" id="title" name="title"
+												value="<?php echo $title; ?>">
 											<?php echo form_error('title'); ?>
 										</div>
 									</div>
@@ -81,7 +81,9 @@ $issuesEditBackPages = $this->session->userdata('issues-edit-back-pages');
 if (!empty($getIssuesClassList)) {
     foreach ($getIssuesClassList as $item) {
         ?>
-												<option value="<?php echo $item->ic_id; ?>" <?php if ($item->ic_id == $ic_id) {echo 'selected';}?>><?php echo $item->name; ?></option>
+												<option value="<?php echo $item->ic_id; ?>"
+													<?php if ($item->ic_id == $ic_id) {echo 'selected';}?>><?php echo $item->name; ?>
+												</option>
 												<?php
 }
 }
@@ -113,7 +115,8 @@ $notActive = $show == 0 ? 'active' : 'notActive';
 									<div class="col-md-12">
 										<div class="form-group">
 											<label for="introduction">簡介</label>
-											<input type="text" class="form-control" id="introduction" name="introduction" value="<?php echo $intro; ?>">
+											<input type="text" class="form-control" id="introduction" name="introduction"
+												value="<?php echo $intro; ?>">
 										</div>
 									</div>
 								</div>
@@ -135,34 +138,35 @@ $notActive = $show == 0 ? 'active' : 'notActive';
 									</div>
 								</div>
 							</div><!-- /.box-body -->
+							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
+						</form>
 					</div>
-					<input type="submit" class="btn btn-success submit-pos" value="儲存" />
-					</form>
+					<!-- not-list-H-scroll -->
 				</div>
-				<!-- <div class="col-md-12"> -->
+				<!-- box -->
 			</div>
-
-			<script>
-				$.cookie('issues-edit-refresh', 'ok', {
-					path: '/'
-				});
-				// console.log('issues-refresh-edit', $.cookie('issues-edit-refresh'));
-			</script>
-			<?php
+		</div>
+		<!-- row -->
+	</section>
+</div>
+<script>
+	$.cookie('issues-edit-refresh', 'ok', {
+		path: '/'
+	});
+	// console.log('issues-refresh-edit', $.cookie('issues-edit-refresh'));
+</script>
+<?php
 // $this->load->helper('form');
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>
-			<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
-				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-				<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
-			</div>
-			<?php
+<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
+</div>
+<?php
 }
 ?>
-			<style>
-			</style>
-			<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
-		</div>
-	</section>
-</div>
+<style>
+</style>
+<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->

@@ -17,7 +17,7 @@ $billEditBackPages = $this->session->userdata('bill-edit-back-pages');
 </div>
 <div class="content-wrapper">
 	<section>
-		<div class="function-on-top">
+		<div class="function-on-top not-list">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -26,7 +26,8 @@ $billEditBackPages = $this->session->userdata('bill-edit-back-pages');
 								<div class="col-xs-12">
 									<div class="form-group">
 										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
-										<a class="btn btn-warning" href="javascript:history.go(<?php echo $billEditBackPages * -1; ?>);">返回</a>
+										<a class="btn btn-warning"
+											href="javascript:history.go(<?php echo $billEditBackPages * -1; ?>);">返回</a>
 									</div>
 								</div>
 							</div>
@@ -35,18 +36,16 @@ $billEditBackPages = $this->session->userdata('bill-edit-back-pages');
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
-		<div style="border-top:none">
-			<div class="row">
-				<!-- left column -->
-				<div class="col-md-12">
-					<!-- general form elements -->
-
-					<div class="box box-primary" style="border:none;">
+		<div class="row">
+			<!-- left column -->
+			<div class="col-md-12">
+				<!-- general form elements -->
+				<div class="box box-primary" style="border:none;">
+					<div class="not-list-H-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
-						<form role="form" action="<?php echo base_url('bills/billCaseEditSend/' . $case_id); ?>" method="post" id=""
-							role="form" enctype="multipart/form-data">
+						<form role="form" action="<?php echo base_url('bills/billCaseEditSend/' . $case_id); ?>" method="post"
+							id="" role="form" enctype="multipart/form-data">
 							<div class="box-body">
 								<div class="row">
 									<div class="col-md-12">
@@ -62,13 +61,15 @@ $billEditBackPages = $this->session->userdata('bill-edit-back-pages');
 														<span class="must">*</span>類別
 													</th>
 													<td>
-														<select style="padding-top:0;padding-bottom:0" class="form-control" id="" name="category" placeholder="請選擇類別">
+														<select style="padding-top:0;padding-bottom:0" class="form-control" id=""
+															name="category" placeholder="請選擇類別">
 															<?php
 if (!empty($getBillCategory)) {
     foreach ($getBillCategory as $items) {
         $goryId = $items->gory_id;
         ?>
-															<option value="<?php echo $goryId; ?>" <?php if ($gory_id == $goryId) {echo 'selected';}?>>
+															<option value="<?php echo $goryId; ?>"
+																<?php if ($gory_id == $goryId) {echo 'selected';}?>>
 																<?php echo $items->title; ?>
 															</option>
 															<?php
@@ -133,13 +134,15 @@ if (!empty($getYearsList)) {
 														狀態
 													</th>
 													<td>
-														<select style="padding-top:0;padding-bottom:0" class="form-control" id="" name="status" placeholder="請選擇狀態">
+														<select style="padding-top:0;padding-bottom:0" class="form-control" id=""
+															name="status" placeholder="請選擇狀態">
 															<?php
 if (!empty($getBillStatus)) {
     foreach ($getBillStatus as $items) {
         $statusId = $items->status_id;
         ?>
-															<option value="<?php echo $statusId; ?>" <?php if ($status_id == $statusId) {echo 'selected';}?>>
+															<option value="<?php echo $statusId; ?>"
+																<?php if ($status_id == $statusId) {echo 'selected';}?>>
 																<?php echo $items->name; ?>
 															</option>
 															<?php
@@ -156,7 +159,8 @@ if (!empty($getBillStatus)) {
 													</th>
 													<td>
 														<div class="form-group">
-															<input type="text" class="form-control" id="link" name="link" value="<?php echo $link; ?>">
+															<input type="text" class="form-control" id="link" name="link"
+																value="<?php echo $link; ?>">
 															<?php echo form_error('link'); ?>
 														</div>
 													</td>
@@ -166,7 +170,8 @@ if (!empty($getBillStatus)) {
 														內容
 													</th>
 													<td>
-														<textarea class="form-control" name="editor1" id="editor1"><?php echo $e; ?></textarea>
+														<textarea class="form-control" name="editor1"
+															id="editor1"><?php echo $e; ?></textarea>
 														<script>
 															CKEDITOR.replace("editor1", {
 																filebrowserBrowseUrl: "<?php echo base_url('assets/plugins/ckeditor4/filemanager/dialog.php?type=2&editor=ckeditor&fldr='); ?>",
@@ -184,63 +189,66 @@ if (!empty($getBillStatus)) {
 										</table>
 									</div>
 								</div>
+								<!-- row -->
 							</div><!-- /.box-body -->
 							<input type="hidden" name="is-bill-edit" value="<?php echo $_SESSION['is-bill-edit']; ?>">
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div>
+					<!-- not-list-H-scroll -->
 				</div>
+				<!-- box -->
 			</div>
 		</div>
+		<!-- row -->
+	</section>
+</div>
+<script language='javascript' type='text/javascript'>
+	$.cookie('bill-edit-refresh', 'ok', {
+		path: '/'
+	});
 
-		<script language='javascript' type='text/javascript'>
-			$.cookie('bill-edit-refresh', 'ok', {
-				path: '/'
-			});
+	$('#select-years').selectize({
+		maxItems: null,
+		plugins: ['remove_button'],
+		sortField: { //排序
+			field: 'id', // text:依據文本排序，id：依據value排序
+			direction: 'asc' // 升序降序
+		}
+	});
 
-			$('#select-years').selectize({
-				maxItems: null,
-				plugins: ['remove_button'],
-				sortField: { //排序
-					field: 'id', // text:依據文本排序，id：依據value排序
-					direction: 'asc' // 升序降序
-				}
-			});
-
-			var $selectYears = $('#select-years')[0].selectize;
-			var yearArray = <?php echo json_encode($getYearsChoice); ?>;
-			$selectYears.setValue(yearArray, true);
-		</script>
-		<?php
+	var $selectYears = $('#select-years')[0].selectize;
+	var yearArray = <?php echo json_encode($getYearsChoice); ?>;
+	$selectYears.setValue(yearArray, true);
+</script>
+<?php
 $this->load->helper('form');
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>
-		<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-			<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
-		</div>
-		<?php
+<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
+</div>
+<?php
 unset($_SESSION['check']);
 }
 ?>
-		<?php
+<?php
 $error = $this->session->flashdata('error');
 if ($error) {
     ?>
-		<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-			<?php echo $error; ?>
-		</div>
-		<?php
+<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	<?php echo $error; ?>
+</div>
+<?php
 unset($_SESSION['error']);
 }
 ?>
-		<style>
-		.table.table-bordered tbody th{
-			width:10%;
-		}
-		</style>
-		<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
-	</section>
-</div>
+<style>
+	.table.table-bordered tbody th {
+		width: 10%;
+	}
+</style>
+<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->

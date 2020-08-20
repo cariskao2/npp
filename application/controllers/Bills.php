@@ -62,7 +62,7 @@ class Bills extends BaseController
         // 列表部分
         $count = $this->bills_model->getBillCaseListCount($searchText);
 
-        $returns = $this->paginationCompress('bills/billCaseList/', $count, 10, 3);
+        $returns = $this->paginationCompress('bills/billCaseList/', $count, 20, 3);
 
         $data['getBillCaseList'] = $this->bills_model->getBillCaseList($searchText, $returns["page"], $returns["segment"]);
 
@@ -85,7 +85,7 @@ class Bills extends BaseController
 
         $count = $this->bills_model->getBillStatusListCount($searchText);
 
-        $returns = $this->paginationCompress('bills/billStatusList/', $count, 10, 3);
+        $returns = $this->paginationCompress('bills/billStatusList/', $count, 20, 3);
 
         $data['getBillStatusList'] = $this->bills_model->getBillStatusList($searchText, $returns["page"], $returns["segment"]);
 
@@ -112,7 +112,7 @@ class Bills extends BaseController
 
         $count = $this->bills_model->getBillCategoryListCount($searchText);
 
-        $returns = $this->paginationCompress('bills/billCategoryList/', $count, 10, 3);
+        $returns = $this->paginationCompress('bills/billCategoryList/', $count, 20, 3);
 
         $data['getBillCategoryList'] = $this->bills_model->getBillCategoryList($searchText, $returns["page"], $returns["segment"]);
 
@@ -312,8 +312,8 @@ class Bills extends BaseController
                 $uploadData = $fileData['file_name'];
             } else {
                 // upload debug ,loads the view display.php with error
-                $error = array('error' => $this->upload->display_errors());
-                $this->load->view('upload_debug_form', $error);
+                // $error = array('error' => $this->upload->display_errors());
+                // $this->load->view('upload_debug_form', $error);
             }
 
             $userInfo = array(
@@ -562,8 +562,8 @@ class Bills extends BaseController
                 $uploadData = $fileData['file_name'];
             } else {
                 // upload debug ,loads the view display.php with error
-                $error = array('error' => $this->upload->display_errors());
-                $this->load->view('upload_debug_form', $error);
+                // $error = array('error' => $this->upload->display_errors());
+                // $this->load->view('upload_debug_form', $error);
             }
 
             $userInfo = array(

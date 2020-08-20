@@ -51,7 +51,7 @@ class User extends BaseController
 
             $count = $this->user_model->userListingCount($searchText); //算出總筆數,有搜尋結果就顯示全部搜尋的結果,否則就顯示全部的結果。
 
-            $returns = $this->paginationCompress("userListing/", $count, 10);
+            $returns = $this->paginationCompress("userListing/", $count, 20);
             // echo 'page: ' . $returns['page']; //10
             // echo 'segment: ' . $returns['segment']; //10
 
@@ -81,7 +81,7 @@ class User extends BaseController
 
             $count = $this->user_model->managerListingCount($searchText); //算出總筆數,有搜尋結果就顯示全部搜尋的結果,否則就顯示全部的結果。
 
-            $returns = $this->paginationCompress("user/managerListing/", $count, 10, 3);
+            $returns = $this->paginationCompress("user/managerListing/", $count, 20, 3);
             // echo 'page: ' . $returns['page']; //10
             // echo 'segment: ' . $returns['segment']; //10
 

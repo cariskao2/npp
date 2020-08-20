@@ -44,7 +44,7 @@ $newsEditBackPages = $this->session->userdata('news-edit-back-pages');
 			<div class="col-md-12">
 				<!-- general form elements -->
 				<div class="box box-primary" style="border:none;">
-					<div class="not-list-H-content-scroll">
+					<div class="not-list-H-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
 						<form role="form" action="<?php echo base_url('news/editSend/' . $pr_id); ?>" method="post" id=""
@@ -53,10 +53,8 @@ $newsEditBackPages = $this->session->userdata('news-edit-back-pages');
 								<div class="row">
 									<div class="col-md-6 col-xs-12">
 										<div class="form-group">
-											<div class="row">
-												<img class="col-md-12 col-xs-12"
-													src="<?php echo base_url('assets/uploads/news_upload/' . $type_id . '/' . $img); ?>">
-											</div>
+											<img style="width:300px"
+												src="<?php echo base_url('assets/uploads/news_upload/' . $type_id . '/' . $img); ?>">
 										</div>
 									</div>
 								</div>
@@ -176,7 +174,7 @@ $notActive = $userInfo->showup == 0 ? 'active' : 'notActive';
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div>
-					<!-- .not-list-H-content-scroll -->
+					<!-- .not-list-H-scroll -->
 				</div>
 				<!-- box -->
 			</div>

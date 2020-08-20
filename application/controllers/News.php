@@ -225,8 +225,8 @@ class News extends BaseController
                 $uploadData = $fileData['file_name'];
             } else {
                 // upload debug ,loads the view display.php with error
-                $error = array('error' => $this->upload->display_errors());
-                $this->load->view('upload_debug_form', $error);
+                // $error = array('error' => $this->upload->display_errors());
+                // $this->load->view('upload_debug_form', $error);
             }
 
             $press_release_info = array(
@@ -506,8 +506,8 @@ class News extends BaseController
                 $this->session->set_flashdata($array);
             } else {
                 // upload debug ,loads the view display.php with error
-                $error = array('error' => $this->upload->display_errors());
-                $this->load->view('upload_debug_form', $error);
+                // $error = array('error' => $this->upload->display_errors());
+                // $this->load->view('upload_debug_form', $error);
             }
 
             redirect('news/lists/' . $type_id . '/');

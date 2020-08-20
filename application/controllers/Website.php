@@ -211,8 +211,8 @@ class Website extends BaseController
                 $uploadData = $fileData['file_name'];
             } else {
                 // upload debug ,loads the view display.php with error
-                $error = array('error' => $this->upload->display_errors());
-                $this->load->view('upload_debug_form', $error);
+                // $error = array('error' => $this->upload->display_errors());
+                // $this->load->view('upload_debug_form', $error);
             }
 
             $carousel_info = array(
@@ -317,8 +317,8 @@ class Website extends BaseController
                 $uploadData = $fileData['file_name'];
             } else {
                 // upload debug ,loads the view display.php with error
-                $error = array('error' => $this->upload->display_errors());
-                $this->load->view('upload_debug_form', $error);
+                // $error = array('error' => $this->upload->display_errors());
+                // $this->load->view('upload_debug_form', $error);
             }
 
             $carousel_info = array(

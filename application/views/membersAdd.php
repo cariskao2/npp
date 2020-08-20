@@ -8,7 +8,7 @@ $memberAddBackPages = $this->session->userdata('member-add-back-pages');
 </div>
 <div class="content-wrapper">
 	<section>
-		<div class="function-on-top">
+		<div class="function-on-top not-list">
 			<div class="row">
 				<div class="col-xs-12">
 					<div class="box" style="border-top:none;border-radius:0">
@@ -27,14 +27,12 @@ $memberAddBackPages = $this->session->userdata('member-add-back-pages');
 				</div>
 			</div>
 		</div>
-		<div class="div-h"></div>
-		<div style="border-top:none">
-			<div class="row">
-				<!-- left column -->
-				<div class="col-md-12">
-					<!-- general form elements -->
-
-					<div class="box box-primary" style="border:none;">
+		<div class="row">
+			<!-- left column -->
+			<div class="col-md-12">
+				<!-- general form elements -->
+				<div class="box box-primary" style="border:none;">
+					<div class="not-list-H-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
 						<form role="form" action="<?php echo base_url('members/membersAddSend'); ?>" method="post" id=""
@@ -298,9 +296,12 @@ if (!empty($getContactList)) {
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div>
+					<!-- not-list-H-scroll -->
 				</div>
+				<!-- box -->
 			</div><!-- col-md-12 -->
 		</div>
+		<!-- row -->
 
 		<!-- 聯絡方式模板 -->
 		<template class="temp">
@@ -334,74 +335,74 @@ if (!empty($getContactList)) {
 				</td>
 			</tr>
 		</template>
+	</section>
+</div>
 
-		<script language='javascript' type='text/javascript'>
-			$.cookie('member-add-refresh', 'ok', {
-				path: '/'
-			});
+<script language='javascript' type='text/javascript'>
+	$.cookie('member-add-refresh', 'ok', {
+		path: '/'
+	});
 
-			// textarea自動依照內容增加高度
-			function autogrow(textarea) {
-				var adjustedHeight = textarea.clientHeight;
+	// textarea自動依照內容增加高度
+	function autogrow(textarea) {
+		var adjustedHeight = textarea.clientHeight;
 
-				adjustedHeight = Math.max(textarea.scrollHeight, adjustedHeight);
-				if (adjustedHeight > textarea.clientHeight) {
-					textarea.style.height = adjustedHeight + 'px';
-				}
-			}
+		adjustedHeight = Math.max(textarea.scrollHeight, adjustedHeight);
+		if (adjustedHeight > textarea.clientHeight) {
+			textarea.style.height = adjustedHeight + 'px';
+		}
+	}
 
-			$('#select-issues').selectize({
-				maxItems: null,
-				plugins: ['remove_button'],
-				sortField: { //排序
-					field: 'id', // text:依據文本排序，id：依據value排序
-					direction: 'asc' // 升序降序
-				}
-			});
+	$('#select-issues').selectize({
+		maxItems: null,
+		plugins: ['remove_button'],
+		sortField: { //排序
+			field: 'id', // text:依據文本排序，id：依據value排序
+			direction: 'asc' // 升序降序
+		}
+	});
 
-			$('#select-years').selectize({
-				maxItems: null,
-				plugins: ['remove_button'],
-				sortField: { //排序
-					field: 'id', // text:依據文本排序，id：依據value排序
-					direction: 'asc' // 升序降序
-				}
-			});
-			// console.log($('link:last-of-type').attr('href'));
-			// console.log($('link:last-child').attr('href'));
-			// console.log($('link:last').attr('href'));
-			// console.log($('link').last().attr('href'));
-		</script>
-		<?php
+	$('#select-years').selectize({
+		maxItems: null,
+		plugins: ['remove_button'],
+		sortField: { //排序
+			field: 'id', // text:依據文本排序，id：依據value排序
+			direction: 'asc' // 升序降序
+		}
+	});
+	// console.log($('link:last-of-type').attr('href'));
+	// console.log($('link:last-child').attr('href'));
+	// console.log($('link:last').attr('href'));
+	// console.log($('link').last().attr('href'));
+</script>
+<?php
 $this->load->helper('form');
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>
-		<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-			<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
-		</div>
-		<?php
+<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
+</div>
+<?php
 unset($_SESSION['check']);
 }
 ?>
-		<?php
+<?php
 $error = $this->session->flashdata('error');
 if ($error) {
     ?>
-		<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-			<?php echo $error; ?>
-		</div>
-		<?php
+<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+	<?php echo $error; ?>
+</div>
+<?php
 unset($_SESSION['error']);
 }
 ?>
-		<style>
-		.table.table-bordered tbody:not(.not-tbody) th{
-			width:10%;
-		}
-		</style>
-		<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
-	</section>
-</div>
+<style>
+	.table.table-bordered tbody:not(.not-tbody) th {
+		width: 10%;
+	}
+</style>
+<!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
