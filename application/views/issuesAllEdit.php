@@ -6,9 +6,10 @@ $title  = $getIssuesAllInfo->title;
 $intro  = $getIssuesAllInfo->introduction;
 $editor = $getIssuesAllInfo->editor;
 $img    = $getIssuesAllInfo->img;
-
-$issuesEditBackPages = $this->session->userdata('issues-edit-back-pages');
 ?>
+<div id="loader">
+	<div class="loader"></div>
+</div>
 <div class="content-wrapper">
 	<section>
 		<div class="function-on-top not-list">
@@ -20,7 +21,7 @@ $issuesEditBackPages = $this->session->userdata('issues-edit-back-pages');
 								<div class="col-xs-12">
 									<div class="form-group">
 										<a class="btn btn-warning"
-											href="javascript:history.go(<?php echo $issuesEditBackPages * -1; ?>);">返回</a>
+											href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
 										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 									</div>
 								</div>
@@ -57,8 +58,6 @@ $issuesEditBackPages = $this->session->userdata('issues-edit-back-pages');
 												size="20" />
 											<?php echo form_error('file'); ?>
 											<input type="hidden" name="img_name" value="<?php echo $img; ?>">
-											<input type="hidden" name="is-issues-edit"
-												value="<?php echo $_SESSION['is-issues-edit']; ?>">
 										</div>
 									</div>
 								</div>
@@ -150,10 +149,6 @@ $notActive = $show == 0 ? 'active' : 'notActive';
 	</section>
 </div>
 <script>
-	$.cookie('issues-edit-refresh', 'ok', {
-		path: '/'
-	});
-	// console.log('issues-refresh-edit', $.cookie('issues-edit-refresh'));
 </script>
 <?php
 // $this->load->helper('form');

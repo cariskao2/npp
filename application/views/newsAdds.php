@@ -1,6 +1,6 @@
-<?php
-$newsAddBackPages = $this->session->userdata('news-add-back-pages');
-?>
+<div id="loader">
+	<div class="loader"></div>
+</div>
 <link rel="stylesheet" href="<?php echo base_url('assets/plugins/clockpicker/css/bootstrap-clockpicker.css'); ?>">
 <script src="<?php echo base_url('assets/plugins/clockpicker/js/bootstrap-clockpicker.js'); ?>"></script>
 <script src="<?php echo base_url('assets/plugins/selectizejs/dist/js/standalone/selectize.js'); ?>"></script>
@@ -15,9 +15,8 @@ $newsAddBackPages = $this->session->userdata('news-add-back-pages');
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
-										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 										<a class="btn btn-warning"
-											href="javascript:history.go(<?php echo $newsAddBackPages * -1; ?>);">返回</a>
+											href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
 									</div>
 								</div>
 							</div>
@@ -140,7 +139,6 @@ if (!empty($getTagsList)) {
 									</div>
 								</div>
 							</div><!-- /.box-body -->
-							<input type="hidden" name="is-news-add" value="<?php echo $_SESSION['is-news-add']; ?>">
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div>
@@ -153,11 +151,16 @@ if (!empty($getTagsList)) {
 	</section>
 </div>
 <script language='javascript' type='text/javascript'>
-	$.cookie('news-add-refresh', 'ok', {
-		path: '/'
-	});
-
 	$('#time_start').clockpicker();
+
+	$("#date_start").datepicker({
+		// maxDate: "+0d",
+		showButtonPanel: true,
+		dateFormat: 'yy-mm-dd',
+		showMonthAfterYear: true,
+		changeMonth: true,
+		changeYear: true,
+	});
 
 	// 標籤
 	$('#select-tools').selectize({
@@ -175,7 +178,7 @@ if (!empty($getTagsList)) {
 	// console.log($('link').last().attr('href'));
 </script>
 <?php
-$this->load->helper('form');
+// $this->load->helper('form');
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>
@@ -184,9 +187,16 @@ if ($check) {
 	<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
 </div>
 <?php
-unset($_SESSION['check']);
 }
 ?>
 <style>
+	.ui-datepicker .ui-datepicker-title {
+		display: flex;
+		justify-content: center;
+	}
+
+	.ui-datepicker .ui-datepicker-title .ui-datepicker-month {
+		padding-bottom: 3px;
+	}
 </style>
 <!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->

@@ -169,6 +169,8 @@ if (!empty($listItems)) {
 			showButtonPanel: true,
 			dateFormat: 'yy-mm-dd',
 			showMonthAfterYear: true,
+			changeMonth: true,
+			changeYear: true,
 
 			// 在日期面板中點選了一個日期後,觸發此事件
 			onSelect: function (dateText, inst) {
@@ -194,6 +196,8 @@ if (!empty($listItems)) {
 			showButtonPanel: true,
 			dateFormat: 'yy-mm-dd',
 			showMonthAfterYear: true,
+			changeMonth: true,
+			changeYear: true,
 
 			onSelect: function (dateText, inst) {
 				// console.log('beforeSelectFrom:', _dateFrom);
@@ -226,3 +230,13 @@ if (!empty($listItems)) {
 		});
 	});
 </script>
+<style>
+	.ui-datepicker .ui-datepicker-title {
+		display: flex;
+		justify-content: center;
+	}
+
+	.ui-datepicker .ui-datepicker-title .ui-datepicker-month {
+		padding-bottom: 3px;
+	}
+</style>

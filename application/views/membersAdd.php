@@ -1,6 +1,3 @@
-<?php
-$memberAddBackPages = $this->session->userdata('member-add-back-pages');
-?>
 <script src="<?php echo base_url('assets/plugins/selectizejs/dist/js/standalone/selectize.js'); ?>"></script>
 <script src="<?php echo base_url('assets/plugins/selectizejs/js/index.js'); ?>"></script>
 <div id="loader">
@@ -17,7 +14,7 @@ $memberAddBackPages = $this->session->userdata('member-add-back-pages');
 								<div class="col-xs-12">
 									<div class="form-group">
 										<a class="btn btn-warning"
-											href="javascript:history.go(<?php echo $memberAddBackPages * -1; ?>);">返回</a>
+											href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
 										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 									</div>
 								</div>
@@ -292,7 +289,6 @@ if (!empty($getContactList)) {
 									</div>
 								</div>
 							</div><!-- /.box-body -->
-							<input type="hidden" name="is-member-add" value="<?php echo $_SESSION['is-member-add']; ?>">
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div>
@@ -339,10 +335,6 @@ if (!empty($getContactList)) {
 </div>
 
 <script language='javascript' type='text/javascript'>
-	$.cookie('member-add-refresh', 'ok', {
-		path: '/'
-	});
-
 	// textarea自動依照內容增加高度
 	function autogrow(textarea) {
 		var adjustedHeight = textarea.clientHeight;

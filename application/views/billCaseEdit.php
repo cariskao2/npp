@@ -6,9 +6,6 @@ $titlename = $getBillCaseInfo->titlename;
 $intro     = $getBillCaseInfo->introduction;
 $e         = $getBillCaseInfo->editor;
 $link      = $getBillCaseInfo->link;
-
-// $myRedirect = $this->session->userdata('myRedirect');
-$billEditBackPages = $this->session->userdata('bill-edit-back-pages');
 ?>
 <script src="<?php echo base_url('assets/plugins/selectizejs/dist/js/standalone/selectize.js'); ?>"></script>
 <script src="<?php echo base_url('assets/plugins/selectizejs/js/index.js'); ?>"></script>
@@ -25,9 +22,9 @@ $billEditBackPages = $this->session->userdata('bill-edit-back-pages');
 							<div class="row">
 								<div class="col-xs-12">
 									<div class="form-group">
-										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 										<a class="btn btn-warning"
-											href="javascript:history.go(<?php echo $billEditBackPages * -1; ?>);">返回</a>
+											href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
+										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 									</div>
 								</div>
 							</div>
@@ -191,7 +188,6 @@ if (!empty($getBillStatus)) {
 								</div>
 								<!-- row -->
 							</div><!-- /.box-body -->
-							<input type="hidden" name="is-bill-edit" value="<?php echo $_SESSION['is-bill-edit']; ?>">
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div>
@@ -204,10 +200,6 @@ if (!empty($getBillStatus)) {
 	</section>
 </div>
 <script language='javascript' type='text/javascript'>
-	$.cookie('bill-edit-refresh', 'ok', {
-		path: '/'
-	});
-
 	$('#select-years').selectize({
 		maxItems: null,
 		plugins: ['remove_button'],

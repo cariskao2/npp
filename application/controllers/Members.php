@@ -38,32 +38,38 @@ class Members extends BaseController
     {
         // 參考 segment_helper.php
         // echo '<script>alert("' . uri_segment() . '")</script>';
-        $this->session->unset_userdata('member-edit-back-pages');
-        $this->session->unset_userdata('member-add-back-pages');
-        $this->session->unset_userdata('is-member-add');
-        $this->session->unset_userdata('is-member-edit');
 
         $this->output->set_header("Cache-Control: private");
 
         $this->global['navTitle']  = '本黨立委 - 立委管理 - 列表';
-        $this->global['navActive'] = base_url('members/membersList/');
+        $this->global['navActive'] = base_url('members/membersList');
 
-        $searchText         = $this->security->xss_clean($this->input->post('searchText'));
+        $myRedirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+        if (isset($_GET['key']) && $_GET['key'] != '') {
+            // 有$_GET['key']就使用$_GET['key']的值
+            $searchText = $_GET['key'];
+        } else {
+            if ($this->input->post('searchText') != '') {
+                // 沒有$_GET['key']且post('searchText')有值
+                $searchText = $this->security->xss_clean($this->input->post('searchText'));
+                $myRedirect .= '?key=' . $searchText; //就將url尾部再加上「?key=$searchText」
+            } else {
+                $searchText = $this->security->xss_clean($this->input->post('searchText'));
+            }
+        }
+
+        $this->session->set_userdata('myRedirect', $myRedirect);
+
         $data['searchText'] = $searchText;
 
         $count = $this->members_model->listingCount($searchText);
         // echo ' count: ' . $count;
 
-        $returns = $this->paginationCompress('members/members/', $count, 20, 3); //記得加上「/」
+        $returns = $this->paginationSearchCompress('members/membersList', $count, 20, 3);
         // echo ' segment-News: ' . $returns['segment'];
 
         $data['listItems'] = $this->members_model->listing(false, $searchText, $returns['page'], $returns['segment']);
-
-        // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
-
-        // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
-        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
-        $this->session->set_userdata('myRedirect', $myRedirect);
 
         $this->loadViews('membersList', $this->global, $data, null);
     }
@@ -108,16 +114,6 @@ class Members extends BaseController
     // members
     public function membersAdd()
     {
-        if (!isset($_SESSION['is-member-add'])) {
-            $_SESSION['is-member-add'] = 0;
-        }
-
-        $memberAddBackPages = $this->session->userdata('member-add-back-pages');
-
-        if ($memberAddBackPages == null) {
-            $this->session->set_userdata('member-add-back-pages', 1);
-        }
-
         // $this->global['pageTitle'] = '新增最新新聞資料';
         $data = array(
             'getYearsList'       => $this->members_model->getYearsList(),
@@ -126,7 +122,7 @@ class Members extends BaseController
         );
 
         $this->global['navTitle']  = '本黨立委 - 立委管理 - 新增';
-        $this->global['navActive'] = base_url('members/membersList/');
+        $this->global['navActive'] = base_url('members/membersList');
 
         $this->loadViews("membersAdd", $this->global, $data, null);
     }
@@ -144,14 +140,7 @@ class Members extends BaseController
         $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
 
         if ($this->form_validation->run() == false) {
-            if ($_SESSION['is-member-add'] == $_POST['is-member-add']) {
-                $_SESSION['is-member-add'] += 1;
-
-                $memberAddBackPages = $this->session->userdata('member-add-back-pages');
-                $this->session->set_userdata('member-add-back-pages', $memberAddBackPages + 1);
-                $this->session->set_flashdata('check', '驗證失敗');
-            }
-
+            $this->session->set_flashdata('check', '驗證失敗');
             $this->membersAdd();
         } else {
             $n         = $this->security->xss_clean($this->input->post('name'));
@@ -271,7 +260,7 @@ class Members extends BaseController
                 $this->session->set_flashdata('error', '新增失敗!');
             }
 
-            redirect('members/membersList/');
+            redirect('members/membersList');
         }
     }
 
@@ -336,21 +325,11 @@ class Members extends BaseController
         $editProtectChcek = $this->members_model->editProtectCheck($id, 'members');
 
         if ($editProtectChcek == 0) {
-            redirect('members/membersList/');
-        }
-
-        if (!isset($_SESSION['is-member-edit'])) {
-            $_SESSION['is-member-edit'] = 0;
-        }
-
-        $memberEditBackPages = $this->session->userdata('member-edit-back-pages');
-
-        if ($memberEditBackPages == null) {
-            $this->session->set_userdata('member-edit-back-pages', 1);
+            redirect('members/membersList');
         }
 
         $this->global['navTitle']  = '本黨立委 - 立委管理 - 編輯';
-        $this->global['navActive'] = base_url('members/membersList/');
+        $this->global['navActive'] = base_url('members/membersList');
 
         $data = array(
             'getMemberInfo'        => $this->members_model->getMemberInfo($id),
@@ -393,14 +372,7 @@ class Members extends BaseController
         $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
 
         if ($this->form_validation->run() == false) {
-            if ($_SESSION['is-member-edit'] == $_POST['is-member-edit']) {
-                $_SESSION['is-member-edit'] += 1;
-
-                $memberEditBackPages = $this->session->userdata('member-edit-back-pages');
-                $this->session->set_userdata('member-edit-back-pages', $memberEditBackPages + 1);
-                $this->session->set_flashdata('check', '驗證失敗');
-            }
-
+            $this->session->set_flashdata('check', '驗證失敗');
             $this->membersEdit($id);
         } else {
             $n         = $this->security->xss_clean($this->input->post('name'));
@@ -525,22 +497,17 @@ class Members extends BaseController
 
             if ($result > 0) {
                 $array = array(
-                    'success' => '編輯成功!',
+                    'success' => '儲存成功!',
                 );
 
                 $this->session->set_flashdata($array);
             } else {
-                $this->session->set_flashdata('error', '編輯失敗!');
+                $this->session->set_flashdata('error', '儲存失敗!');
             }
 
-            $memberEditBackPages = $this->session->userdata('member-edit-back-pages');
-            $memberEditBackPages = $memberEditBackPages * -1 - 1;
-
-            echo "<script>history.go($memberEditBackPages);</script>";
-
+            $myRedirect = $this->session->userdata('myRedirect');
+            redirect($myRedirect);
             // $this->membersEdit($id);
-            // $myRedirect = $this->session->userdata('myRedirect');
-            // redirect($myRedirect);
         }
     }
 
@@ -767,7 +734,7 @@ class Members extends BaseController
     public function membersSort()
     {
         $this->global['navTitle']  = '本黨立委 - 立委管理 - 排序';
-        $this->global['navActive'] = base_url('members/membersList/');
+        $this->global['navActive'] = base_url('members/membersList');
 
         $data['getMembersList'] = $this->members_model->listing(true);
 

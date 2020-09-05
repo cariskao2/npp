@@ -36,17 +36,28 @@ class Bills extends BaseController
     // 法案草案列表
     public function billCaseList()
     {
-        $this->session->unset_userdata('bill-edit-back-pages');
-        $this->session->unset_userdata('bill-add-back-pages');
-        $this->session->unset_userdata('is-bill-add');
-        $this->session->unset_userdata('is-bill-edit');
-
         $this->output->set_header("Cache-Control: private");
 
         $this->global['navTitle']  = '重點法案 - 法案草案管理 - 列表';
-        $this->global['navActive'] = base_url('bills/billCaseList/');
+        $this->global['navActive'] = base_url('bills/billCaseList');
 
-        $searchText         = $this->security->xss_clean($this->input->post('searchText'));
+        $myRedirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+        if (isset($_GET['key']) && $_GET['key'] != '') {
+            // 有$_GET['key']就使用$_GET['key']的值
+            $searchText = $_GET['key'];
+        } else {
+            if ($this->input->post('searchText') != '') {
+                // 沒有$_GET['key']且post('searchText')有值
+                $searchText = $this->security->xss_clean($this->input->post('searchText'));
+                $myRedirect .= '?key=' . $searchText; //就將url尾部再加上「?key=$searchText」
+            } else {
+                $searchText = $this->security->xss_clean($this->input->post('searchText'));
+            }
+        }
+
+        $this->session->set_userdata('myRedirect', $myRedirect);
+
         $data['searchText'] = $searchText;
 
         // float_id部分
@@ -62,7 +73,7 @@ class Bills extends BaseController
         // 列表部分
         $count = $this->bills_model->getBillCaseListCount($searchText);
 
-        $returns = $this->paginationCompress('bills/billCaseList/', $count, 20, 3);
+        $returns = $this->paginationSearchCompress('bills/billCaseList ', $count, 20, 3);
 
         $data['getBillCaseList'] = $this->bills_model->getBillCaseList($searchText, $returns["page"], $returns["segment"]);
 
@@ -136,18 +147,8 @@ class Bills extends BaseController
     // 法案草案新增
     public function billCaseAdd()
     {
-        if (!isset($_SESSION['is-bill-add'])) {
-            $_SESSION['is-bill-add'] = 0;
-        }
-
-        $billAddBackPages = $this->session->userdata('bill-add-back-pages');
-
-        if ($billAddBackPages == null) {
-            $this->session->set_userdata('bill-add-back-pages', 1);
-        }
-
         $this->global['navTitle']  = '重點法案 - 法案草案管理 - 新增';
-        $this->global['navActive'] = base_url('bills/billCaseList/');
+        $this->global['navActive'] = base_url('bills/billCaseList');
 
         $data = array(
             'getYearsList'    => $this->bills_model->getYearsList(),
@@ -168,14 +169,7 @@ class Bills extends BaseController
         $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
 
         if ($this->form_validation->run() == false) {
-            if ($_SESSION['is-bill-add'] == $_POST['is-bill-add']) {
-                $_SESSION['is-bill-add'] += 1;
-
-                $billAddBackPages = $this->session->userdata('bill-add-back-pages');
-                $this->session->set_userdata('bill-add-back-pages', $billAddBackPages + 1);
-                $this->session->set_flashdata('check', '驗證失敗');
-            }
-
+            $this->session->set_flashdata('check', '驗證失敗');
             $this->billCaseAdd();
         } else {
             $category = $this->security->xss_clean($this->input->post('category'));
@@ -220,7 +214,7 @@ class Bills extends BaseController
 
                 $this->session->set_flashdata($array);
 
-                redirect('bills/billCaseList/');
+                redirect('bills/billCaseList');
 
             } else {
                 $this->session->set_flashdata('error', '新增失敗!');
@@ -349,21 +343,11 @@ class Bills extends BaseController
         $editProtectChcek = $this->bills_model->editProtectCheck($id, 'bill-case');
 
         if ($editProtectChcek == 0) {
-            redirect('bills/billCaseList/');
-        }
-
-        if (!isset($_SESSION['is-bill-edit'])) {
-            $_SESSION['is-bill-edit'] = 0;
-        }
-
-        $billEditBackPages = $this->session->userdata('bill-edit-back-pages');
-
-        if ($billEditBackPages == null) {
-            $this->session->set_userdata('bill-edit-back-pages', 1);
+            redirect('bills/billCaseList');
         }
 
         $this->global['navTitle']  = '重點法案 - 法案草案管理 - 編輯';
-        $this->global['navActive'] = base_url('bills/billCaseList/');
+        $this->global['navActive'] = base_url('bills/billCaseList');
 
         $data = array(
             'getYearsList'    => $this->bills_model->getYearsList(),
@@ -386,14 +370,7 @@ class Bills extends BaseController
         $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
 
         if ($this->form_validation->run() == false) {
-            if ($_SESSION['is-bill-edit'] == $_POST['is-bill-edit']) {
-                $_SESSION['is-bill-edit'] += 1;
-
-                $billEditBackPages = $this->session->userdata('bill-edit-back-pages');
-                $this->session->set_userdata('bill-edit-back-pages', $billEditBackPages + 1);
-                $this->session->set_flashdata('check', '驗證失敗');
-            }
-
+            $this->session->set_flashdata('check', '驗證失敗');
             $this->billCaseEdit($id);
         } else {
             $category = $this->security->xss_clean($this->input->post('category'));
@@ -438,14 +415,9 @@ class Bills extends BaseController
 
                 $this->session->set_flashdata($array);
 
-                $billEditBackPages = $this->session->userdata('bill-edit-back-pages');
-                $billEditBackPages = $billEditBackPages * -1 - 1;
-
-                echo "<script>history.go($billEditBackPages);</script>";
-
+                $myRedirect = $this->session->userdata('myRedirect');
+                redirect($myRedirect);
                 // redirect('bills/billCaseList/');
-                // $myRedirect = $this->session->userdata('myRedirect');
-                // redirect($myRedirect);
 
             } else {
                 $this->session->set_flashdata('error', '更新失敗!');

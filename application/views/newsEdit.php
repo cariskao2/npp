@@ -8,7 +8,6 @@ $date_start = $userInfo->date_start;
 $time_start = $userInfo->time_start;
 $editor     = $userInfo->editor;
 
-$newsEditBackPages = $this->session->userdata('news-edit-back-pages');
 ?>
 <link rel="stylesheet" href="<?php echo base_url('assets/plugins/clockpicker/css/bootstrap-clockpicker.css'); ?>">
 <script src="<?php echo base_url('assets/plugins/clockpicker/js/bootstrap-clockpicker.min.js'); ?>"></script>
@@ -29,8 +28,7 @@ $newsEditBackPages = $this->session->userdata('news-edit-back-pages');
 									<div class="form-group">
 										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 										<a class="btn btn-warning"
-											href="javascript:history.go(<?php echo $newsEditBackPages * -1; ?>);">返回</a>
-
+											href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
 									</div>
 								</div>
 							</div>
@@ -170,7 +168,6 @@ $notActive = $userInfo->showup == 0 ? 'active' : 'notActive';
 									</div>
 								</div>
 							</div><!-- /.box-body -->
-							<input type="hidden" name="is-news-edit" value="<?php echo $_SESSION['is-news-edit']; ?>">
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div>
@@ -186,12 +183,16 @@ $notActive = $userInfo->showup == 0 ? 'active' : 'notActive';
 <!-- content-wrapper -->
 
 <script language='javascript' type='text/javascript'>
-	$.cookie('news-edit-refresh', 'ok', {
-		path: '/'
-	});
-
 	$('#time_start').clockpicker();
 
+	$("#date_start").datepicker({
+		// minDate:'-10d',
+		showButtonPanel: true,
+		dateFormat: 'yy-mm-dd',
+		showMonthAfterYear: true,
+		changeMonth: true,
+		changeYear: true,
+	});
 	// 標籤
 	$('#select-tools').selectize({
 		maxItems: 5,
@@ -207,6 +208,16 @@ $notActive = $userInfo->showup == 0 ? 'active' : 'notActive';
 	// console.log('jsArray', jsArray);
 	selectTools.setValue(jsArray, true);
 </script>
+<style>
+	.ui-datepicker .ui-datepicker-title {
+		display: flex;
+		justify-content: center;
+	}
+
+	.ui-datepicker .ui-datepicker-title .ui-datepicker-month {
+		padding-bottom: 3px;
+	}
+</style>
 <?php
 $this->load->helper('form');
 

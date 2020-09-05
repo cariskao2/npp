@@ -1,6 +1,3 @@
-<div id="loader">
-	<div class="loader"></div>
-</div>
 <div class="content-wrapper list-bottom-bg">
 	<!-- <section class="content"> -->
 	<section>
@@ -21,9 +18,9 @@
 								</div>
 								<div class="col-xs-12 col-sm-7">
 									<div class="box-tools">
-										<!-- 列表尾端加上「/」在下方第一頁分頁才會正常顯示 -->
-										<form action="<?php echo base_url('members/membersList/'); ?>" method="POST"
-											id="searchList">
+										<!-- 下方jQuery.attr會再改action屬性 -->
+										<form action="<?php echo base_url('members/membersList'); ?>" method="POST"
+											id="searchList" name="form">
 											<div class="input-group">
 												<input type="text" name="searchText" value="<?php echo $searchText; ?>"
 													class="form-control input-sm pull-right nav-list"
@@ -102,23 +99,35 @@ if (!empty($listItems)) {
 </div>
 <script type="text/javascript" src="<?php echo base_url('assets/js/common.js'); ?>" charset="utf-8"></script>
 <script type="text/javascript">
-	if ($.cookie('member-add-refresh') == 'ok' || $.cookie('member-edit-refresh') == 'ok') {
-		$.removeCookie('member-add-refresh', {
-			path: '/'
-		});
-
-		$.removeCookie('member-edit-refresh', {
-			path: '/'
-		});
-
-		window.location.reload();
-
-	} else {
-		$('#loader').hide(0); // 在下方的頁數切換時不會產生動畫,只有進入新增或是編輯才會產生動畫
-	}
-
 	jQuery(document).ready(function () {
-		pagination('members/membersList/');
+		jQuery('ul.pagination li a').click(function (e) {
+			// 當點擊下方頁面時,就獲取以下資料並跳轉
+			e.preventDefault();
+			var link = jQuery(this).get(0).href;
+			// substring(start,end)表示從start到end之間的字串，包括start位置的字元但是不包括end位置的字元。
+			var queryStr = link.substring(link.lastIndexOf('/') + 1); // 1?per_page=2
+			var key = 'key=' + form.searchText.value;
+
+			if (form.searchText.value != '') {
+				if (queryStr.indexOf('key') == -1) {
+					if (queryStr.indexOf('per_page') >= 0) {
+						key = '&' + key;
+					} else {
+						key = '?' + key;
+					}
+				}
+			} else {
+				key = '';
+			}
+
+			// console.log('link', link);
+			// console.log('queryStr', queryStr);
+			// console.log('key', key);
+			// console.log('searchText', form.searchText.value);
+
+			jQuery('#searchList').attr('action', baseURL + 'members/' + queryStr + key);
+			jQuery('#searchList').submit();
+		});
 	});
 </script>
 <?php

@@ -32,12 +32,12 @@
 						</div><!-- /.box-header -->
 						<table class="table table-hover title-center" style="margin-bottom:0;border-bottom:3px solid gray">
 							<tr>
-								<td style="width:25%">人員名稱</td>
+								<td style="width:25%">人員</td>
 								<td style="width:30%">Email</td>
-								<td style="width:10%">手機</td>
-								<td style="width:10%">層級</td>
-								<td style="width:15%">建立日期</td>
-								<td style="width:10%" class="text-center">功能</td>
+								<!-- <td style="width:10%">手機</td> -->
+								<td style="width:15%">層級</td>
+								<td style="width:15%">日期</td>
+								<td style="width:15%" class="text-center">功能</td>
 							</tr>
 						</table>
 					</div>
@@ -56,10 +56,10 @@ if (!empty($userRecords)) {
 							<tr>
 								<td style="width:25%"><?php echo $record->name ?></td>
 								<td style="width:30%"><?php echo $record->email ?></td>
-								<td style="width:10%"><?php echo $record->mobile ?></td>
-								<td style="width:10%"><?php echo $record->role ?></td>
+								<!-- <td style="width:10%"><?php echo $record->mobile ?></td> -->
+								<td style="width:15%"><?php echo $record->role ?></td>
 								<td style="width:15%"><?php echo date("Y-d-m", strtotime($record->createdDtm)) ?></td>
-								<td style="width:10%" class="text-center">
+								<td style="width:15%" class="text-center">
 									<!-- <a class="btn btn-sm btn-primary" href="<?=base_url() . 'login-history/' . $record->userId;?>" title="歷史記錄"><i class="fa fa-history"></i></a> | -->
 									<a class="btn btn-sm btn-info"
 										href="<?php echo base_url() . 'editOld/' . $record->userId; ?>" title="編輯"><i

@@ -3,6 +3,12 @@ body {
    overflow: hidden;
 }
 
+// ios下input的placeholder不垂直居中顯示的問題
+input::-webkit-input-placeholder {
+   line-height: normal;
+   // padding-top: 2px; // 微調
+}
+
 // 列表頁有搜尋欄時的手機樣式
 @media (max-width: 767px) {
    .pull-right.nav-list {
@@ -236,6 +242,5 @@ body {
    .alert-absoulte {
       left: 0;
       top: 100px;
-      ;
    }
 }

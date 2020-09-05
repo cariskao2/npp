@@ -159,13 +159,71 @@ class BaseController extends CI_Controller
         $config['last_link']        = '>>';
         $config['last_tag_close']   = '</li>';
         $config['use_page_numbers'] = true; //true:使用頁碼方式。false:偏移量傳值
-        // $config['page_query_string'] = true; // 將連結改成有?a=test&b=20的格式
-        // $config['enable_query_strings'] = true; // 啟用，若要使用 'page_query_string'
 
         $this->pagination->initialize($config);
+
         $page    = $config['per_page'];
         $segment = !$config['use_page_numbers'] ? $this->uri->segment($segment) : ($this->uri->segment($segment) != null ? ($this->uri->segment($segment) - 1) * $page : 0);
         // http://n.sfs.tw/content/index/10846
+
+        return array(
+            "page"    => $page,
+            "segment" => $segment,
+        );
+    }
+
+    public function paginationSearchCompress($link, $count, $perPage = 10, $segment = SEGMENT)
+    {
+        $this->load->library('pagination');
+
+        // $search = $search != '' ? '?key=' . urlencode($search) : '';
+
+        // $config['base_url']             = base_url() . $link . $search;
+        $config['base_url']             = base_url() . $link;
+        $config['total_rows']           = $count;
+        $config['uri_segment']          = $segment; // 若使用page_query_string則無效
+        $config['per_page']             = $perPage;
+        $config['num_links']            = 5;
+        $config['full_tag_open']        = '<nav><ul class="pagination">';
+        $config['full_tag_close']       = '</ul></nav>';
+        $config['first_tag_open']       = '<li class="arrow">';
+        $config['first_link']           = '<<';
+        $config['first_tag_close']      = '</li>';
+        $config['prev_link']            = '<';
+        $config['prev_tag_open']        = '<li class="arrow">';
+        $config['prev_tag_close']       = '</li>';
+        $config['next_link']            = '>';
+        $config['next_tag_open']        = '<li class="arrow">';
+        $config['next_tag_close']       = '</li>';
+        $config['cur_tag_open']         = '<li class="active"><a href="#">';
+        $config['cur_tag_close']        = '</a></li>';
+        $config['num_tag_open']         = '<li>';
+        $config['num_tag_close']        = '</li>';
+        $config['last_tag_open']        = '<li class="arrow">';
+        $config['last_link']            = '>>';
+        $config['last_tag_close']       = '</li>';
+        $config['use_page_numbers']     = true; //true:使用頁碼方式。false:偏移量傳值
+        $config['enable_query_strings'] = true; // 啟用page_query_string
+        $config['page_query_string']    = true; // 將連結改成有?a=test&b=20的格式
+
+        $this->pagination->initialize($config);
+
+        $page = $config['per_page'];
+        // $segment = !$config['use_page_numbers'] ? $_GET['per_page'] : ($_GET['per_page'] != null ? ($_GET['per_page'] - 1) * $page : 0);
+
+        if ($config['use_page_numbers']) {
+            if (isset($_GET['per_page'])) {
+                $segment = ($_GET['per_page'] - 1) * $page;
+            } else {
+                $segment = 0;
+            }
+        } else {
+            if (isset($_GET['per_page'])) {
+                $segment = $_GET['per_page'];
+            } else {
+                $segment = 0;
+            }
+        }
 
         return array(
             "page"    => $page,

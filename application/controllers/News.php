@@ -45,14 +45,9 @@ class News extends BaseController
             redirect('news/lists/1');
         }
 
-        $this->session->unset_userdata('news-add-back-pages');
-        $this->session->unset_userdata('is-news-add');
-        $this->session->unset_userdata('news-edit-back-pages');
-        $this->session->unset_userdata('is-news-edit');
-
         $this->output->set_header("Cache-Control: private");
 
-        $this->global['navActive'] = base_url('news/lists/' . $type_id . '/');
+        $this->global['navActive'] = base_url('news/lists/' . $type_id);
 
         switch ($type_id) {
             case '1':
@@ -66,19 +61,33 @@ class News extends BaseController
                 break;
         }
 
-        $search             = $this->input->get('search');
-        $searchText         = $this->security->xss_clean($this->input->post('searchText'));
+        $myRedirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+        if (isset($_GET['key']) && $_GET['key'] != '') {
+            // 有$_GET['key']就使用$_GET['key']的值
+            $searchText = $_GET['key'];
+        } else {
+            if ($this->input->post('searchText') != '') {
+                // 沒有$_GET['key']且post('searchText')有值
+                $searchText = $this->security->xss_clean($this->input->post('searchText'));
+                $myRedirect .= '?key=' . $searchText; //就將url尾部再加上「?key=$searchText」
+            } else {
+                $searchText = $this->security->xss_clean($this->input->post('searchText'));
+            }
+        }
+
+        $this->session->set_userdata('myRedirect', $myRedirect);
+
         $data['searchText'] = $searchText;
 
         $count = $this->news_model->listingCount($searchText, $type_id); //算出總筆數
         // echo ' count: ' . $count;
-
-        $returns = $this->paginationCompress("news/lists/" . $type_id . '/', $count, 20, 4); //記得加上「/」
+        $returns = $this->paginationSearchCompress('news/lists/' . $type_id, $count, 20, 4);
         // echo ' segment-News: ' . $returns['segment'];
 
         $data['listItems']     = $this->news_model->listing($searchText, $type_id, $returns["page"], $returns["segment"]);
         $data['getTagsChoice'] = $this->news_model->getTagsChoice();
-        $data['type_id']       = $type_id; //用來帶入newsLists_f中searchText的form action 跟 add
+        $data['type_id']       = $type_id; //用來帶入newsLists中searchText的form action 跟 add
 
         $this->loadViews("newsLists", $this->global, $data, null);
     }
@@ -104,7 +113,7 @@ class News extends BaseController
         $data['newsTags'] = $this->news_model->tagsListing($searchText, $returns["page"], $returns["segment"]);
 
         // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
-        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
+        $myRedirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $this->session->set_userdata('myRedirect', $myRedirect);
 
         $this->loadViews("tagLists", $this->global, $data, null);
@@ -128,17 +137,6 @@ class News extends BaseController
             redirect('news/lists/1');
         }
 
-        if (!isset($_SESSION['is-news-edit'])) {
-            $_SESSION['is-news-edit'] = 0;
-        }
-
-        $newsEditBackPages = $this->session->userdata('news-edit-back-pages');
-
-        if ($newsEditBackPages == null) {
-            $this->session->set_userdata('news-edit-back-pages', 1);
-        }
-
-        // $data['roles'] = $this->news_model->getUserRoles();
         $data = array(
             'userInfo'      => $this->news_model->getPressReleaseInfo($pr_id),
             'getTagsChoice' => $this->news_model->getTagsChoice($pr_id),
@@ -153,7 +151,7 @@ class News extends BaseController
             }
         }
 
-        $this->global['navActive'] = base_url('news/lists/' . $type_id . '/');
+        $this->global['navActive'] = base_url('news/lists/' . $type_id);
 
         // $this->global['pageTitle'] = '編輯最新新聞資料';
         switch ($type_id) {
@@ -189,14 +187,7 @@ class News extends BaseController
         $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
 
         if ($this->form_validation->run() == false) {
-            if ($_SESSION['is-news-edit'] == $_POST['is-news-edit']) {
-                $_SESSION['is-news-edit'] += 1;
-
-                $newsEditBackPages = $this->session->userdata('news-edit-back-pages');
-                $this->session->set_userdata('news-edit-back-pages', $newsEditBackPages + 1);
-                $this->session->set_flashdata('check', '驗證失敗');
-            }
-
+            $this->session->set_flashdata('check', '驗證失敗');
             $this->newsEdit($pr_id);
         } else {
             $m_title         = $this->security->xss_clean($this->input->post('m_title'));
@@ -295,13 +286,8 @@ class News extends BaseController
                 $this->session->set_flashdata('error', '儲存失敗!');
             }
 
-            $newsEditBackPages = $this->session->userdata('news-edit-back-pages');
-            $newsEditBackPages = $newsEditBackPages * -1 - 1;
-
-            echo "<script>history.go($newsEditBackPages);</script>";
-
-            // $myRedirect = $this->session->userdata('myRedirect');
-            // redirect($myRedirect);
+            $myRedirect = $this->session->userdata('myRedirect');
+            redirect($myRedirect);
             // $this->newsEdit($pr_id);
         }
     }
@@ -392,17 +378,7 @@ class News extends BaseController
             redirect('news/lists/1');
         }
 
-        if (!isset($_SESSION['is-news-add'])) {
-            $_SESSION['is-news-add'] = 0;
-        }
-
-        $newsAddBackPages = $this->session->userdata('news-add-back-pages');
-
-        if ($newsAddBackPages == null) {
-            $this->session->set_userdata('news-add-back-pages', 1);
-        }
-
-        $this->global['navActive'] = base_url('news/lists/' . $type_id . '/');
+        $this->global['navActive'] = base_url('news/lists/' . $type_id);
 
         $data = array(
             'getTagsList' => $this->news_model->getTagsList(),
@@ -434,19 +410,13 @@ class News extends BaseController
         $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
 
         if ($this->form_validation->run() == false) {
-            if ($_SESSION['is-news-add'] == $_POST['is-news-add']) {
-                $_SESSION['is-news-add'] += 1;
-
-                $newsAddBackPages = $this->session->userdata('news-add-back-pages');
-                $this->session->set_userdata('news-add-back-pages', $newsAddBackPages + 1);
-                $this->session->set_flashdata('check', '驗證失敗');
-            }
-
+            $this->session->set_flashdata('check', '驗證失敗');
             $this->adds($type_id);
         } else {
             $m_title         = $this->security->xss_clean($this->input->post('m_title'));
             $s_title         = $this->security->xss_clean($this->input->post('s_title'));
             $date_start      = $this->security->xss_clean($this->input->post('date_start'));
+            $time_start      = $this->security->xss_clean($this->input->post('time_start'));
             $editor          = $this->input->post('editor1');
             $tags            = $this->security->xss_clean($this->input->post('tags'));
             $showStatusCheck = $this->input->post('happy');
@@ -477,6 +447,7 @@ class News extends BaseController
                     'main_title' => $m_title,
                     'sub_title'  => $s_title,
                     'date_start' => $date_start,
+                    'time_start' => $time_start,
                     'editor'     => $editor,
                 );
 
@@ -510,7 +481,7 @@ class News extends BaseController
                 // $this->load->view('upload_debug_form', $error);
             }
 
-            redirect('news/lists/' . $type_id . '/');
+            redirect('news/lists/' . $type_id);
         }
     }
 

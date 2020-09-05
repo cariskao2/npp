@@ -1,6 +1,6 @@
-<?php
-$issuesAddBackPages = $this->session->userdata('issues-add-back-pages');
-?>
+<div id="loader">
+	<div class="loader"></div>
+</div>
 <div class="content-wrapper">
 	<section>
 		<div class="function-on-top not-list">
@@ -10,16 +10,13 @@ $issuesAddBackPages = $this->session->userdata('issues-add-back-pages');
 						<div class="box-header">
 							<div class="row">
 								<div class="col-xs-12">
-									<div class="form-group">
-										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
-										<!-- <a class="btn btn-warning" href="javascript:history.go(-2);">返回</a> -->
-										<a class="btn btn-warning"
-											href="javascript:history.go(<?php echo $issuesAddBackPages * -1; ?>);">返回</a>
-									</div>
+									<a class="btn btn-warning"
+										href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
+									<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 								</div>
 							</div>
-						</div><!-- /.box-header -->
-					</div>
+						</div>
+					</div><!-- /.box-header -->
 				</div>
 			</div>
 		</div>
@@ -31,7 +28,7 @@ $issuesAddBackPages = $this->session->userdata('issues-add-back-pages');
 					<div class="not-list-H-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
-						<form role="form" action="<?php echo base_url('issues/issuesAllAddSend/'); ?>" method="post" id=""
+						<form role="form" action="<?php echo base_url('issues/issuesAllAddSend'); ?>" method="post" id=""
 							role="form" enctype="multipart/form-data">
 							<div class="box-body">
 								<div class="row">
@@ -111,7 +108,6 @@ if (!empty($getIssuesClassList)) {
 									</div>
 								</div>
 							</div><!-- /.box-body -->
-							<input type="hidden" name="is-issues-add" value="<?php echo $_SESSION['is-issues-add']; ?>">
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div>
@@ -124,14 +120,9 @@ if (!empty($getIssuesClassList)) {
 	</section>
 </div>
 <script>
-	$.cookie('issues-add-refresh', 'ok', {
-		path: '/'
-	});
-	// console.log('issues-refresh-add', $.cookie('issues-add-refresh'));
 </script>
 <?php
-$this->load->helper('form');
-
+// $this->load->helper('form');
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>
@@ -140,7 +131,6 @@ if ($check) {
 	<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
 </div>
 <?php
-unset($_SESSION['check']);
 }
 ?>
 <style>

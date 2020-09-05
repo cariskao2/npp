@@ -55,7 +55,7 @@
 	</style>
 	<script src="<?php echo base_url(); ?>assets/bower_components/jquery/dist/jquery.js"></script>
 	<script src="<?php echo base_url(); ?>assets/bower_components/jquery-ui/jquery-ui.min.js"></script>
-	<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<!-- <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script> -->
 	<script src="<?php echo base_url(); ?>assets/plugins/ckeditor4/ckeditor/ckeditor.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/jquery.validate.js" type="text/javascript"></script>
 	<script src="<?php echo base_url(); ?>assets/js/validation.js" type="text/javascript"></script>
@@ -78,7 +78,7 @@
 		href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body id="b-body" class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
 		<header class="main-header header-fixex-top">
 			<!-- Logo -->
@@ -101,7 +101,7 @@
 						<li class="title-on-top"><a class="hover-bg"><?php if (!empty($navTitle)) {
     echo $navTitle;
 }?></a></li>
-						<li class="dropdown tasks-menu">
+						<!-- <li class="dropdown tasks-menu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 								<i class="fa fa-history"></i>
 							</a>
@@ -109,7 +109,7 @@
 								<li class="header"> 最後登入時間 : <i class="fa fa-clock-o"></i>
 									<?=empty($last_login) ? "First Time Login" : $last_login;?></li>
 							</ul>
-						</li>
+						</li> -->
 						<!-- User Account: style can be found in dropdown.less -->
 						<li class="dropdown user user-menu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -157,8 +157,10 @@
 							<i class="fa fa-dashboard"></i> <span>控制面板</span></i>
 						</a>
 					</li> -->
-					<li class="treeview">
-						<a href="#" style="padding-top:17px;">
+				<!-- <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"> -->
+
+					<li class="treeview" style="padding-top:5px">
+						<a href="#">
 							<i class="fa fa-globe"></i> <span>新聞訊息</span>
 							<!-- <span class="pull-right-container">
 								<i class="fa fa-angle-right pull-right"></i>
@@ -166,9 +168,9 @@
 						</a>
 						<ul class="treeview-menu">
 							<!-- url尾端也要加上/,這樣在在項目列表的第一頁再點擊下方的page1,才不會error -->
-							<li><a href="<?php echo base_url(); ?>news/lists/1/">法案及議事說明</a></li>
-							<li><a href="<?php echo base_url(); ?>news/lists/2/">懶人包及議題追追追</a></li>
-							<li><a href="<?php echo base_url(); ?>news/lists/3/">行動紀實</a></li>
+							<li><a href="<?php echo base_url('news/lists/1'); ?>">法案及議事說明</a></li>
+							<li><a href="<?php echo base_url('news/lists/2'); ?>">懶人包及議題追追追</a></li>
+							<li><a href="<?php echo base_url('news/lists/3'); ?>">行動紀實</a></li>
 							<li><a href="<?php echo base_url(); ?>news/tagLists/">標籤管理</a></li>
 						</ul>
 					</li>
@@ -179,9 +181,9 @@
 						<ul class="treeview-menu">
 							<li><a href="<?php echo base_url('bills/billStatusList/'); ?>">法案狀態管理</a></li>
 							<li><a href="<?php echo base_url('bills/billCategoryList/'); ?>">法案類別管理</a></li>
-							<li><a href="<?php echo base_url('bills/billCaseList/'); ?>">法案草案管理</a></li>
+							<li><a href="<?php echo base_url('bills/billCaseList'); ?>">法案草案管理</a></li>
 							<li><a href="<?php echo base_url('issues/issuesClassList/'); ?>">議題類別管理</a></li>
-							<li><a href="<?php echo base_url('issues/issuesAllList/'); ?>">議題列表管理</a></li>
+							<li><a href="<?php echo base_url('issues/issuesAllList'); ?>">議題列表管理</a></li>
 						</ul>
 					</li>
 					<li class="treeview">
@@ -189,7 +191,7 @@
 							<i class="fa fa-user"></i> <span>本黨立委</span>
 						</a>
 						<ul class="treeview-menu">
-							<li><a href="<?php echo base_url('members/membersList/'); ?>">立委管理</a></li>
+							<li><a href="<?php echo base_url('members/membersList'); ?>">立委管理</a></li>
 							<li><a href="<?php echo base_url('members/yearLists/'); ?>">屆期管理</a></li>
 						</ul>
 					</li>
@@ -207,7 +209,7 @@
 if ($role == ROLE_ADMIN) {
     ?>
 					<li class="treeview">
-						<a href="<?php echo base_url(); ?>userListing/" style="cursor:pointer">
+						<a class="people" href="<?php echo base_url(); ?>userListing/">
 							<i class="fa fa-user-plus"></i>
 							<span>人員管理</span>
 						</a>

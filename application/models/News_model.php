@@ -57,7 +57,7 @@ class News_model extends CI_Model
 
         $this->db->where('pr.pr_type_id', $type_id);
         $this->db->order_by('pr.pr_id', 'DESC');
-        $this->db->limit($page, $segment);
+        $this->db->limit($page, $segment); //跟 SQL的LIMIT($segment, $page)，參數順序相反。
         $query = $this->db->get();
 
         $result = $query->result();

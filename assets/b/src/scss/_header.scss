@@ -1,3 +1,4 @@
+// 左方sidebar
 aside.main-sidebar {
    font-size: 18px;
    font-weight: bolder;
@@ -41,7 +42,7 @@ aside.main-sidebar {
    }
 
    .treeview-menu>li {
-      transition: padding-left, .5s;
+      // transition: padding-left, .5s;
 
       &.active,
       &:hover {
@@ -60,7 +61,7 @@ aside.main-sidebar {
    }
 
    // 若有子項目則標題的遊標變成這樣
-   .treeview>a {
+   .treeview>a:not(.people) {
       cursor: text;
    }
 }
@@ -174,9 +175,13 @@ aside.main-sidebar {
 }
 
 // safari
-// html:lang(en)>body .classname {}
+@media not all and (min-resolution:.001dpcm) {
+   @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+      .nav.navbar-nav {
 
-// @media screen and (-webkit-min-device-pixel-ratio:0) {}
-
-// safari
-// @media all and (-webkit-min-device-pixel-ratio:0) {}
+         .user-menu {
+            float: right;
+         }
+      }
+   }
+}
