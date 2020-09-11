@@ -157,8 +157,6 @@
 							<i class="fa fa-dashboard"></i> <span>控制面板</span></i>
 						</a>
 					</li> -->
-				<!-- <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"> -->
-
 					<li class="treeview" style="padding-top:5px">
 						<a href="#">
 							<i class="fa fa-globe"></i> <span>新聞訊息</span>

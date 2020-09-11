@@ -42,17 +42,24 @@ $(function () {
 })
 
 window.onload = function () {
-   var _paginationFixed = $('#pagination-fixed .pagination').height(); //獲取下方分頁的高度(不含margin、padding、border)
+   var explorer = navigator.userAgent; // 偵測瀏覽器
+
+   //outerHeight(true)：包含margin、padding、border
+   var _paginationFixed = $('#pagination-fixed .pagination').outerHeight(true); //獲取下方分頁的高度
    _paginationFixed = _paginationFixed != undefined ? _paginationFixed : 0; //若沒有分頁欄,高度就設爲0
 
    var _pageH = $(window).height(); //頁面總高度,不同於$(document).height()
-   var _mainHeaderH = $('.main-header.header-fixex-top').height(); //頂部藍色標題欄高度
-   var _funH = $('.function-on-top .box').height(); //上方黑色功能欄+列表標題欄高度
-   var _footerH = $('.main-footer').height(); //若outerHeight(true)則含margin、padding、border
+   var _mainHeaderH = $('.main-header.header-fixex-top').outerHeight(true); //頂部藍色標題欄高度
+   var _funH = $('.function-on-top .box').outerHeight(true); //上方黑色功能欄+列表標題欄高度
+   var _footerH = $('.main-footer').outerHeight(true);
 
    // 計算要scroll的所需高度
    var _listScrollH = _pageH - _mainHeaderH - _funH - _paginationFixed - _footerH;
-   var _sidebarH = _pageH - _mainHeaderH;
+
+   if (explorer.indexOf("Firefox") >= 0) {
+      _listScrollH += 2;
+   }
+   var _sidebarH = _pageH - _mainHeaderH - 10;
    var _notListHcontentScroll = _pageH - _mainHeaderH - _funH - _footerH;
 
    // 設定相關要scroll的高度
@@ -63,8 +70,8 @@ window.onload = function () {
    // 下方分頁的高度若產生變化(分頁條變成二行),就自動調整高度使之顯示完整
    if (_paginationFixed != undefined && _paginationFixed > 40) {
       $('#pagination-fixed').height(68);
-      $('.list-input-scroll').css({
-         marginBottom: '92px',
+      $('#pagination-fixed').css({
+         bottom: '-68px',
       });
    }
 

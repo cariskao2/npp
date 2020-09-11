@@ -2,8 +2,9 @@
    height: 34px;
    width: 100%;
    background-color: #fff;
-   position: fixed;
+   position: absolute;
    border-top: 2px solid #222d32;
+   transition: left .4s;
 
    nav {
       height: 34px;
@@ -19,11 +20,12 @@
    }
 }
 
-@media (min-width: 0px) {
-   .pagination-fixed {
-      bottom: 24px;
-   }
+.pagination-fixed {
+   bottom: -34px;
 }
+
+// firefox
+// @-moz-document url-prefix() {}
 
 // safari
 @media not all and (min-resolution:.001dpcm) {

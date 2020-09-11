@@ -10,6 +10,7 @@ $fb   = $getSetupInfo->fb;
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167481041-1"></script>
+	<!-- google分析 -->
 	<script>
 		window.dataLayer = window.dataLayer || [];
 
