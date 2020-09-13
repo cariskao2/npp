@@ -109,10 +109,6 @@ if (!empty($yearLists)) {
 	}
 </style>
 <script>
-	// 分頁
-	// jQuery(document).ready(function () {
-	// 	pagination('members/yearLists/');
-	// });
 </script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/common.js" charset="utf-8"></script>
 <?php

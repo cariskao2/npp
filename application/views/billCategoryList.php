@@ -113,18 +113,12 @@ if (!empty($getBillCategoryList)) {
 <?php
 $this->load->helper('form');
 
-// 返回上一頁並刷新
-$isCategorySort   = $this->session->userdata('bill-category-sort');
-$isCategoryUpdate = $this->session->userdata('bill-category-update');
+// 排序完成後就刷新本頁
+$isCategorySort = $this->session->userdata('bill-category-sort');
 
 if ($isCategorySort) {
     echo '<script>window.location.reload();</script>';
     unset($_SESSION['bill-category-sort']);
-}
-
-if ($isCategoryUpdate) {
-    echo '<script>window.location.reload();</script>';
-    unset($_SESSION['bill-category-update']);
 }
 
 $success = $this->session->flashdata('success');

@@ -101,10 +101,6 @@ if (!empty($newsTags)) {
 </style>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/common.js" charset="utf-8"></script>
 <script>
-	// 分頁
-	// jQuery(document).ready(function () {
-	// 	pagination('news/tagLists/');
-	// });
 </script>
 <?php
 $this->load->helper('form');

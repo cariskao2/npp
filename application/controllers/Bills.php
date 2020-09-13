@@ -559,7 +559,6 @@ class Bills extends BaseController
 
             if ($result) {
                 $this->session->set_flashdata('success', '更新成功!');
-                // $this->session->set_userdata('bill-category-update', true);
             } else {
                 $this->session->set_flashdata('error', '更新失敗!');
             }

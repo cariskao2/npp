@@ -83,38 +83,6 @@ window.onload = function () {
    // console.log('_listScrollH', _listScrollH);
 }
 
-// 各個無搜尋欄位的Lists分頁
-function pagination(url) {
-   // 以下爲enable_query_strings=false
-   //如果不寫下面url這一行 將會取最後一個/前所有值
-   // var url = link.substr(link.lastIndexOf('/', link.lastIndexOf('/') - 1) + 1); // 1/10
-   // var site = url.lastIndexOf("\/"); //获取最后一个/的位置,1
-
-   /**
-    * 獲取最後一個「/」前面的值
-    * http://www.w3school.com.cn/jsref/jsref_lastIndexOf.asp
-    * lastIndexOf第二個參數:它的合法取值是 0 到 stringObject.length - 1。如省略该参数，则将从字符串的最后一个字符处开始检索。
-    * substr(start,length)表示從start位置開始，擷取length長度的字串。
-    * substring(start,end)表示從start到end之間的字串，包括start位置的字元但是不包括end位置的字元。
-    *
-    * 這行說明:
-    * 第二個lastIndexOf因爲沒有第二個參數(看上方說明),所以直接從最後面開始找「/」,找到後再將位置-1就變成那段字串的length,也就是最後一個字。
-    * 第一個lastIndexOf的第二個參數就是第二個lastIndexOf的結果-1,也代表第一個lastIndexOf會從倒數第二段字串的最後一個字元開始往回查詢,這樣就會避開了最後一個「/」,而搜索到倒數第二個「/」再+1獲取倒數第二個「/」後的全部字串。
-    */
-   jQuery('ul.pagination li a').click(function (e) {
-      // 當點擊下方頁面時,就獲取以下資料並跳轉
-      e.preventDefault();
-      var link = jQuery(this).get(0).href;
-      var value = link.substring(link.lastIndexOf('/') + 1);
-
-      // attr,更改form中的action連結
-      //注意如果controller使用index的話,這裡就要加上index
-      // jQuery("#searchList").attr("action", baseURL + "news/lists/" + type_id + '/' + value);
-      jQuery("#searchList").attr("action", baseURL + url + value);
-      jQuery("#searchList").submit();
-   });
-}
-
 // 顯示狀態
 $('#radioBtn a').on('click', function () {
    var sel = $(this).data('title');

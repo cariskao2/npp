@@ -23,7 +23,7 @@ $('.main-header .navbar').append(_getTableHeaderTemp);
 
 $(document).ready(function () {
    var explorer = navigator.userAgent; // 偵測瀏覽器
-   console.log(explorer);
+   // console.log(explorer);
 
    if (explorer.indexOf("Firefox") >= 0) {
       $('.sidebar-toggle').click(function () {
