@@ -30,8 +30,27 @@ aside.main-sidebar {
    }
 }
 
+#table-header {
+   margin-top: 104px;
+   border-bottom: 3px solid gray;
+   background-color: #fff;
+}
+
 .skin-blue .main-header .navbar {
    height: 50px;
+
+   // 列表的title樣式
+   .table-header {
+      >tbody>tr>td {
+         font-family: DFKai-sb;
+         font-size: 18px;
+         font-weight: bolder;
+         margin-top: 0;
+         margin-bottom: 0;
+         padding: 3px;
+         border: none;
+      }
+   }
 }
 
 .skin-blue .sidebar-menu {
@@ -103,13 +122,6 @@ aside.main-sidebar {
    // 上方第二個nav
    .box-header {
       background-color: #222d32;
-   }
-
-   table>tbody>tr>td {
-      padding: 3px;
-      font-size: 18px;
-      font-weight: bolder;
-      font-family: DFKai-sb;
    }
 }
 

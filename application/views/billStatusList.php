@@ -31,13 +31,6 @@
 								</div>
 							</div>
 						</div><!-- /.box-header -->
-						<table class="table table-hover title-center" style="margin-bottom:0;border-bottom:3px solid gray">
-							<tr class="title-center">
-								<td style="width:60%">標題</td>
-								<td style="width:20%">狀態</td>
-								<td style="width:20%" class="text-center">功能</td>
-							</tr>
-						</table>
 					</div>
 				</div>
 			</div>
@@ -96,6 +89,15 @@ if (!empty($getBillStatusList)) {
 		</div>
 	</section>
 </div>
+<template id="table-header-temp">
+	<table id="table-header" class="table table-header title-center">
+		<tr class="title-center">
+			<td style="width:60%">標題</td>
+			<td style="width:20%">狀態</td>
+			<td style="width:20%" class="text-center">功能</td>
+		</tr>
+	</table>
+</template>
 <style>
 	tr.tr-css td {
 		line-height: 37px !important;

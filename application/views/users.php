@@ -30,16 +30,6 @@
 								</div>
 							</div>
 						</div><!-- /.box-header -->
-						<table class="table table-hover title-center" style="margin-bottom:0;border-bottom:3px solid gray">
-							<tr>
-								<td style="width:25%">人員</td>
-								<td style="width:30%">Email</td>
-								<!-- <td style="width:10%">手機</td> -->
-								<td style="width:15%">層級</td>
-								<td style="width:15%">日期</td>
-								<td style="width:15%" class="text-center">功能</td>
-							</tr>
-						</table>
 					</div>
 				</div>
 			</div>
@@ -88,6 +78,18 @@ if (!empty($userRecords)) {
 		</div>
 	</section>
 </div>
+<template id="table-header-temp">
+	<table id="table-header" class="table table-header title-center">
+		<tr>
+			<td style="width:25%">人員</td>
+			<td style="width:30%">Email</td>
+			<!-- <td style="width:10%">手機</td> -->
+			<td style="width:15%">層級</td>
+			<td style="width:15%">日期</td>
+			<td style="width:15%" class="text-center">功能</td>
+		</tr>
+	</table>
+</template>
 <style>
 </style>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/common.js" charset="utf-8"></script>

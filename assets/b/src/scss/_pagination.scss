@@ -28,10 +28,6 @@
 // @-moz-document url-prefix() {}
 
 // safari
-@media not all and (min-resolution:.001dpcm) {
-   @supports (-webkit-appearance:none) and (stroke-color:transparent) {
-      .pagination-fixed {
-         transition: left .4s;
-      }
-   }
-}
+// @media not all and (min-resolution:.001dpcm) {
+//    @supports (-webkit-appearance:none) and (stroke-color:transparent) {}
+// }

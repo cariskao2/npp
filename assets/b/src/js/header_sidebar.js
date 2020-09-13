@@ -10,13 +10,24 @@ $titleTop.css({
    position: 'absolute'
 });
 
+// 列表title欄
+var getTableHeaderTemp = function () {
+   var tableHeaderTemp = $('template#table-header-temp').html();
+   // return $(html).clone();
+   return tableHeaderTemp;
+}
+
+var _getTableHeaderTemp = getTableHeaderTemp();
+
+$('.main-header .navbar').append(_getTableHeaderTemp);
+
 $(document).ready(function () {
    var explorer = navigator.userAgent; // 偵測瀏覽器
    console.log(explorer);
 
    if (explorer.indexOf("Firefox") >= 0) {
       $('.sidebar-toggle').click(function () {
-         functionOnTop();
+         // functionOnTop();
          sidebarToggle();
       });
    } else if (explorer.indexOf("Chrome") >= 0) {
@@ -25,7 +36,7 @@ $(document).ready(function () {
       });
    } else if (explorer.indexOf("Safari") >= 0) {
       $('.sidebar-toggle').click(function () {
-         functionOnTop();
+         // functionOnTop();
          sidebarToggle();
       });
    }
@@ -48,6 +59,7 @@ function functionOnTop() {
 
 var a = $('.main-sidebar .sidebar-menu .treeview>a');
 
+// 左方導航欄游標設定
 function sidebarToggle() {
    var w = $('.sidebar-menu').width();
    var _bW = $(window).width();

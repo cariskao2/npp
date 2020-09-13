@@ -31,13 +31,6 @@
 								</div>
 							</div>
 						</div><!-- /.box-header -->
-						<table class="table table-hover title-center" style="margin-bottom:0;border-bottom:3px solid gray">
-							<tr>
-								<td style="width:60%">標籤名稱</td>
-								<td style="width:20%">狀態</td>
-								<td style="width:20%" class="text-center">功能</td>
-							</tr>
-						</table>
 					</div>
 				</div>
 			</div>
@@ -92,6 +85,15 @@ if (!empty($newsTags)) {
 		</div>
 	</section>
 </div>
+<template id="table-header-temp">
+	<table id="table-header" class="table table-header title-center">
+		<tr>
+			<td style="width:60%">標籤名稱</td>
+			<td style="width:20%">狀態</td>
+			<td style="width:20%" class="text-center">功能</td>
+		</tr>
+	</table>
+</template>
 <style>
 	.alert-absoulte {
 		width: 150px

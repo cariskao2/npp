@@ -15,8 +15,8 @@
 								</div>
 								<div class="col-xs-12 col-sm-7">
 									<div class="box-tools">
-										<form action="<?php echo base_url('bills/billCaseList'); ?>" method="POST"
-											id="searchList" name="form">
+										<form action="<?php echo base_url('bills/billCaseList'); ?>" method="POST" id="searchList"
+											name="form">
 											<!-- input-group讓裏面的元素融合(合併)在一起 -->
 											<div class="input-group">
 												<input type="text" name="searchText" value="<?php echo $searchText; ?>"
@@ -32,14 +32,6 @@
 								</div>
 							</div>
 						</div><!-- /.box-header -->
-						<table class="table table-hover title-center" style="margin-bottom:0;border-bottom:3px solid gray">
-							<tr class="title-center">
-								<td style="width:17%">No</td>
-								<td style="width:49%">標題</td>
-								<td style="width:17%">狀態</td>
-								<td style="width:17%">功能</td>
-							</tr>
-						</table>
 					</div>
 				</div>
 			</div>
@@ -92,6 +84,16 @@ if (!empty($getBillCaseList)) {
 		</div>
 	</section>
 </div>
+<template id="table-header-temp">
+	<table id="table-header" class="table table-header title-center">
+		<tr class="title-center">
+			<td style="width:17%">No</td>
+			<td style="width:49%">標題</td>
+			<td style="width:17%">狀態</td>
+			<td style="width:17%">功能</td>
+		</tr>
+	</table>
+</template>
 <style>
 	tr.tr-css td {
 		line-height: 37px !important;

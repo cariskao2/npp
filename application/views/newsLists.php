@@ -33,18 +33,6 @@
 								</div>
 							</div>
 						</div><!-- /.box-header -->
-						<table class="table table-hover title-center" style="margin-bottom:0;border-bottom:3px solid gray">
-							<tr>
-								<!-- <td style="width:10%">大圖</td> -->
-								<!-- <td style="width:20%">大標 & 次標</td> -->
-								<td style="width:40%">標題</td>
-								<td style="width:30%">建立時間</td>
-								<!-- <td style="width:30%">內文</td> -->
-								<!-- <td style="width:10%">標籤</td> -->
-								<td style="width:15%">狀態</td>
-								<td style="width:15%">功能</td>
-							</tr>
-						</table>
 					</div>
 				</div>
 			</div>
@@ -119,6 +107,16 @@ if (!empty($listItems)) {
 		</div>
 	</section>
 </div>
+<template id="table-header-temp">
+	<table id="table-header" class="table table-header title-center">
+		<tr>
+			<td style="width:40%">標題</td>
+			<td style="width:30%">建立時間</td>
+			<td style="width:15%">狀態</td>
+			<td style="width:15%">功能</td>
+		</tr>
+	</table>
+</template>
 <style>
 </style>
 <script type="text/javascript" src="<?php echo base_url('assets/js/common.js'); ?>" charset="utf-8"></script>

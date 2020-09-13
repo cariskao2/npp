@@ -35,13 +35,6 @@
 								</div>
 							</div>
 						</div><!-- /.box-header -->
-						<table class="table table-hover title-center" style="margin-bottom:0;border-bottom:3px solid gray">
-							<tr class="title-center">
-								<td style="width:60%">姓名</td>
-								<td style="width:20%">狀態</td>
-								<td style="width:20%">功能</td>
-							</tr>
-						</table>
 					</div>
 				</div>
 			</div>
@@ -97,6 +90,15 @@ if (!empty($listItems)) {
 		<!-- row -->
 	</section>
 </div>
+<template id="table-header-temp">
+	<table id="table-header" class="table table-header title-center">
+		<tr>
+			<td style="width:60%">姓名</td>
+			<td style="width:20%">狀態</td>
+			<td style="width:20%">功能</td>
+		</tr>
+	</table>
+</template>
 <script type="text/javascript" src="<?php echo base_url('assets/js/common.js'); ?>" charset="utf-8"></script>
 <script type="text/javascript">
 	jQuery(document).ready(function () {

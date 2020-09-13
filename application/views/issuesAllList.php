@@ -33,14 +33,6 @@
 								</div>
 							</div>
 						</div><!-- /.box-header -->
-						<table class="table table-hover title-center" style="margin-bottom:0;border-bottom:3px solid gray">
-							<tr class="title-center">
-								<td style="width:49%">議題列表名稱</td>
-								<td style="width:17%">類別</td>
-								<td style="width:17%">狀態</td>
-								<td style="width:17%" class="text-center">功能</td>
-							</tr>
-						</table>
 					</div>
 				</div>
 			</div>
@@ -103,6 +95,16 @@ if (!empty($issuesAllList)) {
 		<!-- row -->
 	</section>
 </div>
+<template id="table-header-temp">
+	<table id="table-header" class="table table-header title-center">
+		<tr>
+			<td style="width:49%">議題列表名稱</td>
+			<td style="width:17%">類別</td>
+			<td style="width:17%">狀態</td>
+			<td style="width:17%" class="text-center">功能</td>
+		</tr>
+	</table>
+</template>
 <style>
 	tr.tr-css td {
 		line-height: 37px !important;
