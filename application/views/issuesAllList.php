@@ -1,47 +1,21 @@
 <div class="content-wrapper list-bottom-bg">
 	<!-- <section class="content"> -->
-	<section>
-		<div class="function-on-top list-input_pos">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border:none;border-radius:0">
-						<div class="box-header">
-							<div class="row">
-								<div class="col-xs-12 col-sm-5">
-									<div class="form-group">
-										<a class="btn btn-primary" href="<?php echo base_url('issues/issuesAllAdd'); ?>"><i
-												class="fa fa-plus"></i> 新增</a>
-									</div>
-								</div>
-								<div class="col-xs-12 col-sm-7">
-									<div class="box-tools">
-										<!-- 下方jQuery.attr會再改action屬性 -->
-										<form action="<?php echo base_url('issues/issuesAllList'); ?>" method="POST"
-											id="searchList" name="form">
-											<!-- input-group可讓icon跟input合併 -->
-											<div class="input-group">
-												<input type="text" name="searchText" value="<?php echo $searchText; ?>"
-													class="form-control input-sm pull-right nav-list"
-													style="width: 250px;height:30px" placeholder="可搜尋議題列表名稱" />
-												<div class="input-group-btn">
-													<button class="btn btn-sm btn-default searchList"><i
-															class="fa fa-search"></i></button>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div><!-- /.box-header -->
-					</div>
-				</div>
-			</div>
-		</div>
+	<section id="list-input">
 		<div class="row">
 			<div class="col-xs-12">
-				<div class="box" style="border-top:none;">
-					<div class="box-body table-responsive no-padding list-scroll list-input-scroll">
-						<table class="table table-hover title-center">
+				<div class="box box-scroll">
+					<div class="box-body table-responsive no-padding thead-outside thead-has-input item-4">
+						<table class="table">
+							<tr>
+								<td>議題列表名稱</td>
+								<td>類別</td>
+								<td>狀態</td>
+								<td>功能</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box-body table-responsive no-padding tbody-outside item-4">
+						<table class="table table-hover">
 							<?php
 if (!empty($issuesAllList)) {
     foreach ($issuesAllList as $item) {
@@ -51,10 +25,10 @@ if (!empty($issuesAllList)) {
         $name  = $item->name;
         $img   = $item->img;
         ?>
-							<tr class="tr-css">
-								<td style="width:49%"><?php echo $title; ?></td>
-								<td style="width:17%"><?php echo $name; ?></td>
-								<td style="width:17%">
+							<tr>
+								<td><?php echo $title; ?></td>
+								<td><?php echo $name; ?></td>
+								<td>
 									<?php if ($show == 1) {?>
 									<img style="background-color:green" src="<?php echo base_url(); ?>assets/images/show.png"
 										alt="">
@@ -63,7 +37,7 @@ if (!empty($issuesAllList)) {
 										alt="">
 									<?php }?>
 								</td>
-								<td style="width:17%" class=" text-center">
+								<td class=" text-center">
 									<a class="btn btn-sm btn-info"
 										href="<?php echo base_url() . 'issues/issuesAllEdit/' . $id; ?>" title="編輯"><i
 											class="fa fa-pencil"></i></a>
@@ -85,7 +59,7 @@ if (!empty($issuesAllList)) {
 
 					</div><!-- /.box-body -->
 					<?php if ($this->pagination->create_links()): ?>
-					<div class="pagination-fixed" id="pagination-fixed">
+					<div class="pagination-bottom" id="pagination-bottom">
 						<?php echo $this->pagination->create_links(); ?>
 					</div>
 					<?php endif;?>
@@ -95,20 +69,40 @@ if (!empty($issuesAllList)) {
 		<!-- row -->
 	</section>
 </div>
-<template id="table-header-temp">
-	<table id="table-header" class="table table-header title-center">
-		<tr>
-			<td style="width:49%">議題列表名稱</td>
-			<td style="width:17%">類別</td>
-			<td style="width:17%">狀態</td>
-			<td style="width:17%" class="text-center">功能</td>
-		</tr>
-	</table>
+<template id="function-on-top">
+	<div class="function-on-top list-input" id="list-input">
+		<div class="box" style="border:none;border-radius:0">
+			<div class="box-header">
+				<div class="row">
+					<div class="col-xs-12 col-sm-5">
+						<div class="form-group">
+							<a class="btn btn-primary" href="<?php echo base_url('issues/issuesAllAdd'); ?>"><i
+									class="fa fa-plus"></i> 新增</a>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-7">
+						<div class="box-tools">
+							<!-- 下方jQuery.attr會再改action屬性 -->
+							<form action="<?php echo base_url('issues/issuesAllList'); ?>" method="POST" id="searchList"
+								name="form">
+								<!-- input-group可讓icon跟input合併 -->
+								<div class="input-group">
+									<input type="text" name="searchText" value="<?php echo $searchText; ?>"
+										class="form-control input-sm pull-right nav-list" style="width: 250px;height:30px"
+										placeholder="可搜尋議題列表名稱" />
+									<div class="input-group-btn">
+										<button class="btn btn-sm btn-default searchList"><i class="fa fa-search"></i></button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.box-header -->
+		</div>
+	</div>
 </template>
 <style>
-	tr.tr-css td {
-		line-height: 37px !important;
-	}
 </style>
 <script>
 	jQuery(document).ready(function () {

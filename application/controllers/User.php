@@ -32,6 +32,8 @@ class User extends BaseController
         // $this->global['pageTitle'] = '控制面板';
         // $this->loadViews("dashboard", $this->global, null, null);
         // $this->userListing();
+
+        // login後本來是引導到控制面板,現在引導到法案議事說明
         redirect('news/lists/1/');
     }
 
@@ -46,12 +48,30 @@ class User extends BaseController
         } else {
             $this->session->unset_userdata('myRedirect');
 
-            $searchText         = $this->security->xss_clean($this->input->post('searchText'));
+            $this->output->set_header("Cache-Control: private");
+
+            $myRedirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+            if (isset($_GET['key']) && $_GET['key'] != '') {
+                // 有$_GET['key']就使用$_GET['key']的值
+                $searchText = $_GET['key'];
+            } else {
+                if ($this->input->post('searchText') != '') {
+                    // 沒有$_GET['key']且post('searchText')有值
+                    $searchText = $this->security->xss_clean($this->input->post('searchText'));
+                    $myRedirect .= '?key=' . $searchText; //就將url尾部再加上「?key=$searchText」
+                } else {
+                    $searchText = $this->security->xss_clean($this->input->post('searchText'));
+                }
+            }
+
+            $this->session->set_userdata('myRedirect', $myRedirect);
+
             $data['searchText'] = $searchText;
 
             $count = $this->user_model->userListingCount($searchText); //算出總筆數,有搜尋結果就顯示全部搜尋的結果,否則就顯示全部的結果。
 
-            $returns = $this->paginationCompress("userListing/", $count, 20);
+            $returns = $this->paginationSearchCompress("userListing", $count, 20, 3);
             // echo 'page: ' . $returns['page']; //10
             // echo 'segment: ' . $returns['segment']; //10
 
@@ -60,9 +80,6 @@ class User extends BaseController
             // $this->global['pageTitle'] = '人員管理';
             $this->global['navTitle']  = '人員管理列表 - 系統管理員';
             $this->global['navActive'] = base_url('userListing/');
-
-            $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
-            $this->session->set_userdata('myRedirect', $myRedirect);
 
             $this->loadViews("users", $this->global, $data, null);
         }
@@ -81,7 +98,7 @@ class User extends BaseController
 
             $count = $this->user_model->managerListingCount($searchText); //算出總筆數,有搜尋結果就顯示全部搜尋的結果,否則就顯示全部的結果。
 
-            $returns = $this->paginationCompress("user/managerListing/", $count, 20, 3);
+            $returns = $this->paginationSearchCompress("user/managerListing", $count, 20, 3);
             // echo 'page: ' . $returns['page']; //10
             // echo 'segment: ' . $returns['segment']; //10
 
@@ -90,7 +107,7 @@ class User extends BaseController
             $this->global['navTitle']  = '人員管理列表 - 管理員';
             $this->global['navActive'] = base_url('user/managerListing/');
 
-            $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
+            $myRedirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
             $this->session->set_userdata('myRedirect', $myRedirect);
 
             $this->loadViews("managers", $this->global, $data, null);

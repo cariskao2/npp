@@ -1,10 +1,8 @@
-.pagination-fixed {
+.pagination-bottom {
    height: 34px;
    width: 100%;
    background-color: #fff;
-   position: absolute;
    border-top: 2px solid #222d32;
-   transition: left .4s;
 
    nav {
       height: 34px;
@@ -20,8 +18,14 @@
    }
 }
 
-.pagination-fixed {
-   bottom: -34px;
+@media (max-width: 767px) {
+
+   // 列表頁pagination & table width
+   .pagination-bottom,
+   .thead-outside,
+   .tbody-outside {
+      width: 767px;
+   }
 }
 
 // firefox
@@ -29,5 +33,5 @@
 
 // safari
 // @media not all and (min-resolution:.001dpcm) {
-//    @supports (-webkit-appearance:none) and (stroke-color:transparent) {}
+// @supports (-webkit-appearance:none) and (stroke-color:transparent) {}
 // }

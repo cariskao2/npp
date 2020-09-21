@@ -1,4 +1,6 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
  * Class : User_model (User Model)
@@ -14,15 +16,14 @@ class User_model extends CI_Model
      * @param string $searchText : This is optional search text
      * @return number $count : This is row count
      */
-    function userListingCount($searchText = '')
+    public function userListingCount($searchText = '')
     {
         $this->db->select('BaseTbl.userId, BaseTbl.email, BaseTbl.name, BaseTbl.mobile, BaseTbl.createdDtm, Role.role');
         $this->db->from('tbl_users as BaseTbl');
         $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId', 'left');
         if (!empty($searchText)) {
             $likeCriteria = "(BaseTbl.email  LIKE '%" . $searchText . "%'
-                            OR  BaseTbl.name  LIKE '%" . $searchText . "%'
-                            OR  BaseTbl.mobile  LIKE '%" . $searchText . "%')";
+                            OR  BaseTbl.name  LIKE '%" . $searchText . "%')";
             $this->db->where($likeCriteria);
         }
         $this->db->where('BaseTbl.isDeleted', 0);
@@ -32,15 +33,14 @@ class User_model extends CI_Model
         return $query->num_rows();
     }
 
-    function managerListingCount($searchText = '')
+    public function managerListingCount($searchText = '')
     {
         $this->db->select('BaseTbl.userId, BaseTbl.email, BaseTbl.name, BaseTbl.mobile, BaseTbl.createdDtm, Role.role');
         $this->db->from('tbl_users as BaseTbl');
         $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId', 'left');
         if (!empty($searchText)) {
             $likeCriteria = "(BaseTbl.email  LIKE '%" . $searchText . "%'
-                            OR  BaseTbl.name  LIKE '%" . $searchText . "%'
-                            OR  BaseTbl.mobile  LIKE '%" . $searchText . "%')";
+                            OR  BaseTbl.name  LIKE '%" . $searchText . "%')";
             $this->db->where($likeCriteria);
         }
         $this->db->where('BaseTbl.isDeleted', 0);
@@ -57,15 +57,14 @@ class User_model extends CI_Model
      * @param number $segment : This is pagination limit
      * @return array $result : This is result
      */
-    function userListing($searchText = '', $page, $segment)
+    public function userListing($searchText = '', $page, $segment)
     {
         $this->db->select('BaseTbl.userId, BaseTbl.email, BaseTbl.name, BaseTbl.mobile, BaseTbl.createdDtm, Role.role');
         $this->db->from('tbl_users as BaseTbl'); //將tbl_users改成BaseTbl這樣就不用不同的資料表都要改欄位名稱
         $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId', 'left');
         if (!empty($searchText)) {
             $likeCriteria = "(BaseTbl.email  LIKE '%" . $searchText . "%'
-                            OR  BaseTbl.name  LIKE '%" . $searchText . "%'
-                            OR  BaseTbl.mobile  LIKE '%" . $searchText . "%')";
+                            OR  BaseTbl.name  LIKE '%" . $searchText . "%')";
             $this->db->where($likeCriteria);
         }
         $this->db->where('BaseTbl.isDeleted', 0);
@@ -78,15 +77,14 @@ class User_model extends CI_Model
         return $result;
     }
 
-    function managerListing($searchText = '', $page, $segment)
+    public function managerListing($searchText = '', $page, $segment)
     {
         $this->db->select('BaseTbl.userId, BaseTbl.email, BaseTbl.name, BaseTbl.mobile, BaseTbl.createdDtm, Role.role');
         $this->db->from('tbl_users as BaseTbl');
         $this->db->join('tbl_roles as Role', 'Role.roleId = BaseTbl.roleId', 'left');
         if (!empty($searchText)) {
             $likeCriteria = "(BaseTbl.email  LIKE '%" . $searchText . "%'
-                            OR  BaseTbl.name  LIKE '%" . $searchText . "%'
-                            OR  BaseTbl.mobile  LIKE '%" . $searchText . "%')";
+                            OR  BaseTbl.name  LIKE '%" . $searchText . "%')";
             $this->db->where($likeCriteria);
         }
         $this->db->where('BaseTbl.isDeleted', 0);
@@ -103,7 +101,7 @@ class User_model extends CI_Model
      * This function is used to get the user roles information
      * @return array $result : This is result of the query
      */
-    function getUserRoles()
+    public function getUserRoles()
     {
         $this->db->select('roleId, role');
         $this->db->from('tbl_roles');
@@ -113,7 +111,7 @@ class User_model extends CI_Model
         return $query->result();
     }
 
-    function getManagerRoles()
+    public function getManagerRoles()
     {
         $this->db->select('roleId, role');
         $this->db->from('tbl_roles');
@@ -129,7 +127,7 @@ class User_model extends CI_Model
      * @param {number} $userId : This is user id
      * @return {mixed} $result : This is searched result
      */
-    function checkEmailExists($email, $userId = 0)
+    public function checkEmailExists($email, $userId = 0)
     {
         $this->db->select("email");
         $this->db->from("tbl_users");
@@ -143,12 +141,11 @@ class User_model extends CI_Model
         return $query->result();
     }
 
-
     /**
      * This function is used to add new user to system
      * @return number $insert_id : This is last inserted id
      */
-    function addNewUser($userInfo)
+    public function addNewUser($userInfo)
     {
         $this->db->trans_start();
         $this->db->insert('tbl_users', $userInfo);
@@ -165,7 +162,7 @@ class User_model extends CI_Model
      * @param number $userId : This is user id
      * @return array $result : This is user information
      */
-    function getUserInfo($userId)
+    public function getUserInfo($userId)
     {
         $this->db->select('userId, name, email, mobile, roleId');
         $this->db->from('tbl_users');
@@ -177,7 +174,7 @@ class User_model extends CI_Model
         return $query->row();
     }
 
-    function getManagerInfo($userId)
+    public function getManagerInfo($userId)
     {
         $this->db->select('userId, name, email, mobile, roleId');
         $this->db->from('tbl_users');
@@ -194,20 +191,20 @@ class User_model extends CI_Model
      * @param array $userInfo : This is users updated information
      * @param number $userId : This is user id
      */
-    function editUser($userInfo, $userId)
+    public function editUser($userInfo, $userId)
     {
         $this->db->where('userId', $userId);
         $this->db->update('tbl_users', $userInfo);
 
-        return TRUE;
+        return true;
     }
 
-    function editManager($userInfo, $userId)
+    public function editManager($userInfo, $userId)
     {
         $this->db->where('userId', $userId);
         $this->db->update('tbl_users', $userInfo);
 
-        return TRUE;
+        return true;
     }
 
     /**
@@ -215,7 +212,7 @@ class User_model extends CI_Model
      * @param number $userId : This is user id
      * @return boolean $result : TRUE / FALSE
      */
-    function deleteUser($userId, $userInfo)
+    public function deleteUser($userId, $userInfo)
     {
         $this->db->where('userId', $userId);
         $this->db->update('tbl_users', $userInfo);
@@ -223,7 +220,7 @@ class User_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-    function deleteManager($newsid)
+    public function deleteManager($newsid)
     {
         $this->db->where('userId', $newsid);
         $this->db->delete('tbl_users');
@@ -235,7 +232,7 @@ class User_model extends CI_Model
      * This function is used to match users password for change password
      * @param number $userId : This is user id
      */
-    function matchOldPassword($userId, $oldPassword)
+    public function matchOldPassword($userId, $oldPassword)
     {
         $this->db->select('userId, password');
         $this->db->where('userId', $userId);
@@ -260,7 +257,7 @@ class User_model extends CI_Model
      * @param number $userId : This is user id
      * @param array $userInfo : This is user updation info
      */
-    function changePassword($userId, $userInfo)
+    public function changePassword($userId, $userInfo)
     {
         $this->db->where('userId', $userId);
         $this->db->where('isDeleted', 0);
@@ -269,12 +266,11 @@ class User_model extends CI_Model
         return $this->db->affected_rows();
     }
 
-
     /**
      * This function is used to get user login history
      * @param number $userId : This is user id
      */
-    function loginHistoryCount($userId, $searchText, $fromDate, $toDate)
+    public function loginHistoryCount($userId, $searchText, $fromDate, $toDate)
     {
         $this->db->select('BaseTbl.userId, BaseTbl.sessionData, BaseTbl.machineIp, BaseTbl.userAgent, BaseTbl.agentString, BaseTbl.platform, BaseTbl.createdDtm');
         if (!empty($searchText)) {
@@ -305,7 +301,7 @@ class User_model extends CI_Model
      * @param number $segment : This is pagination limit
      * @return array $result : This is result
      */
-    function loginHistory($userId, $searchText, $fromDate, $toDate, $page, $segment)
+    public function loginHistory($userId, $searchText, $fromDate, $toDate, $page, $segment)
     {
         $this->db->select('BaseTbl.userId, BaseTbl.sessionData, BaseTbl.machineIp, BaseTbl.userAgent, BaseTbl.agentString, BaseTbl.platform, BaseTbl.createdDtm');
         $this->db->from('tbl_last_login as BaseTbl');
@@ -338,7 +334,7 @@ class User_model extends CI_Model
      * @param number $userId : This is user id
      * @return array $result : This is user information
      */
-    function getUserInfoById($userId)
+    public function getUserInfoById($userId)
     {
         $this->db->select('userId, name, email, mobile, roleId');
         $this->db->from('tbl_users');
@@ -354,7 +350,7 @@ class User_model extends CI_Model
      * @param number $userId : This is user id
      * @return aray $result : This is user information
      */
-    function getUserInfoWithRole($userId)
+    public function getUserInfoWithRole($userId)
     {
         $this->db->select('BaseTbl.userId, BaseTbl.email, BaseTbl.name, BaseTbl.mobile, BaseTbl.roleId, Roles.role');
         $this->db->from('tbl_users as BaseTbl');

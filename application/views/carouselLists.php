@@ -1,58 +1,30 @@
 <div class="content-wrapper list-bottom-bg">
 	<!-- <section class="content"> -->
 	<section>
-		<div class="function-on-top list-noinput_pos">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border:none;border-radius:0">
-						<div class="box-header">
-							<div class="row">
-								<div class="col-xs-12 col-sm-7">
-									<div class="form-group">
-										<a class="btn btn-primary" href="<?php echo base_url('website/carouselAdds'); ?>"><i
-												class="fa fa-plus"></i> 新增</a>
-										<a class="btn btn-success" href="<?php echo base_url('website/carouselSorts'); ?>"><i
-												class="fa fa-sort" aria-hidden="true"></i> 排序</a>
-										<span style="color:white">(最多只能建立8筆資料)</span>
-									</div>
-								</div>
-								<!-- 註解掉版型會跑掉,讓這個結構隱藏起來就好 -->
-								<div class="col-xs-5 carousel-nav-none" style="visibility: hidden;">
-									<div class="box-tools">
-										<form action="<?php echo base_url('website/carouselLists'); ?>" method="POST"
-											id="searchList">
-											<div class="input-group">
-												<input type="text" name="searchText" value="<?php echo $searchText; ?>"
-													class="form-control input-sm pull-right" style="width: 250px;height:30px"
-													placeholder="可搜尋標題" />
-												<div class="input-group-btn">
-													<button class="btn btn-sm btn-default searchList"><i
-															class="fa fa-search"></i></button>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div><!-- /.box-header -->
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="row">
 			<div class="col-xs-12">
-				<div class="box" style="border-top:none;">
-					<div class="box-body table-responsive no-padding list-scroll list-noinput-scroll">
-						<table class="table table-hover title-center">
+				<div class="box box-scroll">
+					<div class="box-body table-responsive no-padding thead-outside thead-hasno-input item-4">
+						<table class="table">
+							<tr>
+								<td>圖片</td>
+								<td>標題</td>
+								<td>狀態</td>
+								<td>功能</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box-body table-responsive no-padding tbody-outside item-4">
+						<table class="table table-hover">
 							<?php
 if (!empty($getCarouselList)) {
     foreach ($getCarouselList as $record) {
         ?>
 							<tr>
-								<td style="width:20%"><img style="width:150px"
+								<td><img style="width:150px"
 										src="<?php echo base_url('assets/uploads/carousel_upload/' . $record->img); ?>"></td>
-								<td style="width:40%"><?php echo $record->title; ?></td>
-								<td style="width:20%">
+								<td><?php echo $record->title; ?></td>
+								<td>
 									<?php if ($record->showup == 1) {?>
 									<img style="background-color:green" src="<?php echo base_url('assets/images/show.png'); ?>"
 										alt="">
@@ -61,7 +33,7 @@ if (!empty($getCarouselList)) {
 										alt="">
 									<?php }?>
 								</td>
-								<td style="width:20%" class=" text-center">
+								<td class=" text-center">
 									<a class="btn btn-sm btn-info"
 										href="<?php echo base_url('website/carouselEdit/' . $record->id); ?>" title="編輯"><i
 											class="fa fa-pencil"></i></a>
@@ -81,36 +53,46 @@ if (!empty($getCarouselList)) {
 							<?php }?>
 						</table>
 					</div><!-- /.box-body -->
-					<!-- <?php if ($this->pagination->create_links()): ?>
-					<div class="pagination-fixed" id="pagination-fixed">
-						<?php echo $this->pagination->create_links(); ?>
-					</div>
-					<?php endif;?> -->
 				</div><!-- /.box -->
 			</div>
 		</div>
 	</section>
 </div>
-<template id="table-header-temp">
-	<table id="table-header" class="table table-header title-center">
-		<tr>
-			<td style="width:20%;">圖片</td>
-			<td style="width:40%;">標題</td>
-			<td style="width:20%;">狀態</td>
-			<td style="width:20%;" class="text-center">功能</td>
-		</tr>
-	</table>
+<template id="function-on-top">
+	<div class="function-on-top">
+		<div class="box" style="border:none;border-radius:0">
+			<div class="box-header">
+				<div class="row">
+					<div class="col-xs-10 col-sm-7">
+						<div class="form-group">
+							<a class="btn btn-primary" href="<?php echo base_url('website/carouselAdds'); ?>"><i
+									class="fa fa-plus"></i> 新增</a>
+							<a class="btn btn-success" href="<?php echo base_url('website/carouselSorts'); ?>"><i
+									class="fa fa-sort" aria-hidden="true"></i> 排序</a>
+							<span style="color:white">(最多只能建立8筆資料)</span>
+						</div>
+					</div>
+					<!-- 註解掉版型會跑掉,讓這個結構隱藏起來就好 -->
+					<div class="col-xs-2 col-sm-5" style="visibility: hidden;">
+						<div class="box-tools">
+							<form action="<?php echo base_url('website/carouselLists'); ?>" method="POST" id="searchList">
+								<div class="input-group">
+									<input type="text" name="searchText" value="<?php echo $searchText; ?>"
+										class="form-control input-sm pull-right" style="width: 250px;height:30px"
+										placeholder="可搜尋標題" />
+									<div class="input-group-btn">
+										<button class="btn btn-sm btn-default searchList"><i class="fa fa-search"></i></button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.box-header -->
+		</div>
+	</div>
 </template>
 <style>
-	@media (max-width: 767px) {
-		.carousel-nav-none {
-			display: none;
-		}
-
-		.function-on-top {
-			width: 100%;
-		}
-	}
 </style>
 <script>
 </script>
@@ -143,6 +125,5 @@ if ($success) {
 	<?php echo $success; ?>
 </div>
 <?php
-unset($_SESSION['success']);
 }
 ?>

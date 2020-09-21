@@ -9,7 +9,7 @@ input::-webkit-input-placeholder {
    // padding-top: 2px; // 微調
 }
 
-// 列表頁有搜尋欄時的手機樣式
+// 列表頁有搜尋欄時的input樣式
 @media (max-width: 767px) {
    .pull-right.nav-list {
       width: 100% !important;
@@ -20,57 +20,82 @@ input::-webkit-input-placeholder {
    }
 }
 
-// 右上角個人檔案的style
-@media (min-width: 0px) {
-   .skin-blue .main-header .navbar .dropdown-menu li a.btn-warning {
-      color: #fff;
-      background-color: #f39c12;
-      border-color: #e08e0b;
-   }
-}
-
 .skin-blue .wrapper {
    background-color: transparent; //取消列表最底部的顏色使之滾動條顏色能夠清楚些
 
    .content-wrapper {
       height: 100vh !important; // 讓footer上方的白邊消失,或是說被這個高度壓下來
 
+      // 長內容的add、edit部分
+      .add-edit-scroll {
+         margin-top: 104px;
+         overflow-x: hidden;
+         overflow-y: scroll;
+      }
+
+      // 短內容的add、edit部分
+      .add-edit-noscroll {
+         margin-top: 104px;
+      }
+
+      .box-scroll {
+         border-top: none;
+         border-radius: 0;
+         overflow-x: scroll;
+         overflow-y: hidden;
+      }
+
+      .box-body {
+         border: none;
+         border-radius: 0;
+      }
+
       &.list-bottom-bg {
          background-color: #fff; //列表最後一筆資料距離底部的空白處底色
       }
 
-      // 列表部分的共同樣式
-      .list-scroll {
-         overflow-x: hidden;
-         overflow-y: scroll;
+      .thead-outside {
+         overflow: hidden;
 
-         table.table {
-            max-width: none;
-            box-shadow: 5px 0px 3px 3px gray;
+         &.thead-has-input {
+            margin-top: 104px;
+         }
+
+         &.thead-hasno-input {
+            margin-top: 104px;
+         }
+
+         // 列表頁title欄位
+         .table {
+            border: none;
+            border-bottom: 3px solid #222d32;
+
+            td {
+               font-family: DFKai-sb;
+               font-size: 18px;
+               font-weight: bolder;
+               padding: 3px;
+               border: none;
+               background-color: #fff;
+               text-align: center;
+            }
          }
       }
 
-      // 列表部分含input的overflow樣式
-      .list-input-scroll {
-         margin-top: 139px;
-      }
-
-      // 列表部不含input的overflow樣式
-      .list-noinput-scroll {
-         margin-top: 139px;
-      }
-
-      // 非列表部分而且爲長內容的overflow樣式
-      .not-list-H-scroll {
+      .tbody-outside {
          overflow-x: hidden;
          overflow-y: scroll;
-         margin-top: 104px;
       }
 
-      // 非列表部分而且爲短內容的overflow樣式
-      .not-list-L-scroll {
-         margin-top: 104px;
-         border: none;
+      .table {
+         max-width: none; // 使safari不會出現黑邊
+         box-shadow: 5px 0px 3px 3px gray;
+         margin-bottom: 0;
+
+         td {
+            text-align: center;
+            white-space: normal;
+         }
       }
    }
 }
@@ -78,24 +103,67 @@ input::-webkit-input-placeholder {
 @media (max-width: 767px) {
    .skin-blue .wrapper {
       .content-wrapper {
-         .list-scroll {
-            overflow-x: scroll;
-         }
-
-         .list-input-scroll {
-            margin-top: 222px;
-         }
-
-         .list-noinput-scroll {
-            margin-top: 189px;
-         }
-
-         .not-list-H-scroll {
+         .add-edit-scroll {
             margin-top: 154px;
          }
 
-         .not-list-L-scroll {
+         .add-edit-noscroll {
             margin-top: 154px;
+         }
+
+         .table-responsive {
+            margin-bottom: 0;
+         }
+
+         .thead-outside {
+            &.thead-has-input {
+               margin-top: 189px;
+            }
+
+            &.thead-hasno-input {
+               margin-top: 155px;
+            }
+         }
+      }
+   }
+}
+
+// table td的width,分爲3欄跟4欄,5欄的到該頁面去寫
+@for $i from 1 through 3 {
+   @if $i<3 {
+
+      .thead-outside.item-3,
+      .tbody-outside.item-3 {
+         td:nth-child(#{$i}) {
+            width: 48% / $i;
+         }
+      }
+   }
+
+   .thead-outside.item-4,
+   .tbody-outside.item-4 {
+      td:nth-child(#{$i}) {
+         width: if($i==3, 80px, 48% / $i);
+      }
+   }
+}
+
+@media (max-width: 767px) {
+   @for $i from 1 through 3 {
+      @if $i<3 {
+
+         .thead-outside.item-3,
+         .tbody-outside.item-3 {
+            td:nth-child(#{$i}) {
+               width: 48% / $i;
+            }
+         }
+      }
+
+      .thead-outside.item-4,
+      .tbody-outside.item-4 {
+         td:nth-child(#{$i}) {
+            width: if($i==3, 80px, 48% / $i);
          }
       }
    }
@@ -114,7 +182,7 @@ input::-webkit-input-placeholder {
       top: 40%;
       right: 40%;
       border: 16px solid #f3f3f3;
-      border-radius: 50%;
+      border-radius: 48%;
       border-top: 16px solid #3498db;
       width: 120px;
       height: 120px;
@@ -194,24 +262,17 @@ input::-webkit-input-placeholder {
    left: 230px;
    right: 0;
    top: 50px;
-   z-index: 3;
+   z-index: 9999;
 }
 
-// 輪播跟標籤列表的table置中
-.title-center {
-   text-align: center;
-
-   th {
-      text-align: center;
-      font-weight: bolder;
-      border-bottom: 3px solid #d2d6de;
-   }
-}
-
-// 後台其它設定中的樣式
+// 後台其它設定樣式
 .bg-color {
    border: 1px solid #D2D6DE;
    padding: 20px 10px 10px 10px;
+
+   input {
+      margin-bottom: 15px;
+   }
 
    >p {
       font-weight: bold;
@@ -221,10 +282,6 @@ input::-webkit-input-placeholder {
       position: absolute;
       top: -16px;
    }
-}
-
-.contact div input {
-   margin-bottom: 15px;
 }
 
 .form-group {

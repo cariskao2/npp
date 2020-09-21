@@ -28,60 +28,49 @@ $(function () {
    };
 
    $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
-
-   $('#date_start').datepicker({
-      showButtonPanel: true,
-      dateFormat: 'yy-mm-dd',
-      showMonthAfterYear: true,
-   });
-   // $('#date_end').datepicker({
-   //    showButtonPanel: true,
-   //    dateFormat: 'yy-mm-dd',
-   //    showMonthAfterYear: true,
-   // });
 })
 
-window.onload = function () {
-   var explorer = navigator.userAgent; // 偵測瀏覽器
+// window.onload = function () {}
+let _h = $(window).height();
+let _w = $(window).width();
+let _sidebarH = 0; //左方導航高度
+let _funH = 0; // 上方功能欄高度
 
-   //outerHeight(true)：包含margin、padding、border
-   var _paginationFixed = $('#pagination-fixed .pagination').outerHeight(true); //獲取下方分頁的高度
-   _paginationFixed = _paginationFixed != undefined ? _paginationFixed : 0; //若沒有分頁欄,高度就設爲0
+// console.log('listinput', $('#list-input').length);
+// console.log('pagina', $('#pagination-bottom').length);
 
-   var _pageH = $(window).height(); //頁面總高度,不同於$(document).height()
-   var _mainHeaderH = $('.main-header.header-fixex-top').outerHeight(true); //頂部藍色標題欄高度
-   var _funH = $('.function-on-top .box').outerHeight(true); //上方黑色功能欄+列表標題欄高度
-   var _footerH = $('.main-footer').outerHeight(true);
-
-   // 計算要scroll的所需高度
-   var _listScrollH = _pageH - _mainHeaderH - _funH - _paginationFixed - _footerH;
-
-   if (explorer.indexOf("Firefox") >= 0) {
-      _listScrollH += 2;
-   }
-   var _sidebarH = _pageH - _mainHeaderH - 10;
-   var _notListHcontentScroll = _pageH - _mainHeaderH - _funH - _footerH;
-
-   // 設定相關要scroll的高度
-   $('.list-scroll').height(_listScrollH); //設定列表頁的高度
-   $('section.sidebar').height(_sidebarH); //設定左方導航欄的高度
-   $('.not-list-H-scroll').height(_notListHcontentScroll); //設定新增跟編輯長內容的高度
-
-   // 下方分頁的高度若產生變化(分頁條變成二行),就自動調整高度使之顯示完整
-   if (_paginationFixed != undefined && _paginationFixed > 40) {
-      $('#pagination-fixed').height(68);
-      $('#pagination-fixed').css({
-         bottom: '-68px',
-      });
-   }
-
-   // console.log('_pageH', _pageH);
-   // console.log('_funH', _funH);
-   // console.log('_mainHeaderH', _mainHeaderH);
-   // console.log('_footerH', _footerH);
-   // console.log('_paginationFixed', _paginationFixed);
-   // console.log('_listScrollH', _listScrollH);
+if ($('#list-input').length > 0) {
+   _sidebarH = _w > 767 ? _h - 50 : _h - 189;
+   _funH = _w > 767 ? '54' : 89;
+} else {
+   _sidebarH = _w > 767 ? _h - 50 : _h - 154;
+   _funH = 54;
 }
+
+let _navbarH = _w > 767 ? 50 : 100; //上方藍色標題欄高度
+let _titleH = 34;
+let _paginationFixed = $('#pagination-bottom').length > 0 ? 34 : 0;
+let _footerH = 24;
+
+_paginationFixed = _paginationFixed != undefined ? _paginationFixed : 0; //若沒有分頁欄,高度就設爲0
+
+let _listScrollH = _h - _navbarH - _funH - _titleH - _paginationFixed - _footerH;
+let _addEditScroll = _h - _navbarH - _funH - _footerH;
+
+$('.tbody-outside').height(_listScrollH); //設定列表頁的高度
+$('section.sidebar').height(_sidebarH); //設定左方導航欄的高度
+$('.add-edit-scroll').height(_addEditScroll); //設定add、edit without input 的高度
+
+if (_w <= 767) {
+   $('aside.main-sidebar').css('top', _navbarH + _funH); //設定左方導航欄的top
+}
+
+// console.log('_h', _h);
+// console.log('_navbarH', _navbarH);
+// console.log('_funH', _funH);
+// console.log('_paginationFixed', _paginationFixed);
+// console.log('_listScrollH', _listScrollH);
+// console.log('_addEditScroll', _addEditScroll);
 
 // 顯示狀態
 $('#radioBtn a').on('click', function () {

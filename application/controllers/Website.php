@@ -59,7 +59,7 @@ class Website extends BaseController
         $data['getCarouselList'] = $this->website_model->carouselListing(false, $searchText, $returns["page"], $returns["segment"]);
 
         // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
-        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
+        $myRedirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $this->session->set_userdata('myRedirect', $myRedirect);
 
         $this->loadViews("carouselLists", $this->global, $data, null);

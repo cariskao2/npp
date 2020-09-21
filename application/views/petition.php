@@ -4,34 +4,16 @@ $editor = $getPetition->editor;
 <div class="content-wrapper">
 	<!-- <section class="content-header"> -->
 	<section>
-		<div class="function-on-top not-list">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border-top:none;border-radius:0">
-						<div class="box-header">
-							<div class="row">
-								<div class="col-xs-12">
-									<div class="form-group">
-										<a class="btn btn-warning" style="visibility:hidden"
-											href="<?php echo base_url($this->session->userdata('myRedirect')); ?>">返回</a>
-									</div>
-								</div>
-							</div>
-						</div><!-- /.box-header -->
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="row">
 			<!-- left column -->
 			<div class="col-md-12">
 				<!-- general form elements -->
 				<div class="box box-primary" style="border:none;">
-					<div class="not-list-H-scroll">
+					<div class="add-edit-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
-						<form role="form" action="<?php echo base_url('website/petitionSend') ?>" method="post"
-							id="" role="form" enctype="multipart/form-data">
+						<form role="form" action="<?php echo base_url('website/petitionSend') ?>" method="post" id=""
+							role="form" enctype="multipart/form-data">
 							<div class="box-body">
 								<div class="row">
 									<div class="col-md-12">
@@ -54,15 +36,27 @@ $editor = $getPetition->editor;
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 							<!-- <input type="submit" class="btn btn-primary" value="儲存" /> -->
 						</form>
-					</div>
-					<!-- not-list-H-scroll -->
-				</div>
-				<!-- box -->
+					</div><!-- add-edit-scroll -->
+				</div><!-- box -->
 			</div>
 		</div>
-		<!-- row -->
 	</section>
 </div>
+<template id="function-on-top">
+	<div class="function-on-top">
+		<div class="box" style="border-top:none;border-radius:0">
+			<div class="box-header">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<a class="btn btn-warning" style="visibility:hidden">返回</a>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.box-header -->
+		</div>
+	</div>
+</template>
 <script language='javascript' type='text/javascript'>
 	$(function () {
 		setTimeout(function () {
@@ -71,7 +65,6 @@ $editor = $getPetition->editor;
 	})
 </script>
 <?php
-$this->load->helper('form');
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>
@@ -80,7 +73,6 @@ if ($check) {
 	<?php echo $check; ?>
 </div>
 <?php
-unset($_SESSION['check']);
 }
 ?>
 <?php
@@ -92,7 +84,6 @@ if ($success) {
 	<?php echo $success; ?>
 </div>
 <?php
-unset($_SESSION['success']);
 }
 ?>
 <style>

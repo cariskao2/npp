@@ -20,36 +20,18 @@ $yt         = $getMemberInfo->yt;
 </div>
 <div class="content-wrapper">
 	<section>
-		<div class="function-on-top not-list">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border-top:none;border-radius:0">
-						<div class="box-header">
-							<div class="row">
-								<div class="col-xs-12">
-									<div class="form-group">
-										<a class="btn btn-warning"
-											href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
-										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
-									</div>
-								</div>
-							</div>
-						</div><!-- /.box-header -->
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="row">
 			<!-- left column -->
 			<div class="col-md-12">
 				<!-- general form elements -->
 				<div class="box box-primary" style="border:none;">
-					<div class="not-list-H-scroll">
+					<div class="add-edit-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
 						<form role="form" action="<?php echo base_url('members/membersEditSend/' . $memid); ?>" method="post"
 							id="" role="form" enctype="multipart/form-data">
-							<div class="box-body">
+							<!-- box-body padding:0 here only -->
+							<div class="box-body" style="padding:0">
 								<div class="row">
 									<div class="col-md-12">
 										<table class="table table-bordered">
@@ -61,16 +43,17 @@ $yt         = $getMemberInfo->yt;
 											<tbody>
 												<tr>
 													<th scope="row">
-														<label for="img">更換圖片(不換則不用選擇)</label>
+														<label for="img">更換圖片<br>(不換則不用選擇)</label>
 													</th>
 													<td>
-														<div class="form-group">
-															<img style="width:100px"
+														<div class="form-group" style="text-align:left">
+															<img style="width:120px"
 																src="<?php echo base_url('assets/uploads/members_upload/' . $img); ?>">
 															<!-- 沒加form-control上下會不平均 -->
 															<input style="border:none" type="file" name="file"
-																class="form-control" />支援格式：jpg png gif
+																class="form-control" />
 															<?php echo form_error('file'); ?>
+															<p style="text-align:left;color:red;padding-left:10px;margin:0">僅支援 jpg、png、gif</p>
 															<input type="hidden" name="img_name" value="<?php echo $img; ?>">
 														</div>
 													</td>
@@ -365,10 +348,8 @@ if (!empty($getContactList)) {
 							</div><!-- /.box-body -->
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
-					</div>
-					<!-- not-list-H-scroll -->
-				</div>
-				<!-- box -->
+					</div><!-- add-edit-scroll -->
+				</div><!-- box -->
 			</div>
 		</div>
 		<!-- row -->
@@ -407,7 +388,21 @@ if (!empty($getContactList)) {
 		</template>
 	</section>
 </div>
-
+<template id="function-on-top">
+	<div class="function-on-top">
+		<div class="box" style="border-top:none;border-radius:0">
+			<div class="box-header">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<a class="btn btn-warning" href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.box-header -->
+		</div>
+	</div>
+</template>
 <script language='javascript' type='text/javascript'>
 	jQuery(document).ready(function () {
 		// textarea自動依照內容增加高度
@@ -453,7 +448,6 @@ if (!empty($getContactList)) {
 	});
 </script>
 <?php
-$this->load->helper('form');
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>
@@ -462,7 +456,6 @@ if ($check) {
 	<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
 </div>
 <?php
-unset($_SESSION['check']);
 }
 ?>
 <?php
@@ -474,7 +467,6 @@ if ($success) {
 	<?php echo $success; ?>
 </div>
 <?php
-unset($_SESSION['success']);
 }
 ?>
 <?php
@@ -486,10 +478,26 @@ if ($error) {
 	<?php echo $error; ?>
 </div>
 <?php
-unset($_SESSION['error']);
 }
 ?>
 <style>
+	.selectize-input,
+	.selectize-dropdown {
+		text-align: left;
+	}
+
+	.selectize-dropdown {
+		top: 35px !important;
+	}
+
+	.skin-blue .wrapper .content-wrapper .table {
+		box-shadow: none;
+	}
+
+	.table.table-bordered th {
+		border: none;
+	}
+
 	.table.table-bordered tbody:not(.not-tbody) th {
 		width: 10%;
 	}

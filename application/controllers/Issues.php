@@ -88,7 +88,7 @@ class Issues extends BaseController
         $data['issuesClassList'] = $this->issues_model->issuesClassListing(false, $searchText, $returns["page"], $returns["segment"]);
 
         // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
-        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
+        $myRedirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $this->session->set_userdata('myRedirect', $myRedirect);
 
         $this->loadViews('issuesClassList', $this->global, $data, null);
@@ -664,9 +664,6 @@ class Issues extends BaseController
 
         if ($result > 0) {
             $this->session->set_flashdata('success', '排序已更新!');
-            // $this->session->set_userdata('issues-class-sort', true);
-            // $this->session->set_flashdata('issues-class-sort', 'true');
-            //這裡不能使用快閃資料(Flashdata),一次性的session
         } else {
             $this->session->set_flashdata('error', '排序更新失敗!');
         }

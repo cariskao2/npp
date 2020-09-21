@@ -29,8 +29,7 @@ class News_model extends CI_Model
         $this->db->from('press_release as pr');
 
         if (!empty($searchText)) {
-            $likeCriteria = "(pr.main_title  LIKE '%" . $searchText . "%'
-                OR  pr.sub_title  LIKE '%" . $searchText . "%')";
+            $likeCriteria = "(pr.main_title  LIKE '%" . $searchText . "%')";
             $this->db->where($likeCriteria);
         }
 
@@ -50,8 +49,7 @@ class News_model extends CI_Model
         $this->db->from('press_release as pr');
 
         if (!empty($searchText)) {
-            $likeCriteria = "(pr.main_title  LIKE '%" . $searchText . "%'
-                OR  pr.sub_title  LIKE '%" . $searchText . "%')";
+            $likeCriteria = "(pr.main_title  LIKE '%" . $searchText . "%')";
             $this->db->where($likeCriteria);
         }
 

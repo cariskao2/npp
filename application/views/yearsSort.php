@@ -1,58 +1,34 @@
 <div class="content-wrapper">
 	<!-- <section class="content"> -->
 	<section>
-		<div class="function-on-top not-list">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border-top:none;border-radius:0">
-						<div class="box-header">
-							<div class="row">
-								<div class="col-xs-12">
-									<div class="form-group">
-										<a class="btn btn-warning"
-											href="<?php echo base_url($this->session->userdata('myRedirect')); ?>">返回</a>
-										<!-- <a class="btn btn-warning" href="<?php echo base_url('members/yearLists/'); ?>">返回</a> -->
-									</div>
-								</div>
-							</div>
-						</div><!-- /.box-header -->
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="row">
 			<!-- left column -->
 			<div class="col-md-12">
 				<!-- general form elements -->
 				<div class="box box-primary" style="border:none;">
-					<div class="not-list-H-scroll">
-						<button id="save" class="btn btn-success submit-pos">儲存</button>
+					<div class="add-edit-scroll">
 						<div class="box-body">
-							<div class="row">
-								<div class="col-md-12">
-									<div id="sortlist">
-										<?php
+							<div id="sortlist">
+								<?php
 if (!empty($getYearList)) {
     foreach ($getYearList as $record) {
         ?>
-										<div class="ui-state-default" dbid="<?php echo $record->yid; ?>">
-											<?php echo $record->title; ?>
-										</div>
-										<?php
+								<div class="ui-state-default" dbid="<?php echo $record->yid; ?>">
+									<?php echo $record->title; ?>
+								</div>
+								<?php
 }
 } else {
     ?>
-										<div style="text-align:center;color:red;font-size:30px;font-weight:bolder">
-											無相關資料!
-										</div>
-										<?php }?>
-									</div>
+								<div style="text-align:center;color:red;font-size:30px;font-weight:bolder">
+									無相關資料!
 								</div>
+								<?php }?>
 							</div>
 						</div>
 						<!-- box-body -->
 					</div>
-					<!-- not-list-H-scroll -->
+					<!-- add-edit-scroll -->
 				</div>
 				<!-- box -->
 			</div>
@@ -61,6 +37,22 @@ if (!empty($getYearList)) {
 	</section>
 </div>
 <!-- content-wrapper -->
+<template id="function-on-top">
+	<div class="function-on-top">
+		<div class="box" style="border-top:none;border-radius:0">
+			<div class="box-header">
+				<div class="row">
+					<div class="col-xs-12">
+						<button id="save" class="btn btn-success" style="float:right">儲存</button>
+						<div class="form-group">
+							<a class="btn btn-warning" href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.box-header -->
+		</div>
+	</div>
+</template>
 <script language='javascript' type='text/javascript'>
 	$(function () {
 		// jquery UI sortable

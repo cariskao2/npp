@@ -207,7 +207,7 @@
 if ($role == ROLE_ADMIN) {
     ?>
 					<li class="treeview">
-						<a class="people" href="<?php echo base_url(); ?>userListing/">
+						<a class="people" href="<?php echo base_url(); ?>userListing">
 							<i class="fa fa-user-plus"></i>
 							<span>人員管理</span>
 						</a>
@@ -218,7 +218,7 @@ if ($role == ROLE_ADMIN) {
 if ($role == ROLE_MANAGER) {
     ?>
 					<li class="treeview">
-						<a href="<?php echo base_url(); ?>user/managerListing/" style="cursor:pointer">
+						<a href="<?php echo base_url(); ?>user/managerListing" style="cursor:pointer">
 							<i class="fa fa-user-plus"></i>
 							<span>編輯人員管理</span>
 						</a>

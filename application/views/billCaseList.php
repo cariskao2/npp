@@ -1,46 +1,21 @@
 <div class="content-wrapper list-bottom-bg">
 	<!-- <section class="content"> -->
-	<section>
-		<div class="function-on-top list-input_pos">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border:none;border-radius:0">
-						<div class="box-header">
-							<div class="row">
-								<div class="col-xs-12 col-sm-5">
-									<div class="form-group">
-										<a class="btn btn-primary" href="<?php echo base_url('bills/billCaseAdd'); ?>"><i
-												class="fa fa-plus"></i> 新增</a>
-									</div>
-								</div>
-								<div class="col-xs-12 col-sm-7">
-									<div class="box-tools">
-										<form action="<?php echo base_url('bills/billCaseList'); ?>" method="POST" id="searchList"
-											name="form">
-											<!-- input-group讓裏面的元素融合(合併)在一起 -->
-											<div class="input-group">
-												<input type="text" name="searchText" value="<?php echo $searchText; ?>"
-													class="form-control input-sm pull-right nav-list"
-													style="width: 250px;height:30px" placeholder="可搜尋草案標題" />
-												<div class="input-group-btn">
-													<button class="btn btn-sm btn-default searchList"><i
-															class="fa fa-search"></i></button>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div><!-- /.box-header -->
-					</div>
-				</div>
-			</div>
-		</div>
+	<section id="list-input">
 		<div class="row">
 			<div class="col-xs-12">
-				<div class="box" style="border-top:none;">
-					<div class="box-body table-responsive no-padding list-scroll list-input-scroll">
-						<table class="table table-hover title-center">
+				<div class="box box-scroll">
+					<div class="box-body table-responsive no-padding thead-outside thead-has-input">
+						<table class="table">
+							<tr>
+								<td>No</td>
+								<td>標題</td>
+								<td>狀態</td>
+								<td>功能</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box-body table-responsive no-padding tbody-outside">
+						<table class="table table-hover">
 							<?php
 if (!empty($getBillCaseList)) {
     foreach ($getBillCaseList as $items) {
@@ -50,10 +25,10 @@ if (!empty($getBillCaseList)) {
         $status = $items->name;
         ?>
 							<tr class="tr-css">
-								<td style="width:17%"><?php echo $f_id; ?></td>
-								<td style="width:49%"><?php echo $n; ?></td>
-								<td style="width:17%"><?php echo $status; ?></td>
-								<td style="width:17%">
+								<td><?php echo $f_id; ?></td>
+								<td><?php echo $n; ?></td>
+								<td><?php echo $status; ?></td>
+								<td>
 									<a class="btn btn-sm btn-info" href="<?php echo base_url() . 'bills/billCaseEdit/' . $id; ?>"
 										title="編輯"><i class="fa fa-pencil"></i></a>
 									<a class="btn btn-sm btn-success"
@@ -75,7 +50,7 @@ if (!empty($getBillCaseList)) {
 						</table>
 					</div><!-- /.box-body -->
 					<?php if ($this->pagination->create_links()): ?>
-					<div class="pagination-fixed" id="pagination-fixed">
+					<div class="pagination-bottom" id="pagination-bottom">
 						<?php echo $this->pagination->create_links(); ?>
 					</div>
 					<?php endif;?>
@@ -84,19 +59,70 @@ if (!empty($getBillCaseList)) {
 		</div>
 	</section>
 </div>
-<template id="table-header-temp">
-	<table id="table-header" class="table table-header title-center">
-		<tr class="title-center">
-			<td style="width:17%">No</td>
-			<td style="width:49%">標題</td>
-			<td style="width:17%">狀態</td>
-			<td style="width:17%">功能</td>
-		</tr>
-	</table>
+<template id="function-on-top">
+	<div class="function-on-top list-input" id="list-input">
+		<div class="box" style="border:none;border-radius:0">
+			<div class="box-header">
+				<div class="row">
+					<div class="col-xs-12 col-sm-5">
+						<div class="form-group">
+							<a class="btn btn-primary" href="<?php echo base_url('bills/billCaseAdd'); ?>"><i
+									class="fa fa-plus"></i> 新增</a>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-7">
+						<div class="box-tools">
+							<form action="<?php echo base_url('bills/billCaseList'); ?>" method="POST" id="searchList"
+								name="form">
+								<!-- input-group讓裏面的元素融合(合併)在一起 -->
+								<div class="input-group">
+									<input type="text" name="searchText" value="<?php echo $searchText; ?>"
+										class="form-control input-sm pull-right nav-list" style="width: 250px;height:30px"
+										placeholder="可搜尋草案標題" />
+									<div class="input-group-btn">
+										<button class="btn btn-sm btn-default searchList"><i class="fa fa-search"></i></button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.box-header -->
+		</div>
+	</div>
 </template>
 <style>
-	tr.tr-css td {
-		line-height: 37px !important;
+	.thead-outside td:nth-child(2),
+	.tbody-outside td:nth-child(2) {
+		width: 50%;
+	}
+
+	.thead-outside td:nth-child(3),
+	.tbody-outside td:nth-child(3) {
+		width: 20%;
+	}
+
+	.thead-outside td:nth-child(4),
+	.tbody-outside td:nth-child(4) {
+		width: 25%;
+	}
+
+	@media (max-width: 767px) {
+
+		.thead-outside td:nth-child(2),
+		.tbody-outside td:nth-child(2) {
+			width: 50%;
+		}
+
+		.thead-outside td:nth-child(3),
+		.tbody-outside td:nth-child(3) {
+			width: 20%;
+		}
+
+		.thead-outside td:nth-child(4),
+		.tbody-outside td:nth-child(4) {
+			width: 25%;
+		}
 	}
 </style>
 <script>
@@ -142,6 +168,5 @@ if ($success) {
 	<?php echo $success; ?>
 </div>
 <?php
-unset($_SESSION['success']);
 }
 ?>

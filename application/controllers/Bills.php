@@ -61,14 +61,13 @@ class Bills extends BaseController
         $data['searchText'] = $searchText;
 
         // float_id部分
-        $getId = $this->bills_model->getId($searchText); // 獲取全部bill_case的id,無論有無搜尋
-
-        foreach ($getId as $k => $v) {
-            $getIds[] = $v->case_id;
-        }
+        $getIds = $this->bills_model->getId($searchText); // 獲取全部bill_case的id,無論有無搜尋
 
         $this->bills_model->resetFloatId(); // 先將float_id欄位全部設爲0
-        $this->bills_model->updateFloatId($getIds);
+
+        if ($getIds != false) {
+            $this->bills_model->updateFloatId($getIds);
+        }
 
         // 列表部分
         $count = $this->bills_model->getBillCaseListCount($searchText);
@@ -101,7 +100,7 @@ class Bills extends BaseController
         $data['getBillStatusList'] = $this->bills_model->getBillStatusList($searchText, $returns["page"], $returns["segment"]);
 
         // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
-        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
+        $myRedirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $this->session->set_userdata('myRedirect', $myRedirect);
 
         $this->loadViews('billStatusList', $this->global, $data, null);
@@ -128,7 +127,7 @@ class Bills extends BaseController
         $data['getBillCategoryList'] = $this->bills_model->getBillCategoryList($searchText, $returns["page"], $returns["segment"]);
 
         // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
-        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
+        $myRedirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $this->session->set_userdata('myRedirect', $myRedirect);
 
         $this->loadViews('billCategoryList', $this->global, $data, null);
@@ -749,9 +748,6 @@ class Bills extends BaseController
 
         if ($result > 0) {
             $this->session->set_flashdata('success', '排序已更新!');
-            $this->session->set_userdata('bill-category-sort', true);
-            // $this->session->set_flashdata('bill-category-sort', 'true');
-            //這裡不能使用快閃資料(Flashdata),一次性的session
         } else {
             $this->session->set_flashdata('error', '排序更新失敗!');
         }

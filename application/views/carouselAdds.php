@@ -1,31 +1,11 @@
 <div class="content-wrapper">
-	<!-- <section class="content"> -->
 	<section>
-		<div class="function-on-top not-list">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border-top:none;border-radius:0">
-						<div class="box-header">
-							<div class="row">
-								<div class="col-xs-12">
-									<div class="form-group">
-										<a class="btn btn-warning"
-											href="<?php echo base_url($this->session->userdata('myRedirect')); ?>">返回</a>
-										<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
-									</div>
-								</div>
-							</div>
-						</div><!-- /.box-header -->
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="row">
 			<!-- left column -->
 			<div class="col-md-12">
 				<!-- general form elements -->
 				<div class="box box-primary" style="border:none;">
-					<div class="not-list-H-scroll">
+					<div class="add-edit-noscroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
 						<form role="form" action="<?php echo base_url('website/carouselAddSend'); ?>" method="post" id=""
@@ -86,18 +66,28 @@
 							</div><!-- /.box-body -->
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
-					</div>
-					<!-- not-list-H-scroll -->
+					</div><!-- add-edit-noscroll -->
 				</div>
-				<!-- box -->
 			</div>
 		</div>
-		<!-- row -->
 	</section>
-</div>
-<!-- content-wrapper -->
+</div><!-- content-wrapper -->
+<template id="function-on-top">
+	<div class="function-on-top">
+		<div class="box" style="border-top:none;border-radius:0">
+			<div class="box-header">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<a class="btn btn-warning" href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.box-header -->
+		</div>
+	</div>
+</template>
 <?php
-$this->load->helper('form');
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>
@@ -106,7 +96,6 @@ if ($check) {
 	<?php echo $check . '!<br>請修正以下提示錯誤!'; ?>
 </div>
 <?php
-unset($_SESSION['check']);
 }
 ?>
 <?php
@@ -118,7 +107,6 @@ if ($success) {
 	<?php echo $success; ?>
 </div>
 <?php
-unset($_SESSION['success']);
 }
 ?>
 <style>

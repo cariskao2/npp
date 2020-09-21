@@ -1,45 +1,20 @@
 <div class="content-wrapper list-bottom-bg">
 	<!-- <section class="content"> -->
 	<section>
-		<div class="function-on-top list-noinput_pos">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border:none;border-radius:0">
-						<div class="box-header">
-							<div class="row">
-								<div class="col-xs-6">
-									<div class="form-group">
-										<a class="btn btn-primary" href="<?php echo base_url('bills/billStatusAdd'); ?>"><i
-												class="fa fa-plus"></i> 新增</a>
-									</div>
-								</div>
-								<!-- 註解掉版型會跑掉,讓這個結構隱藏起來就好 -->
-								<div class="col-xs-6" style="visibility: hidden;">
-									<div class="box-tools">
-										<form action="<?php echo base_url(); ?>" method="POST" id="searchList">
-											<div class="input-group">
-												<input type="text" name="searchText" value=""
-													class="form-control input-sm pull-right" style="width: 250px;height:30px"
-													placeholder="可搜尋標籤名稱" />
-												<div class="input-group-btn">
-													<button class="btn btn-sm btn-default searchList"><i
-															class="fa fa-search"></i></button>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div><!-- /.box-header -->
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="row">
 			<div class="col-xs-12">
-				<div class="box" style="border-top:none;">
-					<div class="box-body table-responsive no-padding list-scroll list-noinput-scroll">
-						<table class="table table-hover title-center">
+				<div class="box box-scroll">
+					<div class="box-body table-responsive no-padding thead-outside thead-hasno-input item-3">
+						<table class="table">
+							<tr>
+								<td>標題</td>
+								<td>狀態</td>
+								<td>功能</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box-body table-responsive no-padding tbody-outside item-3">
+						<table class="table table-hover">
 							<?php
 if (!empty($getBillStatusList)) {
     foreach ($getBillStatusList as $item) {
@@ -48,8 +23,8 @@ if (!empty($getBillStatusList)) {
         $name = $item->name;
         ?>
 							<tr class="tr-css">
-								<td style="width:60%"><?php echo $name; ?></td>
-								<td style="width:20%">
+								<td><?php echo $name; ?></td>
+								<td>
 									<?php if ($show == 1) {?>
 									<img style="background-color:green" src="<?php echo base_url(); ?>assets/images/show.png"
 										alt="">
@@ -58,7 +33,7 @@ if (!empty($getBillStatusList)) {
 										alt="">
 									<?php }?>
 								</td>
-								<td style="width:20%" class=" text-center">
+								<td class=" text-center">
 									<a class="btn btn-sm btn-info"
 										href="<?php echo base_url() . 'bills/billStatusEdit/' . $id; ?>" title="編輯"><i
 											class="fa fa-pencil"></i></a>
@@ -80,7 +55,7 @@ if (!empty($getBillStatusList)) {
 
 					</div><!-- /.box-body -->
 					<?php if ($this->pagination->create_links()): ?>
-					<div class="pagination-fixed" id="pagination-fixed">
+					<div class="pagination-bottom" id="pagination-bottom">
 						<?php echo $this->pagination->create_links(); ?>
 					</div>
 					<?php endif;?>
@@ -89,14 +64,35 @@ if (!empty($getBillStatusList)) {
 		</div>
 	</section>
 </div>
-<template id="table-header-temp">
-	<table id="table-header" class="table table-header title-center">
-		<tr class="title-center">
-			<td style="width:60%">標題</td>
-			<td style="width:20%">狀態</td>
-			<td style="width:20%" class="text-center">功能</td>
-		</tr>
-	</table>
+<template id="function-on-top">
+	<div class="function-on-top">
+		<div class="box" style="border:none;border-radius:0">
+			<div class="box-header">
+				<div class="row">
+					<div class="col-xs-6">
+						<div class="form-group">
+							<a class="btn btn-primary" href="<?php echo base_url('bills/billStatusAdd'); ?>"><i
+									class="fa fa-plus"></i> 新增</a>
+						</div>
+					</div>
+					<!-- 註解掉版型會跑掉,讓這個結構隱藏起來就好 -->
+					<div class="col-xs-6" style="visibility: hidden;">
+						<div class="box-tools">
+							<form action="<?php echo base_url(); ?>" method="POST" id="searchList">
+								<div class="input-group">
+									<input type="text" name="searchText" value="" class="form-control input-sm pull-right"
+										style="width: 250px;height:30px" placeholder="可搜尋標籤名稱" />
+									<div class="input-group-btn">
+										<button class="btn btn-sm btn-default searchList"><i class="fa fa-search"></i></button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.box-header -->
+		</div>
+	</div>
 </template>
 <style>
 	tr.tr-css td {
@@ -117,6 +113,5 @@ if ($success) {
 	<?php echo $success; ?>
 </div>
 <?php
-unset($_SESSION['success']);
 }
 ?>

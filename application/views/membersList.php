@@ -1,56 +1,27 @@
 <div class="content-wrapper list-bottom-bg">
 	<!-- <section class="content"> -->
-	<section>
-		<div class="function-on-top list-input_pos">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border:none;border-radius:0">
-						<div class="box-header">
-							<div class="row">
-								<div class="col-xs-12 col-sm-5">
-									<div class="form-group">
-										<!-- Add尾端加上「/」selectizejs才會正常顯示 -->
-										<a class="btn btn-primary" href="<?php echo base_url('members/membersAdd'); ?>"><i
-												class="fa fa-plus"></i> 新增</a>
-										<a class="btn btn-success" href="<?php echo base_url('members/membersSort'); ?>"><i
-												class="fa fa-sort" aria-hidden="true"></i> 排序</a>
-									</div>
-								</div>
-								<div class="col-xs-12 col-sm-7">
-									<div class="box-tools">
-										<!-- 下方jQuery.attr會再改action屬性 -->
-										<form action="<?php echo base_url('members/membersList'); ?>" method="POST"
-											id="searchList" name="form">
-											<div class="input-group">
-												<input type="text" name="searchText" value="<?php echo $searchText; ?>"
-													class="form-control input-sm pull-right nav-list"
-													style="width: 250px;height:30px" placeholder="可搜尋姓名" />
-												<div class="input-group-btn">
-													<button class="btn btn-sm btn-default searchList"><i
-															class="fa fa-search"></i></button>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div><!-- /.box-header -->
-					</div>
-				</div>
-			</div>
-		</div>
+	<section id="list-input">
 		<div class="row">
 			<div class="col-xs-12">
-				<div class="box" style="border-top:none;">
-					<div class="box-body table-responsive no-padding list-scroll list-input-scroll">
-						<table class="table table-hover title-center">
+				<div class="box box-scroll">
+					<div class="box-body table-responsive no-padding thead-outside thead-has-input item-3">
+						<table class="table">
+							<tr>
+								<td>姓名</td>
+								<td>狀態</td>
+								<td>功能</td>
+							</tr>
+						</table>
+					</div>
+					<div class="box-body table-responsive no-padding tbody-outside item-3">
+						<table class="table table-hover">
 							<?php
 if (!empty($listItems)) {
     foreach ($listItems as $items) {
         ?>
 							<tr>
-								<td style="width:60%"><?php echo $items->name; ?></td>
-								<td style="width:20%">
+								<td><?php echo $items->name; ?></td>
+								<td>
 									<?php if ($items->showup == 1) {?>
 									<img style="background-color:green" src="<?php echo base_url('assets/images/show.png'); ?>"
 										alt="">
@@ -59,7 +30,7 @@ if (!empty($listItems)) {
 										alt="">
 									<?php }?>
 								</td>
-								<td style="width:20%">
+								<td>
 									<a class="btn btn-sm btn-info"
 										href="<?php echo base_url('members/membersEdit/' . $items->memid); ?>" title="編輯"><i
 											class="fa fa-pencil"></i></a>
@@ -80,24 +51,49 @@ if (!empty($listItems)) {
 						</table>
 					</div><!-- /.box-body -->
 					<?php if ($this->pagination->create_links()): ?>
-					<div class="pagination-fixed" id="pagination-fixed">
+					<div class="pagination-bottom" id="pagination-bottom">
 						<?php echo $this->pagination->create_links(); ?>
 					</div>
 					<?php endif;?>
 				</div><!-- /.box -->
 			</div>
 		</div>
-		<!-- row -->
 	</section>
 </div>
-<template id="table-header-temp">
-	<table id="table-header" class="table table-header title-center">
-		<tr>
-			<td style="width:60%">姓名</td>
-			<td style="width:20%">狀態</td>
-			<td style="width:20%">功能</td>
-		</tr>
-	</table>
+<template id="function-on-top">
+	<div class="function-on-top list-input" id="list-input">
+		<div class="box" style="border:none;border-radius:0">
+			<div class="box-header">
+				<div class="row">
+					<div class="col-xs-12 col-sm-5">
+						<div class="form-group">
+							<!-- Add尾端加上「/」selectizejs才會正常顯示 -->
+							<a class="btn btn-primary" href="<?php echo base_url('members/membersAdd'); ?>"><i
+									class="fa fa-plus"></i> 新增</a>
+							<a class="btn btn-success" href="<?php echo base_url('members/membersSort'); ?>"><i
+									class="fa fa-sort" aria-hidden="true"></i> 排序</a>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-7">
+						<div class="box-tools">
+							<!-- 下方jQuery.attr會再改action屬性 -->
+							<form action="<?php echo base_url('members/membersList'); ?>" method="POST" id="searchList"
+								name="form">
+								<div class="input-group">
+									<input type="text" name="searchText" value="<?php echo $searchText; ?>"
+										class="form-control input-sm pull-right nav-list" style="width: 250px;height:30px"
+										placeholder="可搜尋姓名" />
+									<div class="input-group-btn">
+										<button class="btn btn-sm btn-default searchList"><i class="fa fa-search"></i></button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.box-header -->
+		</div>
+	</div>
 </template>
 <script type="text/javascript" src="<?php echo base_url('assets/js/common.js'); ?>" charset="utf-8"></script>
 <script type="text/javascript">
@@ -141,6 +137,5 @@ if ($success) {
 	<?php echo $success; ?>
 </div>
 <?php
-unset($_SESSION['success']);
 }
 ?>

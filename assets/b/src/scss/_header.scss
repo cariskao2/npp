@@ -23,34 +23,8 @@ aside.main-sidebar {
    }
 }
 
-@media (max-width: 767px) {
-   aside.main-sidebar {
-      top: 100px;
-
-   }
-}
-
-#table-header {
-   margin-top: 104px;
-   border-bottom: 3px solid gray;
-   background-color: #fff;
-}
-
 .skin-blue .main-header .navbar {
    height: 50px;
-
-   // 列表的title樣式
-   .table-header {
-      >tbody>tr>td {
-         font-family: DFKai-sb;
-         font-size: 18px;
-         font-weight: bolder;
-         margin-top: 0;
-         margin-bottom: 0;
-         padding: 3px;
-         border: none;
-      }
-   }
 }
 
 .skin-blue .sidebar-menu {
@@ -87,34 +61,19 @@ aside.main-sidebar {
 
 // 最上方藍色大標bar
 .header-fixex-top {
+   width: 100%; // for firefox
+   height: 50px;
    position: fixed;
    top: 0;
-   width: 100%;
+   z-index: 2;
 }
 
 // 上方新增以及搜尋欄
 .function-on-top {
-   position: fixed;
-   z-index: 2;
-   transition: left .4s;
+   height: 54px;
+   margin-top: 50px;
 
-   &.list-input_pos {
-      top: 50px;
-      height: 86px;
-   }
-
-   &.list-noinput_pos {
-      top: 50px;
-      height: 87px;
-   }
-
-   // 新增 & 編輯
-   &.not-list {
-      width: 100%;
-      height: 54px;
-      top: 50px;
-   }
-
+   // 功能欄
    .form-group {
       margin-bottom: 0;
    }
@@ -127,18 +86,13 @@ aside.main-sidebar {
 
 @media (max-width: 767px) {
    .function-on-top {
-      &.list-input_pos {
-         top: 100px;
-         height: 121px;
+      &.list-input {
+         height: 89px;
       }
+   }
 
-      &.list-noinput_pos {
-         top: 100px;
-      }
-
-      &.not-list {
-         top: 100px;
-      }
+   .submit-pos {
+      top: 110px;
    }
 }
 
@@ -149,42 +103,31 @@ aside.main-sidebar {
    cursor: default;
 }
 
-// 上方導航的儲存
+// 上方導航除了排序之外的儲存(待刪除)
 .submit-pos {
    position: fixed;
-   right: 0px;
-   top: 51.45px;
-   z-index: 2;
-   margin: 10px
+   right: 10px;
+   top: 60px;
+   z-index: 3;
 }
 
 @media (max-width: 767px) {
    .submit-pos {
-      top: 101.45px;
+      top: 110px;
+   }
+}
+
+// 右上角個人檔案的style
+@media (min-width: 0px) {
+   .skin-blue .main-header .navbar .dropdown-menu li a.btn-warning {
+      color: #fff;
+      background-color: #f39c12;
+      border-color: #e08e0b;
    }
 }
 
 // firefox
-@-moz-document url-prefix() {
-   .function-on-top {
-
-      &.list-input_pos,
-      &.list-noinput_pos {
-         right: 0;
-         left: 230px;
-      }
-   }
-
-   @media (max-width: 767px) {
-      .function-on-top {
-
-         &.list-input_pos,
-         &.list-noinput_pos {
-            left: 0;
-         }
-      }
-   }
-}
+// @-moz-document url-prefix() {}
 
 // safari
 @media not all and (min-resolution:.001dpcm) {

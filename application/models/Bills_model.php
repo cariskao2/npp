@@ -25,7 +25,9 @@ class Bills_model extends CI_Model
         $this->db->update('bill_case', $info);
     }
 
-    // 獲取全部bill_case的id,無論有無搜尋
+    // 浮動id部分,若沒搜尋就獲取全部case_id
+    // 若有搜尋到,就獲取相關的case_id
+    // 若無搜尋到,就返回false
     public function getId($searchText)
     {
         $this->db->select();
@@ -39,10 +41,19 @@ class Bills_model extends CI_Model
         // 這裡ASC才可在updateFloatId時,使用$k來順序更新
         $this->db->order_by('bc.case_id', 'ASC');
 
-        $query  = $this->db->get();
-        $result = $query->result();
+        $query = $this->db->get();
 
-        return $result;
+        if ($query->num_rows() > 0) {
+            $arr = []; //stdClass最佳解決方案
+
+            foreach ($query->result() as $row) {
+                array_push($arr, $row->case_id);
+            }
+
+            return $arr;
+        }
+        // $result = $query->result();
+        return false;
     }
 
     // 使用case_id爲條件並藉由$k來順序更新

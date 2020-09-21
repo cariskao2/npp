@@ -45,6 +45,8 @@ class News extends BaseController
             redirect('news/lists/1');
         }
 
+        $this->session->unset_userdata('myRedirect');
+
         $this->output->set_header("Cache-Control: private");
 
         $this->global['navActive'] = base_url('news/lists/' . $type_id);

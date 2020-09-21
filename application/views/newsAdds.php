@@ -7,30 +7,12 @@
 <script src="<?php echo base_url('assets/plugins/selectizejs/js/index.js'); ?>"></script>
 <div class="content-wrapper">
 	<section>
-		<div class="function-on-top not-list">
-			<div class="row">
-				<div class="col-xs-12">
-					<div class="box" style="border-top:none;border-radius:0">
-						<div class="box-header">
-							<div class="row">
-								<div class="col-xs-12">
-									<div class="form-group">
-										<a class="btn btn-warning"
-											href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
-									</div>
-								</div>
-							</div>
-						</div><!-- /.box-header -->
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="row">
 			<!-- left column -->
 			<div class="col-md-12">
 				<!-- general form elements -->
 				<div class="box box-primary" style="border:none;">
-					<div class="not-list-H-scroll">
+					<div class="add-edit-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
 						<form role="form" action="<?php echo base_url('news/addsSend/' . $type_id); ?>" method="post" id=""
@@ -141,15 +123,27 @@ if (!empty($getTagsList)) {
 							</div><!-- /.box-body -->
 							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
-					</div>
-					<!-- .not-list-H-scroll -->
-				</div>
-				<!-- .box -->
+					</div><!-- add-edit-scroll -->
+				</div><!-- box -->
 			</div>
-			<!-- <div class="col-md-12"> -->
 		</div>
 	</section>
 </div>
+<template id="function-on-top">
+	<div class="function-on-top">
+		<div class="box" style="border-top:none;border-radius:0">
+			<div class="box-header">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<a class="btn btn-warning" href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.box-header -->
+		</div>
+	</div>
+</template>
 <script language='javascript' type='text/javascript'>
 	$('#time_start').clockpicker();
 

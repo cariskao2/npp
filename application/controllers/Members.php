@@ -95,7 +95,7 @@ class Members extends BaseController
         // $this->global['pageTitle'] = '標籤管理';
 
         // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
-        $myRedirect = str_replace('/npp/', '', $_SERVER['REQUEST_URI']);
+        $myRedirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
         $this->session->set_userdata('myRedirect', $myRedirect);
 
         $this->loadViews("yearLists", $this->global, $data, null);
