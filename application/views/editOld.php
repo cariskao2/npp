@@ -12,7 +12,7 @@ $roleId = $userInfo->roleId;
 			<div class="col-md-8">
 				<!-- general form elements -->
 				<div class="box box-primary" style="border:none;">
-					<div class="add-edit-noscroll">
+					<div class="" id="mobile-scroll-only">
 						<!-- form start -->
 						<!-- #editUser對應下方同名js -->
 						<form role="form" action="<?php echo base_url() ?>editUser" method="post" id="editUser" role="form">
@@ -81,7 +81,6 @@ if (!empty($roles)) {
 									</div>
 								</div>
 							</div><!-- /.box-body -->
-							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div><!-- add-edit-noscroll -->
 				</div><!-- box -->
@@ -127,6 +126,7 @@ if ($success) {
 					<div class="col-xs-12">
 						<div class="form-group">
 							<a class="btn btn-warning" href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
+							<input type="submit" class="btn btn-success" value="儲存" onclick="subMit();" />
 						</div>
 					</div>
 				</div>
@@ -134,6 +134,11 @@ if ($success) {
 		</div>
 	</div>
 </template>
+<script>
+	function subMit() {
+		jQuery('#editUser').submit();
+	}
+</script>
 <style>
 </style>
 <script src="<?php echo base_url(); ?>assets/js/editUser.js" type="text/javascript"></script>

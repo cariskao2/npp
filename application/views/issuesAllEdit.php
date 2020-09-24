@@ -21,7 +21,7 @@ $img    = $getIssuesAllInfo->img;
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
 						<form role="form" action="<?php echo base_url('issues/issuesAllEditSend/' . $ia_id); ?>" method="post"
-							id="" role="form" enctype="multipart/form-data">
+							id="formSubmit" role="form" enctype="multipart/form-data">
 							<div class="box-body">
 								<div class="row">
 									<div class="col-md-6 col-xs-12">
@@ -34,7 +34,7 @@ $img    = $getIssuesAllInfo->img;
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="img">更換圖片(不換則不用選擇 支援格式：jpg png gif)</label>
+											<label for="img" class="must">更換圖片<span style="color:red;">(僅支援 jpg、png、gif)</span></label>
 											<input style="border:none" class="form-control" id="img" type="file" name="file"
 												size="20" />
 											<?php echo form_error('file'); ?>
@@ -118,7 +118,6 @@ $notActive = $show == 0 ? 'active' : 'notActive';
 									</div>
 								</div>
 							</div><!-- /.box-body -->
-							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div><!-- add-edit-scroll -->
 				</div>
@@ -136,6 +135,7 @@ $notActive = $show == 0 ? 'active' : 'notActive';
 					<div class="col-xs-12">
 						<div class="form-group">
 							<a class="btn btn-warning" href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
+							<input type="submit" class="btn btn-success" value="儲存" onclick="subMit();" />
 						</div>
 					</div>
 				</div>
@@ -144,6 +144,9 @@ $notActive = $show == 0 ? 'active' : 'notActive';
 	</div>
 </template>
 <script>
+	function subMit() {
+		jQuery('#formSubmit').submit();
+	}
 </script>
 <?php
 $check = $this->session->flashdata('check');

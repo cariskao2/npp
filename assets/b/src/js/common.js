@@ -35,6 +35,7 @@ let _h = $(window).height();
 let _w = $(window).width();
 let _sidebarH = 0; //左方導航高度
 let _funH = 0; // 上方功能欄高度
+let _carouselListUrl = window.location.href;
 
 // console.log('listinput', $('#list-input').length);
 // console.log('pagina', $('#pagination-bottom').length);
@@ -44,7 +45,15 @@ if ($('#list-input').length > 0) {
    _funH = _w > 767 ? '54' : 89;
 } else {
    _sidebarH = _w > 767 ? _h - 50 : _h - 154;
-   _funH = 54;
+   _funH = _carouselListUrl.indexOf('carouselLists') > 0 ? 74 : 54;
+}
+
+if (_w > 767) {
+   $('#mobile-scroll-only').addClass('add-edit-noscroll');
+   $('#mobile-scroll-only').removeClass('add-edit-scroll');
+} else {
+   $('#mobile-scroll-only').addClass('add-edit-scroll');
+   $('#mobile-scroll-only').removeClass('add-edit-noscroll');
 }
 
 let _navbarH = _w > 767 ? 50 : 100; //上方藍色標題欄高度

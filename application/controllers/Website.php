@@ -105,8 +105,8 @@ class Website extends BaseController
             $this->session->set_flashdata('error', '更新失敗!');
         }
 
-        $this->petition();
-        // redirect('website/setup');
+        // $this->petition(); //這行會導致成功訊息影響到別的頁面
+        redirect('website/petition');
     }
 
     // 其它設定
@@ -156,8 +156,8 @@ class Website extends BaseController
                 $this->session->set_flashdata('error', '更新失敗!');
             }
 
-            $this->setup();
-            // redirect('website/setup');
+            // $this->setup();//這行會導致成功訊息影響到別的頁面
+            redirect('website/setup');
         }
     }
 

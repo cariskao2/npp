@@ -43,9 +43,9 @@ if (!empty($getCarouselList)) {
 			<div class="box-header">
 				<div class="row">
 					<div class="col-xs-12">
-						<button id="save" class="btn btn-success" style="float:right">儲存</button>
 						<div class="form-group">
 							<a class="btn btn-warning" href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
+							<button id="save" class="btn btn-success">儲存</button>
 						</div>
 					</div>
 				</div>

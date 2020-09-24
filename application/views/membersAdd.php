@@ -13,7 +13,7 @@
 					<div class="add-edit-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
-						<form role="form" action="<?php echo base_url('members/membersAddSend'); ?>" method="post" id=""
+						<form role="form" action="<?php echo base_url('members/membersAddSend'); ?>" method="post" id="formSubmit"
 							role="form" enctype="multipart/form-data">
 							<!-- box-body padding:0 here only -->
 							<div class="box-body" style="padding:0">
@@ -33,11 +33,11 @@
 													</th>
 													<td>
 														<div class="form-group">
+															<p style="color:red;margin-bottom:0">僅支援 jpg、png、gif</p>
 															<!-- 沒加form-control上下會不平均 -->
 															<input style="border:none" type="file" name="file"
 																class="form-control" />
 															<?php echo form_error('file'); ?>
-															<p style="text-align:left;color:red;padding-left:10px;margin:0">僅支援 jpg、png、gif</p>
 														</div>
 													</td>
 												</tr>
@@ -273,7 +273,6 @@ if (!empty($getContactList)) {
 									</div>
 								</div>
 							</div><!-- /.box-body -->
-							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div><!-- add-edit-scroll -->
 				</div><!-- box -->
@@ -323,6 +322,7 @@ if (!empty($getContactList)) {
 					<div class="col-xs-12">
 						<div class="form-group">
 							<a class="btn btn-warning" href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
+							<input type="submit" class="btn btn-success" value="儲存" onclick="subMit();" />
 						</div>
 					</div>
 				</div>
@@ -331,6 +331,10 @@ if (!empty($getContactList)) {
 	</div>
 </template>
 <script language='javascript' type='text/javascript'>
+	function subMit() {
+		jQuery('#formSubmit').submit();
+	}
+
 	// textarea自動依照內容增加高度
 	function autogrow(textarea) {
 		var adjustedHeight = textarea.clientHeight;
@@ -386,20 +390,10 @@ if ($error) {
 }
 ?>
 <style>
-	.selectize-input,.selectize-dropdown {
-		text-align: left;
-	}
-
 	.selectize-dropdown{
 		top:35px !important;
 	}
 
-	.skin-blue .wrapper .content-wrapper .table {
-		box-shadow: none;
-	}
-	.table.table-bordered th{
-		border: none;
-	}
 	.table.table-bordered tbody:not(.not-tbody) th {
 		width: 10%;
 	}

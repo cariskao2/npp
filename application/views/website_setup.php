@@ -13,11 +13,11 @@ $servicetime = $getSetupInfo->servicetime;
 			<div class="col-md-12">
 				<!-- general form elements -->
 				<div class="box box-primary" style="border:none;">
-					<div class="add-edit-noscroll" style="padding-top:30px">
+					<div class="" id="mobile-scroll-only">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
 						<form role="form" action="<?php echo base_url('website/setupSend') ?>"
-							method="post" id="" role="form" enctype="multipart/form-data">
+							method="post" id="formSubmit" role="form" enctype="multipart/form-data">
 							<div class="box-body">
 								<div class="row">
 									<div class="col-md-6">
@@ -55,7 +55,6 @@ $servicetime = $getSetupInfo->servicetime;
 									</div>
 								</div>
 							</div><!-- /.box-body -->
-							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div><!-- add-edit-noscroll -->
 				</div><!-- box -->
@@ -70,6 +69,7 @@ $servicetime = $getSetupInfo->servicetime;
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="form-group">
+							<input type="submit" class="btn btn-success" value="儲存" onclick="subMit();" />
 							<a class="btn btn-warning" style="visibility:hidden">返回</a>
 						</div>
 					</div>
@@ -79,6 +79,10 @@ $servicetime = $getSetupInfo->servicetime;
 	</div>
 </template>
 <script language='javascript' type='text/javascript'>
+	function subMit() {
+		jQuery('#formSubmit').submit();
+	}
+
 	$(function () {
 		setTimeout(function () {
 			$("#alert-success").hide();

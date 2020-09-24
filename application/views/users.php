@@ -109,28 +109,6 @@ if (!empty($userRecords)) {
 		width: 15%;
 	}
 
-	@media (max-width: 767px) {
-
-		.thead-outside td:nth-child(1),
-		.tbody-outside td:nth-child(1) {
-			width: 30%;
-		}
-
-		.thead-outside td:nth-child(2),
-		.tbody-outside td:nth-child(2) {
-			width: 30%;
-		}
-
-		.thead-outside td:nth-child(3),
-		.tbody-outside td:nth-child(3) {
-			width: 10%;
-		}
-
-		.thead-outside td:nth-child(4),
-		.tbody-outside td:nth-child(4) {
-			width: 15%;
-		}
-	}
 </style>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/common.js" charset="utf-8"></script>
 <script type="text/javascript">

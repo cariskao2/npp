@@ -85,16 +85,16 @@ input::-webkit-input-placeholder {
       .tbody-outside {
          overflow-x: hidden;
          overflow-y: scroll;
-      }
 
-      .table {
-         max-width: none; // 使safari不會出現黑邊
-         box-shadow: 5px 0px 3px 3px gray;
-         margin-bottom: 0;
+         .table {
+            max-width: none; // 使safari不會出現黑邊
+            box-shadow: 5px 0px 3px 3px gray;
+            margin-bottom: 0;
 
-         td {
-            text-align: center;
-            white-space: normal;
+            td {
+               white-space: normal;
+               text-align: center;
+            }
          }
       }
    }
@@ -144,27 +144,6 @@ input::-webkit-input-placeholder {
    .tbody-outside.item-4 {
       td:nth-child(#{$i}) {
          width: if($i==3, 80px, 48% / $i);
-      }
-   }
-}
-
-@media (max-width: 767px) {
-   @for $i from 1 through 3 {
-      @if $i<3 {
-
-         .thead-outside.item-3,
-         .tbody-outside.item-3 {
-            td:nth-child(#{$i}) {
-               width: 48% / $i;
-            }
-         }
-      }
-
-      .thead-outside.item-4,
-      .tbody-outside.item-4 {
-         td:nth-child(#{$i}) {
-            width: if($i==3, 80px, 48% / $i);
-         }
       }
    }
 }

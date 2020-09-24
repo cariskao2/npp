@@ -1,4 +1,4 @@
-// 左方sidebar
+// 左方導航
 aside.main-sidebar {
    font-size: 18px;
    font-weight: bolder;
@@ -10,65 +10,63 @@ aside.main-sidebar {
       height: 902px;
       overflow: scroll;
 
-      .treeview-menu {
-         //  讓左邊導航的下拉選單固定打開
-         //  adminlte.js的lte.tree取消點擊事件
-         display: block;
+      ul.sidebar-menu {
 
-         a {
-            font-weight: normal;
-            font-size: 16px;
+         //  左方導航子選單ul樣式
+         >li>.treeview-menu {
+            background: #222d32;
+         }
+
+         .treeview-menu {
+            //  讓左邊導航的下拉選單固定打開
+            //  adminlte.js的lte.tree取消點擊事件
+            display: block;
+
+            //  左方導航子選單項目樣式
+            a {
+               font-weight: normal;
+               font-size: 16px;
+            }
+
+            &>li {
+
+               &.active,
+               &:hover {
+                  background-color: #2f4f4f;
+               }
+
+               &.active>a,
+               &>a:hover {
+                  color: #fff;
+               }
+            }
+
+            li {
+               padding-left: 30px;
+            }
+         }
+
+         // 若有子項目則標題的游標變成這樣
+         .treeview>a:not(.people) {
+            cursor: text;
          }
       }
    }
 }
 
-.skin-blue .main-header .navbar {
+// 上方導航
+.main-header .navbar {
    height: 50px;
-}
 
-.skin-blue .sidebar-menu {
-
-   //  左方導航子選單ul樣式
-   >li>.treeview-menu {
-      background: #222d32;
-   }
-
-   .treeview-menu>li {
-      // transition: padding-left, .5s;
-
-      &.active,
-      &:hover {
-         background-color: #2f4f4f;
-      }
-
-      //  左方導航子選單項目li樣式
-      &.active>a,
-      &>a:hover {
-         color: #fff;
-      }
-   }
-
-   .treeview-menu li {
-      padding-left: 30px;
-   }
-
-   // 若有子項目則標題的遊標變成這樣
-   .treeview>a:not(.people) {
-      cursor: text;
+   // 右上角個人檔案的style
+   .dropdown-menu li a.btn-warning {
+      color: #fff;
+      background-color: #f39c12;
+      border-color: #e08e0b;
    }
 }
 
-// 最上方藍色大標bar
-.header-fixex-top {
-   width: 100%; // for firefox
-   height: 50px;
-   position: fixed;
-   top: 0;
-   z-index: 2;
-}
-
-// 上方新增以及搜尋欄
+// 上方功能導航欄
 .function-on-top {
    height: 54px;
    margin-top: 50px;
@@ -90,39 +88,20 @@ aside.main-sidebar {
          height: 89px;
       }
    }
-
-   .submit-pos {
-      top: 110px;
-   }
 }
 
-//  上方導航
-.hover-bg:hover {
-   color: white !important;
-   background-color: #3C8DBC !important;
-   cursor: default;
-}
-
-// 上方導航除了排序之外的儲存(待刪除)
-.submit-pos {
+// 最上方藍色大標bar
+.header-fixex-top {
+   width: 100%; // for firefox
+   height: 50px;
    position: fixed;
-   right: 10px;
-   top: 60px;
-   z-index: 3;
-}
+   top: 0;
+   z-index: 2;
 
-@media (max-width: 767px) {
-   .submit-pos {
-      top: 110px;
-   }
-}
-
-// 右上角個人檔案的style
-@media (min-width: 0px) {
-   .skin-blue .main-header .navbar .dropdown-menu li a.btn-warning {
-      color: #fff;
-      background-color: #f39c12;
-      border-color: #e08e0b;
+   .hover-bg:hover {
+      color: white !important;
+      background-color: #3C8DBC !important;
+      cursor: default;
    }
 }
 

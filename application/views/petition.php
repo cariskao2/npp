@@ -12,7 +12,7 @@ $editor = $getPetition->editor;
 					<div class="add-edit-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
-						<form role="form" action="<?php echo base_url('website/petitionSend') ?>" method="post" id=""
+						<form role="form" action="<?php echo base_url('website/petitionSend') ?>" method="post" id="formSubmit"
 							role="form" enctype="multipart/form-data">
 							<div class="box-body">
 								<div class="row">
@@ -33,8 +33,6 @@ $editor = $getPetition->editor;
 									</div>
 								</div>
 							</div><!-- /.box-body -->
-							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
-							<!-- <input type="submit" class="btn btn-primary" value="儲存" /> -->
 						</form>
 					</div><!-- add-edit-scroll -->
 				</div><!-- box -->
@@ -49,6 +47,7 @@ $editor = $getPetition->editor;
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="form-group">
+							<input type="submit" class="btn btn-success" value="儲存" onclick="subMit();" />
 							<a class="btn btn-warning" style="visibility:hidden">返回</a>
 						</div>
 					</div>
@@ -58,23 +57,16 @@ $editor = $getPetition->editor;
 	</div>
 </template>
 <script language='javascript' type='text/javascript'>
+	function subMit() {
+		jQuery('#formSubmit').submit();
+	}
+
 	$(function () {
 		setTimeout(function () {
 			$("#alert-success").hide();
 		}, 3000);
 	})
 </script>
-<?php
-$check = $this->session->flashdata('check');
-if ($check) {
-    ?>
-<div id="alert-error" class="alert-absoulte error-width alert alert-danger alert-dismissable">
-	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-	<?php echo $check; ?>
-</div>
-<?php
-}
-?>
 <?php
 $success = $this->session->flashdata('success');
 if ($success) {

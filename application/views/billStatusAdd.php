@@ -7,7 +7,7 @@
 				<div class="box box-primary" style="border:none;">
 					<div class="add-edit-noscroll">
 						<!-- form start -->
-						<form role="form" action="<?php echo base_url() ?>bills/billStatusAddSend" method="post" id=""
+						<form role="form" action="<?php echo base_url() ?>bills/billStatusAddSend" method="post" id="formSubmit"
 							role="form" enctype="multipart/form-data">
 							<div class="box-body">
 								<div class="row">
@@ -55,7 +55,6 @@
 								</div>
 							</div>
 							<!-- /.box-body -->
-							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div><!-- add-edit-noscroll -->
 				</div><!-- box -->
@@ -71,6 +70,7 @@
 					<div class="col-xs-12">
 						<div class="form-group">
 							<a class="btn btn-warning" href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
+							<input type="submit" class="btn btn-success" value="儲存" onclick="subMit();" />
 						</div>
 					</div>
 				</div>
@@ -80,6 +80,10 @@
 </template>
 <!-- .content-wrapper -->
 <script language='javascript' type='text/javascript'>
+	function subMit() {
+		jQuery('#formSubmit').submit();
+	}
+
 	$(function () {
 		setTimeout(function () {
 			$("#alert-success").hide();

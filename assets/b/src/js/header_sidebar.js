@@ -1,43 +1,44 @@
 var a = $('.main-sidebar .sidebar-menu .treeview>a');
+var aText = $('.main-sidebar .sidebar-menu .treeview>a:not(.people)');
+var _toggle = $('.main-header .navbar .sidebar-toggle');
+var sm = $('.sidebar-menu');
 
 // 左方導航欄游標設定
-function sidebarToggle() {
-   var w = $('.sidebar-menu').width();
-   var _bW = $(window).width();
+sm.click(function () {
+   let ww = $(window).width();
+   let smw = sm.width();
 
-   if (_bW > 767) {
-
-
-      if (w != 50) {
-         a.css('cursor', 'pointer');
-         a.attr({
-            'data-toggle': 'push-menu',
-            'role': 'button'
-         });
-         a.addClass('sidebar-toggle');
-      } else {
-         $('.main-sidebar .sidebar-menu .treeview>a:not(.people)').css('cursor', 'text');
-         a.removeAttr('data-toggle role');
-         a.removeClass('sidebar-toggle');
-      }
+   if (ww > 767 && smw == 50) {
+      aText.css('cursor', 'text');
+      setTimeout(sidebarMenuToggle, 100);
    }
-}
+});
 
-a.click(function () {
-   var w = $('.sidebar-menu').width();
+// logo旁的3橫線按鈕
+_toggle.click(function () {
+   let ww = $(window).width();
+   let smw = sm.width();
 
-   if (w != 50) {
-      a.removeAttr('data-toggle role');
-      a.removeClass('sidebar-toggle');
+   // console.log(ww);
+   // console.log(smw);
+
+   if (ww > 767 && smw != 50) {
+      a.css('cursor', 'pointer');
+      sm.addClass('sidebar-toggle');
+      sm.attr({
+         'data-toggle': 'push-menu',
+         'role': 'button'
+      });
    } else {
-      $('.main-sidebar .sidebar-menu .treeview>a:not(.people)').css('cursor', 'text');
+      aText.css('cursor', 'text');
+      setTimeout(sidebarMenuToggle, 100);
    }
 });
 
-$(document).ready(function () {
-   sidebarToggle();
-});
-
+function sidebarMenuToggle() {
+   sm.removeAttr('data-toggle role');
+   sm.removeClass('sidebar-toggle');
+}
 // 上方導航標題置中
 var $titleTop = $('.nav.navbar-nav li.title-on-top');
 var $halfWidth = $titleTop.width() / 2;

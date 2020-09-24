@@ -26,7 +26,7 @@ $editor     = $userInfo->editor;
 					<div class="add-edit-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
-						<form role="form" action="<?php echo base_url('news/editSend/' . $pr_id); ?>" method="post" id=""
+						<form role="form" action="<?php echo base_url('news/editSend/' . $pr_id); ?>" method="post" id="formSubmit"
 							role="form" enctype="multipart/form-data">
 							<div class="box-body">
 								<div class="row">
@@ -40,7 +40,7 @@ $editor     = $userInfo->editor;
 								<div class="row">
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="img">更換圖片(不換則不用選擇 支援格式：jpg png gif)</label>
+											<label for="img" class="must">更換圖片<span style="color:red;">(僅支援 jpg、png、gif)</span></label>
 											<input style="border:none" class="form-control" id="img" type="file" name="file"
 												size="20" />
 											<?php echo form_error('file'); ?>
@@ -149,7 +149,6 @@ $notActive = $userInfo->showup == 0 ? 'active' : 'notActive';
 									</div>
 								</div>
 							</div><!-- /.box-body -->
-							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div><!-- add-edit-scroll -->
 				</div><!-- box -->
@@ -168,6 +167,7 @@ $notActive = $userInfo->showup == 0 ? 'active' : 'notActive';
 							<!-- <a class="btn btn-warning" onclick="history.back()" href="#">返回</a> -->
 							<a class="btn btn-warning"
 								href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
+							<input type="submit" class="btn btn-success" value="儲存" onclick="subMit();" />
 						</div>
 					</div>
 				</div>
@@ -176,6 +176,10 @@ $notActive = $userInfo->showup == 0 ? 'active' : 'notActive';
 	</div>
 </template>
 <script language='javascript' type='text/javascript'>
+	function subMit() {
+		jQuery('#formSubmit').submit();
+	}
+
 	$('#time_start').clockpicker();
 
 	$("#date_start").datepicker({

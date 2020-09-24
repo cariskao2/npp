@@ -69,7 +69,7 @@ if (!empty($getCarouselList)) {
 									class="fa fa-plus"></i> 新增</a>
 							<a class="btn btn-success" href="<?php echo base_url('website/carouselSorts'); ?>"><i
 									class="fa fa-sort" aria-hidden="true"></i> 排序</a>
-							<span style="color:white">(最多只能建立8筆資料)</span>
+							<br class="br"><span style="color:white">(最多只能建立8筆資料)</span>
 						</div>
 					</div>
 					<!-- 註解掉版型會跑掉,讓這個結構隱藏起來就好 -->
@@ -93,6 +93,16 @@ if (!empty($getCarouselList)) {
 	</div>
 </template>
 <style>
+	@media (min-width: 768px) {
+		.br {
+			display: none;
+		}
+	}
+	@media (max-width: 767px) {
+		.br {
+			display: block;
+		}
+	}
 </style>
 <script>
 </script>

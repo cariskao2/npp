@@ -13,7 +13,7 @@
 					<div class="add-edit-scroll">
 						<!-- form start -->
 						<!--  enctype="multipart/form-data"記得加 -->
-						<form role="form" action="<?php echo base_url('bills/billCaseAddSend'); ?>" method="post" id=""
+						<form role="form" action="<?php echo base_url('bills/billCaseAddSend'); ?>" method="post" id="formSubmit"
 							role="form" enctype="multipart/form-data">
 							<!-- box-body padding:0 here only -->
 							<div class="box-body" style="padding:0">
@@ -149,7 +149,6 @@ if (!empty($getBillStatus)) {
 									</tbody>
 								</table>
 							</div><!-- /.box-body -->
-							<input type="submit" class="btn btn-success submit-pos" value="儲存" />
 						</form>
 					</div>
 					<!-- add-edit-scroll -->
@@ -168,6 +167,7 @@ if (!empty($getBillStatus)) {
 					<div class="col-xs-12">
 						<div class="form-group">
 							<a class="btn btn-warning" href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
+							<input type="submit" class="btn btn-success" value="儲存" onclick="subMit();" />
 						</div>
 					</div>
 				</div>
@@ -176,6 +176,10 @@ if (!empty($getBillStatus)) {
 	</div>
 </template>
 <script language='javascript' type='text/javascript'>
+	function subMit() {
+		jQuery('#formSubmit').submit();
+	}
+
 	$('#select-years').selectize({
 		maxItems: null,
 		plugins: ['remove_button'],
@@ -208,10 +212,6 @@ if ($error) {
 }
 ?>
 <style>
-	.selectize-input,.selectize-dropdown {
-		text-align: left;
-	}
-
 	.selectize-dropdown{
 		top:35px !important;
 	}
