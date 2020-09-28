@@ -21,7 +21,7 @@
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="email">Email</label>
+											<label for="email">Email(帳號)</label>
 											<input type="text" class="form-control required email" id="email"
 												value="<?php echo set_value('email'); ?>" name="email" maxlength="128">
 										</div>

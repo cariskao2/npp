@@ -34,7 +34,7 @@ class User extends BaseController
         // $this->userListing();
 
         // login後本來是引導到控制面板,現在引導到法案議事說明
-        redirect('news/lists/1/');
+        redirect('news/lists/1');
     }
 
     /**
@@ -79,7 +79,7 @@ class User extends BaseController
 
             // $this->global['pageTitle'] = '人員管理';
             $this->global['navTitle']  = '人員管理列表 - 系統管理員';
-            $this->global['navActive'] = base_url('userListing/');
+            $this->global['navActive'] = base_url('user/userListing');
 
             $this->loadViews("users", $this->global, $data, null);
         }
@@ -105,7 +105,7 @@ class User extends BaseController
             $data['userRecords'] = $this->user_model->managerListing($searchText, $returns["page"], $returns["segment"]);
 
             $this->global['navTitle']  = '人員管理列表 - 管理員';
-            $this->global['navActive'] = base_url('user/managerListing/');
+            $this->global['navActive'] = base_url('user/managerListing');
 
             $myRedirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
             $this->session->set_userdata('myRedirect', $myRedirect);
@@ -125,8 +125,8 @@ class User extends BaseController
             $data['roles'] = $this->user_model->getUserRoles();
 
             // $this->global['pageTitle'] = '新增人員資料';
-            $this->global['navTitle']  = '新增「編輯」 & 「管理員」人員資料';
-            $this->global['navActive'] = base_url('userListing/');
+            $this->global['navTitle']  = '新增人員資料';
+            $this->global['navActive'] = base_url('user/userListing');
 
             $this->loadViews("addNew", $this->global, $data, null);
         }
@@ -139,8 +139,8 @@ class User extends BaseController
         } else {
             $data['roles'] = $this->user_model->getManagerRoles();
 
-            $this->global['navTitle']  = '新增「編輯」人員資料';
-            $this->global['navActive'] = base_url('user/managerListing/');
+            $this->global['navTitle']  = '新增人員資料';
+            $this->global['navActive'] = base_url('user/managerListing');
 
             $this->loadViews("addManager", $this->global, $data, null);
         }
@@ -212,7 +212,7 @@ class User extends BaseController
                     $this->session->set_flashdata('error', '新增失敗!');
                 }
 
-                redirect('userListing/');
+                redirect('user/userListing');
                 // redirect('addNew');
             }
         }
@@ -259,7 +259,7 @@ class User extends BaseController
                     $this->session->set_flashdata('error', '新增失敗!');
                 }
 
-                redirect('user/managerListing/');
+                redirect('user/managerListing');
             }
         }
     }
@@ -275,15 +275,15 @@ class User extends BaseController
             $this->loadThis();
         } else {
             if ($userId == null) {
-                redirect('userListing/');
+                redirect('user/userListing');
             }
 
             $data['roles']    = $this->user_model->getUserRoles();
             $data['userInfo'] = $this->user_model->getUserInfo($userId);
 
             // $this->global['pageTitle'] = '編輯人員資料';
-            $this->global['navTitle']  = '更新「編輯」 & 「管理員」人員資料';
-            $this->global['navActive'] = base_url('userListing/');
+            $this->global['navTitle']  = '編輯人員資料';
+            $this->global['navActive'] = base_url('user/userListing');
 
             $this->loadViews("editOld", $this->global, $data, null);
         }
@@ -296,14 +296,14 @@ class User extends BaseController
             $this->loadThis();
         } else {
             if ($userId == null) {
-                redirect('user/managerListing/');
+                redirect('user/managerListing');
             }
 
             $data['roles']    = $this->user_model->getManagerRoles();
             $data['userInfo'] = $this->user_model->getManagerInfo($userId);
 
-            $this->global['navTitle']  = '更新「編輯」人員資料';
-            $this->global['navActive'] = base_url('user/managerListing/');
+            $this->global['navTitle']  = '編輯人員資料';
+            $this->global['navActive'] = base_url('user/managerListing');
 
             $this->loadViews("managerOld", $this->global, $data, null);
         }
@@ -416,7 +416,7 @@ class User extends BaseController
                 }
 
                 // $this->managerOld($userId);
-                // redirect('user/managerListing/');
+                // redirect('user/managerListing');
                 $myRedirect = $this->session->userdata('myRedirect');
                 redirect($myRedirect);
             }
@@ -513,7 +513,9 @@ class User extends BaseController
         $data["userInfo"] = $this->user_model->getUserInfoWithRole($this->vendorId);
         $data["active"]   = $active;
 
-        $this->global['pageTitle'] = $active == "details" ? '我的檔案-修改資料' : '我的檔案-更改密碼';
+        // $this->global['pageTitle'] = '個人檔案';
+        // $this->global['pageTitle'] = $active == "details" ? '我的檔案-修改資料' : '我的檔案-更改密碼';
+        $this->global['navTitle'] = '個人檔案';
         $this->loadViews("profile", $this->global, $data, null);
     }
 

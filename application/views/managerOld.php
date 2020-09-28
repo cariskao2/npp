@@ -4,6 +4,7 @@ $name   = $userInfo->name;
 $email  = $userInfo->email;
 $mobile = $userInfo->mobile;
 $roleId = $userInfo->roleId;
+$dtm    = $userInfo->createdDtm;
 ?>
 
 <div class="content-wrapper">
@@ -29,7 +30,7 @@ $roleId = $userInfo->roleId;
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
-											<label for="email">Email</label>
+											<label for="email">Email(帳號)</label>
 											<input type="email" class="form-control" id="email" name="email"
 												value="<?php echo $email; ?>" maxlength="128">
 										</div>
@@ -78,6 +79,14 @@ if (!empty($roles)) {
 }
 ?>
 											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label for="createdDtm">加入日期</label>
+											<input disabled type="text" class="form-control" id="createdDtm" value="<?php echo $dtm; ?>">
 										</div>
 									</div>
 								</div>

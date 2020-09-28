@@ -4,18 +4,16 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="box box-scroll">
-					<div class="box-body table-responsive no-padding thead-outside thead-has-input">
+					<div class="box-body table-responsive no-padding thead-outside thead-has-input item-3">
 						<table class="table">
 							<tr>
-								<td>人員</td>
-								<td>Email</td>
+								<td>名稱</td>
 								<td>層級</td>
-								<td>日期</td>
 								<td>功能</td>
 							</tr>
 						</table>
 					</div>
-					<div class="box-body table-responsive no-padding tbody-outside">
+					<div class="box-body table-responsive no-padding tbody-outside item-3">
 						<table class="table table-hover">
 							<?php
 if (!empty($userRecords)) {
@@ -23,10 +21,8 @@ if (!empty($userRecords)) {
         ?>
 							<tr>
 								<td><?php echo $record->name ?></td>
-								<td><?php echo $record->email ?></td>
-								<!-- <td><?php echo $record->mobile ?></td> -->
 								<td><?php echo $record->role ?></td>
-								<td><?php echo date("Y-d-m", strtotime($record->createdDtm)) ?></td>
+								<!-- <td><?php echo date("Y-d-m", strtotime($record->createdDtm)) ?></td> -->
 								<td class="text-center">
 									<!-- <a class="btn btn-sm btn-primary" href="<?=base_url() . 'login-history/' . $record->userId;?>" title="歷史記錄"><i class="fa fa-history"></i></a> | -->
 									<a class="btn btn-sm btn-info"
@@ -75,7 +71,7 @@ if (!empty($userRecords)) {
 								<div class="input-group">
 									<input type="text" name="searchText" value="<?php echo $searchText; ?>"
 										class="form-control input-sm pull-right nav-list" style="width: 250px;height:30px"
-										placeholder="可搜尋人員、mail" />
+										placeholder="可搜尋名稱" />
 									<div class="input-group-btn">
 										<button class="btn btn-sm btn-default searchList"><i class="fa fa-search"></i></button>
 									</div>
@@ -89,26 +85,6 @@ if (!empty($userRecords)) {
 	</div>
 </template>
 <style>
-	.thead-outside td:nth-child(1),
-	.tbody-outside td:nth-child(1) {
-		width: 30%;
-	}
-
-	.thead-outside td:nth-child(2),
-	.tbody-outside td:nth-child(2) {
-		width: 30%;
-	}
-
-	.thead-outside td:nth-child(3),
-	.tbody-outside td:nth-child(3) {
-		width: 10%;
-	}
-
-	.thead-outside td:nth-child(4),
-	.tbody-outside td:nth-child(4) {
-		width: 15%;
-	}
-
 </style>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/common.js" charset="utf-8"></script>
 <script type="text/javascript">
@@ -139,7 +115,7 @@ if (!empty($userRecords)) {
 			// console.log('link', link);
 			// console.log('searchText', form.searchText.value);
 
-			jQuery('#searchList').attr('action', baseURL +'user/'+ queryStr + key);
+			jQuery('#searchList').attr('action', baseURL + 'user/' + queryStr + key);
 			jQuery('#searchList').submit();
 		});
 	});

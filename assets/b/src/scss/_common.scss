@@ -65,6 +65,10 @@ input::-webkit-input-placeholder {
             margin-top: 104px;
          }
 
+         &.thead-carousel-input {
+            margin-top: 104px;
+         }
+
          // 列表頁title欄位
          .table {
             border: none;
@@ -123,13 +127,17 @@ input::-webkit-input-placeholder {
             &.thead-hasno-input {
                margin-top: 155px;
             }
+
+            &.thead-carousel-input {
+               margin-top: 174px;
+            }
          }
       }
    }
 }
 
 // table td的width,分爲3欄跟4欄,5欄的到該頁面去寫
-@for $i from 1 through 3 {
+@for $i from 1 through 4 {
    @if $i<3 {
 
       .thead-outside.item-3,
@@ -143,7 +151,7 @@ input::-webkit-input-placeholder {
    .thead-outside.item-4,
    .tbody-outside.item-4 {
       td:nth-child(#{$i}) {
-         width: if($i==3, 80px, 48% / $i);
+         width: if($i==3, 80px, if($i==4, 250px, 48% / $i));
       }
    }
 }

@@ -18,7 +18,7 @@ $servicetime = $getSetupInfo->servicetime;
 						<!--  enctype="multipart/form-data"記得加 -->
 						<form role="form" action="<?php echo base_url('website/setupSend') ?>"
 							method="post" id="formSubmit" role="form" enctype="multipart/form-data">
-							<div class="box-body">
+							<div class="box-body" style="padding-top:30px">
 								<div class="row">
 									<div class="col-md-6">
 										<div class="bg-color">

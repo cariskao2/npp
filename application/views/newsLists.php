@@ -8,9 +8,10 @@
 						<table class="table">
 							<tr>
 								<td>標題</td>
-								<td>建立時間</td>
+								<td>發布時間</td>
 								<td>狀態</td>
 								<td>功能</td>
+
 							</tr>
 						</table>
 					</div>
@@ -24,11 +25,21 @@ if (!empty($listItems)) {
 								<!-- <td><img style="width:50px;height:50px;"
 											src="<?php echo base_url('assets/uploads/news_upload/' . $record->pr_type_id . '/' . $record->img); ?>">
 									</td> -->
-								<!-- <td>
-										<?php echo '<b>' . $record->main_title . '</b>' . '<br>' . $record->sub_title; ?></td> -->
 								<td>
 									<?php echo '<b>' . $record->main_title . '</b>'; ?></td>
-								<td><?php echo $record->date_start . '&emsp;' . $record->time_start ?>
+								<td><?php
+if ($record->date_start == '' && $record->time_start == '') {
+            echo '無設定';
+        } else {
+            if ($record->date_start != '' && $record->time_start != '') {
+                echo $record->date_start . '<br>' . $record->time_start;
+            } elseif ($record->date_start != '') {
+                echo $record->date_start;
+            } elseif ($record->time_start != '') {
+                echo $record->time_start;
+            }
+        }
+        ?>
 								</td>
 								<!-- <td>
 										<?php echo mb_strimwidth(strip_tags($record->editor), 0, 100, '...') ?></td> -->

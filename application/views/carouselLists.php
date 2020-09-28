@@ -4,7 +4,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="box box-scroll">
-					<div class="box-body table-responsive no-padding thead-outside thead-hasno-input item-4">
+					<div class="box-body table-responsive no-padding thead-outside thead-carousel-input item-4">
 						<table class="table">
 							<tr>
 								<td>圖片</td>

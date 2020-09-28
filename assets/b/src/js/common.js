@@ -35,7 +35,7 @@ let _h = $(window).height();
 let _w = $(window).width();
 let _sidebarH = 0; //左方導航高度
 let _funH = 0; // 上方功能欄高度
-let _carouselListUrl = window.location.href;
+let url = window.location.href;
 
 // console.log('listinput', $('#list-input').length);
 // console.log('pagina', $('#pagination-bottom').length);
@@ -44,8 +44,17 @@ if ($('#list-input').length > 0) {
    _sidebarH = _w > 767 ? _h - 50 : _h - 189;
    _funH = _w > 767 ? '54' : 89;
 } else {
-   _sidebarH = _w > 767 ? _h - 50 : _h - 154;
-   _funH = _carouselListUrl.indexOf('carouselLists') > 0 ? 74 : 54;
+   if (url.indexOf('profile') > 0) {
+      _sidebarH = _h - 100;
+   } else {
+      _sidebarH = _w > 767 ? _h - 50 : _h - 154;
+   }
+
+   if (url.indexOf('carouselLists') > 0) {
+      _funH = _w > 767 ? 54 : 74;
+   } else {
+      _funH = 54;
+   }
 }
 
 if (_w > 767) {
@@ -71,7 +80,11 @@ $('section.sidebar').height(_sidebarH); //設定左方導航欄的高度
 $('.add-edit-scroll').height(_addEditScroll); //設定add、edit without input 的高度
 
 if (_w <= 767) {
-   $('aside.main-sidebar').css('top', _navbarH + _funH); //設定左方導航欄的top
+   if (url.indexOf('profile') > 0) {
+      $('aside.main-sidebar').css('top', 100); //設定左方導航欄的top
+   } else {
+      $('aside.main-sidebar').css('top', _navbarH + _funH); //設定左方導航欄的top
+   }
 }
 
 // console.log('_h', _h);

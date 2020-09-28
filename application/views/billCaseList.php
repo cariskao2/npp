@@ -94,7 +94,7 @@ if (!empty($getBillCaseList)) {
 <style>
 	.thead-outside td:nth-child(2),
 	.tbody-outside td:nth-child(2) {
-		width: 50%;
+		width: 40%;
 	}
 
 	.thead-outside td:nth-child(3),
@@ -104,25 +104,7 @@ if (!empty($getBillCaseList)) {
 
 	.thead-outside td:nth-child(4),
 	.tbody-outside td:nth-child(4) {
-		width: 25%;
-	}
-
-	@media (max-width: 767px) {
-
-		.thead-outside td:nth-child(2),
-		.tbody-outside td:nth-child(2) {
-			width: 50%;
-		}
-
-		.thead-outside td:nth-child(3),
-		.tbody-outside td:nth-child(3) {
-			width: 20%;
-		}
-
-		.thead-outside td:nth-child(4),
-		.tbody-outside td:nth-child(4) {
-			width: 25%;
-		}
+		width: 30%;
 	}
 </style>
 <script>

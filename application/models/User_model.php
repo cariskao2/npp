@@ -45,6 +45,7 @@ class User_model extends CI_Model
         }
         $this->db->where('BaseTbl.isDeleted', 0);
         $this->db->where('BaseTbl.roleId', 3);
+        $this->db->or_where('BaseTbl.roleId', 4);
         $query = $this->db->get();
 
         return $query->num_rows();
@@ -89,6 +90,7 @@ class User_model extends CI_Model
         }
         $this->db->where('BaseTbl.isDeleted', 0);
         $this->db->where('BaseTbl.roleId', 3);
+        $this->db->or_where('BaseTbl.roleId', 4);
         $this->db->order_by('BaseTbl.userId', 'DESC');
         $this->db->limit($page, $segment);
         $query = $this->db->get();
@@ -115,7 +117,7 @@ class User_model extends CI_Model
     {
         $this->db->select('roleId, role');
         $this->db->from('tbl_roles');
-        $this->db->where('roleId', 3);
+        $this->db->where('roleId >', 2);
         $query = $this->db->get();
 
         return $query->result();
@@ -164,7 +166,7 @@ class User_model extends CI_Model
      */
     public function getUserInfo($userId)
     {
-        $this->db->select('userId, name, email, mobile, roleId');
+        $this->db->select('userId, name, email, mobile, roleId, createdDtm');
         $this->db->from('tbl_users');
         $this->db->where('isDeleted', 0);
         $this->db->where('roleId !=', 1);
@@ -176,10 +178,10 @@ class User_model extends CI_Model
 
     public function getManagerInfo($userId)
     {
-        $this->db->select('userId, name, email, mobile, roleId');
+        $this->db->select('userId, name, email, mobile, roleId, createdDtm');
         $this->db->from('tbl_users');
         $this->db->where('isDeleted', 0);
-        $this->db->where('roleId', 3);
+        $this->db->where('roleId >', 2);
         $this->db->where('userId', $userId);
         $query = $this->db->get();
 
@@ -357,6 +359,7 @@ class User_model extends CI_Model
         $this->db->join('tbl_roles as Roles', 'Roles.roleId = BaseTbl.roleId');
         $this->db->where('BaseTbl.userId', $userId);
         $this->db->where('BaseTbl.isDeleted', 0);
+
         $query = $this->db->get();
 
         return $query->row();

@@ -35,7 +35,7 @@ $next = !empty($innerNextNews) ? $innerNextNews->pr_id : '';
 		</div>
 		<div class="col-md-12">
 			<div class="inner-share">
-				<span style="font-size:14px;font-weight:bold">發布時間：<?php echo $date; ?></span>
+				<span style="font-size:14px;font-weight:bold">發布日期：<?php echo $date; ?></span>
 				<!-- 社群分享列 -->
 				<div class="share-buttons">
 					<!-- addthis -->

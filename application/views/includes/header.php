@@ -157,6 +157,9 @@
 							<i class="fa fa-dashboard"></i> <span>控制面板</span></i>
 						</a>
 					</li> -->
+					<?php
+if ($role == ROLE_ADMIN || $role == ROLE_MANAGER || $role == ROLE_EMPLOYEE1) {
+    ?>
 					<li class="treeview" style="padding-top:5px">
 						<a href="#">
 							<i class="fa fa-globe"></i> <span>新聞訊息</span>
@@ -172,6 +175,10 @@
 							<li><a href="<?php echo base_url(); ?>news/tagLists/">標籤管理</a></li>
 						</ul>
 					</li>
+					<?php }?>
+					<?php
+if ($role == ROLE_ADMIN || $role == ROLE_MANAGER || $role == ROLE_EMPLOYEE2) {
+    ?>
 					<li class="treeview">
 						<a href="#">
 							<i class="fa fa-briefcase"></i> <span>重點法案</span>
@@ -184,6 +191,7 @@
 							<li><a href="<?php echo base_url('issues/issuesAllList'); ?>">議題列表管理</a></li>
 						</ul>
 					</li>
+					<?php }?>
 					<li class="treeview">
 						<a href="#">
 							<i class="fa fa-user"></i> <span>本黨立委</span>
@@ -205,15 +213,16 @@
 					</li>
 					<?php
 if ($role == ROLE_ADMIN) {
+    // $role在BaseController/isLoggedIn/$this->global['role']
     ?>
 					<li class="treeview">
-						<a class="people" href="<?php echo base_url(); ?>userListing">
+						<a class="people" href="<?php echo base_url(); ?>user/userListing">
 							<i class="fa fa-user-plus"></i>
 							<span>人員管理</span>
 						</a>
 					</li>
-
 					<?php }?>
+
 					<?php
 if ($role == ROLE_MANAGER) {
     ?>

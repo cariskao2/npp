@@ -6,27 +6,31 @@ $mobile = $userInfo->mobile;
 $roleId = $userInfo->roleId;
 $role   = $userInfo->role;
 ?>
+<style>
+    .h {
+        display: none;
+    }
 
+    @media (max-width: 767px) {
+        .h {
+            display: block;
+            height: 50px;
+        }
+    }
+</style>
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <h1>
-            <i class="fa fa-user-circle"></i> 我的檔案
-            <small>檢視或修改檔案</small>
-        </h1>
-    </section>
-
-    <section class="content">
-
+    <section class="content" style="margin-top:42px">
+        <div class="h"></div>
         <div class="row">
             <!-- left column -->
-            <div class="col-md-3">
+            <div class="col-md-5">
                 <!-- general form elements -->
 
 
-                <div class="box box-warning">
+                <div class="box box-warning" style="margin-bottom:20px">
                     <div class="box-body box-profile">
-                        <img class="profile-user-img img-responsive img-circle" src="<?php echo base_url(); ?>assets/dist/img/npp-logo.png" alt="User profile picture">
+                        <img class="profile-user-img img-responsive img-circle"
+                            src="<?php echo base_url(); ?>assets/dist/img/npp-logo.png" alt="User profile picture">
                         <h3 class="profile-username text-center"><?=$name?></h3>
 
                         <p class="text-muted text-center"><?=$role?></p>
@@ -44,23 +48,29 @@ $role   = $userInfo->role;
 
             </div>
 
-            <div class="col-md-5">
-                <div class="nav-tabs-custom">
+            <div class="col-md-7">
+                <div class="nav-tabs-custom" style="padding-bottom:50px">
                     <ul class="nav nav-tabs">
-                        <li class="<?=($active == "details") ? "active" : ""?>"><a href="#details" data-toggle="tab">修改資料</a></li>
-                        <li class="<?=($active == "changepass") ? "active" : ""?>"><a href="#changepass" data-toggle="tab">更改密碼</a></li>
+                        <li class="<?=($active == "details") ? "active" : ""?>"><a href="#details"
+                                data-toggle="tab">修改資料</a></li>
+                        <li class="<?=($active == "changepass") ? "active" : ""?>"><a href="#changepass"
+                                data-toggle="tab">更改密碼</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="<?=($active == "details") ? "active" : ""?> tab-pane" id="details">
-                            <form action="<?php echo base_url() ?>profileUpdate" method="post" id="editProfile" role="form">
+                            <form action="<?php echo base_url() ?>profileUpdate" method="post" id="editProfile"
+                                role="form">
                                 <?php $this->load->helper('form');?>
                                 <div class="box-body">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="fname">名稱</label>
-                                                <input type="text" class="form-control" id="fname" name="fname" placeholder="<?php echo $name; ?>" value="<?php echo set_value('fname', $name); ?>" maxlength="128" />
-                                                <input type="hidden" value="<?php echo $userId; ?>" name="userId" id="userId" />
+                                                <input type="text" class="form-control" id="fname" name="fname"
+                                                    placeholder="<?php echo $name; ?>"
+                                                    value="<?php echo set_value('fname', $name); ?>" maxlength="128" />
+                                                <input type="hidden" value="<?php echo $userId; ?>" name="userId"
+                                                    id="userId" />
                                             </div>
                                         </div>
                                     </div>
@@ -68,7 +78,9 @@ $role   = $userInfo->role;
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="mobile">手機號碼</label>
-                                                <input type="text" class="form-control" id="mobile" name="mobile" placeholder="<?php echo $mobile; ?>" value="<?php echo set_value('mobile', $mobile); ?>" maxlength="10">
+                                                <input type="text" class="form-control" id="mobile" name="mobile"
+                                                    placeholder="<?php echo $mobile; ?>"
+                                                    value="<?php echo set_value('mobile', $mobile); ?>" maxlength="10">
                                             </div>
                                         </div>
                                     </div>
@@ -76,7 +88,9 @@ $role   = $userInfo->role;
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="email">Email</label>
-                                                <input type="text" class="form-control" id="email" name="email" placeholder="<?php echo $email; ?>" value="<?php echo set_value('email', $email); ?>">
+                                                <input type="text" class="form-control" id="email" name="email"
+                                                    placeholder="<?php echo $email; ?>"
+                                                    value="<?php echo set_value('email', $email); ?>">
                                             </div>
                                         </div>
                                     </div>
@@ -94,7 +108,8 @@ $role   = $userInfo->role;
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="inputPassword1">舊密碼</label>
-                                                <input type="password" class="form-control" id="inputOldPassword" placeholder="舊密碼" name="oldPassword" maxlength="20" required>
+                                                <input type="password" class="form-control" id="inputOldPassword"
+                                                    placeholder="舊密碼" name="oldPassword" maxlength="20" required>
                                             </div>
                                         </div>
                                     </div>
@@ -103,7 +118,8 @@ $role   = $userInfo->role;
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="inputPassword1">新密碼</label>
-                                                <input type="password" class="form-control" id="inputPassword1" placeholder="新密碼" name="newPassword" maxlength="20" required>
+                                                <input type="password" class="form-control" id="inputPassword1"
+                                                    placeholder="新密碼" name="newPassword" maxlength="20" required>
                                             </div>
                                         </div>
                                     </div>
@@ -111,7 +127,8 @@ $role   = $userInfo->role;
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="inputPassword2">密碼確認</label>
-                                                <input type="password" class="form-control" id="inputPassword2" placeholder="密碼確認" name="cNewPassword" maxlength="20" required>
+                                                <input type="password" class="form-control" id="inputPassword2"
+                                                    placeholder="密碼確認" name="cNewPassword" maxlength="20" required>
                                             </div>
                                         </div>
                                     </div>
@@ -132,10 +149,10 @@ $this->load->helper('form');
 $error = $this->session->flashdata('error');
 if ($error) {
     ?>
-                    <div class="alert alert-danger alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <?php echo $this->session->flashdata('error'); ?>
-                    </div>
+                <div class="alert alert-danger alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <?php echo $this->session->flashdata('error'); ?>
+                </div>
                 <?php
 unset($_SESSION['error']);
 }
@@ -144,10 +161,10 @@ unset($_SESSION['error']);
 $success = $this->session->flashdata('success');
 if ($success) {
     ?>
-                    <div class="alert alert-success alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <?php echo $this->session->flashdata('success'); ?>
-                    </div>
+                <div class="alert alert-success alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <?php echo $this->session->flashdata('success'); ?>
+                </div>
                 <?php
 unset($_SESSION['success']);
 }
@@ -157,10 +174,10 @@ unset($_SESSION['success']);
 $noMatch = $this->session->flashdata('nomatch');
 if ($noMatch) {
     ?>
-                    <div class="alert alert-warning alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                        <?php echo $this->session->flashdata('nomatch'); ?>
-                    </div>
+                <div class="alert alert-warning alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <?php echo $this->session->flashdata('nomatch'); ?>
+                </div>
                 <?php
 unset($_SESSION['nomatch']);
 }

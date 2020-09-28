@@ -66,7 +66,7 @@ if (!empty($getTagsList)) {
 									</div>
 									<div class="col-md-2">
 										<div class="form-group">
-											<label for="date_start">建立日期</label>
+											<label for="date_start">發布日期</label>
 											<div class="input-group clockpicker">
 												<input type="text" class="form-control" id="date_start" name="date_start"
 													placeholder="選擇日期" autocomplete="off" readonly>
@@ -78,7 +78,7 @@ if (!empty($getTagsList)) {
 									</div>
 									<div class="col-md-2">
 										<div class="form-group">
-											<label for="remove_start">建立時間</label>
+											<label for="remove_start">發布時間</label>
 											<div class="input-group clockpicker">
 												<input type="text" class="form-control" id="time_start" name="time_start"
 													placeholder="選擇時間" autocomplete="off" readonly>
