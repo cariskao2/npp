@@ -150,8 +150,10 @@ input::-webkit-input-placeholder {
 
    .thead-outside.item-4,
    .tbody-outside.item-4 {
-      td:nth-child(#{$i}) {
-         width: if($i==3, 80px, if($i==4, 250px, 48% / $i));
+      @if $i>1 {
+         td:nth-child(#{$i}) {
+            width: if($i==2, 20%, if($i==3, 10%, 20%));
+         }
       }
    }
 }

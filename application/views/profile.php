@@ -11,15 +11,24 @@ $role   = $userInfo->role;
         display: none;
     }
 
+    .content-style {
+        margin-top: 42px;
+        background: #ECF0F5;
+    }
+
     @media (max-width: 767px) {
         .h {
             display: block;
             height: 50px;
         }
+
+        .content-style {
+            margin-bottom: 100px;
+        }
     }
 </style>
 <div class="content-wrapper">
-    <section class="content" style="margin-top:42px">
+    <section class="content content-style">
         <div class="h"></div>
         <div class="row">
             <!-- left column -->
@@ -49,7 +58,7 @@ $role   = $userInfo->role;
             </div>
 
             <div class="col-md-7">
-                <div class="nav-tabs-custom" style="padding-bottom:50px">
+                <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
                         <li class="<?=($active == "details") ? "active" : ""?>"><a href="#details"
                                 data-toggle="tab">修改資料</a></li>

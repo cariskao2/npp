@@ -1,0 +1,30 @@
+// 排序
+#sortlist {
+   list-style: none;
+   margin: 30px 30px 20px;
+}
+
+.ui-state-default {
+   line-height: 50px;
+   height: 50px;
+   background-color: #3c8dbc;
+   color: white;
+
+   .handle {
+      cursor: move;
+      font-size: 26px;
+      float: left;
+      padding-left: 10px;
+      padding-right: 10px;
+   }
+
+   .sort-text {
+      font-size: 18px;
+      font-weight: bolder;
+      float: left;
+   }
+}
+
+.ui-state-default:hover {
+   opacity: .7;
+}

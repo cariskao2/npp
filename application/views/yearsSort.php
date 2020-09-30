@@ -1,3 +1,4 @@
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 <div class="content-wrapper">
 	<!-- <section class="content"> -->
 	<section>
@@ -14,7 +15,8 @@ if (!empty($getYearList)) {
     foreach ($getYearList as $record) {
         ?>
 								<div class="ui-state-default" dbid="<?php echo $record->yid; ?>">
-									<?php echo $record->title; ?>
+									<i class="ion-ios-drag handle"></i>
+									<span class="sort-text"><?php echo $record->title; ?></span>
 								</div>
 								<?php
 }
@@ -54,68 +56,25 @@ if (!empty($getYearList)) {
 	</div>
 </template>
 <script language='javascript' type='text/javascript'>
+	new Sortable(sortlist, {
+		animation: 150,
+		handle: '.handle',
+	});
+
 	$(function () {
-		// jquery UI sortable
+		// sortableJS
 		$("#save").click(function () {
-			var _sort = new Array();
-			var hitURL = baseURL + 'members/sortSend';
+			const obj = {
+				url: 'members/sortSend',
+				who: 'years',
+				redirect: 'members/yearsSort',
+			};
 
-			$(".ui-state-default").each(function () {
-				_sort.push($(this).attr('dbid'));
-			});
-			// console.log(_sort);
-
-			$.ajax({
-				type: "POST",
-				url: hitURL,
-				dataType: "text",
-				data: {
-					newSort: _sort,
-					who: 'years'
-				},
-				success: function (data) {
-					// console.log('ok');
-					// 這裏在controller用$this->carouselSorts()會吃不到成功訊息。
-					window.location.href = baseURL + 'members/yearsSort/';
-				},
-				error: function (jqXHR) {
-					console.log('發生錯誤: ', jqXHR.status);
-				}
-			})
-		})
-
-		$('.ui-state-default').mouseover(function () {
-			$(this).css({
-				'cursor': 'move',
-				'opacity': .7,
-			});
-		});
-
-		$('.ui-state-default').mouseout(function () {
-			$(this).css({
-				'opacity': 1,
-			});
-		});
-
-		var $list = $('#sortlist');
-
-		$list.sortable({
-			opacity: 0.7,
-			revert: true,
-			cursor: 'move',
-
-			start: function (event, ui) {},
-
-			update: function (event, ui) {
-				$('.ui-state-default').css({
-					'opacity': 1,
-				});
-			},
+			sortJS(obj);
 		})
 	})
 </script>
 <?php
-$this->load->helper('form');
 $success = $this->session->flashdata('success');
 if ($success) {
     ?>
