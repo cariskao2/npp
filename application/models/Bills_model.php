@@ -242,8 +242,9 @@ class Bills_model extends CI_Model
     public function getBillStatusInfo($id)
     {
         $this->db->select();
-        $this->db->from('bill_status');
-        $this->db->where('status_id', $id);
+        $this->db->from('bill_status as bs');
+        $this->db->join('bill_status_color as bsc', 'bsc.color_id = bs.color_id', 'inner');
+        $this->db->where('bs.status_id', $id);
 
         $query = $this->db->get();
 
@@ -276,6 +277,28 @@ class Bills_model extends CI_Model
         $this->db->update('bill_category', $userInfo);
 
         return true;
+    }
+
+/*
+..######...#######..##........#######..########...######.
+.##....##.##.....##.##.......##.....##.##.....##.##....##
+.##.......##.....##.##.......##.....##.##.....##.##......
+.##.......##.....##.##.......##.....##.########...######.
+.##.......##.....##.##.......##.....##.##...##.........##
+.##....##.##.....##.##.......##.....##.##....##..##....##
+..######...#######..########..#######..##.....##..######.
+ */
+// bill status color
+    public function getBillStatusColor()
+    {
+        $this->db->select();
+        $this->db->from('bill_status_color as bsc');
+        $this->db->order_by('bsc.color_id', 'ASC');
+
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        return $result;
     }
 
     /*

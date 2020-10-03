@@ -227,7 +227,9 @@ class Bills extends BaseController
         $this->global['navTitle']  = '重點法案 - 法案狀態管理 - 新增';
         $this->global['navActive'] = base_url('bills/billStatusList/');
 
-        $this->loadViews('billStatusAdd', $this->global, null, null);
+        $data['status_color'] = $this->bills_model->getBillStatusColor();
+
+        $this->loadViews('billStatusAdd', $this->global, $data, null);
     }
 
     public function billStatusAddSend()
@@ -245,9 +247,9 @@ class Bills extends BaseController
             $showStatus      = $showStatusCheck != 'N' ? 1 : 0;
 
             $userInfo = array(
-                'name'  => $name,
-                'shows' => $showStatus,
-                'color' => $color,
+                'name'     => $name,
+                'shows'    => $showStatus,
+                'color_id' => $color,
             );
 
             $insert_id = $this->bills_model->billStatusAddSend($userInfo);
@@ -438,8 +440,9 @@ class Bills extends BaseController
 
         $data = array(
             'getBillStatusInfo' => $this->bills_model->getBillStatusInfo($id),
+            'status_color'      => $this->bills_model->getBillStatusColor(),
         );
-
+        $a = 1;
         $this->loadViews("billStatusEdit", $this->global, $data, null);
     }
 
@@ -457,8 +460,8 @@ class Bills extends BaseController
             $showStatusCheck = $this->input->post('happy');
 
             $userInfo = array(
-                'name'  => $name,
-                'color' => $color,
+                'name'     => $name,
+                'color_id' => $color,
             );
 
             if ($showStatusCheck != null || $showStatusCheck != '' || !empty($showStatusCheck)) {

@@ -2,7 +2,7 @@
 $id    = $getBillStatusInfo->status_id;
 $show  = $getBillStatusInfo->shows;
 $name  = $getBillStatusInfo->name;
-$color = $getBillStatusInfo->color;
+$color = $getBillStatusInfo->color_id;
 ?>
 <div class="content-wrapper">
 	<section>
@@ -31,18 +31,10 @@ $color = $getBillStatusInfo->color;
 										<div class="form-group">
 											<label for="color">顏色</label><br>
 											<div class="color-center">
-												<input type="radio" name="color" value="black"
-													<?php if ($color == 'black') {echo 'checked';}?>>
-												<span class="r-black r-set"></span>
-												<input type="radio" name="color" value="red"
-													<?php if ($color == 'red') {echo 'checked';}?>>
-												<span class="r-red r-set"></span>
-												<input type="radio" name="color" value="green"
-													<?php if ($color == 'green') {echo 'checked';}?>>
-												<span class="r-green r-set"></span>
-												<input type="radio" name="color" value="orange"
-													<?php if ($color == 'orange') {echo 'checked';}?>>
-												<span class="r-orange r-set"></span>
+												<?php foreach ($status_color as $colors): ?>
+												<input type="radio" name="color" value="<?php echo $colors->color_id; ?>" <?php if ($color == $colors->color_id) {echo 'checked';}?>>
+												<span class="r-<?php echo $colors->color_name; ?> r-set"></span>
+												<?php endforeach;?>
 											</div>
 										</div>
 									</div>

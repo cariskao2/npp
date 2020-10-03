@@ -7,8 +7,8 @@
 				<div class="box box-primary" style="border:none;">
 					<div class="add-edit-noscroll">
 						<!-- form start -->
-						<form role="form" action="<?php echo base_url() ?>bills/billStatusAddSend" method="post" id="formSubmit"
-							role="form" enctype="multipart/form-data">
+						<form role="form" action="<?php echo base_url() ?>bills/billStatusAddSend" method="post"
+							id="formSubmit" role="form" enctype="multipart/form-data">
 							<div class="box-body">
 								<div class="row">
 									<div class="col-md-6">
@@ -25,14 +25,14 @@
 										<div class="form-group">
 											<label for="color">顏色</label><br>
 											<div class="color-center">
-												<input type="radio" name="color" value="black">
+												<input type="radio" name="color" value="1" checked>
 												<span class="r-black r-set"></span>
-												<input type="radio" name="color" value="red">
-												<span class="r-red r-set"></span>
-												<input type="radio" name="color" value="green">
-												<span class="r-green r-set"></span>
-												<input type="radio" name="color" value="orange">
-												<span class="r-orange r-set"></span>
+												<?php foreach ($status_color as $colors): ?>
+												<?php if ($colors->color_id != 1): ?>
+												<input type="radio" name="color" value="<?php echo $colors->color_id; ?>">
+												<span class="r-<?php echo $colors->color_name; ?> r-set"></span>
+												<?php endif;?>
+												<?php endforeach;?>
 											</div>
 										</div>
 									</div>
