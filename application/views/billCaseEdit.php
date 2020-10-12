@@ -184,6 +184,7 @@ if (!empty($getBillStatus)) {
 						<div class="form-group">
 							<a class="btn btn-warning" href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
 							<input type="submit" class="btn btn-success" value="儲存" onclick="subMit();" />
+							<a class="btn btn-info" href="<?php echo base_url() . 'bills/billCaseSessionList/' . $case_id; ?>">立法程序</a>
 						</div>
 					</div>
 				</div>

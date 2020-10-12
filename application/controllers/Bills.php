@@ -33,6 +33,45 @@ class Bills extends BaseController
     ######## ####  ######     ##
      */
 
+    // 法案草案的會期列表
+    public function billCaseSessionList($case_id)
+    {
+        $this->output->set_header("Cache-Control: private");
+
+        $data['getBillCaseInfo'] = $this->bills_model->getBillCaseInfo($case_id);
+
+        $this->global['navTitle']  = '重點法案 - 草案 - ' . $data['getBillCaseInfo']->titlename . ' - 立法程序';
+        $this->global['navActive'] = base_url('bills/billCaseList');
+
+        $sessionRedirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+        if (isset($_GET['key']) && $_GET['key'] != '') {
+            // 有$_GET['key']就使用$_GET['key']的值
+            $searchText = $_GET['key'];
+        } else {
+            if ($this->input->post('searchText') != '') {
+                // 沒有$_GET['key']且post('searchText')有值
+                $searchText = $this->security->xss_clean($this->input->post('searchText'));
+                $sessionRedirect .= '?key=' . $searchText; //就將url尾部再加上「?key=$searchText」
+            } else {
+                $searchText = $this->security->xss_clean($this->input->post('searchText'));
+            }
+        }
+
+        $this->session->set_userdata('sessionRedirect', $sessionRedirect);
+
+        $data['searchText'] = $searchText;
+
+        // 列表部分
+        $count = $this->bills_model->getBillCaseSessionListCount($searchText, $case_id);
+
+        $returns = $this->paginationSearchCompress('bills/billCaseSessionList/' . $case_id, $count, 20, 4);
+
+        $data['getBillCaseSessionList'] = $this->bills_model->getBillCaseSessionList($searchText, $case_id, $returns["page"], $returns["segment"]);
+
+        $this->loadViews('billCaseSessionList', $this->global, $data, null);
+    }
+
     // 法案草案列表
     public function billCaseList()
     {
@@ -142,6 +181,18 @@ class Bills extends BaseController
 .##.....##.##.....##.##.....##
 .##.....##.########..########.
  */
+
+    //  法案狀態新增
+    public function billCaseSessionAdd($case_id)
+    {
+        $data['getBillCaseInfo']    = $this->bills_model->getBillCaseInfo($case_id);
+        $data['getBillCaseSession'] = $this->bills_model->getBillCaseSession();
+
+        $this->global['navTitle']  = '重點法案-草案-' . $data['getBillCaseInfo']->titlename . '-立法程序-新增';
+        $this->global['navActive'] = base_url('bills/billCaseList');
+
+        $this->loadViews('billCaseSessionAdd', $this->global, $data, null);
+    }
 
     // 法案草案新增
     public function billCaseAdd()
@@ -328,7 +379,6 @@ class Bills extends BaseController
             redirect('bills/billCategoryList/');
         }
     }
-
 /*
 .########.########..####.########
 .##.......##.....##..##.....##...

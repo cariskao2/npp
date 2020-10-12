@@ -91,63 +91,6 @@
 	function subMit() {
 		jQuery('#formSubmit').submit();
 	}
-
-	$(function () {
-		setTimeout(function () {
-			$("#alert-success").hide();
-		}, 3000);
-	})
-
-	// 顯示狀態
-	$('#radioBtn a').on('click', function () {
-		var sel = $(this).data('title');
-		var tog = $(this).data('toggle');
-		console.log('sel', sel);
-		console.log('tog', tog);
-		$('#' + tog).prop('value', sel); //將該被點擊的data-title值寫入到id="happy"的value中。
-
-		// 當點擊爲Y,就把不爲Y的元素移除active並加上notActive
-		$('a[data-toggle="' + tog + '"]').not('[data-title="' + sel + '"]').removeClass('active').addClass(
-			'notActive');
-		// 當點擊爲Y,就把爲Y的元素移除notActive並加上active
-		$('a[data-toggle="' + tog + '"][data-title="' + sel + '"]').removeClass('notActive').addClass('active');
-	})
-
-	$("#date_start").datepicker({
-		// maxDate: "+0d",
-		showButtonPanel: true,
-		dateFormat: 'yy-mm-dd',
-		showMonthAfterYear: true,
-		changeMonth: true,
-		changeYear: true,
-
-		onSelect: function (dateText, inst) {
-			// console.log(this.id);
-			$("#date_end").datepicker("option", "minDate", dateText);
-
-			// 起始到結束之間的日期計算
-			// var _dateFrom = '';
-			// var _tDayTimestamp = Date.parse(new Date());
-			// console.log(_tDayTimestamp);
-			// _dateFromTimestamp = Date.parse(dateText);
-			// console.log(_dateFromTimestamp);
-			// var _count = parseInt((_tDayTimestamp - _dateFromTimestamp) / (1000 * 60 * 60 * 24));
-			// console.log(_count);
-		}
-	});
-
-	$("#date_end").datepicker({
-		// minDate:'-10d',
-		showButtonPanel: true,
-		dateFormat: 'yy-mm-dd',
-		showMonthAfterYear: true,
-		changeMonth: true,
-		changeYear: true,
-
-		onSelect: function (dateText, inst) {
-			$("#date_start").datepicker("option", "maxDate", dateText);
-		}
-	});
 </script>
 <?php
 $check = $this->session->flashdata('check');
@@ -160,34 +103,28 @@ if ($check) {
 <?php }?>
 
 <style>
-	.ui-datepicker .ui-datepicker-title {
-		display: flex;
-		justify-content: center;
-	}
-
-	.ui-datepicker .ui-datepicker-title .ui-datepicker-month {
-		padding-bottom: 3px;
-	}
-
 	.error-width {
 		width: 150px;
 	}
+
+	@font-face {
+		font-family: Material-Design-Icons;
+		src: url("<?php echo base_url('assets/plugins/bootstrap-material-design/font/Material-Design-Icons.ttf'); ?>");
+	}
 </style>
 <!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
-<div class="function-on-top not-list">
-	<div class="row">
-		<div class="col-xs-12">
-			<div class="box" style="border-top:none;border-radius:0">
-				<div class="box-header">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="form-group">
-								<a class="btn btn-warning" href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
-							</div>
+<template id="function-on-top">
+	<div class="function-on-top not-list">
+		<div class="box" style="border-top:none;border-radius:0">
+			<div class="box-header">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="form-group">
+							<a class="btn btn-warning" href="<?php echo $this->session->userdata('myRedirect'); ?>">返回</a>
 						</div>
 					</div>
-				</div><!-- /.box-header -->
-			</div>
+				</div>
+			</div><!-- /.box-header -->
 		</div>
 	</div>
-</div>
+</template>

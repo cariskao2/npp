@@ -1,0 +1,25 @@
+.selectize-input {
+   margin-bottom: -8px;
+}
+
+.selectize-dropdown {
+   top: 35px !important;
+}
+
+// firefox
+@-moz-document url-prefix() {
+   .selectize-input.items.not-full.has-options {
+      padding-top: 3px;
+      padding-bottom: 3px;
+   }
+}
+
+// safari
+@media not all and (min-resolution:.001dpcm) {
+   @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+      .selectize-input.items.not-full.has-options {
+         padding-top: 3px;
+         padding-bottom: 3px;
+      }
+   }
+}

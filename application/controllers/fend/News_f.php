@@ -50,6 +50,8 @@ class News_f extends FendBaseController
     // 新聞訊息的各項列表
     public function newsFlists($type_id)
     {
+        $this->output->set_header("Cache-Control: private");
+
         switch ($type_id) {
             case '1':
                 $this->global['pageTitle']     = '法案及議事說明 - 時代力量立法院黨團';

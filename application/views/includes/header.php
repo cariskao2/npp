@@ -9,6 +9,11 @@
 	<!-- Bootstrap 3.3.4 -->
 	<link href="<?php echo base_url(); ?>assets/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"
 		type="text/css" />
+	<!-- bootstrap-material-datetimepicker -->
+	<link rel="stylesheet"
+		href="<?php echo base_url('assets/plugins/bootstrap-material-design/css/bootstrap-material-datetimepicker.css'); ?>">
+	<link href="http://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<!-- FontAwesome 4.3.0 -->
 	<link href="<?php echo base_url(); ?>assets/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"
 		type="text/css" />
@@ -54,12 +59,14 @@
 		}
 	</style>
 	<script src="<?php echo base_url(); ?>assets/bower_components/jquery/dist/jquery.js"></script>
-	<script src="<?php echo base_url(); ?>assets/bower_components/jquery-ui/jquery-ui.min.js"></script>
+	<!-- <script src="<?php echo base_url(); ?>assets/bower_components/jquery-ui/jquery-ui.min.js"></script> -->
 	<!-- <script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script> -->
 	<script src="<?php echo base_url(); ?>assets/plugins/ckeditor4/ckeditor/ckeditor.js"></script>
 	<script src="<?php echo base_url(); ?>assets/js/jquery.validate.js" type="text/javascript"></script>
 	<script src="<?php echo base_url(); ?>assets/js/validation.js" type="text/javascript"></script>
 	<script src="<?php echo base_url(); ?>assets/js/additional-methods.min.js" type="text/javascript"></script>
+	<script src="<?php echo base_url('assets/plugins/selectizejs/dist/js/standalone/selectize.js'); ?>"></script>
+	<script src="<?php echo base_url('assets/plugins/selectizejs/js/index.js'); ?>"></script>
 	<script type="text/javascript">
 		var baseURL = "<?php echo base_url(); ?>";
 

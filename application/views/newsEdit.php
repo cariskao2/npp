@@ -9,10 +9,9 @@ $time_start = $userInfo->time_start;
 $editor     = $userInfo->editor;
 
 ?>
+<!-- bootstrap-clockpicker -->
 <link rel="stylesheet" href="<?php echo base_url('assets/plugins/clockpicker/css/bootstrap-clockpicker.css'); ?>">
 <script src="<?php echo base_url('assets/plugins/clockpicker/js/bootstrap-clockpicker.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/plugins/selectizejs/dist/js/standalone/selectize.js'); ?>"></script>
-<script src="<?php echo base_url('assets/plugins/selectizejs/js/index.js'); ?>"></script>
 <div id="loader">
 	<div class="loader"></div>
 </div>
@@ -91,7 +90,7 @@ if (!empty($getTagsList)) {
 									<div class="col-md-2">
 										<div class="form-group">
 											<label for="date_start">發布日期</label>
-											<div class="input-group clockpicker">
+											<div class="input-group">
 												<input type="text" class="form-control" id="date_start" name="date_start"
 													placeholder="選擇日期" autocomplete="off" readonly value="<?php echo $userInfo->date_start; ?>">
 												<span class="input-group-addon" title="清除">
@@ -103,7 +102,7 @@ if (!empty($getTagsList)) {
 									<div class="col-md-2">
 										<div class="form-group">
 											<label for="time_start">發布時間</label>
-											<div class="input-group clockpicker">
+											<div class="input-group">
 												<input type="text" class="form-control" id="time_start" name="time_start"
 													placeholder="選擇時間" autocomplete="off" readonly value="<?php echo $userInfo->time_start; ?>">
 												<span class="input-group-addon" title="清除">
@@ -182,14 +181,6 @@ $notActive = $userInfo->showup == 0 ? 'active' : 'notActive';
 
 	$('#time_start').clockpicker();
 
-	$("#date_start").datepicker({
-		// minDate:'-10d',
-		showButtonPanel: true,
-		dateFormat: 'yy-mm-dd',
-		showMonthAfterYear: true,
-		changeMonth: true,
-		changeYear: true,
-	});
 	// 標籤
 	$('#select-tools').selectize({
 		maxItems: 5,
@@ -206,18 +197,12 @@ $notActive = $userInfo->showup == 0 ? 'active' : 'notActive';
 	selectTools.setValue(jsArray, true);
 </script>
 <style>
-	.ui-datepicker .ui-datepicker-title {
-		display: flex;
-		justify-content: center;
-	}
-
-	.ui-datepicker .ui-datepicker-title .ui-datepicker-month {
-		padding-bottom: 3px;
+	@font-face {
+		font-family: Material-Design-Icons;
+		src: url("<?php echo base_url('assets/plugins/bootstrap-material-design/font/Material-Design-Icons.ttf'); ?>");
 	}
 </style>
 <?php
-$this->load->helper('form');
-
 $check = $this->session->flashdata('check');
 if ($check) {
     ?>

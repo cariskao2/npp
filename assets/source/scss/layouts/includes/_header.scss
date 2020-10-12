@@ -16,6 +16,7 @@ $nav-link-color-hover: #ffc107;
 
 	@include media-breakpoint-up(lg) {
 		position: fixed;
+		z-index: 8;
 	}
 }
 

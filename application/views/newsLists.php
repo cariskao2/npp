@@ -11,7 +11,6 @@
 								<td>發布時間</td>
 								<td>狀態</td>
 								<td>功能</td>
-
 							</tr>
 						</table>
 					</div>

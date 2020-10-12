@@ -11,6 +11,11 @@
 	}
 </style>
 <script src="<?php echo base_url(); ?>assets/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.5.10/js/material.min.js"></script>
+<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+<script
+	src="<?php echo base_url('assets/plugins/bootstrap-material-design/js/bootstrap-material-datetimepicker.js'); ?>">
+</script>
 <script src="<?php echo base_url(); ?>assets/dist/js/adminlte.js" type="text/javascript"></script>
 <!-- <script src="<?php echo base_url(); ?>assets/dist/js/pages/dashboard.js" type="text/javascript"></script> -->
 <script src="<?php echo base_url(); ?>assets/b/build/js/all.js" type="text/javascript"></script>

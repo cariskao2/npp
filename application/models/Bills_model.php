@@ -179,6 +179,46 @@ class Bills_model extends CI_Model
         return $result;
     }
 
+    // 法案草案立法程序列表
+    public function getBillCaseSessionListCount($searchText = '', $case_id)
+    {
+        $this->db->select();
+        $this->db->from('billcase_session_b as bcsb');
+        $this->db->join('billcase_session as bcs', 'bcs.ses_id = bcsb.ses_id', 'inner');
+
+        if (!empty($searchText)) {
+            $likeCriteria = "(bcsb.title LIKE '%" . $searchText . "%')";
+            $this->db->where($likeCriteria);
+        }
+
+        $this->db->where('case_id', $case_id);
+
+        $query = $this->db->get();
+
+        return $query->num_rows();
+    }
+
+    public function getBillCaseSessionList($searchText = '', $case_id, $page = 0, $segment = 0)
+    {
+        $this->db->select();
+        $this->db->from('billcase_session_b as bcsb');
+        $this->db->join('billcase_session as bcs', 'bcs.ses_id = bcsb.ses_id', 'inner');
+
+        if (!empty($searchText)) {
+            $likeCriteria = "(bcsb.title LIKE '%" . $searchText . "%')";
+            $this->db->where($likeCriteria);
+        }
+
+        $this->db->where('case_id', $case_id);
+
+        $this->db->order_by('bcs.ses_id', 'ASC');
+        $this->db->limit($page, $segment);
+
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
     /*
     .########.########..####.########
     .##.......##.....##..##.....##...
@@ -390,6 +430,19 @@ class Bills_model extends CI_Model
         $this->db->select();
         $this->db->from('bill_category as bc');
         $this->db->where('showsup', 1);
+
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
+    //  法案草案 - billCaseSession - 會期下拉選單
+    public function getBillCaseSession()
+    {
+        $this->db->select();
+        $this->db->from('billcase_session as bcs');
+        $this->db->order_by('bcs.ses_id', 'ASC');
 
         $query  = $this->db->get();
         $result = $query->result();

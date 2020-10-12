@@ -1,10 +1,9 @@
 <div id="loader">
 	<div class="loader"></div>
 </div>
+<!-- bootstrap-clockpicker -->
 <link rel="stylesheet" href="<?php echo base_url('assets/plugins/clockpicker/css/bootstrap-clockpicker.css'); ?>">
 <script src="<?php echo base_url('assets/plugins/clockpicker/js/bootstrap-clockpicker.js'); ?>"></script>
-<script src="<?php echo base_url('assets/plugins/selectizejs/dist/js/standalone/selectize.js'); ?>"></script>
-<script src="<?php echo base_url('assets/plugins/selectizejs/js/index.js'); ?>"></script>
 <div class="content-wrapper">
 	<section>
 		<div class="row">
@@ -21,7 +20,8 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="form-group">
-											<label for="img" class="must">新增圖片<span style="color:red;">(僅支援 jpg、png、gif)</span></label>
+											<label for="img" class="must">新增圖片<span style="color:red;">(僅支援
+													jpg、png、gif)</span></label>
 											<input type="file" name="file" />
 											<?php echo form_error('file'); ?>
 										</div>
@@ -67,7 +67,7 @@ if (!empty($getTagsList)) {
 									<div class="col-md-2">
 										<div class="form-group">
 											<label for="date_start">發布日期</label>
-											<div class="input-group clockpicker">
+											<div class="input-group">
 												<input type="text" class="form-control" id="date_start" name="date_start"
 													placeholder="選擇日期" autocomplete="off" readonly>
 												<span class="input-group-addon" title="清除">
@@ -78,8 +78,8 @@ if (!empty($getTagsList)) {
 									</div>
 									<div class="col-md-2">
 										<div class="form-group">
-											<label for="remove_start">發布時間</label>
-											<div class="input-group clockpicker">
+											<label for="time_start">發布時間</label>
+											<div class="input-group">
 												<input type="text" class="form-control" id="time_start" name="time_start"
 													placeholder="選擇時間" autocomplete="off" readonly>
 												<span class="input-group-addon" title="清除">
@@ -151,15 +151,6 @@ if (!empty($getTagsList)) {
 
 	$('#time_start').clockpicker();
 
-	$("#date_start").datepicker({
-		// maxDate: "+0d",
-		showButtonPanel: true,
-		dateFormat: 'yy-mm-dd',
-		showMonthAfterYear: true,
-		changeMonth: true,
-		changeYear: true,
-	});
-
 	// 標籤
 	$('#select-tools').selectize({
 		maxItems: 5,
@@ -187,13 +178,9 @@ if ($check) {
 }
 ?>
 <style>
-	.ui-datepicker .ui-datepicker-title {
-		display: flex;
-		justify-content: center;
-	}
-
-	.ui-datepicker .ui-datepicker-title .ui-datepicker-month {
-		padding-bottom: 3px;
+	@font-face {
+		font-family: Material-Design-Icons;
+		src: url("<?php echo base_url('assets/plugins/bootstrap-material-design/font/Material-Design-Icons.ttf'); ?>");
 	}
 </style>
 <!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->
