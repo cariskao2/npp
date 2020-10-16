@@ -1,3 +1,46 @@
+// 前臺法案議題-提出法案列表
+.bill-case-list-f {
+   margin-top: -20px;
+   text-align: center;
+
+   thead {
+
+      th {
+         border-top: none;
+         font-size: 22px;
+      }
+   }
+
+   tbody {
+
+      td {
+         font-size: 16px;
+         line-height: 28px;
+
+         &:first-child {
+            text-align: left;
+         }
+      }
+
+      tr:nth-child(odd) {
+         background-color: #F7E19F;
+      }
+   }
+}
+
+.bill-group {
+   margin-top: 30px;
+   text-align: center;
+
+   div {
+      display: inline-block;
+
+      &:first-child {
+         margin-right: 30px;
+      }
+   }
+}
+
 .bill-issues-title {
    text-align: center;
    border-bottom: 1px solid black;

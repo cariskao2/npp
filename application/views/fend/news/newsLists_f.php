@@ -97,7 +97,7 @@ if (!empty($listItems)) {
 	</div>
 	<?php echo $this->pagination->create_links(); ?>
 	</div>
-	<div id="gotop">^</div>
+	<div id="gotop">⬆</div>
 	<script type="text/javascript">
 		jQuery(document).ready(function () {
 			$('#searchFrom,#searchEnd').bootstrapMaterialDatePicker({
@@ -141,8 +141,8 @@ if (!empty($listItems)) {
 					// date_start.blur();
 					this.blur();
 				}
-			}) */
-			;
+			});
+			*/
 
 			// RWD來更改分頁文本
 			var w = $(window).width();

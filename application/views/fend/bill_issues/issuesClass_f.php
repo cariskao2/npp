@@ -11,7 +11,7 @@
       </nav>
    </div>
 </div>
-<div id="gotop">^</div>
+<div id="gotop">⬆</div>
 <div id="loader"><div class="loader"></div></div>
 <div class="container">
    <h3 class="bill-issues-title">關注議題</h3>

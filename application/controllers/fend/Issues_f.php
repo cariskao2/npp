@@ -24,10 +24,10 @@ class Issues_f extends FendBaseController
         $this->loadViews("404", $this->global, null, null);
     }
 
-    // 新聞訊息首頁
+    // 關注議題首頁
     public function Issues_class_f()
     {
-        $this->global['pageTitle'] = '關注議題 - 時代力量立法院黨團';
+        $this->global['pageTitle'] = '關注議題 - 法案議題 - 時代力量立法院黨團';
 
         $data = array(
             'getIssuesClass' => $this->bill_issues_f_model->getIssuesClass(true),
@@ -55,7 +55,7 @@ class Issues_f extends FendBaseController
             $name = $v->name;
         }
 
-        $this->global['pageTitle']     = $name . ' - 關注議題 - 時代力量立法院黨團';
+        $this->global['pageTitle']     = $name . ' - 關注議題 - 法案議題 - 時代力量立法院黨團';
         $this->global['breadcrumbTag'] = $name;
 
         $this->loadViews("fend/bill_issues/issuesAllList_f", $this->global, $data, null);

@@ -5,15 +5,17 @@
    right: 30px;
    bottom: 70px;
    z-index: 3;
-   background-color: gray;
-   color: white;
-   font-weight: bolder;
    font-size: 36px;
-   padding: 0 15px;
-   border-radius: 33px;
+   // background-color: gray;
+   // color: white;
+   // font-weight: bolder;
+   // padding: 0 15px;
+   // border-radius: 33px;
+   // background-image: url('../../f_imgs/angle-up.png');
+   // background-repeat: no-repeat;
 
    @include media-breakpoint-down(xs) {
-      background-color: red;
+      // background-color: red;
       right: 5px;
       bottom: 150px;
    }

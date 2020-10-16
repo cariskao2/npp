@@ -63,7 +63,7 @@ $fb   = $getSetupInfo->fb;
 		}
 
 		* {
-			font-family: KozGoPr6N-Light_0;
+			/* font-family: KozGoPr6N-Light_0; */
 		}
 
 		h1,
@@ -88,16 +88,16 @@ $fb   = $getSetupInfo->fb;
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav ml-auto mr-3">
 				<li class="nav-item"><a class="nav-link" style="<?php if ($navActive == 1) {
-    echo 'color: #ffc107';
+    echo 'color: #F5A92E';
 }?>" href="<?php echo base_url('fend/news_f'); ?>">新聞訊息</a></li>
 				<li class="nav-item"><a class="nav-link" style="<?php if ($navActive == 2) {
-    echo 'color: #ffc107';
+    echo 'color: #F5A92E';
 }?>" href="<?php echo base_url('fend/bill_issues_f'); ?>">法案議題</a></li>
 				<li class="nav-item"><a class="nav-link" style="<?php if ($navActive == 3) {
-    echo 'color: #ffc107';
+    echo 'color: #F5A92E';
 }?>" href="<?php echo base_url('fend/members_f'); ?>">本黨立委</a></li>
 				<li class="nav-item"><a class="nav-link" style="<?php if ($navActive == 4) {
-    echo 'color: #ffc107';
+    echo 'color: #F5A92E';
 }?>" href="<?php echo base_url('fend/petition_f'); ?>">聯絡陳情</a></li>
 				<li class="nav-item"><a class="nav-link" href="#"><img
 							src="<?php echo base_url(); ?>assets/f_imgs/header/header_search.png" style="width:18px"

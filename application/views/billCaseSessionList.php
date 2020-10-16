@@ -20,7 +20,8 @@
 							<?php
 if (!empty($getBillCaseSessionList)) {
     foreach ($getBillCaseSessionList as $item) {
-        $id      = $item->case_id;
+        $id      = $item->id;
+        $case_id = $item->case_id;
         $session = $item->session;
         $title   = $item->title;
         $date    = $item->date;
@@ -41,9 +42,9 @@ if (!empty($getBillCaseSessionList)) {
 								</td>
 								<td class=" text-center">
 									<a class="btn btn-sm btn-info"
-										href="<?php echo base_url() . 'bills/billCaseSessionEdit/' . $id; ?>" title="編輯"><i
+										href="<?php echo base_url() . 'bills/billCaseSessionEdit/' . $case_id . '/' . $id; ?>" title="編輯"><i
 											class="fa fa-pencil"></i></a>
-									<a class="btn btn-sm btn-danger deleteSessions" data-id="<?php echo $id; ?>" title="刪除"><i
+									<a class="btn btn-sm btn-danger deleteBillSessions" data-id="<?php echo $id; ?>" title="刪除"><i
 											class="fa fa-trash fa-lg"></i></a>
 								</td>
 							</tr>
@@ -98,13 +99,13 @@ if (strpos($referer, 'billCaseEdit') > 0) {
 					<div class="col-xs-12 col-sm-7">
 						<div class="box-tools">
 							<!-- 下方jQuery.attr會再改action屬性 -->
-							<form action="<?php echo base_url('bills/billCaseSessionList'); ?>" method="POST" id="searchList"
+							<form action="<?php echo base_url('bills/billCaseSessionList/' . $getBillCaseInfo->case_id); ?>" method="POST" id="searchList"
 								name="form">
 								<!-- input-group可讓icon跟input合併 -->
 								<div class="input-group">
 									<input type="text" name="searchText" value="<?php echo $searchText; ?>"
 										class="form-control input-sm pull-right nav-list" style="width: 250px;height:30px"
-										placeholder="可搜尋議題列表名稱" />
+										placeholder="可搜尋標題" />
 									<div class="input-group-btn">
 										<button class="btn btn-sm btn-default searchList"><i class="fa fa-search"></i></button>
 									</div>
@@ -165,14 +166,13 @@ if (strpos($referer, 'billCaseEdit') > 0) {
 			// console.log('key', key);
 			// console.log('searchText', form.searchText.value);
 
-			jQuery('#searchList').attr('action', baseURL + 'bills/' + queryStr + key);
+			jQuery('#searchList').attr('action', baseURL + 'bills/billCaseSessionList/' + queryStr + key);
 			jQuery('#searchList').submit();
 		});
 	});
 </script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/common.js" charset="utf-8"></script>
 <?php
-// $this->load->helper('form');
 $success = $this->session->flashdata('success');
 if ($success) {
     ?>

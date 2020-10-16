@@ -1,3 +1,14 @@
+<?php
+$id          = $getBillCaseSessionInfo->id;
+$case_id     = $getBillCaseSessionInfo->case_id;
+$ses_id      = $getBillCaseSessionInfo->ses_id;
+$show        = $getBillCaseSessionInfo->showups;
+$date        = $getBillCaseSessionInfo->date;
+$description = $getBillCaseSessionInfo->description;
+$title       = $getBillCaseSessionInfo->title;
+$editor      = $getBillCaseSessionInfo->content;
+$url         = $getBillCaseSessionInfo->url;
+?>
 <div class="content-wrapper">
 	<section>
 		<div class="row">
@@ -8,7 +19,7 @@
 					<div class="add-edit-scroll">
 						<!-- form start -->
 						<form role="form"
-							action="<?php echo base_url('bills/billCaseSessionAddSend/' . $getBillCaseInfo->case_id); ?>"
+							action="<?php echo base_url('bills/billCaseSessionEditSend/' . $case_id . '/' . $id); ?>"
 							method="post" id="formSubmit" role="form">
 							<div class="box-body">
 								<div class="row">
@@ -21,7 +32,8 @@
 if (!empty($getBillCaseSessionSelect)) {
     foreach ($getBillCaseSessionSelect as $item) {
         ?>
-												<option value="<?php echo $item->ses_id; ?>">
+												<option value="<?php echo $item->ses_id; ?>"
+													<?php if ($item->ses_id == $ses_id) {echo 'selected';}?>>
 													<?php echo $item->session; ?>
 												</option>
 												<?php
@@ -34,7 +46,7 @@ if (!empty($getBillCaseSessionSelect)) {
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="date_start" class="must">日期</label>
-											<input type="text" class="form-control" id="date_start" name="date_start" value="">
+											<input type="text" class="form-control" id="date_start" name="date_start" value="<?php echo $date; ?>">
 											<?php echo form_error('date_start'); ?>
 										</div>
 									</div>
@@ -43,14 +55,14 @@ if (!empty($getBillCaseSessionSelect)) {
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="description" class="must">議事事件描述</label>
-											<input type="text" class="form-control" id="description" name="description" value="">
+											<input type="text" class="form-control" id="description" name="description" value="<?php echo $description; ?>">
 											<?php echo form_error('description'); ?>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="title" class="must">事件描述標題</label>
-											<input type="text" class="form-control" id="title" name="title" value="">
+											<input type="text" class="form-control" id="title" name="title" value="<?php echo $title; ?>">
 											<?php echo form_error('title'); ?>
 										</div>
 									</div>
@@ -59,7 +71,7 @@ if (!empty($getBillCaseSessionSelect)) {
 									<div class="col-md-6">
 										<div class="form-group">
 											<label for="url">影音連結</label>
-											<input type="text" class="form-control" id="url" name="url" value="">
+											<input type="text" class="form-control" id="url" name="url" value="<?php echo $url; ?>">
 											<?php echo form_error('url'); ?>
 										</div>
 									</div>
@@ -68,9 +80,13 @@ if (!empty($getBillCaseSessionSelect)) {
 											<label for="">顯示狀態</label>
 											<div class="input-group">
 												<div id="radioBtn" class="btn-group">
-													<a class="btn btn-primary btn-sm active" data-toggle="happy"
+												<?php
+$active    = $show == 1 ? 'active' : 'notActive';
+$notActive = $show == 0 ? 'active' : 'notActive';
+?>
+													<a class="btn btn-primary btn-sm <?php echo $active; ?>" data-toggle="happy"
 														data-title="Y">顯示</a>
-													<a class="btn btn-primary btn-sm notActive" data-toggle="happy"
+													<a class="btn btn-primary btn-sm <?php echo $notActive; ?>" data-toggle="happy"
 														data-title="N">隱藏</a>
 												</div>
 												<input type="hidden" name="happy" id="happy">
@@ -83,7 +99,7 @@ if (!empty($getBillCaseSessionSelect)) {
 										<div class="form-group">
 											<label for="editor1" class="must">事件描述的內容</label>
 											<?php echo form_error('editor1'); ?>
-											<textarea name="editor1" id="editor1"></textarea>
+											<textarea name="editor1" id="editor1"><?php echo $editor; ?></textarea>
 											<script>
 												CKEDITOR.replace("editor1", {
 													filebrowserBrowseUrl: "<?php echo base_url('assets/plugins/ckeditor4/filemanager/dialog.php?type=2&editor=ckeditor&fldr='); ?>",

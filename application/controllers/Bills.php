@@ -65,7 +65,7 @@ class Bills extends BaseController
         // 列表部分
         $count = $this->bills_model->getBillCaseSessionListCount($searchText, $case_id);
 
-        $returns = $this->paginationSearchCompress('bills/billCaseSessionList/' . $case_id, $count, 20, 4);
+        $returns = $this->paginationSearchCompress('bills/billCaseSessionList/' . $case_id, $count, 10, 4);
 
         $data['getBillCaseSessionList'] = $this->bills_model->getBillCaseSessionList($searchText, $case_id, $returns["page"], $returns["segment"]);
 
@@ -106,6 +106,27 @@ class Bills extends BaseController
 
         if ($getIds != false) {
             $this->bills_model->updateFloatId($getIds);
+        }
+
+        // 先確認全部的狀態id都還在bill_status內,若已不在就自動將該id改爲最前面的,否則資料會遺漏
+        $getStatusIdFromBillCase = $this->bills_model->getStatusIdFromBillCase(); //獲取bill_case中的全部status_id
+        $getStatusId             = $this->bills_model->getStatusId(); //獲取bill_status中的全部status_id
+        $getMinStatusId          = $this->bills_model->getStatusId(true); // 獲取bill_case中的最小status_id
+
+        foreach ($getStatusIdFromBillCase as $k => $v) {
+            $isExist = false;
+
+            foreach ($getStatusId as $j => $l) {
+                if ($l == $v) {
+                    $isExist = true;
+
+                    break;
+                }
+            }
+
+            if (!$isExist) {
+                $this->bills_model->changeBillCaseStatusId($v->status_id, $getMinStatusId->status_id);
+            }
         }
 
         // 列表部分
@@ -182,16 +203,65 @@ class Bills extends BaseController
 .##.....##.########..########.
  */
 
-    //  法案狀態新增
+    //  法案草案-立法程序-新增
     public function billCaseSessionAdd($case_id)
     {
-        $data['getBillCaseInfo']    = $this->bills_model->getBillCaseInfo($case_id);
-        $data['getBillCaseSession'] = $this->bills_model->getBillCaseSession();
+        $data['getBillCaseInfo']          = $this->bills_model->getBillCaseInfo($case_id);
+        $data['getBillCaseSessionSelect'] = $this->bills_model->getBillCaseSessionSelect();
 
         $this->global['navTitle']  = '重點法案-草案-' . $data['getBillCaseInfo']->titlename . '-立法程序-新增';
         $this->global['navActive'] = base_url('bills/billCaseList');
 
         $this->loadViews('billCaseSessionAdd', $this->global, $data, null);
+    }
+
+    public function billCaseSessionAddSend($case_id)
+    {
+        $this->form_validation->set_rules('date_start', '日期', 'trim|required');
+        $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
+        $this->form_validation->set_rules('description', '議事事件描述', 'trim|required');
+        $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
+        $this->form_validation->set_rules('title', '事件描述標題', 'trim|required');
+        $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
+        $this->form_validation->set_rules('editor1', '事件描述的內容', 'required');
+        $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('check', '驗證失敗');
+            $this->billCaseSessionAdd($case_id);
+        } else {
+            $ses_id      = $this->security->xss_clean($this->input->post('sessions'));
+            $date        = $this->security->xss_clean($this->input->post('date_start'));
+            $description = $this->security->xss_clean($this->input->post('description'));
+            $title       = $this->security->xss_clean($this->input->post('title'));
+            $url         = $this->security->xss_clean($this->input->post('url'));
+            $editor      = $this->input->post('editor1');
+
+            $showStatusCheck = $this->input->post('happy');
+            $showStatus      = $showStatusCheck != 'N' ? 1 : 0;
+
+            // Insert files data into the database
+            $billSessionInfo = array(
+                'case_id'     => $case_id,
+                'ses_id'      => $ses_id,
+                'date'        => $date,
+                'description' => $description,
+                'title'       => $title,
+                'content'     => $editor,
+                'url'         => $url,
+                'showups'     => $showStatus,
+            );
+
+            $insert_id = $this->bills_model->billCaseSessionAddSend($billSessionInfo);
+
+            if ($insert_id > 0) {
+                $this->session->set_flashdata('success', '新增成功!');
+            } else {
+                $this->session->set_flashdata('error', '新增失敗!');
+            }
+
+            redirect('bills/billCaseSessionList/' . $case_id);
+        }
     }
 
     // 法案草案新增
@@ -388,6 +458,74 @@ class Bills extends BaseController
 .##.......##.....##..##.....##...
 .########.########..####....##...
  */
+    //  法案草案-立法程序-編輯
+    public function billCaseSessionEdit($case_id, $id)
+    {
+        $data['getBillCaseInfo']          = $this->bills_model->getBillCaseInfo($case_id);
+        $data['getBillCaseSessionInfo']   = $this->bills_model->getBillCaseSessionInfo($case_id, $id);
+        $data['getBillCaseSessionSelect'] = $this->bills_model->getBillCaseSessionSelect();
+
+        $this->global['navTitle']  = '重點法案-草案-' . $data['getBillCaseInfo']->titlename . '-立法程序-編輯';
+        $this->global['navActive'] = base_url('bills/billCaseList');
+
+        $this->loadViews('billCaseSessionEdit', $this->global, $data, null);
+    }
+
+    public function billCaseSessionEditSend($case_id, $id)
+    {
+        $this->form_validation->set_rules('date_start', '日期', 'trim|required');
+        $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
+        $this->form_validation->set_rules('description', '議事事件描述', 'trim|required');
+        $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
+        $this->form_validation->set_rules('title', '事件描述標題', 'trim|required');
+        $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
+        $this->form_validation->set_rules('editor1', '事件描述的內容', 'required');
+        $this->form_validation->set_error_delimiters('<p style="color:red">', '</p>');
+
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('check', '驗證失敗');
+            $this->billCaseSessionEdit($case_id, $id);
+        } else {
+            $ses_id      = $this->security->xss_clean($this->input->post('sessions'));
+            $date        = $this->security->xss_clean($this->input->post('date_start'));
+            $description = $this->security->xss_clean($this->input->post('description'));
+            $title       = $this->security->xss_clean($this->input->post('title'));
+            $url         = $this->security->xss_clean($this->input->post('url'));
+            $editor      = $this->input->post('editor1');
+
+            $showStatusCheck = $this->input->post('happy');
+
+            // Insert files data into the database
+            $billSessionInfo = array(
+                'case_id'     => $case_id,
+                'ses_id'      => $ses_id,
+                'date'        => $date,
+                'description' => $description,
+                'title'       => $title,
+                'content'     => $editor,
+                'url'         => $url,
+                'showups'     => $showStatus,
+            );
+
+            if ($showStatusCheck != null || $showStatusCheck != '' || !empty($showStatusCheck)) {
+                $showStatus                 = $showStatusCheck == 'Y' ? 1 : 0;
+                $billSessionInfo['showups'] = $showStatus;
+            }
+
+            $insert_id = $this->bills_model->billCaseSessionEditSend($billSessionInfo, $id);
+
+            if ($insert_id) {
+                $this->session->set_flashdata('success', '新增成功!');
+            } else {
+                $this->session->set_flashdata('error', '新增失敗!');
+            }
+
+            $sessionRedirect = $this->session->userdata('sessionRedirect');
+            redirect($sessionRedirect);
+            // redirect('bills/billCaseSessionList/' . $case_id);
+        }
+    }
+
     // 法案草案編輯
     public function billCaseEdit($id)
     {
@@ -399,6 +537,8 @@ class Bills extends BaseController
 
         $this->global['navTitle']  = '重點法案 - 法案草案管理 - 編輯';
         $this->global['navActive'] = base_url('bills/billCaseList');
+
+        $this->bills_model->clearNotice($id); // 進來編輯頁面就清除紅字備註
 
         $data = array(
             'getYearsList'    => $this->bills_model->getYearsList(),
@@ -442,7 +582,7 @@ class Bills extends BaseController
                 'editor'       => $editor,
             );
 
-            $insert_caseid = $this->bills_model->billCaseUpdate('edit', $id, $billCaseInfo);
+            $insert_caseid = $this->bills_model->billCaseUpdate($id, $billCaseInfo);
 
             // 當回傳成功insert的id且有選擇標籤時,就將此標籤的資料insert到DB
             if ($insert_caseid) {
@@ -630,18 +770,11 @@ class Bills extends BaseController
 .##.....##.##.......##.......##..........##....##......
 .########..########.########.########....##....########
  */
-
-    public function deleteBills()
+    public function deleteBillCase()
     {
-        $id   = $this->security->xss_clean($this->input->post('id'));
-        $type = $this->security->xss_clean($this->input->post('type'));
-        $img  = $this->security->xss_clean($this->input->post('img'));
+        $id = $this->security->xss_clean($this->input->post('id'));
 
-        if ($img != '' || $img != null) {
-            unlink(dirname(dirname(__DIR__)) . '/assets/uploads/bill_category/' . $img);
-        }
-
-        $result = $this->bills_model->deleteBills($id, $type);
+        $result = $this->bills_model->deleteBillCase($id);
 
         if ($result > 0) {
             echo (json_encode(array('status' => true)));
@@ -650,6 +783,32 @@ class Bills extends BaseController
         }
     }
 
+    public function deleteBillStatus()
+    {
+        $id = $this->security->xss_clean($this->input->post('id'));
+
+        $result = $this->bills_model->deleteBillStatus($id);
+
+        if ($result > 0) {
+            echo (json_encode(array('status' => true)));
+        } else {
+            echo (json_encode(array('status' => false)));
+        }
+    }
+
+    // 立法程序
+    public function deleteBillSessions()
+    {
+        $id = $this->security->xss_clean($this->input->post('id'));
+
+        $result = $this->bills_model->deleteBillSessions($id);
+
+        if ($result > 0) {
+            echo (json_encode(array('status' => true)));
+        } else {
+            echo (json_encode(array('status' => false)));
+        }
+    }
     /*
     ..######..##.....##.########..######..##....##
     .##....##.##.....##.##.......##....##.##...##.

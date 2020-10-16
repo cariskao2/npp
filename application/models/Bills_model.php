@@ -69,6 +69,52 @@ class Bills_model extends CI_Model
         }
     }
 
+    // bill_case中的status_id get & clear noitce欄位
+    public function getStatusIdFromBillCase()
+    {
+        $this->db->select('status_id');
+        $this->db->from('bill_case');
+
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
+    // 若bill_case的status_id在bill_status中已不存在,就改變id
+    public function changeBillCaseStatusId($errorStatusId, $min)
+    {
+        $userInfo = array(
+            'status_id' => $min,
+            'notice'    => '先前狀態已被刪除,請重新選擇',
+        );
+
+        $this->db->where('status_id', $errorStatusId);
+        $this->db->update('bill_case', $userInfo);
+    }
+
+    // bill_case中的status_id check
+    public function getStatusId($min = false)
+    {
+        if ($min) {
+            $this->db->select_min('status_id');
+        } else {
+            $this->db->select('status_id');
+        }
+
+        $this->db->from('bill_status');
+
+        $query = $this->db->get();
+
+        if ($min) {
+            $result = $query->row();
+        } else {
+            $result = $query->result();
+        }
+
+        return $result;
+    }
+
     // 法案草案列表
     public function getBillCaseListCount($searchText = '')
     {
@@ -212,6 +258,7 @@ class Bills_model extends CI_Model
         $this->db->where('case_id', $case_id);
 
         $this->db->order_by('bcs.ses_id', 'ASC');
+        $this->db->order_by('bcsb.date', 'ASC');
         $this->db->limit($page, $segment);
 
         $query  = $this->db->get();
@@ -229,16 +276,21 @@ class Bills_model extends CI_Model
     .########.########..####....##...
      */
 
+    public function clearNotice($id)
+    {
+        $userInfo = array(
+            'notice' => '',
+        );
+
+        $this->db->where('case_id', $id);
+        $this->db->update('bill_case', $userInfo);
+    }
+
     //  法案草案 - bill_case - update
-    public function billCaseUpdate($who, $id, $info = '')
+    public function billCaseUpdate($id, $info = '')
     {
         $this->db->where('case_id', $id);
-
-        if ($who == 'edit') {
-            $this->db->update('bill_case', $info);
-        } else {
-            // $this->db->delete('bill_case');
-        }
+        $this->db->update('bill_case', $info);
 
         $this->db->where('case_id', $id);
         $this->db->delete('billcase_years_b');
@@ -264,6 +316,19 @@ class Bills_model extends CI_Model
         }
 
         return $arr;
+    }
+
+    //  法案草案 - 立法程序 - get
+    public function getBillCaseSessionInfo($case_id, $id)
+    {
+        $this->db->select();
+        $this->db->from('billcase_session_b as bcsb');
+        $this->db->where('case_id', $case_id);
+        $this->db->where('id', $id);
+
+        $query = $this->db->get();
+
+        return $query->row();
     }
 
     //  法案草案 - bill_case - get
@@ -319,6 +384,13 @@ class Bills_model extends CI_Model
         return true;
     }
 
+    public function billCaseSessionEditSend($userInfo, $id)
+    {
+        $this->db->where('id', $id);
+        $this->db->update('billcase_session_b', $userInfo);
+
+        return true;
+    }
 /*
 ..######...#######..##........#######..########...######.
 .##....##.##.....##.##.......##.....##.##.....##.##....##
@@ -438,7 +510,7 @@ class Bills_model extends CI_Model
     }
 
     //  法案草案 - billCaseSession - 會期下拉選單
-    public function getBillCaseSession()
+    public function getBillCaseSessionSelect()
     {
         $this->db->select();
         $this->db->from('billcase_session as bcs');
@@ -448,6 +520,19 @@ class Bills_model extends CI_Model
         $result = $query->result();
 
         return $result;
+    }
+
+    //  法案草案 - 立法程序 - 新增
+    public function billCaseSessionAddSend($userInfo)
+    {
+        $this->db->trans_start();
+        $this->db->insert('billcase_session_b', $userInfo);
+
+        $insert_id = $this->db->insert_id();
+
+        $this->db->trans_complete();
+
+        return $insert_id;
     }
 
     //  法案草案新增 - 狀態下拉選單
@@ -509,22 +594,33 @@ class Bills_model extends CI_Model
     ##     ## ##       ##       ##          ##    ##
     ########  ######## ######## ########    ##    ########
      */
-
-    public function deleteBills($id, $type)
+    public function deleteBillCase($id)
     {
-        if ($type == 'bill-status') {
-            $this->db->where('status_id', $id);
-            $this->db->delete('bill_status');
-        }
-        if ($type == 'bill-category') {
-            $this->db->where('gory_id', $id);
-            $this->db->delete('bill_category');
+        $this->db->where('case_id', $id);
+        $this->db->delete('bill_case');
 
-        }
+        $this->db->where('case_id', $id);
+        $this->db->delete('billcase_session_b');
 
         return $this->db->affected_rows();
     }
 
+    public function deleteBillStatus($id)
+    {
+        $this->db->where('status_id', $id);
+        $this->db->delete('bill_status');
+
+        return $this->db->affected_rows();
+    }
+
+    // 立法程序
+    public function deleteBillSessions($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('billcase_session_b');
+
+        return $this->db->affected_rows();
+    }
     /*
     ..######..##.....##.########..######..##....##
     .##....##.##.....##.##.......##....##.##...##.
@@ -534,7 +630,6 @@ class Bills_model extends CI_Model
     .##....##.##.....##.##.......##....##.##...##.
     ..######..##.....##.########..######..##....##
      */
-
     //  法案草案名稱
     public function billCaseTitleNameCheck($name, $id)
     {

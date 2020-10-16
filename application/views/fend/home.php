@@ -1,4 +1,4 @@
-<div id="gotop">^</div>
+<div id="gotop">⬆</div>
 <div class="container-fluid">
    <div id="carousel" class="carousel slide" data-ride="carousel">
 
@@ -85,11 +85,67 @@ if (!empty($getNewsInfo)) {
       </div>
    </div>
 </div>
+<div class="container" style="margin-top:50px">
+   <h3 class="bill-issues-title">法案議題</h3>
+   <div class="issues-list-home">
+      <div class="row">
+         <?php
+if (!empty($getBillCategory)) {
+    foreach ($getBillCategory as $k => $v) {
+        ?>
+         <?php if ($k % 5 == 0): ?>
+         <div class="col-md-8"><a href="<?php echo base_url('fend/Issues_f/issuesAllList_f/' . $v->gory_id . '/'); ?>"
+               class="category-<?php echo $k + 1; ?>">
+               <h2><?php echo $v->title; ?></h2>
+               <div class="mask"></div>
+            </a></div>
+         <?php elseif ($k % 5 == 1): ?>
+         <div class="col-md-4"><a href="<?php echo base_url('fend/Issues_f/issuesAllList_f/' . $v->gory_id . '/'); ?>"
+               class="category-<?php echo $k + 1; ?>">
+               <h2><?php echo $v->title; ?></h2>
+               <div class="mask"></div>
+            </a></div>
+         <?php elseif ($k % 5 == 2): ?>
+         <div class="col-md-3"><a href="<?php echo base_url('fend/Issues_f/issuesAllList_f/' . $v->gory_id . '/'); ?>"
+               class="category-<?php echo $k + 1; ?>">
+               <h2><?php echo $v->title; ?></h2>
+               <div class="mask"></div>
+            </a></div>
+         <?php elseif ($k % 5 == 3): ?>
+         <div class="col-md-4"><a href="<?php echo base_url('fend/Issues_f/issuesAllList_f/' . $v->gory_id . '/'); ?>"
+               class="category-<?php echo $k + 1; ?>">
+               <h2><?php echo $v->title; ?></h2>
+               <div class="mask"></div>
+            </a></div>
+         <?php elseif ($k % 5 == 4): ?>
+         <div class="col-md-5"><a href="<?php echo base_url('fend/Issues_f/issuesAllList_f/' . $v->gory_id . '/'); ?>"
+               class="category-<?php echo $k + 1; ?>">
+               <h2><?php echo $v->title; ?></h2>
+               <div class="mask"></div>
+            </a></div>
+         <?php endif;?>
+         <?php
+}
+}
+?>
+      </div>
+   </div>
+   <div class="bill-group">
+      <div class="more"><a href="<?php echo base_url('fend/bill_issues_f/'); ?>">更多內容</a></div>
+   </div>
+</div>
 <script>
    $(function () {
       $('.carousel').carousel({
          interval: 7000, // false
          pause: "hover", // false
+      });
+
+      var _getBillCategory = <?php echo json_encode($getBillCategory); ?>;
+
+      _getBillCategory.forEach((v, k) => {
+         $('.category-' + (k + 1)).css('background-image', 'url(' + baseURL +
+            'assets/uploads/bill_category/' + v.img + ')');
       });
    });
 

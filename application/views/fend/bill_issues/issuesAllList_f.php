@@ -53,7 +53,7 @@ if (!empty($issuesAllList)) {
 </div>
 <?php echo $this->pagination->create_links(); ?>
 </div>
-<div id="gotop">^</div>
+<div id="gotop">⬆</div>
 <script type="text/javascript">
 	jQuery(document).ready(function () {
 		// RWD來更改分頁文本

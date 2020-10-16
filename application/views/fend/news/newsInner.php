@@ -84,7 +84,7 @@ $next = !empty($innerNextNews) ? $innerNextNews->pr_id : '';
 		</ul>
 	</nav>
 </div>
-<div id="gotop">^</div>
+<div id="gotop">⬆</div>
 <div id="loader"><div class="loader"></div></div>
 <script type="text/javascript">
 	function CopyTextToClipboard(id) {

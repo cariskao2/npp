@@ -21,13 +21,14 @@ if (!empty($getBillCaseList)) {
     foreach ($getBillCaseList as $items) {
         $id     = $items->case_id;
         $f_id   = $items->float_id;
-        $n      = $items->titlename;
+        $title  = $items->titlename;
         $status = $items->name;
+        $notice = $items->notice;
         ?>
 							<tr class="tr-css">
 								<td><?php echo $f_id; ?></td>
-								<td><?php echo $n; ?></td>
-								<td><?php echo $status; ?></td>
+								<td><?php echo $title; ?></td>
+								<td><?php echo $status . '<br>'; ?><span style="color:red"><?php echo $notice; ?></span></td>
 								<td>
 									<a class="btn btn-sm btn-info" href="<?php echo base_url() . 'bills/billCaseEdit/' . $id; ?>"
 										title="編輯"><i class="fa fa-pencil"></i></a>

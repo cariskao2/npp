@@ -11,6 +11,7 @@ class Home extends FendBaseController
         parent::__construct();
         $this->load->model('home_model');
         $this->load->model('website_model');
+        $this->load->model('bill_issues_f_model');
         $this->global['getSetupInfo'] = $this->website_model->getSetupInfo();
         $this->global['pageTitle']    = '時代力量立法院黨團';
         $this->global['navActive']    = null;
@@ -29,6 +30,7 @@ class Home extends FendBaseController
         $data = array(
             'getCarouselInfo' => $this->home_model->getCarouselInfo(),
             'getNewsInfo'     => $this->home_model->getNewsInfo(),
+            'getBillCategory' => $this->bill_issues_f_model->getBillCategory(),
         );
 
         $this->loadViews("fend/home", $this->global, $data, null);

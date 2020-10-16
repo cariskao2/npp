@@ -62,7 +62,7 @@ class FendBaseController extends CI_Controller
      * @param {number} $perPage : This is records per page limit
      * @return {mixed} $result : This is array of records and pagination data
      */
-    public function paginationCompress($link, $count, $perPage = 10, $segment = SEGMENT)
+    public function paginationCompress($link, $count, $perPage = 10, $segment = SEGMENT, $str = false)
     {
         // 需要跟views的$().submit()搭配,所以需要<form id="xx"></form>
         $this->load->library('pagination');
@@ -71,15 +71,15 @@ class FendBaseController extends CI_Controller
         // $config['base_url'] = $link;
         // echo $config['base_url'] . '<br>';
 
-        $config['base_url']        = base_url() . $link;
-        $config['total_rows']      = $count;
-        $config['uri_segment']     = $segment;
-        $config['per_page']        = $perPage;
-        $config['num_links']       = 5;
-        $config['full_tag_open']   = '<nav class="pagination-f"><ul class="pagination">';
-        $config['full_tag_close']  = '</ul></nav>';
-        $config['first_tag_open']  = '<li class="notNum-common first-page">';
-        $config['first_link']      = '最新文章';
+        $config['base_url']       = base_url() . $link;
+        $config['total_rows']     = $count;
+        $config['uri_segment']    = $segment;
+        $config['per_page']       = $perPage;
+        $config['num_links']      = 5;
+        $config['full_tag_open']  = '<nav class="pagination-f"><ul class="pagination">';
+        $config['full_tag_close'] = '</ul></nav>';
+        $config['first_tag_open'] = '<li class="notNum-common first-page">';
+        // $config['first_link']      = '最新文章';
         $config['first_tag_close'] = '</li>';
         $config['prev_link']       = '前一頁';
         $config['prev_tag_open']   = '<li class="notNum-common prev-page">';
@@ -92,8 +92,16 @@ class FendBaseController extends CI_Controller
         $config['num_tag_open']    = '<li class="num-page">';
         $config['num_tag_close']   = '</li>';
         $config['last_tag_open']   = '<li class="notNum-common last-page">';
-        $config['last_link']       = '最舊文章';
-        $config['last_tag_close']  = '</li>';
+        // $config['last_link']       = '最舊文章';
+        $config['last_tag_close'] = '</li>';
+
+        if ($str) {
+            $config['first_link'] = '最新法案';
+            $config['last_link']  = '最舊法案';
+        } else {
+            $config['first_link'] = '最新文章';
+            $config['last_link']  = '最舊文章';
+        }
 
         $this->pagination->initialize($config);
         $page    = $config['per_page'];

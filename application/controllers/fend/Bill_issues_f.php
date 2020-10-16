@@ -29,7 +29,8 @@ class Bill_issues_f extends FendBaseController
         $this->global['pageTitle'] = '法案議題 - 時代力量立法院黨團';
 
         $data = array(
-            'getIssuesClass' => $this->bill_issues_f_model->getIssuesClass(),
+            'getIssuesClass'  => $this->bill_issues_f_model->getIssuesClass(),
+            'getBillCategory' => $this->bill_issues_f_model->getBillCategory(),
         );
 
         $this->loadViews("fend/bill_issues/home", $this->global, $data, null);

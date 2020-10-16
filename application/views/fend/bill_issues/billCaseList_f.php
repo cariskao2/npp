@@ -3,8 +3,8 @@
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
 				<li style="" class="breadcrumb-item"><a href="<?php echo base_url('fend/home'); ?>">首頁</a></li>
-				<li style="" class="breadcrumb-item"><a href="<?php echo base_url('fend/news_f'); ?>">新聞訊息</a></li>
-				<li class="breadcrumb-item active" aria-current="page"><?php echo $breadcrumbTag; ?></li>
+				<li style="" class="breadcrumb-item"><a href="<?php echo base_url('fend/bill_issues_f'); ?>">法案議題</a>
+				<li class="breadcrumb-item active" aria-current="page">提出法案列表</li>
 			</ol>
 		</nav>
 	</div>
@@ -12,26 +12,37 @@
 <div class="container" style="margin-bottom:20px">
 	<div class="row" style="border-bottom: solid 1px gray;">
 		<div class="col-md-12">
-			<div class="newsTags-title"><span><?php echo $breadcrumbTag; ?></span></div>
+			<div class="home-title_style">提出法案列表</div>
 		</div>
 	</div>
 </div>
-<div class="container" style="margin-bottom:20px">
-	<div class="row" style="margin-bottom:50px">
-		<?php if (!empty($tagsList)): ?>
-		<?php foreach ($tagsList as $item): ?>
-		<div class="col-md-12">
-			<a href="<?php echo base_url('fend/news_f/newsInner/' . $item->pr_type_id . '/' . $item->pr_id); ?>"
-				class="tags-block">
-				<h5><?=$item->main_title;?></h5>
-				<span>發布時間：<?=$item->date_start;?></span>
-				<div class="content"><?=mb_strimwidth(strip_tags($item->editor), 0, 200, '...');?></div>
-			</a>
-		</div>
-		<?php endforeach;?>
-		<?php endif;?>
-	</div>
-	<?php echo $this->pagination->create_links(); ?>
+<div class="container custom-gutters" style="margin-bottom:20px">
+	<table class="table bill-case-list-f">
+		<thead>
+			<tr>
+				<th>法案名稱</th>
+				<th>法案狀態</th>
+				<th>相關連結</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+if (!empty($getBillCaseList)) {
+    foreach ($getBillCaseList as $item) {
+        ?>
+			<tr>
+				<td><?php echo $item->titlename; ?></td>
+				<td><?php echo $item->name; ?></td>
+				<td><a href=""><img style="width:30px;" src="<?php echo base_url('assets/f_imgs/bill_issues/link2.png'); ?>" alt="無此圖片"></a></td>
+			</tr>
+         <?php
+}
+}
+?>
+		</tbody>
+	</table>
+</div>
+<?php echo $this->pagination->create_links(); ?>
 </div>
 <div id="gotop">⬆</div>
 <script type="text/javascript">
@@ -62,3 +73,5 @@
 		});
 	});
 </script>
+<style>
+</style>

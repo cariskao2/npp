@@ -9,7 +9,7 @@
       </nav>
    </div>
 </div>
-<div id="gotop">^</div>
+<div id="gotop">⬆</div>
 <div id="loader">
    <div class="loader"></div>
 </div>

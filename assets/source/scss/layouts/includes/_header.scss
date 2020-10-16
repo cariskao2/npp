@@ -1,5 +1,5 @@
 $nav-link-color: black; // 導航項目文字顏色
-$nav-link-color-hover: #ffc107;
+$nav-link-color-hover: #F5A92E;
 
 .body-css {
 	@include media-breakpoint-up(lg) {
@@ -16,7 +16,7 @@ $nav-link-color-hover: #ffc107;
 
 	@include media-breakpoint-up(lg) {
 		position: fixed;
-		z-index: 8;
+		z-index: 20;
 	}
 }
 
