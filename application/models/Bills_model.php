@@ -140,6 +140,10 @@ class Bills_model extends CI_Model
             $this->db->where($likeCriteria);
         }
 
+        // if (!empty($status_id)) {
+        //     $this->db->where('bc.status_id', $status_id);
+        // }
+
         $query = $this->db->get();
 
         return $query->num_rows();
@@ -155,6 +159,10 @@ class Bills_model extends CI_Model
             $likeCriteria = "(bc.titlename LIKE '%" . $searchText . "%')";
             $this->db->where($likeCriteria);
         }
+
+        // if (!empty($status_id)) {
+        //     $this->db->where('bc.status_id', $status_id);
+        // }
 
         $this->db->order_by('bc.case_id', 'DESC');
         $this->db->limit($page, $segment);
@@ -609,11 +617,25 @@ class Bills_model extends CI_Model
      */
     public function deleteBillCase($id)
     {
+        // $this->db->trans_start();
+        $this->db->select();
+        $this->db->from('billcase_session_b as bcsb');
+        $this->db->where('case_id', $id);
+
+        $query = $this->db->get();
+
+        // $this->db->trans_complete();
+
+        if ($query->num_rows() > 0) {
+            $this->db->where('case_id', $id);
+            $this->db->delete('billcase_session_b');
+        }
+
         $this->db->where('case_id', $id);
         $this->db->delete('bill_case');
 
         $this->db->where('case_id', $id);
-        $this->db->delete('billcase_session_b');
+        $this->db->delete('billcase_years_b');
 
         return $this->db->affected_rows();
     }

@@ -65,7 +65,7 @@ class Bills extends BaseController
         // 列表部分
         $count = $this->bills_model->getBillCaseSessionListCount($searchText, $case_id);
 
-        $returns = $this->paginationSearchCompress('bills/billCaseSessionList/' . $case_id, $count, 10, 4);
+        $returns = $this->paginationSearchCompress('bills/billCaseSessionList/' . $case_id, $count, 20, 4);
 
         $data['getBillCaseSessionList'] = $this->bills_model->getBillCaseSessionList($searchText, $case_id, $returns["page"], $returns["segment"]);
 
@@ -135,10 +135,6 @@ class Bills extends BaseController
         $returns = $this->paginationSearchCompress('bills/billCaseList ', $count, 20, 3);
 
         $data['getBillCaseList'] = $this->bills_model->getBillCaseList($searchText, $returns["page"], $returns["segment"]);
-
-        $data = array(
-            'getBillStatusSelect' => $this->bills_model->getBillStatusSelect(),
-        );
 
         $this->loadViews('billCaseList', $this->global, $data, null);
     }
@@ -635,7 +631,7 @@ class Bills extends BaseController
             'getBillStatusInfo' => $this->bills_model->getBillStatusInfo($id),
             'status_color'      => $this->bills_model->getBillStatusColor(),
         );
-        $a = 1;
+
         $this->loadViews("billStatusEdit", $this->global, $data, null);
     }
 
@@ -773,6 +769,7 @@ class Bills extends BaseController
 .##.....##.##.......##.......##..........##....##......
 .########..########.########.########....##....########
  */
+
     public function deleteBillCase()
     {
         $id = $this->security->xss_clean($this->input->post('id'));
@@ -812,6 +809,7 @@ class Bills extends BaseController
             echo (json_encode(array('status' => false)));
         }
     }
+
     /*
     ..######..##.....##.########..######..##....##
     .##....##.##.....##.##.......##....##.##...##.

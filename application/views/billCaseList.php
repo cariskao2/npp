@@ -127,11 +127,11 @@ if (!empty($getBillStatusSelect)) {
 </style>
 <script>
 	jQuery(document).ready(function () {
-// select
-let $this = $(this),
-         text = $this.find('option:selected').text(),
-         hitURL = baseURL + 'bills/members_f/',
-         statusId = $('#billstatus-select :selected').val()
+		// select
+		let $this = $(this),
+			text = $this.find('option:selected').text(),
+			hitURL = baseURL + 'bills/members_f/',
+			statusId = $('#billstatus-select :selected').val()
 
 		jQuery('ul.pagination li a').click(function (e) {
 			// 當點擊下方頁面時,就獲取以下資料並跳轉
