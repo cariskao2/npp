@@ -18,8 +18,12 @@ let _funH = 0; // 上方功能欄高度
 let url = window.location.href;
 
 if ($('#list-input').length > 0) {
+   if ($('.thead-has-select').length > 0) {
+      _funH = _w > 767 ? '54' : 118;
+   } else {
+      _funH = _w > 767 ? '54' : 86;
+   }
    _sidebarH = _w > 767 ? _h - 50 : _h - 189;
-   _funH = _w > 767 ? '54' : 89;
 } else {
    if (url.indexOf('profile') > 0) {
       _sidebarH = _h - 100;

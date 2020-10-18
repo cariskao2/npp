@@ -136,6 +136,10 @@ class Bills extends BaseController
 
         $data['getBillCaseList'] = $this->bills_model->getBillCaseList($searchText, $returns["page"], $returns["segment"]);
 
+        $data = array(
+            'getBillStatusSelect' => $this->bills_model->getBillStatusSelect(),
+        );
+
         $this->loadViews('billCaseList', $this->global, $data, null);
     }
 
@@ -504,7 +508,6 @@ class Bills extends BaseController
                 'title'       => $title,
                 'content'     => $editor,
                 'url'         => $url,
-                'showups'     => $showStatus,
             );
 
             if ($showStatusCheck != null || $showStatusCheck != '' || !empty($showStatusCheck)) {

@@ -14,6 +14,19 @@ class Bills_model extends CI_Model
     ######## ####  ######     ##
      */
 
+    //  獲取bill status list
+    public function getBillStatusSelect()
+    {
+        $this->db->select();
+        $this->db->from('bill_status as bs');
+        $this->db->where('bs.shows', 1);
+
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
     // 先將float_id欄位全部設爲0
     public function resetFloatId()
     {

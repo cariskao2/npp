@@ -66,7 +66,7 @@ if (!empty($userRecords)) {
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-7">
-						<div class="box-tools">
+						<div class="box-tools" style="margin-top:2px">
 							<form action="<?php echo base_url('userListing') ?>" method="POST" id="searchList" name="form">
 								<div class="input-group">
 									<input type="text" name="searchText" value="<?php echo $searchText; ?>"

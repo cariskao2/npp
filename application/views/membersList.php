@@ -75,7 +75,7 @@ if (!empty($listItems)) {
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-7">
-						<div class="box-tools">
+						<div class="box-tools" style="margin-top:2px">
 							<!-- 下方jQuery.attr會再改action屬性 -->
 							<form action="<?php echo base_url('members/membersList'); ?>" method="POST" id="searchList"
 								name="form">

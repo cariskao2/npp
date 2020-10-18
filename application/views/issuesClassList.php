@@ -80,7 +80,7 @@ if (!empty($issuesClassList)) {
 					</div>
 					<!-- 註解掉版型會跑掉,讓這個結構隱藏起來就好 -->
 					<div class="col-xs-6" style="visibility: hidden;">
-						<div class="box-tools">
+						<div class="box-tools" style="margin-top:2px">
 							<form action="<?php echo base_url('issues/issuesClassList'); ?>" method="POST" id="searchList">
 								<div class="input-group">
 									<input type="text" name="searchText" value="<?php echo $searchText; ?>"
