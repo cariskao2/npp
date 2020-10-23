@@ -98,10 +98,12 @@ aside.main-sidebar {
    top: 0;
    z-index: 2;
 
-   .hover-bg:hover {
-      color: white !important;
-      background-color: #3C8DBC !important;
-      cursor: default;
+   .hover-bg {
+      &:hover {
+         color: white !important;
+         background-color: #3C8DBC !important;
+         cursor: default;
+      }
    }
 }
 

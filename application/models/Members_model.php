@@ -43,7 +43,7 @@ class Members_model extends CI_Model
             $this->db->where($likeCriteria);
         }
 
-        $this->db->order_by('m.sort', 'ASC');
+        $this->db->order_by('m.mem_sort', 'ASC');
 
         if (!$isSort) {
             $this->db->limit($page, $segment);
@@ -103,6 +103,32 @@ class Members_model extends CI_Model
 .##.....##.########..########.
  */
 
+    public function exChange2YId($yearsSortId)
+    {
+        $this->db->select('yid');
+        $this->db->from('years as y');
+        $this->db->where('showup', 1);
+        $this->db->where('y.sort', $yearsSortId);
+
+        $query = $this->db->get();
+        $r     = $query->row();
+
+        return $r->yid;
+    }
+
+    public function exChange2icId($issuesSortId)
+    {
+        $this->db->select('ic_id');
+        $this->db->from('issues_class as ic');
+        $this->db->where('showup', 1);
+        $this->db->where('ic.sort', $issuesSortId);
+
+        $query = $this->db->get();
+        $r     = $query->row();
+
+        return $r->ic_id;
+    }
+
     // members新增
     public function membersAdd($info)
     {
@@ -118,7 +144,7 @@ class Members_model extends CI_Model
         // $sql = "UPDATE `members`, (SELECT MAX(sort)+1 as maxid FROM `members`) as a SET `sort`=a.maxid WHERE `memid` = $insert_id";
 
         // 或是
-        $sql = "UPDATE `members` SET `sort` = (SELECT a.maxid FROM (SELECT MAX(sort)+1 as maxid FROM `members`) as a) WHERE `memid` = $insert_id";
+        $sql = "UPDATE `members` SET `mem_sort` = (SELECT a.maxid FROM (SELECT MAX(mem_sort)+1 as maxid FROM `members`) as a) WHERE `memid` = $insert_id";
 
         $query = $this->db->query($sql);
 
@@ -367,11 +393,12 @@ class Members_model extends CI_Model
     // 屆期排序update
     public function sort($sort, $who)
     {
-        $id = $who == 'members' ? 'memid' : 'yid';
+        $id     = $who == 'members' ? 'memid' : 'yid';
+        $sortId = $who == 'members' ? 'mem_sort' : 'sort';
 
         foreach ($sort as $k => $v) {
             $k++;
-            $sql   = "UPDATE $who SET `sort` = $k WHERE $id = $v";
+            $sql   = "UPDATE $who SET $sortId = $k WHERE $id = $v";
             $query = $this->db->query($sql);
         }
 
@@ -393,11 +420,11 @@ class Members_model extends CI_Model
         $this->db->select();
         $this->db->from('years as y');
         $this->db->where('showup', 1);
+        $this->db->order_by('y.sort', 'ASC');
 
-        // $this->db->order_by('BaseTbl.tags_id', 'DESC');
-        $query = $this->db->get();
-
+        $query  = $this->db->get();
         $result = $query->result();
+
         return $result;
     }
 
@@ -406,11 +433,11 @@ class Members_model extends CI_Model
         $this->db->select();
         $this->db->from('issues_class as ic');
         $this->db->where('showup', 1);
+        $this->db->order_by('ic.sort', 'ASC');
 
-        // $this->db->order_by('BaseTbl.tags_id', 'DESC');
-        $query = $this->db->get();
-
+        $query  = $this->db->get();
         $result = $query->result();
+
         return $result;
     }
 
@@ -420,13 +447,18 @@ class Members_model extends CI_Model
         $this->db->from('mem_years_b as my');
         $this->db->join('years as y', 'my.yid = y.yid', 'inner');
         $this->db->join('members as m', 'm.memid = my.memid', 'inner');
-
         $this->db->where('m.memid', $id);
+        $this->db->order_by('y.sort', 'ASC');
 
         $query = $this->db->get();
 
-        $result = $query->result();
-        return $result;
+        $arr = []; //stdClass最佳解決方案
+
+        foreach ($query->result() as $row) {
+            array_push($arr, $row->sort);
+        }
+
+        return $arr;
     }
 
     public function getIssuesClassChoice($id)
@@ -435,13 +467,18 @@ class Members_model extends CI_Model
         $this->db->from('mem_ic_b as mi');
         $this->db->join('issues_class as ic', 'ic.ic_id = mi.ic_id', 'inner');
         $this->db->join('members as m', 'm.memid = mi.memid', 'inner');
-
         $this->db->where('m.memid', $id);
+        $this->db->order_by('ic.sort', 'ASC');
 
         $query = $this->db->get();
 
-        $result = $query->result();
-        return $result;
+        $arr = []; //stdClass最佳解決方案
+
+        foreach ($query->result() as $row) {
+            array_push($arr, $row->sort);
+        }
+
+        return $arr;
     }
 
     public function getContactChoice($id)

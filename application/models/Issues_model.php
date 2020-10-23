@@ -66,7 +66,7 @@ class Issues_model extends CI_Model
         return $query->num_rows();
     }
 
-    public function issuesClassListing($isSort, $searchText = '', $page = 0, $segment = 0)
+    public function issuesClassListing($searchText = '', $page = 0, $segment = 0)
     {
         $this->db->select();
         $this->db->from('issues_class as ic');
@@ -76,17 +76,8 @@ class Issues_model extends CI_Model
             $this->db->where($likeCriteria);
         }
 
-        // $isSort=true,select下拉選單使用,所以只撈出showup=1的值(但是這樣排序不會顯示,所以排序獨自再做一個)
-        if ($isSort) {
-            $this->db->where('ic.showup', 1);
-        }
-
         $this->db->order_by('ic.sort', 'ASC');
-
-        // $isSort=true,不產生分頁,select下拉選單使用
-        if (!$isSort) {
-            $this->db->limit($page, $segment);
-        }
+        $this->db->limit($page, $segment);
 
         $query  = $this->db->get();
         $result = $query->result();
@@ -154,11 +145,29 @@ class Issues_model extends CI_Model
     ..######...#######..##.....##....##...
      */
 
+    public function getBillCategory()
+    {
+        $this->db->select();
+        $this->db->from('bill_category as bc');
+        $this->db->where('showsup', 1);
+        $this->db->order_by('sort', 'ASC');
+
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
     //  獲得議題類別排序列表
-    public function sortList()
+    public function issuesClassSort($isIssuesAll = false)
     {
         $this->db->select();
         $this->db->from('issues_class as ic');
+
+        if ($isIssuesAll) {
+            $this->db->where('showup', 1);
+        }
+
         $this->db->order_by('ic.sort', 'ASC');
 
         $query  = $this->db->get();
@@ -168,7 +177,7 @@ class Issues_model extends CI_Model
     }
 
     // 議題類別排序存入
-    public function sort($sort)
+    public function issuesClassSortSend($sort)
     {
         foreach ($sort as $k => $v) {
             $k++;

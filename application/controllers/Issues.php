@@ -85,7 +85,7 @@ class Issues extends BaseController
 
         $returns = $this->paginationCompress('issues/issuesClassList/', $count, 20, 3);
 
-        $data['issuesClassList'] = $this->issues_model->issuesClassListing(false, $searchText, $returns["page"], $returns["segment"]);
+        $data['issuesClassList'] = $this->issues_model->issuesClassListing($searchText, $returns["page"], $returns["segment"]);
 
         // 進入列表就先將網址儲存起來,到時候編輯的完成後就可導航回原本的列表頁面
         $myRedirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -111,7 +111,7 @@ class Issues extends BaseController
         $this->global['navActive'] = base_url('issues/issuesAllList');
 
         $data = array(
-            'getIssuesClassList' => $this->issues_model->issuesClassListing(true),
+            'issuesClassSort' => $this->issues_model->issuesClassSort(true),
         );
 
         $this->loadViews('issuesAllAdd', $this->global, $data, null);
@@ -267,8 +267,8 @@ class Issues extends BaseController
         $this->global['navActive'] = base_url('issues/issuesAllList');
 
         $data = array(
-            'getIssuesAllInfo'   => $this->issues_model->getIssuesAllInfo($id),
-            'getIssuesClassList' => $this->issues_model->issuesClassListing(true),
+            'getIssuesAllInfo' => $this->issues_model->getIssuesAllInfo($id),
+            'issuesClassSort'  => $this->issues_model->issuesClassSort(true),
         );
 
         $this->loadViews("issuesAllEdit", $this->global, $data, null);
@@ -652,7 +652,7 @@ class Issues extends BaseController
         $this->global['navTitle']  = '重點法案 - 議題類別管理 - 排序';
         $this->global['navActive'] = base_url('issues/issuesClassList/');
 
-        $data['issuesClassListing'] = $this->issues_model->sortList();
+        $data['issuesClassSort'] = $this->issues_model->issuesClassSort();
 
         $this->loadViews("issuesClassSort", $this->global, $data, null);
     }
@@ -660,7 +660,7 @@ class Issues extends BaseController
     public function issuesClassSortSend()
     {
         $sort   = $this->security->xss_clean($this->input->post('newSort'));
-        $result = $this->issues_model->sort($sort);
+        $result = $this->issues_model->issuesClassSortSend($sort);
 
         if ($result > 0) {
             $this->session->set_flashdata('success', '排序已更新!');

@@ -1,4 +1,6 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
 
 /**
  * Class : Login (LoginController)
@@ -29,17 +31,16 @@ class Login extends CI_Controller
     /**
      * This function used to check the user is logged in or not
      */
-    function isLoggedIn()
+    public function isLoggedIn()
     {
         $isLoggedIn = $this->session->userdata('isLoggedIn');
 
-        if (!isset($isLoggedIn) || $isLoggedIn != TRUE) {
+        if (!isset($isLoggedIn) || $isLoggedIn != true) {
             $this->load->view('login');
         } else {
             redirect('/dashboard');
         }
     }
-
 
     /**
      * This function used to logged in user
@@ -51,10 +52,10 @@ class Login extends CI_Controller
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[128]|trim');
         $this->form_validation->set_rules('password', '密碼', 'required|max_length[32]');
 
-        if ($this->form_validation->run() == FALSE) {
+        if ($this->form_validation->run() == false) {
             $this->index();
         } else {
-            $email = strtolower($this->security->xss_clean($this->input->post('email')));
+            $email    = strtolower($this->security->xss_clean($this->input->post('email')));
             $password = $this->input->post('password');
 
             $result = $this->login_model->loginMe($email, $password);
@@ -63,12 +64,12 @@ class Login extends CI_Controller
                 $lastLogin = $this->login_model->lastLoginInfo($result->userId);
 
                 $sessionArray = array(
-                    'userId' => $result->userId,
-                    'role' => $result->roleId,
-                    'roleText' => $result->role,
-                    'name' => $result->name,
-                    'lastLogin' => $lastLogin->createdDtm,
-                    'isLoggedIn' => TRUE
+                    'userId'     => $result->userId,
+                    'role'       => $result->roleId,
+                    'roleText'   => $result->role,
+                    'name'       => $result->name,
+                    'lastLogin'  => $lastLogin->createdDtm,
+                    'isLoggedIn' => true,
                 );
 
                 $this->session->set_userdata($sessionArray);
@@ -77,7 +78,7 @@ class Login extends CI_Controller
 
                 $loginInfo = array("userId" => $result->userId, "sessionData" => json_encode($sessionArray), "machineIp" => $_SERVER['REMOTE_ADDR'], "userAgent" => getBrowserAgent(), "agentString" => $this->agent->agent_string(), "platform" => $this->agent->platform());
 
-                $this->login_model->lastLogin($loginInfo);
+                // $this->login_model->lastLogin($loginInfo);
 
                 redirect('/dashboard');
             } else {
@@ -95,7 +96,7 @@ class Login extends CI_Controller
     {
         $isLoggedIn = $this->session->userdata('isLoggedIn');
 
-        if (!isset($isLoggedIn) || $isLoggedIn != TRUE) {
+        if (!isset($isLoggedIn) || $isLoggedIn != true) {
             $this->load->view('forgotPassword');
         } else {
             redirect('/dashboard');
@@ -105,7 +106,7 @@ class Login extends CI_Controller
     /**
      * This function used to generate reset password request link
      */
-    function resetPasswordUser()
+    public function resetPasswordUser()
     {
         $status = '';
 
@@ -113,7 +114,7 @@ class Login extends CI_Controller
 
         $this->form_validation->set_rules('login_email', 'Email', 'trim|required|valid_email');
 
-        if ($this->form_validation->run() == FALSE) {
+        if ($this->form_validation->run() == false) {
             $this->forgotPassword();
         } else {
             $email = strtolower($this->security->xss_clean($this->input->post('login_email')));
@@ -122,21 +123,21 @@ class Login extends CI_Controller
                 $encoded_email = urlencode($email);
 
                 $this->load->helper('string');
-                $data['email'] = $email;
+                $data['email']         = $email;
                 $data['activation_id'] = random_string('alnum', 15);
-                $data['createdDtm'] = date('Y-m-d H:i:s');
-                $data['agent'] = getBrowserAgent();
-                $data['client_ip'] = $this->input->ip_address();
+                $data['createdDtm']    = date('Y-m-d H:i:s');
+                $data['agent']         = getBrowserAgent();
+                $data['client_ip']     = $this->input->ip_address();
 
                 $save = $this->login_model->resetPasswordUser($data);
 
                 if ($save) {
                     $data1['reset_link'] = base_url() . "resetPasswordConfirmUser/" . $data['activation_id'] . "/" . $encoded_email;
-                    $userInfo = $this->login_model->getCustomerInfoByEmail($email);
+                    $userInfo            = $this->login_model->getCustomerInfoByEmail($email);
 
                     if (!empty($userInfo)) {
-                        $data1["name"] = $userInfo->name;
-                        $data1["email"] = $userInfo->email;
+                        $data1["name"]    = $userInfo->name;
+                        $data1["email"]   = $userInfo->email;
                         $data1["message"] = "重設你的密碼";
                     }
 
@@ -166,7 +167,7 @@ class Login extends CI_Controller
      * @param string $activation_id : This is unique id
      * @param string $email : This is user email
      */
-    function resetPasswordConfirmUser($activation_id, $email)
+    public function resetPasswordConfirmUser($activation_id, $email)
     {
         // Get email and activation code from URL values at index 3-4
         $email = urldecode($email);
@@ -174,7 +175,7 @@ class Login extends CI_Controller
         // Check activation id in database
         $is_correct = $this->login_model->checkActivationDetails($email, $activation_id);
 
-        $data['email'] = $email;
+        $data['email']           = $email;
         $data['activation_code'] = $activation_id;
 
         if ($is_correct == 1) {
@@ -187,11 +188,11 @@ class Login extends CI_Controller
     /**
      * This function used to create new password for user
      */
-    function createPasswordUser()
+    public function createPasswordUser()
     {
-        $status = '';
-        $message = '';
-        $email = strtolower($this->input->post("email"));
+        $status        = '';
+        $message       = '';
+        $email         = strtolower($this->input->post("email"));
         $activation_id = $this->input->post("activation_code");
 
         $this->load->library('form_validation');
@@ -199,10 +200,10 @@ class Login extends CI_Controller
         $this->form_validation->set_rules('password', '密碼', 'required|max_length[20]');
         $this->form_validation->set_rules('cpassword', '密碼確認', 'trim|required|matches[password]|max_length[20]');
 
-        if ($this->form_validation->run() == FALSE) {
+        if ($this->form_validation->run() == false) {
             $this->resetPasswordConfirmUser($activation_id, urlencode($email));
         } else {
-            $password = $this->input->post('password');
+            $password  = $this->input->post('password');
             $cpassword = $this->input->post('cpassword');
 
             // Check activation id in database
@@ -211,10 +212,10 @@ class Login extends CI_Controller
             if ($is_correct == 1) {
                 $this->login_model->createPasswordUser($email, $password);
 
-                $status = 'success';
+                $status  = 'success';
                 $message = '密碼重設成功';
             } else {
-                $status = 'error';
+                $status  = 'error';
                 $message = '密碼重設失敗';
             }
 

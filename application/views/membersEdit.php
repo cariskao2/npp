@@ -96,7 +96,7 @@ $yt         = $getMemberInfo->yt;
 if (!empty($getYearsList)) {
     foreach ($getYearsList as $items) {
         ?>
-																<option value="<?php echo $items->yid; ?>">
+																<option value="<?php echo $items->sort; ?>">
 																	<?php echo $items->title; ?>
 																</option>
 																<?php
@@ -121,7 +121,7 @@ if (!empty($getYearsList)) {
 if (!empty($getIssuesClassList)) {
     foreach ($getIssuesClassList as $items) {
         ?>
-																<option value="<?php echo $items->ic_id; ?>">
+																<option value="<?php echo $items->sort; ?>">
 																	<?php echo $items->name; ?>
 																</option>
 																<?php
@@ -438,11 +438,11 @@ if (!empty($getContactList)) {
 		});
 
 		var $selectYears = $('#select-years')[0].selectize;
-		var yearArray = <?php echo json_encode($getYearsID); ?>;
+		var yearArray = <?php echo json_encode($getYearsChoice); ?>;
 		$selectYears.setValue(yearArray, true);
 
 		var $selectIssues = $('#select-issues')[0].selectize;
-		var issuesArray = <?php echo json_encode($getIssuesClassID); ?>;
+		var issuesArray = <?php echo json_encode($getIssuesClassChoice); ?>;
 		$selectIssues.setValue(issuesArray, true);
 
 		// console.log($('link:last-of-type').attr('href'));

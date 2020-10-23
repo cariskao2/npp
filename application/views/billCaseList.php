@@ -69,19 +69,22 @@ if (!empty($getBillCaseList)) {
 					<div class="flex-add">
 						<a class="btn btn-primary" href="<?php echo base_url('bills/billCaseAdd'); ?>"><i
 								class="fa fa-plus"></i> 新增</a>
+						<a class="btn btn-warning" href="<?php echo base_url('bills/billCaseList'); ?>">清除查詢</a>
 					</div>
 					<div class="flex-select">
 						<div class="input-group">
 							<span class="input-group-btn">
 								<button class="btn btn-default btn-sm" type="button">狀態</button>
 							</span>
-							<select name="" id="billstatus-select" class="form-control">
-								<option value="0">顯示全部</option>
+							<select name="billStatusSelect" id="billstatus-select" class="form-control">
+								<option <?php if (0 == $statusId) {echo 'selected';}?> value="0">顯示全部</option>
 								<?php
-if (!empty($getBillStatusSelect)) {
-    foreach ($getBillStatusSelect as $item) {
+if (!empty($getBillStatus)) {
+    foreach ($getBillStatus as $item) {
+        $id = $item->status_id;
         ?>
-								<option value="<?php echo $item->status_id; ?>"><?php echo $item->name; ?></option>
+								<option <?php if ($id == $statusId) {echo 'selected';}?>
+									value="<?php echo $item->status_id; ?>"><?php echo $item->name; ?></option>
 								<?php
 }
 }
@@ -98,9 +101,11 @@ if (!empty($getBillStatusSelect)) {
 									<input type="text" name="searchText" value="<?php echo $searchText; ?>"
 										class="form-control input-sm pull-right nav-list" placeholder="搜尋標題" />
 									<div class="input-group-btn">
-										<button class="btn btn-sm btn-default searchList"><i class="fa fa-search"></i></button>
+										<button id="searchBtn" class="btn btn-sm btn-default searchList"><i
+												class="fa fa-search"></i></button>
 									</div>
 								</div>
+								<input type="hidden" name="hide" id="hide">
 							</form>
 						</div>
 					</div>
@@ -126,20 +131,25 @@ if (!empty($getBillStatusSelect)) {
 	}
 </style>
 <script>
+	$(document).on('change', '#billstatus-select', function () {
+		$('#hide').val($("#billstatus-select").val());
+		$('#searchList').submit();
+	});
+
 	jQuery(document).ready(function () {
-		// select
-		let $this = $(this),
-			text = $this.find('option:selected').text(),
-			hitURL = baseURL + 'bills/members_f/',
-			statusId = $('#billstatus-select :selected').val()
+		$('#searchBtn').click(function () {
+			$('#hide').val($("#billstatus-select").val());
+			$('#searchList').submit();
+		})
 
 		jQuery('ul.pagination li a').click(function (e) {
 			// 當點擊下方頁面時,就獲取以下資料並跳轉
 			e.preventDefault();
-			var link = jQuery(this).get(0).href; // http://localhost/npp/news/lists/1/10
+			var link = jQuery(this).get(0).href;
 			// substring(start,end)表示從start到end之間的字串，包括start位置的字元但是不包括end位置的字元。
 			var queryStr = link.substring(link.lastIndexOf('/') + 1); // 1?per_page=2
 			var key = 'key=' + form.searchText.value;
+			var sId = 'id=' + $("#billstatus-select").val();
 
 			if (form.searchText.value != '') {
 				if (queryStr.indexOf('key') == -1) {
@@ -153,12 +163,18 @@ if (!empty($getBillStatusSelect)) {
 				key = '';
 			}
 
-			console.log('link', link);
-			console.log('queryStr', queryStr);
-			console.log('key', key);
-			console.log('searchText', form.searchText.value);
+			if (queryStr.indexOf('key') == -1 && queryStr.indexOf('per_page') == -1) {
+				sId = '?' + sId;
+			} else {
+				sId = '&' + sId;
+			}
 
-			jQuery('#searchList').attr('action', baseURL + 'bills/' + queryStr + key);
+			// console.log('link', link);
+			// console.log('queryStr', queryStr);
+			// console.log('key', key);
+			// console.log('sId', sId);
+
+			jQuery('#searchList').attr('action', baseURL + 'bills/' + queryStr + key + sId);
 			jQuery('#searchList').submit();
 		});
 	});

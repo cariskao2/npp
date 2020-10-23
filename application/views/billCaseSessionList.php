@@ -1,4 +1,4 @@
-<div class="content-wrapper list-bottom-bg">
+<div class="content-wrapper list-bottom-bg" id="billCaseSession">
 	<!-- <section class="content"> -->
 	<section id="list-input">
 		<div class="row">

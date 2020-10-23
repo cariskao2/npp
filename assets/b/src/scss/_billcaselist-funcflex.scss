@@ -25,8 +25,8 @@
          width: 200px;
          height: 30px;
          margin-top: 2px;
-         cursor: pointer;
          padding: 0 5px;
+         cursor: pointer;
       }
 
       .input-group-btn button {
@@ -38,6 +38,22 @@
          &:focus {
             background-color: #f4f4f4;
             border: 1px solid transparent;
+         }
+      }
+   }
+}
+
+@media (max-width: 860px) {
+   .flex {
+      .flex-search {
+         input {
+            width: 130px;
+         }
+      }
+
+      .flex-select {
+         select {
+            width: 130px;
          }
       }
    }
@@ -66,5 +82,19 @@
          }
       }
 
+   }
+}
+
+// safari
+@media not all and (min-resolution:.001dpcm) {
+   @supports (-webkit-appearance:none) and (stroke-color:transparent) {
+      #billstatus-select {
+         appearance: none;
+         border-radius: 0px;
+         background-image: url('../../../../assets/f_imgs/members/angle-down.png');
+         background-repeat: no-repeat;
+         background-position: 98% center;
+         background-size: 12px;
+      }
    }
 }

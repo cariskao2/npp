@@ -35,7 +35,7 @@
 if (!empty($getBillCategory)) {
     foreach ($getBillCategory as $items) {
         ?>
-													<option value="<?php echo $items->gory_id; ?>">
+													<option value="<?php echo $items->sort; ?>">
 														<?php echo $items->title; ?>
 													</option>
 													<?php
@@ -59,7 +59,7 @@ if (!empty($getBillCategory)) {
 if (!empty($getYearsList)) {
     foreach ($getYearsList as $items) {
         ?>
-														<option value="<?php echo $items->yid; ?>">
+														<option value="<?php echo $items->sort; ?>">
 															<?php echo $items->title; ?>
 														</option>
 														<?php

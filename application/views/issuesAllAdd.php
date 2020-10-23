@@ -38,8 +38,8 @@
 												style="padding-top:0;padding-bottom:0">
 												<option value="0">請選擇類別</option>
 												<?php
-if (!empty($getIssuesClassList)) {
-    foreach ($getIssuesClassList as $item) {
+if (!empty($issuesClassSort)) {
+    foreach ($issuesClassSort as $item) {
         ?>
 												<option value="<?php echo $item->ic_id; ?>"><?php echo $item->name; ?></option>
 												<?php

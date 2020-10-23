@@ -43,9 +43,10 @@ $link      = $getBillCaseInfo->link;
 													<?php
 if (!empty($getBillCategory)) {
     foreach ($getBillCategory as $items) {
-        $goryId = $items->gory_id;
+        $goryId   = $items->gory_id;
+        $gorySort = $items->sort;
         ?>
-													<option value="<?php echo $goryId; ?>"
+													<option value="<?php echo $gorySort; ?>"
 														<?php if ($gory_id == $goryId) {echo 'selected';}?>>
 														<?php echo $items->title; ?>
 													</option>
@@ -70,7 +71,7 @@ if (!empty($getBillCategory)) {
 if (!empty($getYearsList)) {
     foreach ($getYearsList as $items) {
         ?>
-														<option value="<?php echo $items->yid; ?>">
+														<option value="<?php echo $items->sort; ?>">
 															<?php echo $items->title; ?>
 														</option>
 														<?php
@@ -208,6 +209,7 @@ if (!empty($getBillStatus)) {
 
 	var $selectYears = $('#select-years')[0].selectize;
 	var yearArray = <?php echo json_encode($getYearsChoice); ?>;
+	// console.log(yearArray);
 	$selectYears.setValue(yearArray, true);
 </script>
 <?php

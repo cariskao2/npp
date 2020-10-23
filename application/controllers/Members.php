@@ -206,8 +206,11 @@ class Members extends BaseController
                     $one_array      = array();
 
                     foreach ($years as $k => $v) {
+                        // 因爲屆期依照sort排序,所以傳遞來的是sortId,要再轉換成yid
+                        $r = $this->members_model->exChange2YId($v);
+
                         $one_array['memid'] = $insert_memid;
-                        $one_array['yid']   = $v;
+                        $one_array['yid']   = $r;
 
                         $mem_years_info[] = $one_array;
                     }
@@ -220,8 +223,11 @@ class Members extends BaseController
                     $one_array       = array();
 
                     foreach ($issues as $k => $v) {
+                        // 因爲屆期依照sort排序,所以傳遞來的是sortId,要再轉換成ic_id
+                        $r = $this->members_model->exChange2icId($v);
+
                         $one_array['memid'] = $insert_memid;
-                        $one_array['ic_id'] = $v;
+                        $one_array['ic_id'] = $r;
 
                         $mem_issues_info[] = $one_array;
                     }
@@ -341,21 +347,6 @@ class Members extends BaseController
             'getIssuesClassList'   => $this->members_model->getIssuesClassList(),
         );
 
-        $getYearsId       = [];
-        $getIssuesClassId = [];
-
-        foreach ($data['getYearsChoice'] as $k => $v) {
-            // Cannot use object of type stdClass as array 解決方案
-            array_push($getYearsId, $v->yid);
-        }
-
-        foreach ($data['getIssuesClassChoice'] as $k => $v) {
-            array_push($getIssuesClassId, $v->ic_id);
-        }
-
-        $data['getYearsID']       = $getYearsId;
-        $data['getIssuesClassID'] = $getIssuesClassId;
-
         $this->loadViews("membersEdit", $this->global, $data, null);
     }
 
@@ -451,8 +442,11 @@ class Members extends BaseController
                     $one_array      = array();
 
                     foreach ($years as $k => $v) {
+                        $r = $this->members_model->exChange2YId($v);
+
                         $one_array['memid'] = $id;
-                        $one_array['yid']   = $v;
+                        $one_array['yid']   = $r;
+                        // $one_array['yid']   = $v;
 
                         $mem_years_info[] = $one_array;
                     }
@@ -465,8 +459,11 @@ class Members extends BaseController
                     $one_array       = array();
 
                     foreach ($issues as $k => $v) {
+                        $r = $this->members_model->exChange2icId($v);
+
                         $one_array['memid'] = $id;
-                        $one_array['ic_id'] = $v;
+                        $one_array['ic_id'] = $r;
+                        // $one_array['ic_id'] = $v;
 
                         $mem_issues_info[] = $one_array;
                     }

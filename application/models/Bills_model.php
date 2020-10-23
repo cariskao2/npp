@@ -41,7 +41,7 @@ class Bills_model extends CI_Model
     // 浮動id部分,若沒搜尋就獲取全部case_id
     // 若有搜尋到,就獲取相關的case_id
     // 若無搜尋到,就返回false
-    public function getId($searchText)
+    public function getId($searchText, $status_id = 0)
     {
         $this->db->select();
         $this->db->from('bill_case as bc');
@@ -49,6 +49,10 @@ class Bills_model extends CI_Model
         if (!empty($searchText)) {
             $likeCriteria = "(bc.titlename LIKE '%" . $searchText . "%')";
             $this->db->where($likeCriteria);
+        }
+
+        if ($status_id > 0) {
+            $this->db->where('bc.status_id', $status_id);
         }
 
         // 這裡ASC才可在updateFloatId時,使用$k來順序更新
@@ -129,7 +133,7 @@ class Bills_model extends CI_Model
     }
 
     // 法案草案列表
-    public function getBillCaseListCount($searchText = '')
+    public function getBillCaseListCount($searchText = '', $status_id = 0)
     {
         $this->db->select();
         $this->db->from('bill_case as bc');
@@ -140,16 +144,16 @@ class Bills_model extends CI_Model
             $this->db->where($likeCriteria);
         }
 
-        // if (!empty($status_id)) {
-        //     $this->db->where('bc.status_id', $status_id);
-        // }
+        if ($status_id > 0) {
+            $this->db->where('bc.status_id', $status_id);
+        }
 
         $query = $this->db->get();
 
         return $query->num_rows();
     }
 
-    public function getBillCaseList($searchText = '', $page = 0, $segment = 0)
+    public function getBillCaseList($searchText = '', $page = 0, $segment = 0, $status_id = 0)
     {
         $this->db->select();
         $this->db->from('bill_case as bc');
@@ -160,9 +164,9 @@ class Bills_model extends CI_Model
             $this->db->where($likeCriteria);
         }
 
-        // if (!empty($status_id)) {
-        //     $this->db->where('bc.status_id', $status_id);
-        // }
+        if ($status_id > 0) {
+            $this->db->where('bc.status_id', $status_id);
+        }
 
         $this->db->order_by('bc.case_id', 'DESC');
         $this->db->limit($page, $segment);
@@ -308,7 +312,7 @@ class Bills_model extends CI_Model
     }
 
     //  法案草案 - bill_case - update
-    public function billCaseUpdate($id, $info = '')
+    public function billCaseUpdate($id, $info)
     {
         $this->db->where('case_id', $id);
         $this->db->update('bill_case', $info);
@@ -327,13 +331,15 @@ class Bills_model extends CI_Model
         $this->db->join('years as y', 'bcyb.yid = y.yid', 'inner');
         $this->db->join('bill_case as bc', 'bcyb.case_id = bc.case_id', 'inner');
         $this->db->where('bc.case_id', $id);
+        $this->db->order_by('y.sort', 'ASC');
 
         $query = $this->db->get();
 
         $arr = []; //stdClass最佳解決方案
 
         foreach ($query->result() as $row) {
-            array_push($arr, $row->yid);
+            // array_push($arr, $row->yid);
+            array_push($arr, $row->sort);
         }
 
         return $arr;
@@ -478,6 +484,31 @@ class Bills_model extends CI_Model
     .##.....##.##.....##.##.....##
     .##.....##.########..########.
      */
+    public function exChange2GoryId($goryId)
+    {
+        $this->db->select('gory_id');
+        $this->db->from('bill_category as bc');
+        $this->db->where('showsup', 1);
+        $this->db->where('bc.sort', $goryId);
+
+        $query = $this->db->get();
+        $r     = $query->row();
+
+        return $r->gory_id;
+    }
+
+    public function exChange2YId($yearsSortId)
+    {
+        $this->db->select('yid');
+        $this->db->from('years as y');
+        $this->db->where('showup', 1);
+        $this->db->where('y.sort', $yearsSortId);
+
+        $query = $this->db->get();
+        $r     = $query->row();
+
+        return $r->yid;
+    }
 
     // 其它bills相依新增 - billCase_Years_b
     public function billCase_Years_b($Info)
@@ -509,7 +540,7 @@ class Bills_model extends CI_Model
         $this->db->select();
         $this->db->from('years as y');
         $this->db->where('showup', 1);
-        // $this->db->order_by('sort', 'ASC');
+        $this->db->order_by('sort', 'ASC');
 
         $query  = $this->db->get();
         $result = $query->result();
@@ -523,6 +554,7 @@ class Bills_model extends CI_Model
         $this->db->select();
         $this->db->from('bill_category as bc');
         $this->db->where('showsup', 1);
+        $this->db->order_by('sort', 'ASC');
 
         $query  = $this->db->get();
         $result = $query->result();
@@ -562,6 +594,7 @@ class Bills_model extends CI_Model
         $this->db->select();
         $this->db->from('bill_status as bs');
         $this->db->where('shows', 1);
+        $this->db->order_by('bs.status_id', 'ASC');
 
         $query  = $this->db->get();
         $result = $query->result();

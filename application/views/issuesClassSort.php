@@ -11,8 +11,8 @@
 						<div class="box-body">
 							<div id="sortlist">
 								<?php
-if (!empty($issuesClassListing)) {
-    foreach ($issuesClassListing as $record) {
+if (!empty($issuesClassSort)) {
+    foreach ($issuesClassSort as $record) {
         ?>
 								<div class="ui-state-default" dbid="<?php echo $record->ic_id; ?>">
 									<i class="ion-ios-drag handle"></i>

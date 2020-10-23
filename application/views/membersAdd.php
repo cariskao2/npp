@@ -78,7 +78,7 @@
 if (!empty($getYearsList)) {
     foreach ($getYearsList as $items) {
         ?>
-																<option value="<?php echo $items->yid; ?>">
+																<option value="<?php echo $items->sort; ?>">
 																	<?php echo $items->title; ?>
 																</option>
 																<?php
@@ -103,7 +103,7 @@ if (!empty($getYearsList)) {
 if (!empty($getIssuesClassList)) {
     foreach ($getIssuesClassList as $items) {
         ?>
-																<option value="<?php echo $items->ic_id; ?>">
+																<option value="<?php echo $items->sort; ?>">
 																	<?php echo $items->name; ?>
 																</option>
 																<?php

@@ -32,15 +32,18 @@ class Bills extends BaseController
     ##        ##  ##    ##    ##
     ######## ####  ######     ##
      */
-
-    // 法案草案的會期列表
+    // 法案草案的立法程序列表
     public function billCaseSessionList($case_id)
     {
         $this->output->set_header("Cache-Control: private");
 
         $data['getBillCaseInfo'] = $this->bills_model->getBillCaseInfo($case_id);
 
-        $this->global['navTitle']  = '重點法案 - 草案 - ' . $data['getBillCaseInfo']->titlename . ' - 立法程序';
+        $fStr   = mb_substr($data['getBillCaseInfo']->titlename, 0, 10, 'utf8');
+        $endStr = mb_strlen($data['getBillCaseInfo']->titlename, 'utf8');
+        $endStr = $endStr > 10 ? '...' : '';
+
+        $this->global['navTitle']  = '重點法案-草案-' . $fStr . $endStr . '-立法程序';
         $this->global['navActive'] = base_url('bills/billCaseList');
 
         $sessionRedirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -72,6 +75,10 @@ class Bills extends BaseController
         $this->loadViews('billCaseSessionList', $this->global, $data, null);
     }
 
+    public function billCaseClear()
+    {
+    }
+
     // 法案草案列表
     public function billCaseList()
     {
@@ -95,12 +102,26 @@ class Bills extends BaseController
             }
         }
 
+        if (isset($_GET['id']) && $_GET['id'] != '') {
+            $status_id = $_GET['id'];
+        } else {
+            // 因爲使用$().submit(),所以只能從views透過input hidden將select的value傳遞過來,無法直接用$_POST[]獲取select的值
+            $status_id = $this->security->xss_clean($this->input->post('hide'));
+
+            if (strpos($myRedirect, 'key')) {
+                $myRedirect .= '&id=' . $status_id;
+            } else {
+                $myRedirect .= '?id=' . $status_id;
+            }
+        }
+
         $this->session->set_userdata('myRedirect', $myRedirect);
 
         $data['searchText'] = $searchText;
+        $data['statusId']   = $status_id;
 
         // float_id部分
-        $getIds = $this->bills_model->getId($searchText); // 獲取全部bill_case的id,無論有無搜尋
+        $getIds = $this->bills_model->getId($searchText, $status_id); // 獲取全部bill_case的id,無論有無搜尋
 
         $this->bills_model->resetFloatId(); // 先將float_id欄位全部設爲0
 
@@ -130,11 +151,12 @@ class Bills extends BaseController
         }
 
         // 列表部分
-        $count = $this->bills_model->getBillCaseListCount($searchText);
+        $count = $this->bills_model->getBillCaseListCount($searchText, $status_id);
 
         $returns = $this->paginationSearchCompress('bills/billCaseList ', $count, 20, 3);
 
-        $data['getBillCaseList'] = $this->bills_model->getBillCaseList($searchText, $returns["page"], $returns["segment"]);
+        $data['getBillCaseList'] = $this->bills_model->getBillCaseList($searchText, $returns["page"], $returns["segment"], $status_id);
+        $data['getBillStatus']   = $this->bills_model->getBillStatus();
 
         $this->loadViews('billCaseList', $this->global, $data, null);
     }
@@ -300,9 +322,11 @@ class Bills extends BaseController
             $link     = $this->security->xss_clean($this->input->post('link'));
             $editor   = $this->input->post('editor1');
 
+            $gory_id = $this->bills_model->exChange2GoryId($category);
+
             // Insert files data into the database
             $billCaseInfo = array(
-                'gory_id'      => $category,
+                'gory_id'      => $gory_id,
                 'titlename'    => $title,
                 'introduction' => $intro,
                 'status_id'    => $status,
@@ -319,8 +343,12 @@ class Bills extends BaseController
                     $one_array        = array();
 
                     foreach ($years as $k => $v) {
+                        // 因爲屆期依照sort排序,所以傳遞來的是sortId,要再轉換成yid
+                        $r = $this->bills_model->exChange2YId($v);
+
                         $one_array['case_id'] = $insert_caseid;
-                        $one_array['yid']     = $v;
+                        $one_array['yid']     = $r;
+                        // $one_array['yid'] = $v;
 
                         $bills_years_info[] = $one_array;
                     }
@@ -571,9 +599,11 @@ class Bills extends BaseController
             $link     = $this->security->xss_clean($this->input->post('link'));
             $editor   = $this->input->post('editor1');
 
+            $gory_id = $this->bills_model->exChange2GoryId($category);
+
             // Insert files data into the database
             $billCaseInfo = array(
-                'gory_id'      => $category,
+                'gory_id'      => $gory_id,
                 'titlename'    => $title,
                 'introduction' => $intro,
                 'status_id'    => $status,
@@ -590,8 +620,12 @@ class Bills extends BaseController
                     $one_array        = array();
 
                     foreach ($years as $k => $v) {
+                        // 因爲屆期依照sort排序,所以傳遞來的是sortId,要再轉換成yid
+                        $r = $this->bills_model->exChange2YId($v);
+
                         $one_array['case_id'] = $id;
-                        $one_array['yid']     = $v;
+                        $one_array['yid']     = $r;
+                        // $one_array['yid'] = $v;
 
                         $bills_years_info[] = $one_array;
                     }
