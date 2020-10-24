@@ -1,4 +1,4 @@
-<div class="content-wrapper list-bottom-bg" id="billCaseSession">
+<div class="content-wrapper list-bottom-bg">
 	<!-- <section class="content"> -->
 	<section id="list-input">
 		<div class="row">
@@ -136,7 +136,7 @@ if (strpos($referer, 'billCaseEdit') > 0) {
 
 	.thead-outside td:nth-child(5),
 	.tbody-outside td:nth-child(5) {
-		width: 15%;
+		width: 20%;
 	}
 </style>
 <script>

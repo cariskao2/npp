@@ -43,8 +43,10 @@ class Bills extends BaseController
         $endStr = mb_strlen($data['getBillCaseInfo']->titlename, 'utf8');
         $endStr = $endStr > 10 ? '...' : '';
 
-        $this->global['navTitle']  = '重點法案-草案-' . $fStr . $endStr . '-立法程序';
-        $this->global['navActive'] = base_url('bills/billCaseList');
+        $this->global['navTitle']        = '重點法案-草案-' . $data['getBillCaseInfo']->titlename . '-立法程序-列表';
+        $this->global['navTitle4SesPc']  = '重點法案-草案-' . $data['getBillCaseInfo']->titlename . '-立法程序-列表';
+        $this->global['navTitle4SesPad'] = '重點法案-草案-' . $fStr . $endStr . '-立法程序-列表';
+        $this->global['navActive']       = base_url('bills/billCaseList');
 
         $sessionRedirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 
@@ -231,8 +233,14 @@ class Bills extends BaseController
         $data['getBillCaseInfo']          = $this->bills_model->getBillCaseInfo($case_id);
         $data['getBillCaseSessionSelect'] = $this->bills_model->getBillCaseSessionSelect();
 
-        $this->global['navTitle']  = '重點法案-草案-' . $data['getBillCaseInfo']->titlename . '-立法程序-新增';
-        $this->global['navActive'] = base_url('bills/billCaseList');
+        $fStr   = mb_substr($data['getBillCaseInfo']->titlename, 0, 10, 'utf8');
+        $endStr = mb_strlen($data['getBillCaseInfo']->titlename, 'utf8');
+        $endStr = $endStr > 10 ? '...' : '';
+
+        $this->global['navTitle']        = '重點法案-草案-' . $data['getBillCaseInfo']->titlename . '-立法程序-新增';
+        $this->global['navTitle4SesPc']  = '重點法案-草案-' . $data['getBillCaseInfo']->titlename . '-立法程序-新增';
+        $this->global['navTitle4SesPad'] = '重點法案-草案-' . $fStr . $endStr . '-立法程序-新增';
+        $this->global['navActive']       = base_url('bills/billCaseList');
 
         $this->loadViews('billCaseSessionAdd', $this->global, $data, null);
     }
@@ -493,8 +501,14 @@ class Bills extends BaseController
         $data['getBillCaseSessionInfo']   = $this->bills_model->getBillCaseSessionInfo($case_id, $id);
         $data['getBillCaseSessionSelect'] = $this->bills_model->getBillCaseSessionSelect();
 
-        $this->global['navTitle']  = '重點法案-草案-' . $data['getBillCaseInfo']->titlename . '-立法程序-編輯';
-        $this->global['navActive'] = base_url('bills/billCaseList');
+        $fStr   = mb_substr($data['getBillCaseInfo']->titlename, 0, 10, 'utf8');
+        $endStr = mb_strlen($data['getBillCaseInfo']->titlename, 'utf8');
+        $endStr = $endStr > 10 ? '...' : '';
+
+        $this->global['navTitle']        = '重點法案-草案-' . $data['getBillCaseInfo']->titlename . '-立法程序-編輯';
+        $this->global['navTitle4SesPc']  = '重點法案-草案-' . $data['getBillCaseInfo']->titlename . '-立法程序-編輯';
+        $this->global['navTitle4SesPad'] = '重點法案-草案-' . $fStr . $endStr . '-立法程序-編輯';
+        $this->global['navActive']       = base_url('bills/billCaseList');
 
         $this->loadViews('billCaseSessionEdit', $this->global, $data, null);
     }

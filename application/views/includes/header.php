@@ -105,9 +105,22 @@
 				</a>
 				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
+					<?php
+$str = $_SERVER['REQUEST_URI'];
+if (strpos($str, 'billCaseSession') > 0) {
+    ?>
+						<li class="title-on-top nav-title-session-pc"><a class="hover-bg"><?php if (!empty($navTitle4SesPc)) {
+        echo $navTitle4SesPc;
+    }?></a></li>
+						<li class="title-on-top nav-title-session-pad"><a class="hover-bg"><?php if (!empty($navTitle4SesPad)) {
+        echo $navTitle4SesPad;
+    }?></a></li>
+<?php } else {
+    ?>
 						<li class="title-on-top"><a class="hover-bg"><?php if (!empty($navTitle)) {
-    echo $navTitle;
-}?></a></li>
+        echo $navTitle;
+    }?></a></li>
+<?php }?>
 						<!-- <li class="dropdown tasks-menu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
 								<i class="fa fa-history"></i>

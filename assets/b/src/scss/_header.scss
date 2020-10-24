@@ -107,6 +107,28 @@ aside.main-sidebar {
    }
 }
 
+
+@media (max-width: 1100px) {
+   .title-on-top.nav-title-session-pc {
+      display: none;
+   }
+
+   .title-on-top.nav-title-session-pad {
+      display: block;
+      margin-right: 58px;
+   }
+}
+
+@media (min-width: 1101px) {
+   .title-on-top.nav-title-session-pad {
+      display: none;
+   }
+
+   .title-on-top.nav-title-session-pc {
+      display: block;
+   }
+}
+
 // firefox
 // @-moz-document url-prefix() {}
 
