@@ -6,7 +6,7 @@
 				<li style="" class="breadcrumb-item"><a href="<?php echo base_url('fend/bill_issues_f'); ?>">法案議題</a></li>
 				<li style="" class="breadcrumb-item"><a
 						href="<?php echo base_url('fend/issues_f/issues_class_f'); ?>">關注議題</a></li>
-				<li class="breadcrumb-item active" aria-current="page"><?php echo $breadcrumbTag; ?></li>
+				<li class="breadcrumb-item active" aria-current="page"><?php echo $getIssuesClassName; ?></li>
 			</ol>
 		</nav>
 	</div>
@@ -14,7 +14,7 @@
 <div class="container" style="margin-bottom:20px">
 	<div class="row" style="border-bottom: solid 1px gray;">
 		<div class="col-md-12">
-			<div class="home-title_style"><?php echo $breadcrumbTag; ?></div>
+			<div class="home-title_style"><?php echo $getIssuesClassName; ?></div>
 		</div>
 	</div>
 </div>
@@ -47,7 +47,10 @@ if (!empty($issuesAllList)) {
 		</div>
 		<?php
 }
-}
+} else {
+    ?>
+	 <div class="col-md-12" style="text-align:center;color:red;font-size:30px;font-weight:bolder">目前此議題類別尚無列表</div>
+<?php }
 ?>
 	</div>
 </div>

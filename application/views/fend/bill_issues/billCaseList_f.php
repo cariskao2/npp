@@ -2,8 +2,8 @@
 	<div class="container">
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
-				<li style="" class="breadcrumb-item"><a href="<?php echo base_url('fend/home'); ?>">首頁</a></li>
-				<li style="" class="breadcrumb-item"><a href="<?php echo base_url('fend/bill_issues_f'); ?>">法案議題</a>
+				<li class="breadcrumb-item"><a href="<?php echo base_url('fend/home'); ?>">首頁</a></li>
+				<li class="breadcrumb-item"><a href="<?php echo base_url('fend/bill_issues_f'); ?>">法案議題</a>
 				<li class="breadcrumb-item active" aria-current="page">提出法案列表</li>
 			</ol>
 		</nav>
@@ -29,11 +29,12 @@
 		<?php
 if (!empty($getBillCaseList)) {
     foreach ($getBillCaseList as $item) {
+        $gory_id = $item->gory_id;
         ?>
 			<tr>
 				<td><?php echo $item->titlename; ?></td>
 				<td><?php echo $item->name; ?></td>
-				<td><a href=""><img style="width:30px;" src="<?php echo base_url('assets/f_imgs/bill_issues/link2.png'); ?>" alt="無此圖片"></a></td>
+				<td><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $gory_id); ?>"><img style="width:30px;" src="<?php echo base_url('assets/f_imgs/bill_issues/link2.png'); ?>" alt="無此圖片"></a></td>
 			</tr>
          <?php
 }

@@ -48,4 +48,17 @@ class Bill_f extends FendBaseController
 
         $this->loadViews("fend/bill_issues/billCaseList_f", $this->global, $data, null);
     }
+
+    // 重點法案輪播
+    public function billCaseCarousel($gory_id)
+    {
+        $data['getCateGoryTitle'] = $this->bill_issues_f_model->getCateGoryTitle($gory_id); // for pageTitle
+        $yId                      = $this->security->xss_clean($this->input->post('hide'));
+
+        $this->global['pageTitle'] = $data['getCateGoryTitle'] . ' - 重點法案 - 法案議題 - 時代力量立法院黨團';
+
+        $data['getBillCaseCarouselYears'] = $this->bill_issues_f_model->getBillCaseCarouselYears($gory_id);
+
+        $this->loadViews("fend/bill_issues/billCaseCarousel_f", $this->global, $data, null);
+    }
 }

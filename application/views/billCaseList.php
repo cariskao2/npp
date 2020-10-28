@@ -132,7 +132,7 @@ if (!empty($getBillStatus)) {
 </style>
 <script>
 	$(document).on('change', '#billstatus-select', function () {
-		$('#hide').val($("#billstatus-select").val());
+		$('#hide').val($("#billstatus-select :selected").val());
 		$('#searchList').submit();
 	});
 

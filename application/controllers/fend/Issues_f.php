@@ -49,14 +49,10 @@ class Issues_f extends FendBaseController
         // echo ' count: ' . $count . '<br>';
         $returns = $this->paginationCompress("fend/Issues_f/issuesAllList_f/" . $ic_id . '/', $count, 12, 5);
         // echo ' segment-News: ' . $returns['segment'];
-        $data['issuesAllList'] = $this->issues_f_model->issuesAllListing($ic_id, $returns["page"], $returns["segment"]);
+        $data['issuesAllList']      = $this->issues_f_model->issuesAllListing($ic_id, $returns["page"], $returns["segment"]);
+        $data['getIssuesClassName'] = $this->issues_f_model->getIssuesClassName($ic_id); // for pageTitle
 
-        foreach ($data['issuesAllList'] as $k => $v) {
-            $name = $v->name;
-        }
-
-        $this->global['pageTitle']     = $name . ' - 關注議題 - 法案議題 - 時代力量立法院黨團';
-        $this->global['breadcrumbTag'] = $name;
+        $this->global['pageTitle'] = $data['getIssuesClassName'] . ' - 關注議題 - 法案議題 - 時代力量立法院黨團';
 
         $this->loadViews("fend/bill_issues/issuesAllList_f", $this->global, $data, null);
     }

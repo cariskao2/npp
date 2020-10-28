@@ -51,6 +51,20 @@ class Issues_f_model extends CI_Model
         return $query->row();
     }
 
+    // for pageTitle
+    public function getIssuesClassName($id)
+    {
+        $this->db->select('ic.name');
+        $this->db->from('issues_class as ic');
+        $this->db->where('showup', 1);
+        $this->db->where('ic.ic_id', $id);
+
+        $query = $this->db->get();
+        $r     = $query->row();
+
+        return $r->name;
+    }
+
     // 編輯網址防禦
     public function editProtectCheck($id, $item = '')
     {

@@ -51,7 +51,7 @@ $id   = $item->ic_id;
 $name = $item->name;
 ?>
                      <li>
-                        <a href="<?php echo base_url('fend/bill_f/' . $id); ?>"><?=$name;?></a>
+                        <a href="<?php echo base_url('fend/Issues_f/issuesAllList_f/' . $id); ?>"><?=$name;?></a>
                      </li>
                      <?php endforeach;?>
                      <?php endif;?>
