@@ -1,3 +1,47 @@
+.breadcrumb-bg {
+	background-color: #ffc107;
+
+	.container {
+		@include media-breakpoint-down(xs) {
+			padding: 0;
+		}
+	}
+}
+
+// firefox(無法做@mixin)
+@-moz-document url-prefix() {
+	.breadcrumb-bg {
+		margin-top: -6px;
+		height: 60px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+}
+
+// safari(無法做@mixin)
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	.breadcrumb-bg {
+		margin-top: -6px;
+		height: 60px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+}
+
+.breadcrumb {
+	background-color: transparent;
+	border-radius: 0;
+	padding-left: 0;
+
+	li:not(:last-child) a {
+		color: black;
+	}
+
+	@include media-breakpoint-down(sm) {
+		margin-bottom: 0;
+	}
+}
+
 $nav-link-color: black; // 導航項目文字顏色
 $nav-link-color-hover: #F5A92E;
 

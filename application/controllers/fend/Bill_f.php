@@ -52,12 +52,19 @@ class Bill_f extends FendBaseController
     // 重點法案輪播
     public function billCaseCarousel($gory_id)
     {
-        $data['getCateGoryTitle'] = $this->bill_issues_f_model->getCateGoryTitle($gory_id); // for pageTitle
-        $yId                      = $this->security->xss_clean($this->input->post('hide'));
+        $this->output->set_header("Cache-Control: private");
 
-        $this->global['pageTitle'] = $data['getCateGoryTitle'] . ' - 重點法案 - 法案議題 - 時代力量立法院黨團';
+        $data['getCateGoryInfo'] = $this->bill_issues_f_model->getCateGoryInfo($gory_id); // for pageTitle
+
+        $yIdMin    = $this->bill_issues_f_model->getBillCaseCarouselYears($gory_id, true);
+        $yIdSelect = $this->security->xss_clean($this->input->post('select'));
+
+        $yId = $yIdSelect != '' ? $yIdSelect : $yIdMin;
+
+        $this->global['pageTitle'] = $data['getCateGoryInfo']->title . ' - 重點法案 - 法案議題 - 時代力量立法院黨團';
 
         $data['getBillCaseCarouselYears'] = $this->bill_issues_f_model->getBillCaseCarouselYears($gory_id);
+        $data['getBillCaseCarouselList']  = $this->bill_issues_f_model->getBillCaseCarouselList($gory_id, $yId);
 
         $this->loadViews("fend/bill_issues/billCaseCarousel_f", $this->global, $data, null);
     }

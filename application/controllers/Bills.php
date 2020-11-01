@@ -131,24 +131,27 @@ class Bills extends BaseController
             $this->bills_model->updateFloatId($getIds);
         }
 
-        // 先確認全部的狀態id都還在bill_status內,若已不在就自動將該id改爲最前面的,否則資料會遺漏
-        $getStatusIdFromBillCase = $this->bills_model->getStatusIdFromBillCase(); //獲取bill_case中的全部status_id
-        $getStatusId             = $this->bills_model->getStatusId(); //獲取bill_status中的全部status_id
-        $getMinStatusId          = $this->bills_model->getStatusId(true); // 獲取bill_case中的最小status_id
+        // billcase對應billstatus的刪除以及顯示狀態
+        $getBcStatus4MatchInfo = $this->bills_model->getBcStatus4MatchInfo(); //獲取bill_case中的全部status_id
 
-        foreach ($getStatusIdFromBillCase as $k => $v) {
-            $isExist = false;
+        // 確認billcase全部的狀態id都還存在bill_status內(表示該狀態未刪除),若已刪除就更改欄位狀態,否則資料會遺漏
+        foreach ($getBcStatus4MatchInfo as $bcMatchInfo) {
+            $bcId        = $bcMatchInfo->case_id;
+            $bcS_Id      = $bcMatchInfo->status_id;
+            $isStatusDel = $bcMatchInfo->status_is_del;
 
-            foreach ($getStatusId as $j => $l) {
-                if ($l == $v) {
-                    $isExist = true;
+            $numRowsStatus = $this->bills_model->numRowsStatus($bcS_Id); //獲取bill_status中全部顯示的status_id
 
-                    break;
+            if ($numRowsStatus > 0) {
+                // 若status存在,就在bill_case紀錄顯示狀態
+                $getStatusShows = $this->bills_model->getStatusShows($bcS_Id); //獲取bill_status中全部顯示的status_id
+
+                $this->bills_model->status_is_show($bcId, $getStatusShows);
+            } else {
+                // 當status不在bill_status中且$isStatusDel沒有紀錄已被刪除,更新DB
+                if ($isStatusDel == 0) {
+                    $this->bills_model->status_is_del($bcId);
                 }
-            }
-
-            if (!$isExist) {
-                $this->bills_model->changeBillCaseStatusId($v->status_id, $getMinStatusId->status_id);
             }
         }
 
@@ -568,9 +571,9 @@ class Bills extends BaseController
     }
 
     // 法案草案編輯
-    public function billCaseEdit($id)
+    public function billCaseEdit($case_id)
     {
-        $editProtectChcek = $this->bills_model->editProtectCheck($id, 'bill-case');
+        $editProtectChcek = $this->bills_model->editProtectCheck($case_id, 'bill-case');
 
         if ($editProtectChcek == 0) {
             redirect('bills/billCaseList');
@@ -579,14 +582,12 @@ class Bills extends BaseController
         $this->global['navTitle']  = '重點法案 - 法案草案管理 - 編輯';
         $this->global['navActive'] = base_url('bills/billCaseList');
 
-        $this->bills_model->clearNotice($id); // 進來編輯頁面就清除紅字備註
-
         $data = array(
             'getYearsList'    => $this->bills_model->getYearsList(),
-            'getYearsChoice'  => $this->bills_model->getYearsChoice($id),
+            'getYearsChoice'  => $this->bills_model->getYearsChoice($case_id),
             'getBillCategory' => $this->bills_model->getBillCategory(),
             'getBillStatus'   => $this->bills_model->getBillStatus(),
-            'getBillCaseInfo' => $this->bills_model->getBillCaseInfo($id),
+            'getBillCaseInfo' => $this->bills_model->getBillCaseInfo($case_id),
         );
 
         $this->loadViews("billCaseEdit", $this->global, $data, null);
@@ -618,9 +619,9 @@ class Bills extends BaseController
             // Insert files data into the database
             $billCaseInfo = array(
                 'gory_id'      => $gory_id,
+                'status_id'    => $status,
                 'titlename'    => $title,
                 'introduction' => $intro,
-                'status_id'    => $status,
                 'link'         => $link,
                 'editor'       => $editor,
             );

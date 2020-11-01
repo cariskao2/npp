@@ -87,49 +87,64 @@ class Bills_model extends CI_Model
     }
 
     // bill_case中的status_id get & clear noitce欄位
-    public function getStatusIdFromBillCase()
+    public function getBcStatus4MatchInfo()
     {
-        $this->db->select('status_id');
+        $this->db->select();
         $this->db->from('bill_case');
 
+        // $query = $this->db->get()->result();
         $query  = $this->db->get();
         $result = $query->result();
 
         return $result;
     }
-
-    // 若bill_case的status_id在bill_status中已不存在,就改變id
-    public function changeBillCaseStatusId($errorStatusId, $min)
+    public function getStatusShows($status_id)
     {
-        $userInfo = array(
-            'status_id' => $min,
-            'notice'    => '先前狀態已被刪除,請重新選擇',
-        );
+        $this->db->select('shows');
+        $this->db->from('bill_status as bs');
+        $this->db->where('status_id', $status_id);
 
-        $this->db->where('status_id', $errorStatusId);
-        $this->db->update('bill_case', $userInfo);
+        $query  = $this->db->get();
+        $result = $query->row();
+
+        return $result->shows;
     }
 
-    // bill_case中的status_id check
-    public function getStatusId($min = false)
+    public function numRowsStatus($bcS_Id)
     {
-        if ($min) {
-            $this->db->select_min('status_id');
-        } else {
-            $this->db->select('status_id');
-        }
-
-        $this->db->from('bill_status');
+        $this->db->select();
+        $this->db->from('bill_status as bs');
+        $this->db->where('status_id', $bcS_Id);
+        $this->db->where('status_id >', 0);
 
         $query = $this->db->get();
 
-        if ($min) {
-            $result = $query->row();
-        } else {
-            $result = $query->result();
-        }
+        return $query->num_rows();
+    }
 
-        return $result;
+    // 若status存在,就在bill_case紀錄顯示狀態
+    public function status_is_show($case_id, $sShows)
+    {
+        $caseInfo = array(
+            'status_is_del'  => 0,
+            'status_is_show' => $sShows,
+        );
+
+        $this->db->where('case_id', $case_id);
+        $this->db->update('bill_case', $caseInfo);
+    }
+
+    // 確認billcase全部的狀態id都還存在bill_status內(表示該狀態未刪除),若已刪除就更改欄位狀態,否則資料會遺漏
+    public function status_is_del($case_id)
+    {
+        $caseInfo = array(
+            'status_id'      => 0, // 這樣join的時候才能get到(bill_status要有status_id=0的資料)
+            'status_is_show' => 0,
+            'status_is_del'  => 1,
+        );
+
+        $this->db->where('case_id', $case_id);
+        $this->db->update('bill_case', $caseInfo);
     }
 
     // 法案草案列表
@@ -189,6 +204,8 @@ class Bills_model extends CI_Model
             $this->db->where($likeCriteria);
         }
 
+        $this->db->where('status_id >', 0);
+
         $query = $this->db->get();
 
         return $query->num_rows();
@@ -205,6 +222,7 @@ class Bills_model extends CI_Model
             $this->db->where($likeCriteria);
         }
 
+        $this->db->where('status_id >', 0);
         $this->db->limit($page, $segment);
 
         $query  = $this->db->get();
@@ -300,16 +318,6 @@ class Bills_model extends CI_Model
     .##.......##.....##..##.....##...
     .########.########..####....##...
      */
-
-    public function clearNotice($id)
-    {
-        $userInfo = array(
-            'notice' => '',
-        );
-
-        $this->db->where('case_id', $id);
-        $this->db->update('bill_case', $userInfo);
-    }
 
     //  法案草案 - bill_case - update
     public function billCaseUpdate($id, $info)
@@ -594,6 +602,7 @@ class Bills_model extends CI_Model
         $this->db->select();
         $this->db->from('bill_status as bs');
         $this->db->where('shows', 1);
+        $this->db->where('status_id >', 0);
         $this->db->order_by('bs.status_id', 'ASC');
 
         $query  = $this->db->get();

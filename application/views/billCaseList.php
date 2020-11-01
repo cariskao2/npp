@@ -19,24 +19,37 @@
 							<?php
 if (!empty($getBillCaseList)) {
     foreach ($getBillCaseList as $items) {
-        $id     = $items->case_id;
-        $f_id   = $items->float_id;
-        $title  = $items->titlename;
-        $status = $items->name;
-        $notice = $items->notice;
+        $case_id = $items->case_id;
+        $f_id    = $items->float_id;
+        $sId     = $items->status_id;
+        $isDel   = $items->status_is_del;
+        $isShow  = $items->status_is_show;
+        $sName   = $items->name;
+        $title   = $items->titlename;
         ?>
 							<tr class="tr-css">
 								<td><?php echo $f_id; ?></td>
 								<td><?php echo $title; ?></td>
-								<td><?php echo $status . '<br>'; ?><span style="color:red"><?php echo $notice; ?></span></td>
 								<td>
-									<a class="btn btn-sm btn-info" href="<?php echo base_url() . 'bills/billCaseEdit/' . $id; ?>"
-										title="編輯"><i class="fa fa-pencil"></i></a>
+									<?php
+if ($isDel == 0 && $isShow == 1) {
+            echo $sName . '<br>';
+        } elseif ($isDel == 0 && $isShow == 0) {
+            echo '<span style="color:orange">狀態「' . $sName . '」已被關閉，請重啓</span>';
+        } elseif ($isDel == 1) {
+            echo '<span style="color:red">先前狀態已被刪除，請重新選擇</span>';
+        }
+        ?>
+								</td>
+								<td>
+									<a class="btn btn-sm btn-info"
+										href="<?php echo base_url() . 'bills/billCaseEdit/' . $case_id; ?>" title="編輯"><i
+											class="fa fa-pencil"></i></a>
 									<a class="btn btn-sm btn-success"
-										href="<?php echo base_url() . 'bills/billCaseSessionList/' . $id; ?>"
+										href="<?php echo base_url() . 'bills/billCaseSessionList/' . $case_id; ?>"
 										title="立法程序">立法程序</a>
-									<a class="btn btn-sm btn-danger deleteBillCase" data-id="<?php echo $id; ?>" title="刪除"><i
-											class="fa fa-trash fa-lg"></i></a>
+									<a class="btn btn-sm btn-danger deleteBillCase" data-id="<?php echo $case_id; ?>"
+										title="刪除"><i class="fa fa-trash fa-lg"></i></a>
 								</td>
 							</tr>
 							<?php

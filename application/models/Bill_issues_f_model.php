@@ -56,7 +56,7 @@ class Bill_issues_f_model extends CI_Model
         return $query->num_rows();
     }
 
-    // 法案草案列表
+    // 法案草案列表-all
     public function getBillCaseList($page = 0, $segment = 0)
     {
         $this->db->select();
@@ -75,23 +75,27 @@ class Bill_issues_f_model extends CI_Model
     }
 
     // for pageTitle
-    public function getCateGoryTitle($goryId)
+    public function getCateGoryInfo($goryId)
     {
-        $this->db->select('title');
+        $this->db->select('bc.gory_id,bc.title');
         $this->db->from('bill_category as bc');
         $this->db->where('showsup', 1);
         $this->db->where('bc.gory_id', $goryId);
 
         $query = $this->db->get();
-        $r     = $query->row();
 
-        return $r->title;
+        return $query->row();
     }
 
-    // 重點法案輪播
-    public function getBillCaseCarouselYears($goryId)
+    // 重點法案輪播-屆期
+    public function getBillCaseCarouselYears($goryId, $min = false)
     {
-        $this->db->select('y.yid,y.title');
+        if (!$min) {
+            $this->db->select('y.yid,y.title');
+        } else {
+            $this->db->select('y.yid');
+        }
+
         $this->db->from('billcase_years_b as bcyb');
         $this->db->join('bill_case as bc', 'bc.case_id = bcyb.case_id', 'inner');
         $this->db->join('years as y', 'y.yid = bcyb.yid', 'inner');
@@ -99,6 +103,38 @@ class Bill_issues_f_model extends CI_Model
         $this->db->where('bc.gory_id', $goryId);
         $this->db->group_by(array('y.yid', 'y.title')); //過濾重複資料
         $this->db->order_by('y.sort', 'ASC');
+
+        if ($min) {
+            $this->db->limit(1);
+        }
+
+        $query = $this->db->get();
+
+        if ($min) {
+            $minSort = '';
+            $result  = $query->row();
+            $minSort = $result->yid;
+
+            return $minSort;
+        } else {
+            $result = $query->result();
+
+            return $result;
+        }
+    }
+
+    // 法案草案列表-依照bill category
+    public function getBillCaseCarouselList($goryId, $yid)
+    {
+        $this->db->select();
+        $this->db->from('bill_case as bc');
+        $this->db->join('bill_status as bs', 'bs.status_id = bc.status_id', 'inner');
+        $this->db->join('bill_category as bcg', 'bcg.gory_id = bc.gory_id', 'inner');
+        $this->db->join('billcase_years_b as bcyb', 'bcyb.case_id = bc.case_id', 'inner');
+        $this->db->where('bc.gory_id', $goryId);
+        $this->db->where('bcyb.yid', $yid);
+
+        $this->db->order_by('bc.case_id', 'ASC');
 
         $query  = $this->db->get();
         $result = $query->result();
