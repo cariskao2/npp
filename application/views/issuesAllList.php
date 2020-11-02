@@ -19,15 +19,24 @@
 							<?php
 if (!empty($issuesAllList)) {
     foreach ($issuesAllList as $item) {
-        $id    = $item->ia_id;
-        $show  = $item->showup;
-        $title = $item->title;
-        $name  = $item->name;
-        $img   = $item->img;
+        $id     = $item->ia_id;
+        $show   = $item->showup;
+        $icShow = $item->ic_is_show;
+        $title  = $item->title;
+        $name   = $item->name;
+        $img    = $item->img;
         ?>
 							<tr>
 								<td><?php echo $title; ?></td>
-								<td><?php echo $name; ?></td>
+								<td>
+									<?php
+if ($icShow == 1) {
+            echo $name;
+        } else {
+            echo '<span style="color:red">類別「' . $name . '」已被關閉，請重啓或重新選擇類別</span>';
+        }
+        ?>
+								</td>
 								<td>
 									<?php if ($show == 1) {?>
 									<img style="background-color:green" src="<?php echo base_url(); ?>assets/images/show.png"

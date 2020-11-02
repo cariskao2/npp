@@ -14,6 +14,32 @@ class Issues_model extends CI_Model
     ######## ####  ######     ##
      */
 
+    //將issues_class的show存入issue_all欄位
+    public function getICshow()
+    {
+        $this->db->select('ic.ic_id,ic.showup');
+        $this->db->from('issues_class as ic');
+
+        $queryResult = $this->db->get()->result();
+
+        foreach ($queryResult as $k) {
+            $icId   = $k->ic_id;
+            $icShow = $k->showup;
+
+            $this->updateICshow2IA($icId, $icShow);
+        }
+    }
+
+    public function updateICshow2IA($icId, $icShow)
+    {
+        $userInfo = array(
+            'ic_is_show' => $icShow,
+        );
+
+        $this->db->where('ic_id', $icId);
+        $this->db->update('issues_all', $userInfo);
+    }
+
     // 議題列表
     public function issuesAllListingCount($searchText = '')
     {
@@ -33,7 +59,7 @@ class Issues_model extends CI_Model
 
     public function issuesAllListing($searchText = '', $page = 0, $segment = 0)
     {
-        $this->db->select('ia.ia_id,ia.showup,ia.title,ic.name,ia.img');
+        $this->db->select('ia.ia_id,ia.showup,ia.title,ic.name,ia.img,ia.ic_is_show');
         $this->db->from('issues_all as ia');
         $this->db->join('issues_class as ic', 'ic.ic_id = ia.ic_id', 'inner');
 

@@ -75,7 +75,7 @@ class Bill_issues_f_model extends CI_Model
     }
 
     // for pageTitle
-    public function getCateGoryInfo($goryId)
+    public function getCategoryInfo($goryId)
     {
         $this->db->select('bc.gory_id,bc.title');
         $this->db->from('bill_category as bc');

@@ -17,7 +17,7 @@
             <li class="breadcrumb-item"><a href="<?php echo base_url('fend/home'); ?>">首頁</a></li>
             <li class="breadcrumb-item"><a href="<?php echo base_url('fend/bill_issues_f'); ?>">法案議題</a>
             <li class="breadcrumb-item"><a href="<?php echo base_url('fend/bill_f/billCategoryList_f'); ?>">重點法案</a>
-            <li class="breadcrumb-item active" aria-current="page"><?=$getCateGoryInfo->title;?></li>
+            <li class="breadcrumb-item active" aria-current="page"><?=$getCategoryInfo->title;?></li>
          </ol>
       </nav>
    </div>
@@ -28,15 +28,15 @@
 </div>
 <div class="container">
    <div style="text-align:center;margin-top:30px;margin-bottom:-10px">
-      <h3><?=$getCateGoryInfo->title;?></h3>
+      <h3><?=$getCategoryInfo->title;?></h3>
    </div>
-   <form action="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $getCateGoryInfo->gory_id); ?>" method="post" id="yearSelectForm">
+   <form action="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $getCategoryInfo->gory_id); ?>" method="post" id="yearSelectForm">
       <select name="select" id="year-select" class="form-control mb-3 pretty-select">
          <?php
 if (!empty($getBillCaseCarouselYears)) {
     foreach ($getBillCaseCarouselYears as $item) {
         ?>
-         <option value="<?php echo $item->yid; ?>"><?php echo $item->title; ?></option>
+         <option value="<?php echo $item->yid; ?>" <?php if ($sendYId == $item->yid) {echo 'selected';}?>><?php echo $item->title; ?></option>
          <?php
 }
 }

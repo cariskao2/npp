@@ -38,9 +38,9 @@ if (!empty($issuesClassList)) {
 									<a class="btn btn-sm btn-info"
 										href="<?php echo base_url() . 'issues/issuesClassEdit/' . $id; ?>" title="編輯"><i
 											class="fa fa-pencil"></i></a>
-									<a class="btn btn-sm btn-danger deleteIssuesClass" data-id="<?php echo $id; ?>" title="刪除"
-										data-img="<?php echo $img; ?>"><i class="fa fa-trash fa-lg"></i></a>
-								</td%>
+									<!-- <a class="btn btn-sm btn-danger deleteIssuesClass" data-id="<?php echo $id; ?>" title="刪除"
+										data-img="<?php echo $img; ?>"><i class="fa fa-trash fa-lg"></i></a> -->
+								</td>
 							</tr>
 							<?php
 }

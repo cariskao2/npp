@@ -54,17 +54,18 @@ class Bill_f extends FendBaseController
     {
         $this->output->set_header("Cache-Control: private");
 
-        $data['getCateGoryInfo'] = $this->bill_issues_f_model->getCateGoryInfo($gory_id); // for pageTitle
+        $data['getCategoryInfo'] = $this->bill_issues_f_model->getCategoryInfo($gory_id); // for pageTitle
 
         $yIdMin    = $this->bill_issues_f_model->getBillCaseCarouselYears($gory_id, true);
         $yIdSelect = $this->security->xss_clean($this->input->post('select'));
 
         $yId = $yIdSelect != '' ? $yIdSelect : $yIdMin;
 
-        $this->global['pageTitle'] = $data['getCateGoryInfo']->title . ' - 重點法案 - 法案議題 - 時代力量立法院黨團';
+        $this->global['pageTitle'] = $data['getCategoryInfo']->title . ' - 重點法案 - 法案議題 - 時代力量立法院黨團';
 
         $data['getBillCaseCarouselYears'] = $this->bill_issues_f_model->getBillCaseCarouselYears($gory_id);
         $data['getBillCaseCarouselList']  = $this->bill_issues_f_model->getBillCaseCarouselList($gory_id, $yId);
+        $data['sendYId']                  = $yId;
 
         $this->loadViews("fend/bill_issues/billCaseCarousel_f", $this->global, $data, null);
     }

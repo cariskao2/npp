@@ -58,8 +58,9 @@ class Issues extends BaseController
 
         $this->session->set_userdata('myRedirect', $myRedirect);
 
-        $data['searchText'] = $searchText;
+        $data['searchText'] = $searchText; //返回给views的search
 
+        $getAndUpdateICshow2IA = $this->issues_model->getICshow(); //將issues_class的show存入issue_all欄位
         $count                 = $this->issues_model->issuesAllListingCount($searchText);
         $returns               = $this->paginationSearchCompress('issues/issuesAllList', $count, 20, 3);
         $data['issuesAllList'] = $this->issues_model->issuesAllListing($searchText, $returns["page"], $returns["segment"]);
