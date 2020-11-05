@@ -1,14 +1,6 @@
-<!-- Owl Carousel -->
-<!-- <link rel="stylesheet" href="<?php echo base_url('assets/plugins/OwlCarousel2-2.3.4/css/docs.theme.min.css'); ?>"> -->
-<link rel="stylesheet"
-   href="<?php echo base_url('assets/plugins/OwlCarousel2-2.3.4/owlcarousel/assets/owl.carousel.min.css'); ?>">
-<link rel="stylesheet"
-   href="<?php echo base_url('assets/plugins/OwlCarousel2-2.3.4/owlcarousel/assets/owl.theme.default.min.css'); ?>">
-<!-- <script src="<?php echo base_url('assets/plugins/OwlCarousel2-2.3.4/vendors/jquery.min.js'); ?>"></script> -->
-<script src="<?php echo base_url('assets/plugins/OwlCarousel2-2.3.4/owlcarousel/owl.carousel.js'); ?>"></script>
-<script src="<?php echo base_url('assets/plugins/OwlCarousel2-2.3.4/vendors/jquery.mousewheel.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/plugins/OwlCarousel2-2.3.4/vendors/highlight.js'); ?>"></script>
-<script src="<?php echo base_url('assets/plugins/OwlCarousel2-2.3.4/js/app.js'); ?>"></script>
+<link rel="stylesheet" href="<?php echo base_url('assets/plugins/swiper@6.3.5/css/swiper-bundle.min.css'); ?>">
+<link rel="stylesheet" href="<?php echo base_url('assets/plugins/swiper@6.3.5/css/style.css'); ?>">
+<script src="<?php echo base_url('assets/plugins/swiper@6.3.5/js/swiper-bundle.min.js'); ?>"></script>
 
 <div class="breadcrumb-bg">
    <div class="container">
@@ -30,13 +22,15 @@
    <div style="text-align:center;margin-top:30px;margin-bottom:-10px">
       <h3><?=$getCategoryInfo->title;?></h3>
    </div>
-   <form action="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $getCategoryInfo->gory_id); ?>" method="post" id="yearSelectForm">
+   <form action="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $getCategoryInfo->gory_id); ?>" method="post"
+      id="yearSelectForm">
       <select name="select" id="year-select" class="form-control mb-3 pretty-select">
          <?php
 if (!empty($getBillCaseCarouselYears)) {
     foreach ($getBillCaseCarouselYears as $item) {
         ?>
-         <option value="<?php echo $item->yid; ?>" <?php if ($sendYId == $item->yid) {echo 'selected';}?>><?php echo $item->title; ?></option>
+         <option value="<?php echo $item->yid; ?>" <?php if ($sendYId == $item->yid) {echo 'selected';}?>>
+            <?php echo $item->title; ?></option>
          <?php
 }
 }
@@ -44,62 +38,66 @@ if (!empty($getBillCaseCarouselYears)) {
       </select>
    </form>
 </div>
-<!-- Owl Carousel -->
 <div class="container-fluid">
-   <div class="owl-carousel owl-theme">
-   <?php
+   <div class="swiper-container">
+      <div class="swiper-wrapper">
+         <?php
 if (!empty($getBillCaseCarouselList)) {
     foreach ($getBillCaseCarouselList as $item) {
         $statusName    = $item->name;
         $billCaseTitle = $item->titlename;
         $billCaseIntro = $item->introduction;
+        $color         = $item->color_name;
         ?>
-      <div class="case-item">
-         <div class="status-name"><?php echo $statusName; ?></div>
-         <div class="case-title"><?php echo $billCaseTitle; ?></div>
-         <div class="case-intro"><?php echo $billCaseIntro; ?></div>
-      </div>
-      <?php
+         <div class="swiper-slide">
+            <div class="status-name" style="background-color:<?php echo $color; ?>"><?php echo $statusName; ?></div>
+            <div class="case-title"><?php echo $billCaseTitle; ?></div>
+            <div class="case-intro"><?php echo $billCaseIntro; ?></div>
+         </div>
+         <?php
 }
 }
 ?>
+      </div>
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="center-triangle"></div>
    </div>
 </div>
 <style>
 </style>
 <script>
+   var swiper = new Swiper('.swiper-container', {
+      slidesPerView: 2,
+      spaceBetween: 30,
+      centeredSlides: true,
+      autoHeight: true,
+      pagination: {
+         el: '.swiper-pagination',
+         clickable: true,
+      },
+      navigation: {
+         nextEl: '.swiper-button-next',
+         prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+         768: {
+            slidesPerView: 4,
+         },
+         1200: {
+            slidesPerView: 6,
+         },
+      }
+   });
+
    $(function () {
-      // Owl Carousel
-      var owl = $('.owl-carousel');
-      // var len = owl.children().length;
-
-      owl.owlCarousel({
-         margin: 10,
-         items: 2,
-         center: true, //讓1st item從中間開始顯示,而不是從最左邊
-         loop: false, //若center:true,則尾部item會從左邊接上。center:false,在最後一張點擊下一張時,會回到1st item
-         nav: true, //是否顯示切換上下一張的button
-         navText: ['上一張', '下一張'],
-         responsive: {
-            // nav、loop、center等設定,都可以寫入
-            600: {
-               items: 4
-            },
-            800: {
-               items: 6
-            },
-            1000: {
-               items: 8
-            },
-         }
-      });
-
       // select
       let $this = $(this),
          text = $this.find('option:selected').text(),
          _l = text.length;
 
-      let _w = _l <= 7 ? 200 : _l * 27;
+      let _w = _l <= 7 ? 200 : _l < 20 ? _l * 10 : _l < 25 ? _l * 12 : _l * 15;
 
       $('#year-select').css('width', _w + 'px');
    });
@@ -109,7 +107,7 @@ if (!empty($getBillCaseCarouselList)) {
          text = $this.find('option:selected').text(),
          _l = text.length;
 
-      let _w = _l <= 7 ? 200 : _l * 27;
+      let _w = _l <= 7 ? 200 : _l < 20 ? _l * 10 : _l < 25 ? _l * 12 : _l * 15;
 
       $('#year-select').css('width', _w + 'px');
       $('#yearSelectForm').submit();

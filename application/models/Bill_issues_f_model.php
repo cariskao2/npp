@@ -131,6 +131,7 @@ class Bill_issues_f_model extends CI_Model
         $this->db->join('bill_status as bs', 'bs.status_id = bc.status_id', 'inner');
         $this->db->join('bill_category as bcg', 'bcg.gory_id = bc.gory_id', 'inner');
         $this->db->join('billcase_years_b as bcyb', 'bcyb.case_id = bc.case_id', 'inner');
+        $this->db->join('bill_status_color as bsc', 'bsc.color_id = bs.color_id', 'inner');
         $this->db->where('bc.gory_id', $goryId);
         $this->db->where('bcyb.yid', $yid);
 

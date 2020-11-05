@@ -10,7 +10,7 @@
 	</div>
 </div>
 <div class="container" style="margin-bottom:20px">
-	<div class="row" style="border-bottom: solid 1px gray;">
+	<div class="row">
 		<div class="col-md-12">
 			<div class="home-title_style">提出法案列表</div>
 		</div>
@@ -22,11 +22,11 @@
 			<tr>
 				<th>法案名稱</th>
 				<th>法案狀態</th>
-				<th>相關連結</th>
+				<th style="width:150px">相關連結</th>
 			</tr>
 		</thead>
-		<tbody>
-		<?php
+		<tbody class="tbody-pc">
+			<?php
 if (!empty($getBillCaseList)) {
     foreach ($getBillCaseList as $item) {
         $gory_id = $item->gory_id;
@@ -34,9 +34,34 @@ if (!empty($getBillCaseList)) {
 			<tr>
 				<td><?php echo $item->titlename; ?></td>
 				<td><?php echo $item->name; ?></td>
-				<td><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $gory_id); ?>"><img style="width:30px;" src="<?php echo base_url('assets/f_imgs/bill_issues/link2.png'); ?>" alt="無此圖片"></a></td>
+				<td><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $gory_id); ?>"><img style="width:30px;"
+							src="<?php echo base_url('assets/f_imgs/bill_issues/link2.png'); ?>" alt="無此圖片"></a></td>
 			</tr>
-         <?php
+			<?php
+}
+}
+?>
+		</tbody>
+		<tbody class="tbody-mobile">
+			<?php
+if (!empty($getBillCaseList)) {
+    foreach ($getBillCaseList as $item) {
+        $gory_id = $item->gory_id;
+        ?>
+			<tr>
+			  <td>法案名稱</td>
+				<td><?php echo $item->titlename; ?></td>
+			</tr>
+			<tr>
+			  <td>法案狀態</td>
+				<td><?php echo $item->name; ?></td>
+			</tr>
+			<tr>
+				<td>相關連結</td>
+				<td><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $gory_id); ?>"><img style="width:30px;"
+							src="<?php echo base_url('assets/f_imgs/bill_issues/link2.png'); ?>" alt="無此圖片"></a></td>
+			</tr>
+			<?php
 }
 }
 ?>
