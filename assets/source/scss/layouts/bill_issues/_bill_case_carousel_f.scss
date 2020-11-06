@@ -1,7 +1,7 @@
-// 輪播
+// 輪播swiper plugin
 .swiper-slide {
    flex-direction: column;
-   padding-top: 40px;
+   padding-top: 50px;
    padding-bottom: 10px;
    padding-right: 10px;
    padding-left: 10px;
@@ -62,6 +62,10 @@
       height: 26px;
       top: 0;
       margin-top: 12px;
+
+      @include media-breakpoint-down(sm) {
+         display: none;
+      }
 
       .swiper-pagination-bullet {
          width: 12px;

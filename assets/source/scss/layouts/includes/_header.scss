@@ -25,6 +25,11 @@
 		height: 60px;
 		padding-top: 5px;
 		padding-bottom: 5px;
+
+		@include media-breakpoint-down(sm) {
+			height: auto;
+			padding-left: 20px;
+		}
 	}
 }
 
