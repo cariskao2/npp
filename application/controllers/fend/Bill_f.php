@@ -67,6 +67,29 @@ class Bill_f extends FendBaseController
         $data['getBillCaseCarouselList']  = $this->bill_issues_f_model->getBillCaseCarouselList($gory_id, $yId);
         $data['sendYId']                  = $yId;
 
+        $caseIdOnly = []; //獲取頁面載入第一筆的billcase資料
+
+        foreach ($data['getBillCaseCarouselList'] as $k) {
+            array_push($caseIdOnly, $k->case_id);
+        }
+
+        $data['getBillCaseInfo'] = $this->bill_issues_f_model->getBillCaseInfo($caseIdOnly[0]);
+
         $this->loadViews("fend/bill_issues/billCaseCarousel_f", $this->global, $data, null);
+    }
+
+    public function getBillCaseInfoAjax()
+    {
+        $caseId          = $this->security->xss_clean($this->input->post('caseId'));
+        $getBillCaseInfo = $this->bill_issues_f_model->getBillCaseInfo($caseId);
+
+        $e    = $getBillCaseInfo->editor;
+        $link = $getBillCaseInfo->link;
+
+        $res = array(
+            'editor' => $e,
+            'link'   => $link,
+        );
+        echo json_encode($res);
     }
 }

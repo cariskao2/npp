@@ -142,4 +142,15 @@ class Bill_issues_f_model extends CI_Model
 
         return $result;
     }
+
+    public function getBillCaseInfo($case_id)
+    {
+        $this->db->select('bc.editor,bc.link');
+        $this->db->from('bill_case as bc');
+        $this->db->where('bc.case_id', $case_id);
+
+        $query = $this->db->get();
+
+        return $query->row();
+    }
 }

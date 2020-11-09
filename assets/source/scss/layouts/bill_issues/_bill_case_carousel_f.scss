@@ -1,3 +1,68 @@
+// 時間軸
+.file-url {
+   text-align: center;
+   margin: 50px;
+
+   img {
+      width: 40px;
+      height: 40px;
+   }
+}
+
+// 草案editor 點擊展開
+.case-editor {
+   .content {
+      margin: 15px;
+
+      // 這部分無法替代 .open .open-img的background-image
+      // &:not(.show) {
+      //    &+.open>.open-img {
+      //       background-image: url('../../f_imgs/members/angle-down.png');
+      //    }
+      // }
+
+      &.show {
+         &+.open>.open-img {
+            background-image: url('../../f_imgs/bill_issues/angle-up.png'); //替代的img
+         }
+      }
+   }
+
+   .open {
+      height: 0;
+      text-align: center;
+
+      .open-img {
+         cursor: pointer;
+         background-image: url('../../f_imgs/members/angle-down.png'); //原本的img
+         background-repeat: no-repeat;
+         background-position: center;
+         background-size: 20px;
+         width: 30px;
+         height: 30px;
+         padding: 8px 5px;
+         background-color: #D8D8D8;
+         border-radius: 30px;
+         margin-right: auto;
+         margin-left: auto;
+      }
+   }
+}
+
+// 暗區
+.dark {
+   color: white;
+   background-color: #575656;
+   padding-top: 30px;
+   padding-bottom: 30px;
+
+   .case-editor {
+      color: #4A4A4A;
+      background-color: #fff;
+      padding: 10px;
+   }
+}
+
 // 輪播swiper plugin
 .swiper-slide {
    flex-direction: column;
@@ -97,6 +162,6 @@
    margin-bottom: 10px;
 }
 
-#year-select {
+#case-year-select {
    width: 150px; //使刷新時,螢幕不會閃
 }
