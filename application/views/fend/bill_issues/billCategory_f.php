@@ -22,31 +22,31 @@ if (!empty($getBillCategory)) {
     foreach ($getBillCategory as $k => $v) {
         ?>
          <?php if ($k % 5 == 0): ?>
-         <div class="col-md-8"><a href="<?php echo base_url('fend/issues_f/issuesAllList_f/' . $v->gory_id . '/'); ?>"
+         <div class="col-md-8"><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $v->gory_id); ?>"
                class="category-<?php echo $k + 1; ?>">
                <h2><?php echo $v->title; ?></h2>
                <div class="mask"></div>
             </a></div>
          <?php elseif ($k % 5 == 1): ?>
-         <div class="col-md-4"><a href="<?php echo base_url('fend/Issues_f/issuesAllList_f/' . $v->gory_id . '/'); ?>"
+         <div class="col-md-4"><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $v->gory_id); ?>"
                class="category-<?php echo $k + 1; ?>">
                <h2><?php echo $v->title; ?></h2>
                <div class="mask"></div>
             </a></div>
          <?php elseif ($k % 5 == 2): ?>
-         <div class="col-md-3"><a href="<?php echo base_url('fend/Issues_f/issuesAllList_f/' . $v->gory_id . '/'); ?>"
+         <div class="col-md-3"><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $v->gory_id); ?>"
                class="category-<?php echo $k + 1; ?>">
                <h2><?php echo $v->title; ?></h2>
                <div class="mask"></div>
             </a></div>
          <?php elseif ($k % 5 == 3): ?>
-         <div class="col-md-4"><a href="<?php echo base_url('fend/Issues_f/issuesAllList_f/' . $v->gory_id . '/'); ?>"
+         <div class="col-md-4"><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $v->gory_id); ?>"
                class="category-<?php echo $k + 1; ?>">
                <h2><?php echo $v->title; ?></h2>
                <div class="mask"></div>
             </a></div>
          <?php elseif ($k % 5 == 4): ?>
-         <div class="col-md-5"><a href="<?php echo base_url('fend/Issues_f/issuesAllList_f/' . $v->gory_id . '/'); ?>"
+         <div class="col-md-5"><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $v->gory_id); ?>"
                class="category-<?php echo $k + 1; ?>">
                <h2><?php echo $v->title; ?></h2>
                <div class="mask"></div>

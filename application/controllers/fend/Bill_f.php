@@ -50,30 +50,72 @@ class Bill_f extends FendBaseController
     }
 
     // 重點法案輪播
-    public function billCaseCarousel($gory_id)
+    public function billCaseCarousel($gory_id, $case_id = 0)
     {
         $this->output->set_header("Cache-Control: private");
 
-        $data['getCategoryInfo'] = $this->bill_issues_f_model->getCategoryInfo($gory_id); // for pageTitle
-
-        $yIdMin    = $this->bill_issues_f_model->getBillCaseCarouselYears($gory_id, true);
-        $yIdSelect = $this->security->xss_clean($this->input->post('select'));
-
-        $yId = $yIdSelect != '' ? $yIdSelect : $yIdMin;
-
+        // pageTitle
+        $data['getCategoryInfo']   = $this->bill_issues_f_model->getCategoryInfo($gory_id);
         $this->global['pageTitle'] = $data['getCategoryInfo']->title . ' - 重點法案 - 法案議題 - 時代力量立法院黨團';
 
+        // 獲取法案輪播中所設定的全部屆期
         $data['getBillCaseCarouselYears'] = $this->bill_issues_f_model->getBillCaseCarouselYears($gory_id);
-        $data['getBillCaseCarouselList']  = $this->bill_issues_f_model->getBillCaseCarouselList($gory_id, $yId);
-        $data['sendYId']                  = $yId;
+        // 點擊下拉選單獲取的值
+        $yIdSelect = $this->security->xss_clean($this->input->post('select'));
 
-        $caseIdOnly = []; //獲取頁面載入第一筆的billcase資料
+        // $case_id=0:從home、bill_issues_f/home、billCategoryList_f點擊進來
+        // $case_id>0:從billCaseList_f提出法案列表點擊進來
+        if ($case_id > 0) {
+            if ($yIdSelect == '') {
+                $getCaseMinYId = $this->bill_issues_f_model->getBillCaseCarouselYears($gory_id, $case_id); // 在剛進入頁面時,獲取該法案中所設定排序最優先的屆期id,讓前台下拉選單做預設
+            }
 
-        foreach ($data['getBillCaseCarouselList'] as $k) {
-            array_push($caseIdOnly, $k->case_id);
+            $data['caseIdCheck'] = true; //true表示要讓前台billCaseCarousel_f的下拉選單有預設功能
+            $data['matchYId']    = $yIdSelect != '' ? $yIdSelect : $getCaseMinYId;
+
+        } else {
+            if ($yIdSelect != '') {
+                $data['caseIdCheck'] = true;
+                $data['matchYId']    = $yIdSelect; // 返回views做屆期預設的select
+            } else {
+                $data['caseIdCheck'] = false;
+                $getCaseMinYIdResult = $this->bill_issues_f_model->getBillCaseCarouselYears($gory_id);
+                $getCaseMinYIdArr    = [];
+
+                foreach ($getCaseMinYIdResult as $k) {
+                    array_push($getCaseMinYIdArr, $k->yid);
+                }
+
+                $data['matchYId'] = min($getCaseMinYIdArr);
+            }
         }
 
-        $data['getBillCaseInfo'] = $this->bill_issues_f_model->getBillCaseInfo($caseIdOnly[0]);
+        // swiperjs
+        $data['getBillCaseCarouselList'] = $this->bill_issues_f_model->getBillCaseCarouselList($gory_id, $data['matchYId']);
+
+        if ($case_id > 0) {
+            foreach ($data['getBillCaseCarouselList'] as $k => $v) {
+                if ($v->case_id == $case_id) {
+                    $data['currentCaseIdIndex'] = $k;
+                    $data['getBillCaseInfo']    = $this->bill_issues_f_model->getBillCaseInfoAjax($v->case_id);
+                }
+            }
+
+        } else {
+            $caseIdOnly = []; //獲取頁面載入第一筆的billcase資料
+
+            foreach ($data['getBillCaseCarouselList'] as $k => $v) {
+                if ($k == 0) {
+                    $data['getBillCaseInfo'] = $this->bill_issues_f_model->getBillCaseInfoAjax($v->case_id);
+                }
+            }
+
+            $data['currentCaseIdIndex'] = 0;
+        }
+
+        // -------------
+        // 會期要用,留着
+        // $data['getBillCaseSessions'] = $this->bill_issues_f_model->getBillCaseSessions($caseIdOnly[0]);
 
         $this->loadViews("fend/bill_issues/billCaseCarousel_f", $this->global, $data, null);
     }
@@ -81,7 +123,7 @@ class Bill_f extends FendBaseController
     public function getBillCaseInfoAjax()
     {
         $caseId          = $this->security->xss_clean($this->input->post('caseId'));
-        $getBillCaseInfo = $this->bill_issues_f_model->getBillCaseInfo($caseId);
+        $getBillCaseInfo = $this->bill_issues_f_model->getBillCaseInfoAjax($caseId);
 
         $e    = $getBillCaseInfo->editor;
         $link = $getBillCaseInfo->link;

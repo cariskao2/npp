@@ -88,42 +88,39 @@ class Bill_issues_f_model extends CI_Model
     }
 
     // 重點法案輪播-屆期
-    public function getBillCaseCarouselYears($goryId, $min = false)
+    public function getBillCaseCarouselYears($goryId, $case_id = 0)
     {
-        if (!$min) {
-            $this->db->select('y.yid,y.title');
-        } else {
-            $this->db->select('y.yid');
-        }
-
+        $this->db->select('y.yid,y.title');
         $this->db->from('billcase_years_b as bcyb');
         $this->db->join('bill_case as bc', 'bc.case_id = bcyb.case_id', 'inner');
         $this->db->join('years as y', 'y.yid = bcyb.yid', 'inner');
         $this->db->where('y.showup', 1);
         $this->db->where('bc.gory_id', $goryId);
+
+        if ($case_id > 0) {
+            //使只有該法案有設定的屆期才會顯示,用來獲取該法案設定的屆期最小sort的yid值,然後在匹配的屆期狀態select
+            $this->db->where('bc.case_id', $case_id);
+        }
+
         $this->db->group_by(array('y.yid', 'y.title')); //過濾重複資料
         $this->db->order_by('y.sort', 'ASC');
 
-        if ($min) {
+        if ($case_id > 0) {
             $this->db->limit(1);
         }
 
         $query = $this->db->get();
 
-        if ($min) {
-            $minSort = '';
-            $result  = $query->row();
-            $minSort = $result->yid;
-
-            return $minSort;
+        if ($case_id > 0) {
+            $result = $query->row()->yid;
         } else {
             $result = $query->result();
-
-            return $result;
         }
+
+        return $result;
     }
 
-    // 法案草案列表-依照bill category
+    // 法案草案輪播列表-依照bill category
     public function getBillCaseCarouselList($goryId, $yid)
     {
         $this->db->select();
@@ -143,7 +140,7 @@ class Bill_issues_f_model extends CI_Model
         return $result;
     }
 
-    public function getBillCaseInfo($case_id)
+    public function getBillCaseInfoAjax($case_id)
     {
         $this->db->select('bc.editor,bc.link');
         $this->db->from('bill_case as bc');
@@ -152,5 +149,25 @@ class Bill_issues_f_model extends CI_Model
         $query = $this->db->get();
 
         return $query->row();
+    }
+
+    public function getBillCaseSessions($case_id)
+    {
+        $this->db->select('bcsb.ses_id');
+        $this->db->from('billcase_session_b as bcsb');
+        $this->db->join('billcase_session as bcs', 'bcsb.ses_id = bcs.ses_id', 'inner');
+        $this->db->where('bcsb.case_id', $case_id);
+        $this->db->group_by('bcsb.ses_id'); //過濾重複資料
+        // $this->db->order_by('bcsb.date', 'ASC');
+
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+
+        }
+
+        return false;
     }
 }

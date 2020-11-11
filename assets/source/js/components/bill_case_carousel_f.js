@@ -44,7 +44,7 @@ function carouselAjax(caseId) {
 }
 
 function editorLenth() {
-   var len = 30; // 超過len個字以"..."取代
+   var len = 200; // 超過len個字以"..."取代
    $('.case-editor .content').each(function () {
       if ($(this).text().length > len) {
          $(this).attr("title", $(this).text());
@@ -76,11 +76,11 @@ $('.open .open-img').click(function () {
 
 $(function () {
    // 屆期初始化
-   let $this = $(this),
-      text = $this.find('option:selected').text(),
-      _l = text.length;
-
-   let _w = _l <= 7 ? 200 : _l < 20 ? _l * 10 : _l < 25 ? _l * 12 : _l * 15;
+   let $this = $(this);
+   let text = $this.find('option:selected').text();
+   let _l = text.length;
+   let _w = _l <= 7 ? 200 : _l * 27;
+   // let _w = _l <= 7 ? 200 : _l < 20 ? _l * 10 : _l < 25 ? _l * 12 : _l * 15;
 
    $('#case-year-select').css('width', _w + 'px');
 });
@@ -91,7 +91,8 @@ $(document).on('change', '#case-year-select', function () {
       text = $this.find('option:selected').text(),
       _l = text.length;
 
-   let _w = _l <= 7 ? 200 : _l < 20 ? _l * 10 : _l < 25 ? _l * 12 : _l * 15;
+   let _w = _l <= 7 ? 200 : _l * 27;
+   // let _w = _l <= 7 ? 200 : _l < 20 ? _l * 10 : _l < 25 ? _l * 12 : _l * 15;
 
    $('#case-year-select').css('width', _w + 'px');
    $('#yearSelectForm').submit();

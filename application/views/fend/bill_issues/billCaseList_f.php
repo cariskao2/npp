@@ -29,12 +29,15 @@
 			<?php
 if (!empty($getBillCaseList)) {
     foreach ($getBillCaseList as $item) {
-        $gory_id = $item->gory_id;
+        $caseName   = $item->titlename;
+        $statusName = $item->name;
+        $case_id    = $item->case_id;
+        $gory_id    = $item->gory_id;
         ?>
 			<tr>
-				<td><?php echo $item->titlename; ?></td>
-				<td><?php echo $item->name; ?></td>
-				<td><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $gory_id); ?>"><img style="width:30px;"
+				<td><?php echo $caseName; ?></td>
+				<td><?php echo $statusName; ?></td>
+				<td><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $gory_id . '/' . $case_id); ?>"><img style="width:30px;"
 							src="<?php echo base_url('assets/f_imgs/bill_issues/link2.png'); ?>" alt="無此圖片"></a></td>
 			</tr>
 			<?php
@@ -46,19 +49,22 @@ if (!empty($getBillCaseList)) {
 			<?php
 if (!empty($getBillCaseList)) {
     foreach ($getBillCaseList as $item) {
-        $gory_id = $item->gory_id;
+        $caseName   = $item->titlename;
+        $statusName = $item->name;
+        $gory_id    = $item->gory_id;
+        $case_id    = $item->case_id;
         ?>
 			<tr>
 			  <td>法案名稱</td>
-				<td><?php echo $item->titlename; ?></td>
+				<td><?php echo $caseName; ?></td>
 			</tr>
 			<tr>
 			  <td>法案狀態</td>
-				<td><?php echo $item->name; ?></td>
+				<td><?php echo $statusName; ?></td>
 			</tr>
 			<tr>
 				<td>相關連結</td>
-				<td><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $gory_id); ?>"><img style="width:30px;"
+				<td><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $gory_id . '/' . $case_id); ?>"><img style="width:30px;"
 							src="<?php echo base_url('assets/f_imgs/bill_issues/link2.png'); ?>" alt="無此圖片"></a></td>
 			</tr>
 			<?php

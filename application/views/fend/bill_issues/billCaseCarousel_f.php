@@ -1,4 +1,7 @@
 <?php
+$title   = $getCategoryInfo->title;
+$gory_id = $getCategoryInfo->gory_id;
+
 $e    = $getBillCaseInfo->editor;
 $link = $getBillCaseInfo->link;
 ?>
@@ -13,7 +16,7 @@ $link = $getBillCaseInfo->link;
             <li class="breadcrumb-item"><a href="<?php echo base_url('fend/home'); ?>">首頁</a></li>
             <li class="breadcrumb-item"><a href="<?php echo base_url('fend/bill_issues_f'); ?>">法案議題</a>
             <li class="breadcrumb-item"><a href="<?php echo base_url('fend/bill_f/billCategoryList_f'); ?>">重點法案</a>
-            <li class="breadcrumb-item active" aria-current="page"><?=$getCategoryInfo->title;?></li>
+            <li class="breadcrumb-item active" aria-current="page"><?=$title;?></li>
          </ol>
       </nav>
    </div>
@@ -22,17 +25,20 @@ $link = $getBillCaseInfo->link;
 <!-- <div id="loader"><div class="loader"></div></div> -->
 <div class="container">
    <div style="text-align:center;margin-top:30px;margin-bottom:-10px">
-      <h3><?=$getCategoryInfo->title;?></h3>
+      <h3><?=$title;?></h3>
    </div>
-   <form action="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $getCategoryInfo->gory_id); ?>" method="post"
+   <form action="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $gory_id); ?>" method="post"
       id="yearSelectForm">
       <select name="select" id="case-year-select" class="form-control mb-3 pretty-select">
          <?php
 if (!empty($getBillCaseCarouselYears)) {
     foreach ($getBillCaseCarouselYears as $item) {
         ?>
-         <option value="<?php echo $item->yid; ?>" <?php if ($sendYId == $item->yid) {echo 'selected';}?>>
-            <?php echo $item->title; ?></option>
+        <?php if ($caseIdCheck): ?>
+         <option value="<?php echo $item->yid; ?>" <?php if ($matchYId == $item->yid) {echo 'selected';}?>><?php echo $item->title; ?></option>
+        <?php else: ?>
+         <option value="<?php echo $item->yid; ?>"><?php echo $item->title; ?></option>
+        <?php endif;?>
          <?php
 }
 }
@@ -73,10 +79,13 @@ if (!empty($getBillCaseCarouselList)) {
    <div class="container">
       <div class="case-editor">
          <div class="content"><?php echo $e; ?></div>
-         <div class="open"><div class="open-img"></div></div>
+         <div class="open">
+            <div class="open-img"></div>
+         </div>
       </div>
       <div class="file-url">
-         <a target="_blank" href="<?php echo $link; ?>"><img src="<?php echo base_url('assets/f_imgs/billCaseCarousel/link.png'); ?>" alt="not found"></a>
+         <a target="_blank" href="<?php echo $link; ?>"><img
+               src="<?php echo base_url('assets/f_imgs/billCaseCarousel/link.png'); ?>" alt="not found"></a>
       </div>
       <div class="time-line"></div>
    </div>
@@ -84,27 +93,28 @@ if (!empty($getBillCaseCarouselList)) {
 <style>
 </style>
 <script>
-// swiper
-var swiper = new Swiper('.swiper-container', {
-   slidesPerView: 2,
-   spaceBetween: 30,
-   centeredSlides: true,
-   autoHeight: true,
-   pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-   },
-   navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-   },
-   breakpoints: {
-      768: {
-         slidesPerView: 4,
+   // swiper
+   var swiper = new Swiper('.swiper-container', {
+      initialSlide: <?php echo $currentCaseIdIndex; ?>,
+      slidesPerView: 1,
+      spaceBetween: 30,
+      centeredSlides: true,
+      autoHeight: true,
+      pagination: {
+         el: '.swiper-pagination',
+         clickable: true,
       },
-      1200: {
-         slidesPerView: 6,
+      navigation: {
+         nextEl: '.swiper-button-next',
+         prevEl: '.swiper-button-prev',
       },
-   }
-});
+      breakpoints: {
+         768: {
+            slidesPerView: 3,
+         },
+         1200: {
+            slidesPerView: 6,
+         },
+      }
+   });
 </script>
