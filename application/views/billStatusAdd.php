@@ -30,7 +30,7 @@
 												<?php foreach ($status_color as $colors): ?>
 												<?php if ($colors->color_id != 1): ?>
 												<input type="radio" name="color" value="<?php echo $colors->color_id; ?>">
-												<span class="r-<?php echo $colors->color_name; ?> r-set"></span>
+												<span class="r-<?php echo trim($colors->color_name, '#'); ?> r-set"></span>
 												<?php endif;?>
 												<?php endforeach;?>
 											</div>
@@ -140,19 +140,19 @@ if ($check) {
 	}
 
 	.r-black {
-		background-color: black;
+		background-color: #4A4A4A;
 	}
 
-	.r-red {
-		background-color: red;
+	.r-D0021B {
+		background-color: #D0021B;
 	}
 
-	.r-green {
-		background-color: green;
+	.r-64A717 {
+		background-color: #64A717;
 	}
 
-	.r-orange {
-		background-color: orange;
+	.r-FF8800 {
+		background-color: #FF8800;
 	}
 </style>
 <!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->

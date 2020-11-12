@@ -32,8 +32,9 @@ $color = $getBillStatusInfo->color_id;
 											<label for="color">顏色</label><br>
 											<div class="color-center">
 												<?php foreach ($status_color as $colors): ?>
-												<input type="radio" name="color" value="<?php echo $colors->color_id; ?>" <?php if ($color == $colors->color_id) {echo 'checked';}?>>
-												<span class="r-<?php echo $colors->color_name; ?> r-set"></span>
+												<input type="radio" name="color" value="<?php echo $colors->color_id; ?>"
+													<?php if ($color == $colors->color_id) {echo 'checked';}?>>
+												<span class="r-<?php echo trim($colors->color_name, '#'); ?> r-set"></span>
 												<?php endforeach;?>
 											</div>
 										</div>
@@ -146,20 +147,20 @@ if ($check) {
 		margin-left: 10px;
 	}
 
-	.r-black {
-		background-color: black;
+	.r-4A4A4A {
+		background-color: #4A4A4A;
 	}
 
-	.r-red {
-		background-color: red;
+	.r-D0021B {
+		background-color: #D0021B;
 	}
 
-	.r-green {
-		background-color: green;
+	.r-64A717 {
+		background-color: #64A717;
 	}
 
-	.r-orange {
-		background-color: orange;
+	.r-FF8800 {
+		background-color: #FF8800;
 	}
 </style>
 <!-- <?php echo validation_errors('<div id="alert-error" class="alert-absoulte alert alert-danger alert-dismissable">', ' <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>'); ?> -->

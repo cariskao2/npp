@@ -1,9 +1,12 @@
 <?php
-$title   = $getCategoryInfo->title;
-$gory_id = $getCategoryInfo->gory_id;
+$title = $getCategoryInfo->title;
 
-$e    = $getBillCaseInfo->editor;
-$link = $getBillCaseInfo->link;
+if ($categoryIdCheck > 0) {
+    $gory_id = $getCategoryInfo->gory_id;
+
+    $e    = $getBillCaseInfo->editor;
+    $link = $getBillCaseInfo->link;
+}
 ?>
 <link rel="stylesheet" href="<?php echo base_url('assets/plugins/swiper@6.3.5/css/swiper-bundle.min.css'); ?>">
 <link rel="stylesheet" href="<?php echo base_url('assets/plugins/swiper@6.3.5/css/style.css'); ?>">
@@ -23,26 +26,32 @@ $link = $getBillCaseInfo->link;
 </div>
 <div id="gotop">⬆</div>
 <!-- <div id="loader"><div class="loader"></div></div> -->
+<?php if ($categoryIdCheck > 0) {
+    //進入法案輪播前先確認該法案是否有被選擇
+    ?>
 <div class="container">
    <div style="text-align:center;margin-top:30px;margin-bottom:-10px">
       <h3><?=$title;?></h3>
    </div>
-   <form action="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $gory_id); ?>" method="post"
-      id="yearSelectForm">
+   <form action="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $gory_id); ?>" method="post" id="yearSelectForm">
       <select name="select" id="case-year-select" class="form-control mb-3 pretty-select">
          <?php
 if (!empty($getBillCaseCarouselYears)) {
-    foreach ($getBillCaseCarouselYears as $item) {
-        ?>
-        <?php if ($caseIdCheck): ?>
+        foreach ($getBillCaseCarouselYears as $item) {
+            ?>
+         <?php if ($caseIdCheck): ?>
          <option value="<?php echo $item->yid; ?>" <?php if ($matchYId == $item->yid) {echo 'selected';}?>><?php echo $item->title; ?></option>
-        <?php else: ?>
+         <?php else: ?>
          <option value="<?php echo $item->yid; ?>"><?php echo $item->title; ?></option>
-        <?php endif;?>
+         <?php endif;?>
          <?php
 }
+    } else {
+        ?>
+         <p style="color:red;font-wieght:bolder">此法案類別尚未被設定或被關閉</p>
+         <?php
 }
-?>
+    ?>
       </select>
    </form>
 </div>
@@ -51,13 +60,13 @@ if (!empty($getBillCaseCarouselYears)) {
       <div class="swiper-wrapper">
          <?php
 if (!empty($getBillCaseCarouselList)) {
-    foreach ($getBillCaseCarouselList as $item) {
-        $billCaseId    = $item->case_id;
-        $billCaseTitle = $item->titlename;
-        $billCaseIntro = $item->introduction;
-        $statusName    = $item->name;
-        $color         = $item->color_name;
-        ?>
+        foreach ($getBillCaseCarouselList as $item) {
+            $billCaseId    = $item->case_id;
+            $billCaseTitle = $item->titlename;
+            $billCaseIntro = $item->introduction;
+            $statusName    = $item->name;
+            $color         = $item->color_name;
+            ?>
          <div class="swiper-slide">
             <div class="status-name" style="background-color:<?php echo $color; ?>"><?php echo $statusName; ?></div>
             <div class="case-title"><?php echo $billCaseTitle; ?></div>
@@ -66,8 +75,8 @@ if (!empty($getBillCaseCarouselList)) {
          </div>
          <?php
 }
-}
-?>
+    }
+    ?>
       </div>
       <div class="swiper-pagination"></div>
       <div class="swiper-button-next"></div>
@@ -90,13 +99,11 @@ if (!empty($getBillCaseCarouselList)) {
       <div class="time-line"></div>
    </div>
 </div>
-<style>
-</style>
 <script>
    // swiper
    var swiper = new Swiper('.swiper-container', {
       initialSlide: <?php echo $currentCaseIdIndex; ?>,
-      slidesPerView: 1,
+      slidesPerView : 1,
       spaceBetween: 30,
       centeredSlides: true,
       autoHeight: true,
@@ -118,3 +125,16 @@ if (!empty($getBillCaseCarouselList)) {
       }
    });
 </script>
+<?php } else {?>
+<style>
+   .no-category-match {
+      text-align: center;
+      color: red;
+      font-size: 30px;
+      font-weight: bloder;
+      margin-top: 30px;
+      height: calc(100vh - 515px);
+   }
+</style>
+<p class="no-category-match">此法案類別目前無任何匹配的法案</p>
+<?php }?>

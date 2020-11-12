@@ -50,6 +50,7 @@ class Bill_issues_f_model extends CI_Model
         $this->db->join('bill_status as bs', 'bs.status_id = bc.status_id', 'inner');
         $this->db->join('bill_category as bcg', 'bcg.gory_id = bc.gory_id', 'inner');
         // $this->db->join('billcase_years_b as bcyb', 'bcyb.case_id = bc.case_id', 'inner');
+        $this->db->where('bcg.showsup', 1);
 
         $query = $this->db->get();
 
@@ -64,6 +65,7 @@ class Bill_issues_f_model extends CI_Model
         $this->db->join('bill_status as bs', 'bs.status_id = bc.status_id', 'inner');
         $this->db->join('bill_category as bcg', 'bcg.gory_id = bc.gory_id', 'inner');
         // $this->db->join('billcase_years_b as bcyb', 'bcyb.case_id = bc.case_id', 'inner');
+        $this->db->where('bcg.showsup', 1);
 
         $this->db->order_by('bc.case_id', 'DESC');
         $this->db->limit($page, $segment);
@@ -85,6 +87,19 @@ class Bill_issues_f_model extends CI_Model
         $query = $this->db->get();
 
         return $query->row();
+    }
+
+    //進入法案輪播前先確認該法案是否有被選擇
+    public function categoryIdCheck($goryId)
+    {
+        $this->db->select();
+        $this->db->from('bill_case as bc');
+        $this->db->join('bill_category as bcg', 'bcg.gory_id = bc.gory_id', 'inner');
+        $this->db->where('bc.gory_id', $goryId);
+
+        $query = $this->db->get();
+
+        return $query->num_rows();
     }
 
     // 重點法案輪播-屆期
