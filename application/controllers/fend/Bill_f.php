@@ -68,6 +68,7 @@ class Bill_f extends FendBaseController
 
             // $case_id=0:從home、bill_issues_f/home、billCategoryList_f點擊進來
             // $case_id>0:從billCaseList_f提出法案列表點擊進來
+            // 屆期
             if ($case_id > 0) {
                 if ($yIdSelect == '') {
                     $getCaseMinYId = $this->bill_issues_f_model->getBillCaseCarouselYears($gory_id, $case_id); // 在剛進入頁面時,獲取該法案中所設定排序最優先的屆期id,讓前台下拉選單做預設
@@ -96,11 +97,16 @@ class Bill_f extends FendBaseController
             // swiperjs
             $data['getBillCaseCarouselList'] = $this->bill_issues_f_model->getBillCaseCarouselList($gory_id, $data['matchYId']);
 
+            // $case_id=0:從home、bill_issues_f/home、billCategoryList_f點擊進來
+            // $case_id>0:從billCaseList_f提出法案列表點擊進來
+            // editor、link、時間軸
             if ($case_id > 0) {
                 foreach ($data['getBillCaseCarouselList'] as $k => $v) {
                     if ($v->case_id == $case_id) {
-                        $data['currentCaseIdIndex'] = $k;
-                        $data['getBillCaseInfo']    = $this->bill_issues_f_model->getBillCaseInfoAjax($v->case_id);
+                        $data['currentCaseIdIndex']     = $k;
+                        $data['getBillCaseInfo']        = $this->bill_issues_f_model->getBillCaseInfoAjax($v->case_id);
+                        $data['getBillCaseSessions']    = $this->bill_issues_f_model->getBillCaseSessions($v->case_id);
+                        $data['getBillCaseSessionInfo'] = $this->bill_issues_f_model->getBillCaseSessionInfo($v->case_id);
                     }
                 }
 
@@ -109,17 +115,15 @@ class Bill_f extends FendBaseController
 
                 foreach ($data['getBillCaseCarouselList'] as $k => $v) {
                     if ($k == 0) {
-                        $data['getBillCaseInfo'] = $this->bill_issues_f_model->getBillCaseInfoAjax($v->case_id);
+                        $data['getBillCaseInfo']        = $this->bill_issues_f_model->getBillCaseInfoAjax($v->case_id);
+                        $data['getBillCaseSessions']    = $this->bill_issues_f_model->getBillCaseSessions($v->case_id);
+                        $data['getBillCaseSessionInfo'] = $this->bill_issues_f_model->getBillCaseSessionInfo($v->case_id);
                     }
                 }
 
                 $data['currentCaseIdIndex'] = 0;
             }
         }
-
-        // -------------
-        // 會期要用,留着
-        // $data['getBillCaseSessions'] = $this->bill_issues_f_model->getBillCaseSessions($caseIdOnly[0]);
 
         $this->loadViews("fend/bill_issues/billCaseCarousel_f", $this->global, $data, null);
     }
@@ -137,5 +141,46 @@ class Bill_f extends FendBaseController
             'link'   => $link,
         );
         echo json_encode($res);
+    }
+
+    public function getBCSesAndInfoAjax()
+    {
+        $caseId       = $this->security->xss_clean($this->input->post('caseId'));
+        $getBCSesId   = $this->bill_issues_f_model->getBillCaseSessions($caseId);
+        $getBCSesInfo = $this->bill_issues_f_model->getBillCaseSessionInfo($caseId);
+
+        $sesIdInfo = array();
+
+        foreach ($getBCSesId as $k => $v) {
+            $sId = $v->ses_id;
+            $i   = 0;
+
+            $sesId = array(
+                'ses_id'   => $sId,
+                'ses_name' => $v->session,
+            );
+
+            $sesIdInfo[$k]['ses'] = $sesId;
+
+            foreach ($getBCSesInfo as $m => $n) {
+                $infoId = $n->ses_id;
+
+                if ($sId === $infoId) {
+
+                    $sesInfo = array(
+                        'id'      => $infoId,
+                        'date'    => $n->date,
+                        'title'   => $n->title,
+                        'content' => $n->content,
+                        'url'     => $n->url,
+                    );
+
+                    $sesIdInfo[$k]['info'][$i] = $sesInfo; //$i若改成$m,第二個陣列的index不會從0開始
+                    $i++;
+                }
+            }
+        }
+
+        echo json_encode($sesIdInfo);
     }
 }

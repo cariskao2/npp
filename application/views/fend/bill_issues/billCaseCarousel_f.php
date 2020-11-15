@@ -11,6 +11,7 @@ if ($categoryIdCheck > 0) {
 <link rel="stylesheet" href="<?php echo base_url('assets/plugins/swiper@6.3.5/css/swiper-bundle.min.css'); ?>">
 <link rel="stylesheet" href="<?php echo base_url('assets/plugins/swiper@6.3.5/css/style.css'); ?>">
 <script src="<?php echo base_url('assets/plugins/swiper@6.3.5/js/swiper-bundle.min.js'); ?>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.0/sweetalert2.all.js"></script>
 
 <div class="breadcrumb-bg">
    <div class="container">
@@ -25,7 +26,7 @@ if ($categoryIdCheck > 0) {
    </div>
 </div>
 <div id="gotop">⬆</div>
-<!-- <div id="loader"><div class="loader"></div></div> -->
+<div id="loader"><div class="loader"></div></div>
 <?php if ($categoryIdCheck > 0) {
     //進入法案輪播前先確認該法案是否有被選擇
     ?>
@@ -46,11 +47,7 @@ if (!empty($getBillCaseCarouselYears)) {
          <?php endif;?>
          <?php
 }
-    } else {
-        ?>
-         <p style="color:red;font-wieght:bolder">此法案類別尚未被設定或被關閉</p>
-         <?php
-}
+    }
     ?>
       </select>
    </form>
@@ -94,12 +91,75 @@ if (!empty($getBillCaseCarouselList)) {
       </div>
       <div class="file-url">
          <a target="_blank" href="<?php echo $link; ?>"><img
-               src="<?php echo base_url('assets/f_imgs/billCaseCarousel/link.png'); ?>" alt="not found"></a>
+               src="<?php echo base_url('assets/f_imgs/billCaseCarousel/link.png'); ?>" alt="not found">
+            <br><span>完整草案連結</span>
+         </a>
       </div>
-      <div class="time-line"></div>
+      <div class="time-line">
+         <?php
+if (!empty($getBillCaseSessions)) {
+        foreach ($getBillCaseSessions as $record) {
+            $sesId = $record->ses_id;
+            $ses   = $record->session;
+            ?>
+         <div class="time-line-block">
+            <div class="time-line-session"><?php echo $ses; ?></div>
+            <div class="time-line-info">
+            <span class="line"></span>
+               <?php
+if (!empty($getBillCaseSessionInfo)) {
+                foreach ($getBillCaseSessionInfo as $item) {
+                    $ses_id  = $item->ses_id;
+                    $date    = $item->date;
+                    $title   = $item->title;
+                    $content = $item->content;
+                    $url     = $item->url;
+
+                    if ($ses_id == $sesId) {
+                        ?>
+               <div class="line-info">
+                  <span class="info-date"><?php echo str_replace('-', '.', $date); ?></span>
+                  <span class="info-dot"></span>
+                  <span class="info-title"><?php echo $title; ?></span>
+                  <span class="info-board-icon">
+                     <img src="<?php echo base_url('assets/f_imgs/billCaseCarousel/note.png'); ?>" alt="not found!">
+                     <input type="hidden" name="board-hide" class="board-hide" value="<?php echo $content; ?>">
+                  </span>
+                  <?php if ($url != ''): ?>
+                  <a class="info-video-icon" target="_blank" href="<?php echo $url; ?>"><img
+                        src="<?php echo base_url('assets/f_imgs/billCaseCarousel/draft_youtube.png'); ?>"
+                        alt="not found!"></a>
+                  <?php endif;?>
+               </div>
+               <?php
+}
+                }
+            }
+            ?>
+            </div>
+         </div>
+         <?php
+}
+    } else {
+        ?>
+         <p class="no-category-match">此法案尚未建立任何立法程序</p>
+         <?php
+}
+    ?>
+      </div>
    </div>
 </div>
 <script>
+   // sweetalert2
+   $('.time-line').on('click', '.info-board-icon', function (e) {
+     let _boardContent = $(this).children('.board-hide').val();
+
+      swal({
+         // text: '',
+         html: _boardContent
+      });
+   });
+
    // swiper
    var swiper = new Swiper('.swiper-container', {
       initialSlide: <?php echo $currentCaseIdIndex; ?>,
@@ -124,8 +184,21 @@ if (!empty($getBillCaseCarouselList)) {
          },
       }
    });
+
+   swiper.on('slideChange', function (e) {
+      // let index = $(this).index();
+      let caseId = $('.swiper-slide .case-id').eq(e.activeIndex).val();
+
+      // console.log(e.activeIndex);
+      // console.log(caseId);
+
+      getBillCaseInfoAjax(caseId);
+      getBCSesAndInfoAjax(caseId);
+   });
 </script>
 <?php } else {?>
+<p class="no-category-match">此法案類別目前無任何匹配的法案</p>
+<?php }?>
 <style>
    .no-category-match {
       text-align: center;
@@ -136,5 +209,3 @@ if (!empty($getBillCaseCarouselList)) {
       height: calc(100vh - 515px);
    }
 </style>
-<p class="no-category-match">此法案類別目前無任何匹配的法案</p>
-<?php }?>

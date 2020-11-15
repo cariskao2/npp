@@ -20,31 +20,31 @@ if (!empty($getIssuesClass)) {
     foreach ($getIssuesClass as $k => $v) {
         ?>
          <?php if ($k % 5 == 0): ?>
-         <div class="col-md-8"><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $v->ic_id); ?>"
+         <div class="col-md-8"><a href="<?php echo base_url('fend/issues_f/issuesAllList_f/' . $v->ic_id); ?>"
                class="issues-<?php echo $k + 1; ?>">
                <h2><?php echo $v->name; ?></h2>
                <div class="mask"></div>
             </a></div>
          <?php elseif ($k % 5 == 1): ?>
-         <div class="col-md-4"><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $v->ic_id); ?>"
+         <div class="col-md-4"><a href="<?php echo base_url('fend/issues_f/issuesAllList_f/' . $v->ic_id); ?>"
                class="issues-<?php echo $k + 1; ?>">
                <h2><?php echo $v->name; ?></h2>
                <div class="mask"></div>
             </a></div>
          <?php elseif ($k % 5 == 2): ?>
-         <div class="col-md-3"><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $v->ic_id); ?>"
+         <div class="col-md-3"><a href="<?php echo base_url('fend/issues_f/issuesAllList_f/' . $v->ic_id); ?>"
                class="issues-<?php echo $k + 1; ?>">
                <h2><?php echo $v->name; ?></h2>
                <div class="mask"></div>
             </a></div>
          <?php elseif ($k % 5 == 3): ?>
-         <div class="col-md-4"><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $v->ic_id); ?>"
+         <div class="col-md-4"><a href="<?php echo base_url('fend/issues_f/issuesAllList_f/' . $v->ic_id); ?>"
                class="issues-<?php echo $k + 1; ?>">
                <h2><?php echo $v->name; ?></h2>
                <div class="mask"></div>
             </a></div>
          <?php elseif ($k % 5 == 4): ?>
-         <div class="col-md-5"><a href="<?php echo base_url('fend/bill_f/billCaseCarousel/' . $v->ic_id); ?>"
+         <div class="col-md-5"><a href="<?php echo base_url('fend/issues_f/issuesAllList_f/' . $v->ic_id); ?>"
                class="issues-<?php echo $k + 1; ?>">
                <h2><?php echo $v->name; ?></h2>
                <div class="mask"></div>
@@ -56,7 +56,7 @@ if (!empty($getIssuesClass)) {
 ?>
       </div>
    </div>
-   <div style="margin-top:30px" class="more"><a href="<?php echo base_url('fend/bill_f/Issues_class_f/'); ?>">更多內容</a></div>
+   <div style="margin-top:30px" class="more"><a href="<?php echo base_url('fend/issues_f/Issues_class_f/'); ?>">更多內容</a></div>
 </div>
 <div class="container" style="margin-top:50px">
    <h3 class="bill-issues-title">重點法案</h3>

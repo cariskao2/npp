@@ -1,11 +1,123 @@
 // 時間軸
+.time-line {
+   color: black;
+   background-color: #fff;
+   position: relative;
+
+   .time-line-block {
+      display: flex;
+
+      @include media-breakpoint-down(md) {
+         flex-direction: column;
+      }
+
+      .time-line-session {
+         writing-mode: vertical-lr;
+         padding: 60px 30px;
+         font-size: 20px;
+         letter-spacing: 10px;
+         display: flex;
+         justify-content: center;
+
+         @include media-breakpoint-down(md) {
+            writing-mode: horizontal-tb;
+            padding: 10px 20px;
+         }
+      }
+
+      .time-line-info {
+         padding-left: 50px;
+         display: flex;
+         flex-direction: column;
+         justify-content: space-around;
+
+         .line {
+            position: absolute;
+            background-color: #4A4A4A;
+            width: 5px;
+
+            @include media-breakpoint-down(md) {
+               display: none;
+            }
+         }
+
+         @include media-breakpoint-down(md) {
+            padding-left: 10px;
+         }
+
+         .line-info {
+            display: flex;
+            line-height: 40px;
+
+            @include media-breakpoint-down(md) {
+               margin-top: 10px;
+               margin-bottom: 10px;
+            }
+
+            .info-date {
+               font-size: 18px;
+               width: 100px;
+               flex: 0 0 100px;
+            }
+
+            .info-dot {
+               line-height: 40px;
+               width: 24px;
+               height: 24px;
+               background-color: #4A4A4A;
+               border-radius: 30px;
+               margin-right: 20px;
+               margin-top: 8px;
+               flex: 0 0 24px;
+            }
+
+            .info-title {
+               font-size: 22px;
+            }
+
+            .info-board-icon {
+               margin-right: 10px;
+               margin-left: 10px;
+               cursor: pointer;
+            }
+
+            // 二個icon
+            img {
+               width: 40px;
+               height: 40px;
+            }
+         }
+      }
+
+      @for $i from 8 through 1 {
+         &:nth-child(8n+#{$i}) {
+            .time-line-session {
+               background-color: lighten(#FFC108, (8-$i)*5%);
+            }
+         }
+      }
+   }
+}
+
+// 導引link
 .file-url {
    text-align: center;
    margin: 50px;
 
-   img {
-      width: 40px;
-      height: 40px;
+   a {
+      img {
+         width: 40px;
+         height: 40px;
+      }
+
+      span {
+         color: white;
+      }
+
+      &:hover span {
+         color: white;
+         text-decoration: underline solid white;
+      }
    }
 }
 
@@ -89,7 +201,7 @@
       margin-top: -15px;
       margin-right: -20px;
 
-      @include media-breakpoint-down(xs) {
+      @include media-breakpoint-down(sm) {
          margin-right: 0;
       }
    }

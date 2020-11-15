@@ -168,21 +168,29 @@ class Bill_issues_f_model extends CI_Model
 
     public function getBillCaseSessions($case_id)
     {
-        $this->db->select('bcsb.ses_id');
+        $this->db->select('bcs.ses_id,bcs.session');
         $this->db->from('billcase_session_b as bcsb');
-        $this->db->join('billcase_session as bcs', 'bcsb.ses_id = bcs.ses_id', 'inner');
+        $this->db->join('billcase_session as bcs', 'bcs.ses_id = bcsb.ses_id', 'inner');
         $this->db->where('bcsb.case_id', $case_id);
         $this->db->group_by('bcsb.ses_id'); //過濾重複資料
-        // $this->db->order_by('bcsb.date', 'ASC');
+        $this->db->order_by('bcs.ses_id', 'ASC');
 
         $query = $this->db->get();
 
-        if ($query->num_rows() > 0) {
-            return $query->result();
-        } else {
+        return $query->result();
+    }
 
-        }
+    public function getBillCaseSessionInfo($case_id)
+    {
+        $this->db->select();
+        $this->db->from('billcase_session_b as bcsb');
+        $this->db->join('billcase_session as bcs', 'bcs.ses_id = bcsb.ses_id', 'inner');
+        $this->db->where('bcsb.case_id', $case_id);
+        $this->db->order_by('bcs.ses_id', 'ASC');
+        $this->db->order_by('bcsb.date', 'ASC');
 
-        return false;
+        $query = $this->db->get();
+
+        return $query->result();
     }
 }
