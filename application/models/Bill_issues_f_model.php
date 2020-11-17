@@ -4,6 +4,32 @@
 
 class Bill_issues_f_model extends CI_Model
 {
+    public function billStatusNumRows($statusId)
+    {
+        $this->db->select();
+        $this->db->from('bill_case as bc');
+        $this->db->where('bc.status_id', $statusId);
+        $this->db->order_by('bc.status_id', 'ASC');
+
+        $query = $this->db->get();
+
+        return $query->num_rows();
+    }
+
+    public function getBillStatus()
+    {
+        $this->db->select('bs.name,bs.status_id');
+        $this->db->from('bill_status as bs');
+        $this->db->where('bs.status_id>', 0);
+        $this->db->where('bs.shows', 1);
+        $this->db->order_by('bs.status_id', 'ASC');
+
+        $query  = $this->db->get();
+        $result = $query->result();
+
+        return $result;
+    }
+
     // 法案議題 & 關注議題的分類列表
     public function getIssuesClass($isAll = false)
     {
