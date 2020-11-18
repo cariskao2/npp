@@ -8,6 +8,13 @@ $fb   = $getSetupInfo->fb;
 <head>
 	<!-- 我不是機器人 -->
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+	<!-- gogole自訂搜尋 -->
+	<!-- hyperphp -->
+	<!-- <script async src="https://cse.google.com/cse.js?cx=d3951626dee0b4b4c"></script> -->
+	<!-- iThome -->
+	<!-- <script async src="https://cse.google.com/cse.js?cx=f0ae6852e8eb56a53"></script> -->
+	<!-- npply -->
+	<script async src="https://cse.google.com/cse.js?cx=b431ea093b26d9ab6"></script>
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167481041-1"></script>
 	<!-- google分析 -->
@@ -44,6 +51,7 @@ $fb   = $getSetupInfo->fb;
 	<!-- 如果是 <script type="text/javascript"> 的載入方式，可以直接使用umd目錄下的popper.js -->
 	<script src="<?php echo base_url(); ?>assets/bower_components/popper.js/dist/umd/popper.min.js"></script>
 	<script src="<?php echo base_url(); ?>assets/bower_components/bootstrap4/dist/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.0/sweetalert2.all.js"></script>
 	<!-- <link href="<?php echo base_url(); ?>assets/bower_components/animate.css/animate.min.css" rel="stylesheet" type="text/css" /> -->
 	<!-- <script src="<?php echo base_url(); ?>assets/bower_components/vue/dist/vue.min.js"></script> -->
 	<!-- <script src="<?php echo base_url(); ?>assets/node_modules/axios/dist/axios.min.js"></script> -->
@@ -99,9 +107,10 @@ $fb   = $getSetupInfo->fb;
 				<li class="nav-item"><a class="nav-link" style="<?php if ($navActive == 4) {
     echo 'color: #F5A92E';
 }?>" href="<?php echo base_url('fend/petition_f'); ?>">聯絡陳情</a></li>
-				<li class="nav-item"><a class="nav-link" href="#"><img
+				<li class="nav-item"><a class="nav-link google-search-btn" href="#"><img
 							src="<?php echo base_url(); ?>assets/f_imgs/header/header_search.png" style="width:18px"
-							alt="圖片不存在"></a></li>
+							alt="圖片不存在"></a>
+				</li>
 			</ul>
 		</div>
 		<div class="nav-icons">
@@ -111,3 +120,11 @@ $fb   = $getSetupInfo->fb;
 					src="<?php echo base_url('assets/f_imgs/header/header_mail.png'); ?>" alt="圖片不存在"></a>
 		</div>
 	</nav>
+	<div id="g-search" style="display:none;margin-top:-7px" >
+		<div class="gcse-search"></div>
+	</div>
+	<script>
+		$('.google-search-btn').on('click', function (e) {
+			$('#g-search').slideToggle('fast', 'linear');
+		});
+	</script>

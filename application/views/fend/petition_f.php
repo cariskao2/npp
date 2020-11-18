@@ -4,7 +4,6 @@ $e = $getPetition->editor;
 
 <link rel="stylesheet" href="<?php echo base_url('assets/plugins/jquery-upload-file/dist/jquery-file-upload.css'); ?>">
 <script src="<?php echo base_url('assets/plugins/jquery-upload-file/dist/jquery-file-upload.js'); ?>"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.0.0/sweetalert2.all.js"></script>
 <style>
    .g-recaptcha>div {
       margin: auto;
